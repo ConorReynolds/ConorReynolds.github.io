@@ -1,0 +1,61 @@
+{{ define "main" }}
+<div id="archive">
+  <ul class="post-list">
+    <p> <!-- TODO: pull this from the config rather than repeating the URL here -->
+        So far, all of my publications are open access. I will make as many of them available here as I can. Alternatively, you can take a look at my
+          <a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pid/294/3409.html" aria-label="dblp" style="display: inline-block;">
+            <i class="ai ai-dblp" aria-hidden="true"></i>
+            DBLP profile
+          </a>.
+    </p>
+
+  {{ $pages := .Paginator.Pages }}
+  {{ if .Site.Params.showAllPostsArchive }}
+    {{ $pages = .Pages }}
+  {{ end }}
+
+  {{ range (sort $pages "Date" "desc") }}
+    {{ $pageYear := (.Date.Format "2006") }}
+    {{ if (ne $pageYear ($.Scratch.Get "year")) }}
+    {{ $.Scratch.Set "year" $pageYear }}
+    <h2>{{ $pageYear }}</h2>
+    {{ end }}
+    <li class="post-item">
+      <div class="meta">
+        <time datetime="{{ time .Date }}" itemprop="datePublished">{{ .Date.Format (.Site.Params.dateFormat | default "2006-01-02") }}</time>
+      </div>
+      <span>    
+        <a class="" href="{{ .Permalink }}">{{ if .Title }} {{ .Title }} {{ else }} Untitled {{ end }}</a>
+        {{ if (.Param "authors") }}
+              <!-- for now it's a list of pairs, first is the name, second is link (website) -->
+              <!-- TODO: finish this shite -->
+              <div class="author-list">
+                {{ $numAuthors := len (.Param "authors") }}
+                <!-- <i>Authors</i>: &nbsp; -->
+                {{ range $index, $author := (.Param "authors") }}
+                  <span>{{ $author | markdownify }}</span>{{ if lt (add $index 1) $numAuthors }}{{ print "," }}&nbsp;{{ end }}
+                {{ end }}
+              </div>
+            {{ end }}
+            {{ if (.Param "abstract") }}
+            <p class="abstract">
+              {{ .Param "abstract" | markdownify }}
+            </p>
+            <p class="abstract">
+                {{ if (.Param "PDF") }}
+                    <a class="" href="{{ .Param "pdf" }}">PDF</a>
+                {{ end }}
+                {{ if (.Param "arXiv") }}
+                    <a class="" href="{{ .Param "arXiv" }}">arXiv</a>
+                {{ end }}
+            </p>
+            {{ end }}
+      </span>
+    </li>
+    {{ end }}
+  </ul>
+  {{ if eq .Site.Params.showAllPostsArchive false }}
+    {{ partial "pagination.html" . }}
+  {{ end }}
+</div>
+{{ end }}

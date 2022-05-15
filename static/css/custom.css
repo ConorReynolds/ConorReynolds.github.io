@@ -1,0 +1,30 @@
+/* a {
+    background: none;
+    text-decoration: underline;
+} */
+
+/* sup:has(> a.footnote-ref) {
+    vertical-align: super;
+} */
+
+body {
+    text-rendering: optimizeLegibility;
+}
+
+p {
+    text-align: left;
+    /* max-width: 60ch; */
+}
+
+article {
+    /* max-width: 60ch; */
+}
+
+h1, h2, h3, span.h1 {
+    /* font-variant: small-caps; */
+    max-width: inherit;
+}
+
+ul {
+    margin: 0pt;
+}
