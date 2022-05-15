@@ -4,12 +4,12 @@ date: 2021-07-13T10:46:13+01:00
 draft: false
 ---
 
-I am a Ph.D. student at [Maynooth University](https://www.maynoothuniversity.ie/). My research interests include the [theory of institutions](https://iep.utm.edu/insti-th/), the [Coq proof assistant](https://coq.inria.fr/), [Event-B](http://www.event-b.org/), and formal software design in general.
+I am a PhD student at [Maynooth University](https://www.maynoothuniversity.ie/). My research interests include the [theory of institutions](https://iep.utm.edu/insti-th/), the [Coq proof assistant](https://coq.inria.fr/), [Event-B](http://www.event-b.org/), and formal software design in general.
 
-My Ph.D. research[^1] involves formalizing the theory of institutions in Coq, with the institution for Event-B[^2] as a use-case, supervised by [Dr. Rosemary Monahan](https://www.maynoothuniversity.ie/people/rosemary-monahan).
+My PhD research[^1] involves formalising the theory of institutions in Coq, with the institution for Event-B[^2] as a primary use-case, supervised by [Dr Rosemary Monahan](https://www.maynoothuniversity.ie/people/rosemary-monahan). The formalisation is available [on my GitHub](https://github.com/ConorReynolds/coq-institutions).
 
 ## Education
-- Ph.D. in Computer Science\
+- PhD in Computer Science\
   *Maynooth University, 2019&ndash;present*
 - MSc in Mathematics\
   *Maynooth University, 2018&ndash;2019*
