@@ -15,10 +15,6 @@
     {{ $style := resources.Get "sass/syntax.scss" | resources.ExecuteAsTemplate "sass/syntax.scss" . | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
-    <!-- {{ with .Site.Params.favicon }}
-        <link rel="icon" type="image/ico" href="{{ . | absURL }}">
-    {{ end }} -->
-
     {{ with .OutputFormats.Get "rss" -}}
         {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}

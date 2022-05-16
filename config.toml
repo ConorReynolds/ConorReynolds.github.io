@@ -3,6 +3,7 @@ languageCode = 'en-gb'
 title = 'Conor Reynolds'
 theme = [ "hugo-researcher" ]
 math = true
+googleAnalytics = ""
 
 [params]
     author = "Conor Reynolds"
