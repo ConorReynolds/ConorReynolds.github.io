@@ -54,8 +54,15 @@ $y-medium: 1.0rem;
     font-family: $font-family;
     line-height: 1.5;
 }
+
+body {
+    padding-left: 20px;
+    padding-right: 20px;
+}
 .container {
     max-width: $max-width;
+    padding-left: 0;
+    padding-right: 0;
 }
 .navbar-brand {
     @extend %link-dark;
