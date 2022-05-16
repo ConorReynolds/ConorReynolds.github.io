@@ -32,9 +32,13 @@ math = true
 
 [menu]
   [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
     name = "CV"
     url = "/cv"
-    weight = 1
+    weight = 2
 #   [[menu.main]]
 #     name = "Resume"
 #     url = "/resume.pdf"
