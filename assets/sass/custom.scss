@@ -8,6 +8,11 @@ $red: {{ .Param "style.colorRed" | default "#dc3545" }};
 
 // Font
 $font-family: {{ .Param "style.fontFamily" | default "Inconsolata" }};
+$font-size: 1rem;
+
+html {
+    font-size: 12pt;
+}
 
 // Margins
 $y-small: 0.6rem;
@@ -54,11 +59,16 @@ $y-medium: 1.0rem;
 }
 .navbar-brand {
     @extend %link-dark;
-    font-size: 2rem;
+    font-size: 24pt;  // i.e. not relative
     letter-spacing: 0.5px;
 }
 .nav-link {
     @extend %link-default;
+    font-size: 14pt;
+}
+.navbar-expand-sm .navbar-nav .nav-link {
+	padding-right: 6pt;
+	padding-left: 6pt;
 }
 #content {
     a {
@@ -83,6 +93,10 @@ $y-medium: 1.0rem;
         font-feature-settings: "caps";
         font-variant-numeric: normal;
     }
+    input.font-size-btn {
+        
+    }
+
     p {
         margin-bottom: $y-small;
     }
@@ -93,7 +107,7 @@ $y-medium: 1.0rem;
     }
     @for $i from 1 through 4 {
         h#{$i} {
-            font-size: 1rem + 0.2 * (4 - $i);
+            font-size: $font-size + 0.2 * (4 - $i);
         }
     }
     img {
@@ -230,5 +244,39 @@ $y-medium: 1.0rem;
             min-width: 0 !important;
             margin-left: -2px;
         }
+    }
+}
+
+div.font-size-btns {
+    // display: flex;
+    // justify-content: space-around;
+    // width: 50%;
+}
+
+/* CSS */
+
+.font-size-btn {
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    padding: 5px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: monospace;
+    line-height: 20px;
+    vertical-align: middle;
+    border: 1px solid;
+    border-radius: 6px;
+    margin: 1pt;
+    color: #24292e;
+    background-color: #fafbfc;
+    border-color: #1b1f2326;
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+    transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    transition-property: color, background-color, border-color;
+    :hover {
+        background-color: #f3f4f6;
+        border-color: #1b1f2326;
+        transition-duration: 0.1s;
     }
 }

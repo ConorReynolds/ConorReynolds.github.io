@@ -6,6 +6,7 @@ math = true
 
 [params]
     author = "Conor Reynolds"
+    js = [ "font-size.js" ]
     # css = ["static/lasndasd.css"]
     [params.footer]
         text = "© 2022 Conor Reynolds"
