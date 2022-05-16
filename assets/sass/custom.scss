@@ -69,6 +69,10 @@ body {
     font-size: 24pt;  // i.e. not relative
     letter-spacing: 0.5px;
 }
+.navbar-text {
+    font-size: 14pt;
+}
+
 .nav-link {
     @extend %link-default;
     font-size: 14pt;
