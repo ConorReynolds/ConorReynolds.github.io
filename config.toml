@@ -4,6 +4,7 @@ title = 'Conor Reynolds'
 theme = [ "hugo-researcher" ]
 math = true
 googleAnalytics = ""
+staticDir = [ "static" ]
 
 [params]
     author = "Conor Reynolds"
