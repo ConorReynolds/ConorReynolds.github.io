@@ -62,7 +62,7 @@ $font-family: {{ .Param "style.fontFamily" | default "Charter" }};
 $font-size: 1rem;
 
 html {
-    font-size: 12pt;
+    font-size: 13pt;
     background-color: $white;
 }
 
