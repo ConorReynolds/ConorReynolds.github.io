@@ -1,13 +1,13 @@
 <div class="container mt-5">
     <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0 align-items-start">
-        <a class="navbar-brand mx-0 mr-sm-auto" href="{{ .Site.BaseURL }}" title="{{ .Site.Title }}">
+        <a class="navbar-brand mx-0 mr-sm-auto align-top" href="{{ .Site.BaseURL }}" title="{{ .Site.Title }}">
             {{ with .Site.Params.logo }}
                 <img src="{{ . | absURL }}" alt="logo">
             {{ end }}
             {{ .Site.Title }}
         </a>
         <div class="col justify-content-end align-items-end">
-            <div class="navbar-nav flex-row flex-wrap justify-content-end align-items-center">
+            <div id="main-navbar" class="navbar-nav flex-row flex-wrap justify-content-end align-items-center">
                 {{ with .Site.Menus.main }}
                     {{ $navbar_len := len . }}
                     {{ range $i, $nav_item := . }}
@@ -20,7 +20,7 @@
                     {{ end }}
                 {{ end }}
             </div>
-            <div class="font-size-btns navbar-nav flex-row flex-wrap justify-content-end">
+            <div class="col font-size-btns navbar-nav flex-row flex-wrap justify-content-end">
                 <input type="button" class="nav-item font-size-btn" value="A+" id="font-inc">
                 <input type="button" class="nav-item font-size-btn" value="A" id="font-default">
                 <input type="button" class="nav-item font-size-btn" value="A−" id="font-dec">

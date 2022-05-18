@@ -1,5 +1,4 @@
 baseURL = 'https://ConorReynolds.github.io'
-languageCode = 'en-gb'
 title = 'Conor Reynolds'
 theme = [ "hugo-researcher" ]
 math = true
@@ -8,6 +7,7 @@ staticDir = [ "static" ]
 
 [params]
     author = "Conor Reynolds"
+    lang = 'en-GB'
     js = [ "font-size.js" ]
     # css = ["static/lasndasd.css"]
     [params.footer]
@@ -15,7 +15,7 @@ staticDir = [ "static" ]
         url = "https://github.com/ConorReynolds"
     [params.style]
         fontFamily = "Charter"
-        pageWidth = "650px"
+        pageWidth = "600px"
         avatarSize = "90px"
         colorBlack = "#222222"
         colorRed = "#933"
@@ -53,6 +53,11 @@ staticDir = [ "static" ]
     name = "Contact"
     url = "/contact"
     weight = 3
+  
+  [[menu.main]]
+    name = "Posts"
+    url = "/posts"
+    weight = 4
 
 
 

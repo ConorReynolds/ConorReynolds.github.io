@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="container">
+    <h1>{{ .Title }}</h1>
+    <ul>
+        {{ range sort .Pages ".Date" "desc" }}
+            <li><a class="crossref" href="{{ .Permalink }}">{{ .Date.Format "2006-01-02" }} | {{ .Title }}</a></li>
+        {{ else }}
+            <p>Just kidding. There are no posts.</p>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}
