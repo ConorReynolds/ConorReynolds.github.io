@@ -103,7 +103,6 @@ $y-medium: 1.0rem;
 // Style
 * {
     color: $black;
-    font-family: $font-family;
     line-height: 1.5;
 }
 
@@ -111,6 +110,7 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     background-color: $white;
+    font-family: $font-family;
 }
 .container {
     max-width: $max-width;
@@ -156,6 +156,16 @@ body {
         color: #933;
         font-feature-settings: "caps";
         font-variant-numeric: normal;
+    }
+
+    .crossref {
+        font-variant: small-caps;
+        letter-spacing: 0.05em;
+        color: $black;
+        &:hover {
+            color: $black;
+            text-decoration: underline;
+        }
     }
 
     p {
@@ -222,8 +232,8 @@ body {
         & td {
             @extend %table-cell;
         }
-        & tr:nth-child(2n) {
-            background-color: #f8f8f8;
+        & tr:nth-child(2n + 1) {
+            background-color: #ffffff;
         }
     }
     blockquote {

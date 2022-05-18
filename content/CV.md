@@ -6,57 +6,13 @@ Still working on it! In the meantime, here's some information of questionable no
 
 ## Education
 
-<table>
-<tbody>
-<tr>
-<td>PhD</td>
-<td>Computer Science</td>
-<td>Maynooth University</td>
-<td>2019–now</td>
-</tr>
-<tr>
-<td>MSc</td>
-<td>Mathematics</td>
-<td>Maynooth University</td>
-<td>2018–2019</td>
-</tr>
-<tr>
-<td>BSc</td>
-<td>Computational Thinking<br/>(Mathematics, CompSci, Philosophy)</td>
-<td>Maynooth University</td>
-<td>2015–2018</td>
-</tr>
-</tbody>
-</table>
-
+- PhD in Computer Science, Maynooth University, 2019--now
+- MSc in Mathematics, Maynooth University, 2018--2019
+- BSc in Computational Thinking, Maynooth University, 2015--2018
 
 ## Awards
 
-<table>
-<tbody>
-  <tr>
-    <td>Hamilton Prize</td>
-    <td>Mathematics</td>
-    <td><a href="https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics">Royal Irish Academy</a></td>
-    <td>2017</td>
-  </tr>
-  <tr>
-    <td>Turing Prize</td>
-    <td>Computer Science</td>
-    <td>Maynooth University</td>
-    <td>2017</td>
-  </tr>
-  <tr>
-    <td>Cook Prize</td>
-    <td>Computer Science</td>
-    <td>Maynooth University</td>
-    <td>2017</td>
-  </tr>
-  <tr>
-    <td>Delort Prize</td>
-    <td>Mathematics</td>
-    <td>Maynooth University</td>
-    <td>2017</td>
-  </tr>
-</tbody>
-</table>
+- Hamilton Prize in Mathematics, awarded by the [Royal Irish Academy](https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics) in 2017
+- Turing and Cook Prizes for Computer Science, 2017
+- Delort Prize for Mathematics, 2016
+
