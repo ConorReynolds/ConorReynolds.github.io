@@ -11,7 +11,7 @@ Readability above all---following Matthew Butterick's example in his {{< extlink
 Styling links in this way is common, but is mercifully becoming less common. That might be all right if your webpage is a glorified link dump (nothing wrong with that). But this webpage is not a link dump---at least, not *just* a link dump. A different approach is necessary:
 
 - If I want to link you somewhere outside this domain, then I will indicate it with an {{< extlink "external link symbol" "#" >}}. This symbol is somehow simultaneously ubiquitous and underused. No doubt a part of the problem is that the symbol has still {{< extlink "not been included in Unicode" "https://www.unicode.org/L2/L2018/18303-external-link.pdf" >}}. It's unobtrusive and it's clear---even if you're colourblind.
-- If I want to cross-reference another page inside this domain, I will write it in {{< crossref "small caps" "#" >}} style, following Butterick and Garner. This is similarly unobtrusive and clear.
+- If I want to cross-reference another page inside this domain, I will write it in {{< crossref "small-caps" "#" >}} style, following Butterick and Garner. This is similarly unobtrusive and clear.
 
 Text too small? Use the buttons on the top right or the built-in browser zoom. The buttons also work on mobile, where you normally don't get built-in browser zooming.
 
