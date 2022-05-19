@@ -19,5 +19,5 @@ fontSizeDec.addEventListener('click', (_event) => {
 
 fontSizeDefault.addEventListener('click', (_event) => {
     element = document.querySelector('html');
-    element.style.fontSize = "17.3333px";
+    element.style.fontSize = "18.6667px";
 });
