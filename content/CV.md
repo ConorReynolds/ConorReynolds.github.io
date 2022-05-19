@@ -12,7 +12,7 @@ Still working on it! In the meantime, here's some information of questionable no
 
 ## Awards
 
-- Hamilton Prize in Mathematics, awarded by the [Royal Irish Academy](https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics) in 2017
+- Hamilton Prize in Mathematics, awarded by the {{< extlink "Royal Irish Academy" "https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics" >}} in 2017
 - Turing and Cook Prizes for Computer Science, 2017
 - Delort Prize for Mathematics, 2016
 

@@ -76,5 +76,14 @@ staticDir = [ "static" ]
     style = 'github'
     tabWidth = 2
 
-[markup.goldmark.renderer]
-  unsafe = true  # allow raw HTML in markdown files
+  [markup.goldmark.renderer]
+    unsafe = true  # allow raw HTML in markdown files
+
+  [markup.goldmark.extensions]
+    # Ensures that we have full control over when something is turned into a link.
+    # Normally, if you write a link in plaintext, the Markdown parser will wrap it
+    # in an anchor tag: <a href="link">link</a>, and occasionally do smart stuff
+    # like recognising emails and converting to mailto links. This is undesirable
+    # behaviour for us because we have shortcodes which provide this
+    # functionality.
+    linkify = false
