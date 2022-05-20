@@ -92,6 +92,13 @@ body {
         @extend %link-dark;
     }
 
+    .footnote-backref {
+        @extend %link-default;
+        font-size: 75%;
+        position: relative;
+        top: -0.29em;
+    }
+
     .extlink::after {
         position: relative;
         font-family: "Font Awesome 5 Free";
@@ -309,14 +316,6 @@ body {
         }
     }
 }
-
-div.font-size-btns {
-    // display: flex;
-    // justify-content: space-around;
-    // width: 50%;
-}
-
-/* CSS */
 
 .font-size-btn {
     display: inline-block;

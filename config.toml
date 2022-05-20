@@ -7,7 +7,7 @@ staticDir = [ "static" ]
 [params]
     author = "Conor Reynolds"
     lang = 'en-GB'
-    js = [ "font-size.js" ]
+    js = [ "font-size.js", "tweaks.js" ]
     # css = ["static/lasndasd.css"]
     [params.footer]
         text = "© 2022 Conor Reynolds"
