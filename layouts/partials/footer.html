@@ -15,8 +15,8 @@
     {{ end }}
 </div>
 
-{{ $js := resources.Get "js/font-size.js" }}
-<script src="{{ $js.RelPermalink }}" ></script>
+{{ $ts := resources.Get "ts/font-size.ts" | js.Build }}
+<script src="{{ $ts.RelPermalink }}" defer></script>
 
-{{ $js := resources.Get "js/tweaks.js" }}
-<script src="{{ $js.RelPermalink }}" ></script>
+{{ $ts := resources.Get "ts/tweaks.ts" | js.Build }}
+<script src="{{ $ts.RelPermalink }}" defer></script>

@@ -1,2 +1,3 @@
-{{ $page := .Site.GetPage ( .Get 1 ) }}
-<a class="crossref" {{ printf "href=%q" $page.Permalink | safeHTMLAttr }}>{{ .Get 0 | markdownify }}</a>
+<a class="crossref"
+   {{ printf "href=%q" (ref .Page (.Get 1)) | safeHTMLAttr }}
+   >{{ .Get 0 | markdownify }}</a>
