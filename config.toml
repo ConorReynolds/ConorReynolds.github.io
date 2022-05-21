@@ -1,7 +1,6 @@
 baseURL = 'https://ConorReynolds.github.io'
 title = 'Conor Reynolds'
 theme = [ "hugo-researcher" ]
-googleAnalytics = ""
 staticDir = [ "static" ]
 
 [params]
@@ -24,7 +23,7 @@ staticDir = [ "static" ]
         url = "https://github.com/ConorReynolds"
     [[params.socialIcons]]
         icon = "fab fa-gitlab"
-        title = "GitHub"
+        title = "GitLab"
         url = "https://gitlab.cs.nuim.ie/creynolds"
     [[params.socialIcons]]
         icon = "fas fa-envelope"
@@ -76,3 +75,17 @@ staticDir = [ "static" ]
     # behaviour for us because we have shortcodes which provide this
     # functionality.
     linkify = false
+
+[privacy]
+  [privacy.disqus]
+    disable = true
+  [privacy.googleAnalytics]
+    disable = true
+  [privacy.instagram]
+    disable = true
+  [privacy.twitter]
+    disable = true
+  [privacy.vimeo]
+    disable = true
+  [privacy.youtube]
+    disable = true
