@@ -80,6 +80,8 @@ body {
 }
 
 #content {
+    font-size: $font-size;
+
     a {
         @extend %link-default;
     }
@@ -92,6 +94,11 @@ body {
         @extend %link-dark;
     }
 
+    .footnote-ref {
+        @extend %link-default;
+        font-size: 95%;
+    }
+
     .footnote-backref {
         @extend %link-default;
         font-size: 75%;
@@ -102,7 +109,7 @@ body {
     .extlink::after {
         position: relative;
         font-family: "Font Awesome 5 Free";
-        content: "\f35d";
+        content: "\f08e";
         font-weight: 900;
         margin-left: 0.25em;
         font-size: 50%;
@@ -115,12 +122,33 @@ body {
     .crossref {
         @extend %link-dark;
         font-variant: small-caps;
-        letter-spacing: 0.03em;
+        letter-spacing: 0.01em;
     }
 
     p {
         margin-bottom: $y-small;
         hyphens: auto;
+    }
+
+    .post-container {
+        h1 {
+            counter-reset: section;
+        }
+
+        h2:before {
+            counter-reset: subsection;
+            counter-increment: section;
+            font-variant-numeric: tabular-nums;
+            content: counter(section);
+            padding-right: 0.6em;
+        }
+
+        h3:before {
+            counter-increment: subsection;
+            font-variant-numeric: tabular-nums;
+            content: counter(section) "." counter(subsection);
+            padding-right: 0.6em;
+        }
     }
 
     h1,
@@ -135,10 +163,12 @@ body {
     }
 
     h1 {
-        margin: 1.5rem 0 1.5rem 0;
+        font-size: 1.5em;
+        letter-spacing: 0.02em;
+        margin: 1.3em 0 1em 0;
     }
 
-    @for $i from 1 through 4 {
+    @for $i from 2 through 4 {
         h#{$i} {
             font-size: $font-size + 0.1 * (4 - $i);
         }
@@ -161,14 +191,15 @@ body {
     ol {
         counter-reset: list;
         list-style: none;
-        padding-left: 2rem;
+        padding-left: 2em;
 
         &>li {
             display: table-row;
         }
 
         &>li:before {
-            content: "[" counter(list, decimal) "] ";
+            // content: 
+            content: counter(list, decimal) ". ";
             counter-increment: list;
             display: table-cell;
             text-align: right;
@@ -176,14 +207,17 @@ body {
         }
     }
 
-    .container>ol,
+    .container>ol {
+        padding-left: 0.5em;
+    }
+
     .footnotes>ol {
         padding-left: 0;
     }
 
     ul {
         list-style: inside;
-        padding-left: 2rem;
+        padding-left: 2em;
         margin-bottom: $y-small;
 
         &>li {
@@ -192,7 +226,10 @@ body {
         }
     }
 
-    .container>ul,
+    .container>ul {
+        padding-left: 0.5em;
+    }
+
     .footnotes>ul {
         padding-left: 0;
     }
@@ -218,7 +255,7 @@ body {
     blockquote {
         border-left: 4px solid;
         border-color: #bbbbbb;
-        font-size: 90%;
+        font-size: 0.9em;
         margin: $y-medium;
         padding: 8px 16px;
     }
@@ -229,10 +266,10 @@ body {
 
     code {
         color: $black;
-        background-color: #f8f8f8;
-        // border: 1px solid #cccccc;
-        // border-radius: 10%;
-        // padding: 0px 4px;
+        background-color: $white;
+        border: 1px dotted lighten($color: $black, $amount: 75%);
+        border-radius: 0;
+        padding: 1px 2px;
         font-family: 'Fira Mono', monospace;
     }
 
@@ -242,10 +279,12 @@ body {
 
     pre code span {
         font-family: 'Fira Mono', monospace;
+        font-size: 0.95em;
     }
 
     .highlight {
-        margin: $y-medium auto;
+        background-color: $white;
+        margin: $y-medium auto 0 1em;
 
         &>pre {
             padding: 8px 8px;
