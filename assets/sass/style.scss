@@ -296,6 +296,23 @@ body {
     a {
         @extend %link-dark;
     }
+
+    .footer-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        >a {
+            margin-right: 0.25em;
+        }
+    }
+
+    // ko-fi button
+    .btn-container {
+        margin: 0 0 0 auto;
+        transform: scale(0.8);
+        padding: 0;
+    }
 }
 
 #bibbase {

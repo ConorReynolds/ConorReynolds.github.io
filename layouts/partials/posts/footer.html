@@ -6,6 +6,12 @@
         <a href="{{ $item.url }}" class="{{ $item.icon }} fa-1x" title="{{ $item.title }}"></a>
         &nbsp;
         {{ end }}
+
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+        <script type='text/javascript'>
+            kofiwidget2.init('support me on ko-fi!', '{{ .Site.Params.style.colorBlack }}', 'B0B3CTXXW');
+            kofiwidget2.draw();
+        </script>
     </div>
     {{ end }}
     {{ with .Site.Params.footer }}
