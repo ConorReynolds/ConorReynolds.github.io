@@ -2,6 +2,7 @@
 title: "About This Site"
 date: 2022-05-20T15:16:57+01:00
 draft: false
+mathjax: true
 ---
 
 # About This Site
@@ -71,7 +72,7 @@ SASS is a really nice CSS extension language. Hugo lets me use it, so I'm a happ
 
 ## TypeScript
 
-Hugo *also* lets me use TypeScript---i.e. JavaScript, but more sane. For {{< extlink "recent Hugo builds" "https://github.com/gohugoio/hugo/releases/tag/v0.74.0" >}}, this is as easy as piping a TS file through `js.Build`. I try to keep the JavaScript to a minimum because I find it really annoying. The only JS on this site that I've written is the code implementing the font-size buttons, and a tweak which replaces the {{< extlink "left hook arrow" "https://www.compart.com/en/unicode/U+21A9" >}} in the endnotes with a FontAwesome chevron. Any external JS comes from BibBase on the {{< crossref "home" "/" >}} page, MathJax on maths-enabled pages, and the Ko-fi button in the footer of the {{< crossref "posts" "/posts" >}} section of this site. Consequently, most things should work OK even if you have JS disabled. Speaking of external JS---
+Hugo *also* lets me use TypeScript---i.e. JavaScript, but more sane. For {{< extlink "recent Hugo builds" "https://github.com/gohugoio/hugo/releases/tag/v0.74.0" >}}, this is as easy as piping a TS file through `js.Build`. I try to keep the JavaScript to a minimum because I find it really annoying. The only JS on this site that I've written is the code implementing the font-size buttons, and a tweak which replaces the {{< extlink "left hook arrow" "https://www.compart.com/en/unicode/U+21A9" >}} in the endnotes with a FontAwesome chevron. Any external JS comes from BibBase on the {{< crossref "home" "/" >}} page, MathJax on maths-enabled pages, and the Ko-fi button in the footer of the {{< crossref "posts" "/posts" >}} section of this site. If you have JavaScript disabled, the BibBase information will be replaced with an iframe, and the Ko-fi button will be replaced with a simple link. The only think that definitely won't work is the mathematics.
 
 ## External Stuff
 
@@ -80,6 +81,14 @@ This website relies on {{< extlink "Bootstrap" "https://getbootstrap.com/" >}} a
 ### BibBase
 
 This generates a list of my publications on my homepage from a Zotero collection. Pretty useful! I had to heavily modify some of the CSS to get it to gel with the rest of the site.[^3] If you have Bootstrap included, then the script is *supposed* to detect that and not include its own version. My experience is that this is unreliable. So, if you're using the script embed---{{< extlink "which is recommended" "https://bibbase.org/documentation" >}}---then make sure to include the option `css=[link to your bootstrap]` in the URL. This should force BibBase to detect that you already have Bootstrap.
+
+### MathJax
+
+This is the only thing that definitely won't work without JavaScript. Here's an example ({{< extlink "Cauchy's integral formula" "https://en.wikipedia.org/wiki/Cauchy%27s_integral_formula" >}}) so you can see what it looks like with and without JS.
+
+$$
+f(a) = \frac{1}{2 \pi i} \oint_{\gamma} \frac{f(z)}{z - a}\\, \mathrm{d}z
+$$
 
 ## Accessibility
 
