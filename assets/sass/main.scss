@@ -15,6 +15,7 @@ $font-size: 1em;
 $y-small: 0.6rem;
 $y-medium: 1.0rem;
 
+@import 'normalize';
 @import 'fonts';
 @import 'style';
 @import 'syntax';
