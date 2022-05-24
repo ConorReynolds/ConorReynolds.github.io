@@ -1,7 +1,6 @@
 html {
     font-size: 14pt;
     background-color: $white;
-    -webkit-text-size-adjust: 100%;
 }
 
 // Placeholders
@@ -46,8 +45,8 @@ body {
     font-family: $font-family;
     line-height: 1.55;
 
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 
     >* {
         margin-left: auto;
