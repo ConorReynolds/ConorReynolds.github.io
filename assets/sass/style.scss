@@ -311,6 +311,19 @@ nav {
         margin-bottom: 0;
     }
 
+    pre {
+        display: block;
+        font-size: 100%;
+        color: $black;
+    }
+
+    pre {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        overflow: auto;
+        -ms-overflow-style: scrollbar;
+    }
+
     code {
         color: $black;
         background-color: $white;
