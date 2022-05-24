@@ -1,7 +1,7 @@
+<div class="horizontal-rule"></div>
 <div id="footer" class="mb-5">
-    <hr>
     {{ if .Site.Params.socialIcons }}
-    <div class="container footer-bar">
+    <div class="not-a-container footer-bar">
         {{ range $item := .Site.Params.socialIcons }}
         <a href="{{ $item.url }}" class="{{ $item.icon }} fa-1x" title="{{ $item.title }}"></a>
         &nbsp;
@@ -9,7 +9,7 @@
     </div>
     {{ end }}
     {{ with .Site.Params.footer }}
-    <div class="container">
+    <div class="not-a-container">
         <small>{{ .text }}</small>
     </div>
     {{ end }}

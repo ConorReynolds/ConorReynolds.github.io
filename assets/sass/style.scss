@@ -3,10 +3,6 @@ html {
     background-color: $white;
 }
 
-// Margins
-$y-small: 0.6rem;
-$y-medium: 1.0rem;
-
 // Placeholders
 %link-default {
     color: $red;
@@ -44,42 +40,97 @@ $y-medium: 1.0rem;
 }
 
 body {
-    padding-left: 20px;
-    padding-right: 20px;
     color: $black;
     background-color: $white;
     font-family: $font-family;
     line-height: 1.55;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    >* {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
-.container {
+// Prevents superscripts from creating extra unwanted space
+sub, sup {
+    line-height: 0;
+}
+
+hr,
+.horizontal-rule {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
     max-width: $max-width;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
 }
 
-.navbar-brand {
+#footer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    max-width: $max-width;
+}
+
+#site-title {
     @extend %link-dark;
     font-size: 24pt; // i.e. not relative
     letter-spacing: 0.5px;
-    padding-top: 0;
+    white-space: nowrap;
+    margin-right: 0.5em;
 }
 
-.navbar-text {
+nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#font-size-buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    @media (max-width: 556px) {
+        justify-content: flex-start;
+        margin-top: 0.5em;
+    }
+}
+
+#main-navigation {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    >.navigation-item {}
+
+    >.navigation-link {
+        @extend %link-default;
+        font-size: 14pt;
+    }
+
+    >span {}
+}
+
+.navigation-text {
     font-size: 14pt;
 }
 
-.nav-link {
-    @extend %link-default;
-    font-size: 14pt;
-}
-
-.navbar-expand-sm .navbar-nav .nav-link {
+.navigation-link {
     padding-right: 6pt;
     padding-left: 6pt;
 }
 
 #content {
+    max-width: $max-width;
     font-size: $font-size;
     counter-reset: section subsection subsubsection;
 
@@ -123,10 +174,11 @@ body {
     .crossref {
         @extend %link-dark;
         font-variant: small-caps;
-        letter-spacing: 0.01em;
+        letter-spacing: 0.02em;
     }
 
     p {
+        margin-top: 0;
         margin-bottom: $y-small;
         hyphens: auto;
     }
@@ -161,7 +213,7 @@ body {
     h6 {
         font-size: medium;
         font-weight: bold;
-        margin: $y-medium 0 $y-small 0;
+        margin: 1.2 * $y-medium 0 $y-small 0;
     }
 
     h1 {
@@ -192,20 +244,13 @@ body {
 
     ol {
         counter-reset: list;
-        list-style: none;
-        padding-left: 2em;
+        list-style-type: decimal;
+        padding-left: 0.5em;
+        margin-bottom: $y-small;
 
         &>li {
-            display: table-row;
-        }
-
-        &>li:before {
-            // content: 
-            content: counter(list, decimal) ". ";
-            counter-increment: list;
-            display: table-cell;
-            text-align: right;
-            padding-right: .5em;
+            list-style-position: outside;
+            margin-left: 1.25em;
         }
     }
 
@@ -219,7 +264,7 @@ body {
 
     ul {
         list-style: inside;
-        padding-left: 2em;
+        padding-left: 0.5em;
         margin-bottom: $y-small;
 
         &>li {
@@ -233,7 +278,7 @@ body {
     }
 
     .footnotes>ul {
-        padding-left: 0;
+        padding-left: 0.5em;
     }
 
     table {
@@ -273,6 +318,7 @@ body {
         border-radius: 0;
         padding: 1px 2px;
         font-family: 'Fira Mono', monospace;
+        font-size: 0.85em;
     }
 
     pre code {
@@ -281,7 +327,7 @@ body {
 
     pre code span {
         font-family: 'Fira Mono', monospace;
-        font-size: 0.95em;
+        font-size: 0.9em;
     }
 
     .highlight {

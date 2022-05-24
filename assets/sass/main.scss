@@ -11,6 +11,10 @@ $white: {{ .Param "style.colorWhite" | default "#f9f9f9" }};
 $font-family: {{ .Param "style.fontFamily" | default "Charter" }};
 $font-size: 1em;
 
+// Margins
+$y-small: 0.6rem;
+$y-medium: 1.0rem;
+
 @import 'fonts';
 @import 'style';
 @import 'syntax';

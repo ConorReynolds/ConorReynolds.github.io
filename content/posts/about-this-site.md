@@ -76,7 +76,9 @@ Hugo *also* lets me use TypeScript---i.e. JavaScript, but more sane. For {{< ext
 
 ## External Stuff
 
-This website relies on {{< extlink "Bootstrap" "https://getbootstrap.com/" >}} and {{< extlink "FontAwesome" "https://fontawesome.com/" >}} for pretty much every page, {{< extlink "BibBase" "https://bibbase.org/" >}} for the front-page, and {{< extlink "MathJax" "https://www.mathjax.org/" >}} on maths-enabled pages. I only rely on Bootstrap because the template I based this site on, {{< extlink "hugo-researcher" "https://github.com/ojroques/hugo-researcher" >}}, also uses Bootstrap, and I do not have the mental energy to redesign everything from the ground-up without it. This is about as little as I can rely on without sacrificing serious dev-time, and the website is already pretty lightweight.
+This website relies on {{< extlink "FontAwesome" "https://fontawesome.com/" >}} for the icons in the footer, {{< extlink "BibBase" "https://bibbase.org/" >}} for the front-page, and {{< extlink "MathJax" "https://www.mathjax.org/" >}} on maths-enabled pages. The BibBase script additionally adds {{< extlink "Bootstrap" "https://getbootstrap.com/" >}}. I'd rather it didn't, but I don't think there's much I can do.
+
+The template I based this site on, {{< extlink "hugo-researcher" "https://github.com/ojroques/hugo-researcher" >}}, used Bootstrap. I figured it would be a *huge* pain to remove that dependency, but it was actually far easier than expected. This isn't a complicated site, there's no good reason to use Bootstrap.
 
 ### BibBase
 
