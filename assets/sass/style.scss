@@ -450,6 +450,7 @@ div#bibbase {
     display: inline-block;
     width: 50px;
     cursor: pointer;
+    touch-action: manipulation;  // prevent double-tap zoom
     padding: 5px 16px;
     font-size: 14px;
     font-weight: 500;
