@@ -1,19 +1,46 @@
 // Sizes
-$max-width: {{ .Param "style.pageWidth" | default "750px;" }};
-$avatar-size: {{ .Param "style.avatarSize" | default "90px;" }};
-
-// Colors
-$black: {{ .Param "style.colorBlack" | default "#222222" }};
-$red: {{ .Param "style.colorRed" | default "#dc3545" }};
-$white: {{ .Param "style.colorWhite" | default "#f9f9f9" }};
+$max-width: 600px;
+$avatar-size: 90px;
 
 // Font
-$font-family: {{ .Param "style.fontFamily" | default "Charter" }};
+$font-family: Charter, Georgia, "DejaVu Serif", serif;
 $font-size: 1em;
 
 // Margins
 $y-small: 0.6rem;
 $y-medium: 1.0rem;
+
+:root {
+    --main-black-color: #222222;
+    --main-gray-color: #3f3f3f;
+    --main-white-color: #f9f9f9;
+    --light-red-color: #fc9292;
+    --dark-red-color: #993333;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --fg-color: var(--main-black-color);
+        --bg-color: var(--main-white-color);
+        --red-color: var(--dark-red-color);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fg-color: var(--main-white-color);
+        --bg-color: var(--main-black-color);
+        --red-color: var(--light-red-color);
+    }
+}
+
+@media (prefers-dark-interface) {
+    :root {
+        --fg-color: var(--main-white-color);
+        --bg-color: var(--main-black-color);
+        --red-color: var(--light-red-color);
+    }
+}
 
 @import 'normalize';
 @import 'fonts';

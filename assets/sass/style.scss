@@ -1,33 +1,33 @@
 html {
     font-size: 14pt;
-    background-color: $white;
+    background-color: var(--bg-color);
 }
 
 // Placeholders
 %link-default {
-    color: $red;
+    color: var(--red-color);
     text-decoration: none;
 
     & * {
-        color: $red;
+        color: var(--red-color);
     }
 
     &:hover {
-        color: $red;
+        color: var(--red-color);
         text-decoration: underline;
     }
 }
 
 %link-dark {
-    color: $black;
+    color: var(--fg-color);
     text-decoration: none;
 
     & * {
-        color: $black;
+        color: var(--fg-color);
     }
 
     &:hover {
-        color: $black;
+        color: var(--fg-color);
         text-decoration: underline;
     }
 }
@@ -40,8 +40,8 @@ html {
 }
 
 body {
-    color: $black;
-    background-color: $white;
+    color: var(--fg-color);
+    background-color: var(--bg-color);
     font-family: $font-family;
     line-height: 1.55;
 
@@ -164,7 +164,7 @@ nav {
         margin-left: 0.25em;
         font-size: 50%;
         top: -0.65em;
-        color: #933;
+        color: var(--red-color);
         font-feature-settings: "caps";
         font-variant-numeric: normal;
     }
@@ -312,7 +312,7 @@ nav {
     pre {
         display: block;
         font-size: 87.5%;
-        color: $black;
+        color: var(--fg-color);
     }
 
     pre {
@@ -323,10 +323,8 @@ nav {
     }
 
     code {
-        color: $black;
-        background-color: $white;
-        border: 1px dotted lighten($color: $black, $amount: 75%);
-        border-radius: 0;
+        color: var(--fg-color);
+        background-color: var(--bg-color);
         padding: 1px 2px;
         font-family: 'Fira Mono', monospace;
         font-size: 0.85em;
@@ -342,7 +340,7 @@ nav {
     }
 
     .highlight {
-        background-color: $white;
+        // background-color: var(--bg-color);
         margin: $y-medium auto 0 1em;
 
         &>pre {
@@ -381,8 +379,8 @@ nav {
 .warning-callout {
     display: none;
     padding: $y-small 1em $y-small 1em;
-    background-color: rgba($color: $red, $alpha: 0.1);
-    border: 1px dotted rgba($color: $red, $alpha: 0.5);
+    background-color: rgba($color: var(--red-color), $alpha: 0.1);
+    border: 1px dotted rgba($color: var(--red-color), $alpha: 0.5);
 }
 
 div#bibbase {
@@ -410,14 +408,14 @@ div#bibbase {
 
     a.dropdown-toggle {
         &:hover {
-            color: $black;
+            color: var(--fg-color);
             text-decoration: none;
         }
     }
 
     #bibbase_header {
         .nav a {
-            color: $black;
+            color: var(--fg-color);
         }
     }
 
@@ -426,7 +424,8 @@ div#bibbase {
 
         .bibbase_group {
             font-style: normal;
-            background-color: $white;
+            text-shadow: none;
+            background-color: var(--bg-color);
             padding-left: 20px;
         }
 
@@ -456,18 +455,20 @@ div#bibbase {
     border: 1px solid;
     border-radius: 6px;
     margin: 1pt;
-    color: #24292e;
-    background-color: #fafbfc;
-    border-color: #1b1f2326;
-    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+    color: var(--fg-color);
+    background-color: var(--bg-color);
+    border-color: var(--fg-color);
+    // box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
     transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
     transition-property: color, background-color, border-color;
 
-    :hover {
-        background-color: #f3f4f6;
-        border-color: #1b1f2326;
-        transition-duration: 0.1s;
-    }
+    // &:hover {
+    //     text-shadow: 0 0 3px var(--bg-color);
+    //     color: color-mod(var(--fg-color) tint(50%));
+    //     background-color: color-mod(var(--bg-color) tint(50%));
+    //     border-color: color-mod(var(--fg-color) tint(50%));
+    //     transition-duration: 0.1s;
+    // }
 }
 
 // MathJax stuff

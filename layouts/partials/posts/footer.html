@@ -12,8 +12,26 @@
             alt='support me at ko-fi' /></a></noscript>
         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
         <script type='text/javascript'>
-            kofiwidget2.init('support me on ko-fi', '{{ .Site.Params.style.colorBlack }}', 'B0B3CTXXW');
+            let darkColor = getComputedStyle(document.querySelector(':root')).getPropertyValue('--main-black-color');
+            let lightColor = getComputedStyle(document.querySelector(':root')).getPropertyValue('--main-gray-color');
+            let bgColors = [lightColor, darkColor];
+            let borderColors = ["rgba(0,0,0,0.8)", "rgba(0,0,0,0.2)"];
+
+            let idx = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 0
+                : 1;
+
+            kofiwidget2.init('support me on ko-fi', bgColors[idx], 'B0B3CTXXW');
             kofiwidget2.draw();
+
+            // watch for color-scheme changes
+            window.matchMedia(`(prefers-color-scheme: dark)`).addListener(function (event) {
+                idx = (idx + 1) % 2;
+                let kofiButton = document.querySelector('a.kofi-button');
+                kofiButton.style.setProperty('background-color', bgColors[idx]);
+                kofiButton.style.setProperty('box-shadow', `1px 1px 0px ${borderColors[idx]}`);
+
+            });
         </script>
     </div>
     {{ end }}
