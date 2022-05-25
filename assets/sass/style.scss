@@ -181,6 +181,10 @@ nav {
         hyphens: auto;
     }
 
+    del {
+        opacity: 75%;
+    }
+
     .post-container {
         h1 {
             counter-reset: section;
@@ -311,7 +315,6 @@ nav {
 
     pre {
         display: block;
-        font-size: 87.5%;
         color: var(--fg-color);
     }
 
@@ -327,7 +330,8 @@ nav {
         background-color: var(--bg-color);
         padding: 1px 2px;
         font-family: 'Fira Mono', monospace;
-        font-size: 0.85em;
+        font-size: 0.9rem;
+        hyphens: none;
     }
 
     pre code {
@@ -336,12 +340,12 @@ nav {
 
     pre code span {
         font-family: 'Fira Mono', monospace;
-        font-size: 0.9em;
+        font-size: 0.8rem;
     }
 
     .highlight {
         // background-color: var(--bg-color);
-        margin: $y-medium auto 0 1em;
+        margin: $y-medium auto 0 0.5em;
 
         &>pre {
             padding: 8px 8px;
@@ -379,8 +383,8 @@ nav {
 .warning-callout {
     display: none;
     padding: $y-small 1em $y-small 1em;
-    background-color: rgba($color: var(--red-color), $alpha: 0.1);
-    border: 1px dotted rgba($color: var(--red-color), $alpha: 0.5);
+    background-color: rgba($color: var(--callout-red-raw), $alpha: var(--callout-alpha));
+    border: 1px dotted rgba($color: var(--callout-red-raw), $alpha: 0.5);
 }
 
 div#bibbase {

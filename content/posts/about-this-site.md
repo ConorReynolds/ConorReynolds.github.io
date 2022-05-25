@@ -17,9 +17,13 @@ I went with Charter. I converted the {{< extlink "XCharter" "https://ctan.org/pk
 
 I went with Hugo. Why? Not sure. Looked good, figured I'd give it a shot. I quite like it now. I host on GitHub because it's free and because it's linked to my professional GitHub account where I host my projects. It's easy to set up a redirect from my {{< extlink "department site" "https://www.cs.nuim.ie/~creynolds" >}} (don't click that). If I change departments I can just keep setting up redirects to here. And if GitHub Pages dies for some reason, I can move it easily.
 
+## Colour Schemes
+
+As of 2022-05-25, this site respects the user's preference for light or dark mode. The support for dark mode is currently a *bit* preliminary, but it should look mostly fine.
+
 ## Shortcodes
 
-I came for the static-site generation, but I stayed for the templating and the shortcodes. They're *wonderful*. I have two main shortcodes in effect as of right now. The first is for cross-references:
+I came for the static-site generation, but I stayed for the templating and the shortcodes. I have two main shortcodes in effect as of right now. The first is for cross-references:
 
 ```html
 <a class="crossref"
@@ -50,9 +54,9 @@ If you combine this with some {{< extlink "custom VS Code snippets" "https://cod
 
 I considered adding sidenotes to distinguish endnotes from academic references, but I've decided that sidenotes are *way* too much hassle to bother with. Endnotes are enough, mainly because we have backlinks. Try it![^1]
 
-In his *Elements of Typographic Style*, Robert Bringhurst has this to say about endnotes:
-
 [^1]: Click the chevron at the end to jump back up to where you were.
+
+In his *Elements of Typographic Style*, Robert Bringhurst has this to say about endnotes:
 
 > Endnotes can be just as economical of space, less trouble to design and less expensive to set, and they can comfortably run to any length. They also leave the text page clean except for a peppering of superscripts. They do, however, require the serious reader to use two bookmarks and to read with both hands as well as both eyes, swapping back and forth between the popular and the persnickety parts of the text.
 
@@ -68,7 +72,7 @@ It doesn't matter much to me, since I have my own ways of inserting quotes with 
 
 ## SASS
 
-SASS is a really nice CSS extension language. Hugo lets me use it, so I'm a happy boy. The only problem is that VS Code *really* doesn't like Hugo's templating code hanging out in my SCSS files. This is annoying mainly because it interferes with autocompletion. My workaround was just to have a `main.scss` with all the templating code bound to variables, then just `@import` the rest of my SCSS files at the end.
+SASS is a really nice CSS extension language. Hugo lets me use it, so I'm a happy boy. The only problem is that VS Code *really* doesn't like Hugo's templating code hanging out in my SCSS files. This is annoying mainly because it interferes with autocompletion. ~~My workaround was just to have a `main.scss` with all the templating code bound to variables, then just `@import` the rest of my SCSS files at the end.~~ My new approach is just to avoid Hugo's templating in SASS whenever possible---it doesn't really make that much sense that styling information should live in a `config.toml`.
 
 ## TypeScript
 
