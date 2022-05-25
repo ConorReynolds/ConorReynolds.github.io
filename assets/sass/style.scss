@@ -55,7 +55,8 @@ body {
 }
 
 // Prevents superscripts from creating extra unwanted space
-sub, sup {
+sub,
+sup {
     line-height: 0;
 }
 
@@ -99,7 +100,9 @@ nav {
     display: flex;
     justify-content: flex-end;
 
-    @media (max-width: 556px) {
+    // I could come up with a smarter (probably more JavaScript-y) way to do
+    // this, but why bother?
+    @media (max-width: 540px) {
         justify-content: flex-start;
         margin-top: 0.5em;
     }
@@ -122,11 +125,6 @@ nav {
 
 .navigation-text {
     font-size: 14pt;
-}
-
-.navigation-link {
-    padding-right: 6pt;
-    padding-left: 6pt;
 }
 
 #content {
