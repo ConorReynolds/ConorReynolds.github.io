@@ -4,31 +4,35 @@ theme = [ "hugo-researcher" ]
 staticDir = [ "static" ]
 
 [params]
-    author = "Conor Reynolds"
-    lang = 'en-GB'
-    js = [ "font-size.js", "tweaks.js" ]
-    # css = ["static/lasndasd.css"]
-    [params.footer]
-        text = "© 2022 Conor Reynolds"
-        url = "https://github.com/ConorReynolds"
-    [params.style]
-        fontFamily = "Charter"
-        pageWidth = "600px"
-        avatarSize = "90px"
-        colorBlack = "#222222"
-        colorRed = "#933"
-    [[params.socialIcons]]
-        icon = "fab fa-github"
-        title = "GitHub"
-        url = "https://github.com/ConorReynolds"
-    [[params.socialIcons]]
-        icon = "fab fa-gitlab"
-        title = "GitLab"
-        url = "https://gitlab.cs.nuim.ie/creynolds"
-    [[params.socialIcons]]
-        icon = "fas fa-envelope"
-        title = "Email"
-        url = "mailto:conor.reynolds@mu.ie"
+  author = "Conor Reynolds"
+  lang = 'en-GB'
+  js = [ "font-size.js", "tweaks.js" ]
+  # css = ["static/lasndasd.css"]
+  [params.footer]
+      text = "© 2022 Conor Reynolds"
+      url = "https://github.com/ConorReynolds"
+  [params.style]
+    fontFamily = "Charter"
+    pageWidth = "600px"
+    avatarSize = "90px"
+    colorBlack = "#222222"
+    colorRed = "#933"
+  [[params.socialIcons]]
+    icon = "fab fa-github"
+    title = "GitHub"
+    url = "https://github.com/ConorReynolds"
+  [[params.socialIcons]]
+    icon = "fab fa-gitlab"
+    title = "GitLab"
+    url = "https://gitlab.cs.nuim.ie/creynolds"
+  [[params.socialIcons]]
+    icon = "fab fa-twitter"
+    title = "Twitter"
+    url = "https://twitter.com/ConorEReynolds"
+  [[params.socialIcons]]
+    icon = "fas fa-envelope"
+    title = "Email"
+    url = "mailto:conor.reynolds@mu.ie"
 
 [menu]
   [[menu.main]]

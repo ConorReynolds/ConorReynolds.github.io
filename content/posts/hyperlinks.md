@@ -6,7 +6,7 @@ draft: false
 
 # What's with the Hyperlinks?
 
-Readability above all---following Matthew Butterick's example in his {{< extlink "*Practical Typography*" "https://practicaltypography.com/how-to-use.html" >}} web book. One should be able to read the text from start to finish with minimal distractions. Do you know what I find distracting? <span style="color: blue; text-decoration: underline">Horrible blue underlined text</span>. This is design 101: if you want people to notice something, just make it look disgusting.
+Readability above all---following Matthew Butterick's example in his {{< extlink "*Practical Typography*" "https://practicaltypography.com/how-to-use.html" >}} web book. One should be able to read the text from start to finish with minimal distractions. Do you know what I find distracting? <span style="color: var(--horrible-blue); text-decoration: underline">Horrible blue underlined text</span>. This is design 101: if you want people to notice something, just make it look disgusting.
 
 Styling links in this way is common. That might be all right if your webpage is a glorified link dump (nothing wrong with that). But this webpage is not a link dump---at least, not *just* a link dump. A different approach is necessary:
 

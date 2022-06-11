@@ -443,6 +443,16 @@ div#bibbase {
             min-width: 0 !important;
             margin-left: -2px;
         }
+
+        .bibbase.well {
+            background-color: var(--bg-color);
+            font-size: 0.9em;
+            
+            pre {
+                margin: 0;
+                font-size: 0.7rem;
+            }
+        }
     }
 }
 
