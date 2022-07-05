@@ -3,7 +3,10 @@
     <h1>{{ .Title }}</h1>
     <ul>
         {{ range sort .Pages ".Date" "desc" }}
-            <li><a class="postlink" href="{{ .Permalink }}">{{ .Date.Format "2006-01-02" }} | {{ .Title }}</a></li>
+            <li>
+                <a class="postlink" href="{{ .Permalink }}">{{ .Date.Format "2006-01-02" }} | {{ .Title }}</a>
+                {{ if .Params.pdf }}– <a class="pdflink" href="/posts/{{ .File.BaseFileName }}.pdf">pdf</a>{{ end }}
+            </li>
         {{ else }}
             <p>Just kidding. There are no posts.</p>
         {{ end }}

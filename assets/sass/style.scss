@@ -140,6 +140,12 @@ nav {
         @extend %link-dark;
     }
 
+    .pdflink {
+        @extend %link-dark;
+        opacity: 0.7;
+        font-variant: small-caps;
+    }
+
     .extlink {
         @extend %link-dark;
     }
@@ -173,6 +179,62 @@ nav {
         @extend %link-dark;
         font-variant: small-caps;
         letter-spacing: 0.02em;
+    }
+
+    .tooltip {
+        display: inline;
+        position: relative;
+        background: white;
+        opacity: 0.5;
+        transition-property: opacity;
+        transition-duration: 0.20s;
+        color: black;
+        width: 1rem;
+        border: solid 1px grey;
+        box-sizing: content-box;
+        border-radius: 0.2em;
+        cursor: pointer;
+    }
+    
+    .tooltip-inner {
+        visibility: hidden;
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 1rem;
+        width: 10rem;
+        background: rgb(116, 116, 116);
+        color: white;
+        padding: 1em;
+        font-size: 85%;
+        border-radius: 0.5em 0.5em 0 0.5em;
+        transform-origin: right bottom;
+        transform: scale(0.4);
+        opacity: 0;
+        transition-property: all;
+        transition-duration: .2s;
+
+        a.extlink > * {
+            background: rgb(116, 116, 116);
+            color: white;
+        }
+    }
+    
+    .show-tooltip .tooltip-inner {
+        visibility: visible;
+        transform-origin: right bottom;
+        transform: scale(1);
+        opacity: 1;
+        cursor: pointer;
+    }
+    
+    .tooltip:hover,
+    .tooltip.show-tooltip {
+        background: #999;
+        color: white;
+        opacity: 1;
+        transition-property: opacity;
+        transition-duration: 0.20s;
     }
 
     p {
@@ -326,8 +388,8 @@ nav {
     }
 
     code {
-        color: var(--fg-color);
-        background-color: var(--bg-color);
+        // color: var(--fg-color);
+        // background-color: var(--bg-color);
         padding: 1px 2px;
         font-family: 'Fira Mono', monospace;
         font-size: 0.9em;
