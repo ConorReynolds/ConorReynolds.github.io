@@ -25,7 +25,7 @@ As of 2022-05-25, this site respects the user's preference for light or dark mod
 
 ◊chapter{How I Write Posts}
 
-I preprocess everything with the ◊extlink["https://docs.racket-lang.org/pollen/"]{Pollen publising tool} before I push the site live. I've never been a huge fan of Markdown. There are plenty of excellent criticisms of Markdown elsewhere---suffice it to say that, for me, it's far too limited. Hugo's shortcodes go some way to circumventing its limitations, but it's not really enough. Pollen, however, lets me write exactly how I want. I can also use it to generate ◊latex[] code, meaning that each blog post written in Pollen gets a PDF version for free. You can see this one ◊extlink["/posts/about-this-site.pdf"]{here.}
+I preprocess everything with the ◊extlink["https://docs.racket-lang.org/pollen/"]{Pollen publishing tool} before I push the site live. I've never been a huge fan of Markdown. There are plenty of excellent criticisms of Markdown elsewhere---suffice it to say that, for me, it's far too limited. Hugo's shortcodes go some way to circumventing its limitations, but it's not really enough. Pollen, however, lets me write exactly how I want. I can also use it to generate ◊latex[] code, meaning that each blog post written in Pollen gets a PDF version for free. You can see this one ◊extlink["/posts/about-this-site.pdf"]{here.}
 
 The site is open source and available ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io"]{on my GitHub,} if you want to see how it works.
 
