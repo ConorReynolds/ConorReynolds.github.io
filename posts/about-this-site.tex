@@ -69,8 +69,6 @@
     LetterSpace    = 2,
 ]
 
-\newfontfamily{\equityit}{Equity OT A Italic}
-
 \setmathfont{latinmodern-math.otf}[
     Path = {/home/creynolds/.fonts/thick-lm-otf/},
     Scale = 1.03,
@@ -105,36 +103,6 @@
 \usepackage{xcolor}
 \definecolor{muted}{gray}{0.05}
 
-\usepackage{calc}
-\usepackage{hyphenat}
-\hyphenation{
-    Java-Script
-    Bib-Base
-    Math-Jax
-}
-
-\makechapterstyle{custom}{%
-    \chapterstyle{default}
-    \setlength{\beforechapskip}{2.5ex}
-    \renewcommand*{\chapterheadstart}{\vspace{\beforechapskip}}
-    \setlength{\afterchapskip}{1.5ex}
-    \renewcommand{\printchaptername}{}
-    \renewcommand{\chapternamenum}{}
-    \renewcommand{\chaptitlefont}{\secfont\scshape\color{muted}}
-    \renewcommand{\chapnumfont}{\chaptitlefont}
-    \renewcommand{\printchaptertitle}[1]{\MakeLowercase{##1}}
-    \renewcommand{\printchapternum}{\chapnumfont \thechapter\quad}
-    \renewcommand{\afterchapternum}{}}
-
-\chapterstyle{custom}
-
-\setsecnumdepth{subsection}
-\setsecheadstyle{\equityit\color{muted}\addperiod}
-\setbeforesecskip{-\onelineskip}
-\setaftersecskip{-0.5em}
-\setsecnumformat{\secfont\csname the#1\endcsname\hspace{0.5em} \equityit}
-\setsubsecheadstyle{\normalfont\itshape\color{muted}}
-
 \usepackage{csquotes}
 
 \usepackage[
@@ -160,33 +128,25 @@
 \postauthor{\par\end{raggedright}}
 \predate{}\postdate{}
 
-\makepagenote
-\continuousnotenums
-\renewcommand*{\notesname}{Links}
-\renewcommand*{\notedivision}{\chapter*{\scshape \notesname}}
-\renewcommand*{\pagenotesubhead}[3]{}
-\renewcommand*{\pagenotesubheadstarred}[3]{}
-
 \begin{document}
 \begin{raggedright}
-{\equityspaced \LARGE \thetitle}\\[1em]
-\text{\small\theauthor}\\
-\textit{\small\href{mailto:conor.reynolds@mu.ie}{conor.reynolds@mu.ie}}
+{\equityspaced \huge \thetitle}\\[1em]
+\text{\theauthor}\\
+\textit{\href{mailto:conor.reynolds@mu.ie}{conor.reynolds@mu.ie}}
 \end{raggedright}
 \vspace{2em}
 
-\noindent
 This isn't anything like a tutorial or a comprehensive reference—it's just a dump of some of the tools, resources, and thought-processes that went into building this site, in case it would be helpful to anyone. I update this pretty often, depending on how the implementation details for the site change.
 
 \chapter[Fonts]{Fonts}
 
-I went with Charter. I converted the XCharter\pagenote{\url{https://ctan.org/pkg/xcharter}} OTF fonts to WOFF2, then base64-encoded them and baked them into my CSS. I went with XCharter rather than Bitstream Charter\pagenote{\url{https://en.wikipedia.org/wiki/Bitstream_Charter}} because it has an extended character set and more font variants—including small-caps, which I use for cross-references. Without a properly designed small-caps font, browsers will just scale down regular capitals as a substitute. It looks awful.
+I went with Charter. I converted the XCharter\footnote{\url{https://ctan.org/pkg/xcharter}} OTF fonts to WOFF2, then base64-encoded them and baked them into my CSS. I went with XCharter rather than Bitstream Charter\footnote{\url{https://en.wikipedia.org/wiki/Bitstream_Charter}} because it has an extended character set and more font variants—including small-caps, which I use for cross-references. Without a properly designed small-caps font, browsers will just scale down regular capitals as a substitute. It looks awful.
 
-The PDF versions are typeset in Matthew Butterick's \emph{Equity}.\pagenote{\url{https://mbtype.com/fonts/equity/}}
+The PDF versions are typeset in Matthew Butterick's \emph{Equity}.\footnote{\url{https://mbtype.com/fonts/equity/}}
 
-\chapter[Static-Site Generator]{Static-Site Generator}
+\chapter[Tool]{Tool}
 
-I went with Hugo. I host on GitHub because it's free and because it's linked to my professional GitHub account where I host my projects. It's easy to set up a redirect from my department site\pagenote{\url{https://www.cs.nuim.ie/~creynolds}} (don't click that). If I change departments I can just keep setting up redirects to here. And if GitHub Pages dies for some reason, I can move it easily.
+I went with Hugo. Why? Not sure. Looked good, figured I'd give it a shot. I quite like it now. I host on GitHub because it's free and because it's linked to my professional GitHub account where I host my projects. It's easy to set up a redirect from my department site\footnote{\url{https://www.cs.nuim.ie/~creynolds}} (don't click that). If I change departments I can just keep setting up redirects to here. And if GitHub Pages dies for some reason, I can move it easily.
 
 \chapter[Colour Schemes]{Colour Schemes}
 
@@ -194,13 +154,13 @@ As of 2022-05-25, this site respects the user's preference for light or dark mod
 
 \chapter[How I Write Posts]{How I Write Posts}
 
-I preprocess everything with the Pollen publishing tool\pagenote{\url{https://docs.racket-lang.org/pollen/}} before I push the site live. I've never been a huge fan of Markdown. There are plenty of excellent criticisms of Markdown elsewhere—suffice it to say that, for me, it's far too limited. Hugo's shortcodes go some way to circumventing its limitations, but it's not really enough. Pollen, however, lets me write exactly how I want. I can also use it to generate \LaTeX{} code, meaning that each blog post written in Pollen gets a PDF version for free. You can see this one here.\pagenote{\url{/posts/about-this-site.pdf}}
+I preprocess everything with the Pollen publising tool\footnote{\url{https://docs.racket-lang.org/pollen/}} before I push the site live. I've never been a huge fan of Markdown. There are plenty of excellent criticisms of Markdown elsewhere—suffice it to say that, for me, it's far too limited. Hugo's shortcodes go some way to circumventing its limitations, but it's not really enough. Pollen, however, lets me write exactly how I want. I can also use it to generate \LaTeX{} code, meaning that each blog post written in Pollen gets a PDF version for free. You can see this one here.\footnote{\url{/posts/about-this-site.pdf}}
 
-The site is open source and available on my GitHub,\pagenote{\url{https://github.com/ConorReynolds/ConorReynolds.github.io}} if you want to see how it works.
+The site is open source and available on my GitHub,\footnote{\url{https://github.com/ConorReynolds/ConorReynolds.github.io}} if you want to see how it works.
 
 \chapter[Asides]{Asides}
 
-The PDF versions of the posts get sidenotes, but on the web you instead get a nice little button. \marginpar{\raggedright\footnotesize Cool, right? Well, unless you're reading this on a PDF, then it's a little less cool.} These don't quite work right on mobile yet. Depending on the screen size, it might jut outside the viewport. I'll get around to fixing this soon. Maybe.
+The PDF versions of the posts get sidenotes, but on the web you instead get a nice little button. \marginpar{\raggedright\footnotesize Cool, right? Well, unless you're reading this on a PDF, then it's a little less cool.}
 
 \chapter[SASS]{SASS}
 
@@ -208,21 +168,21 @@ SASS is a really nice CSS extension language. The only problem is that VS Code \
 
 \chapter[TypeScript]{TypeScript}
 
-For recent Hugo builds\pagenote{\url{https://github.com/gohugoio/hugo/releases/tag/v0.74.0}}, using TypeScript is as easy as piping a TS file through \texttt{js.Build}. I try to keep the JS to a minimum because I find it really annoying. The only JS on this site that I've written is the code implementing the font-size buttons, and some minor tweaks that I couldn't otherwise accomplish with CSS. The external JS comes from BibBase on the \textsc{home} page or the MathJax on maths-enabled pages. If you have JS disabled, the BibBase information will be replaced with an iframe. The only thing that definitely won't work is the mathematics.
+Hugo \emph{also} lets me use TypeScript. For recent Hugo builds\footnote{\url{https://github.com/gohugoio/hugo/releases/tag/v0.74.0}}, this is as easy as piping a TS file through \texttt{js.Build}. I try to keep the JS to a minimum because I find it really annoying. The only JS on this site that I've written is the code implementing the font-size buttons, and some minor tweaks. The external JS comes from BibBase on the \textsc{home} page or the MathJax on maths-enabled pages. If you have JS disabled, the BibBase information will be replaced with an iframe. The only thing that definitely won't work is the mathematics.
 
 \chapter[External Stuff]{External Stuff}
 
-This website relies on FontAwesome\pagenote{\url{https://fontawesome.com/}} for the icons in the footer, BibBase\pagenote{\url{https://bibbase.org/}} for the front-page, and MathJax\pagenote{\url{https://www.mathjax.org/}} on maths-enabled pages. The BibBase script additionally adds Bootstrap.\pagenote{\url{https://getbootstrap.com/}} I'd rather it didn't, but I don't think there's much I can do.
+This website relies on FontAwesome\footnote{\url{https://fontawesome.com/}} for the icons in the footer, BibBase\footnote{\url{https://bibbase.org/}} for the front-page, and MathJax\footnote{\url{https://www.mathjax.org/}} on maths-enabled pages. The BibBase script additionally adds Bootstrap.\footnote{\url{https://getbootstrap.com/}} I'd rather it didn't, but I don't think there's much I can do.
 
-The template I based this site on, hugo-researcher,\pagenote{\url{https://github.com/ojroques/hugo-researcher}} used Bootstrap. I figured it would be a \emph{huge} pain to remove that dependency, but it was actually far easier than expected. This isn't a complicated site, there's no good reason to use Bootstrap.
+The template I based this site on, hugo-researcher,\footnote{\url{https://github.com/ojroques/hugo-researcher}} used Bootstrap. I figured it would be a \emph{huge} pain to remove that dependency, but it was actually far easier than expected. This isn't a complicated site, there's no good reason to use Bootstrap.
 
 \section{BibBase}
 
-This generates a list of my publications on my homepage from a Zotero collection. Pretty useful! I had to heavily modify some of the CSS to get it to gel with the rest of the site. \marginpar{\raggedright\footnotesize If you want to know what I changed then you can take a look at the source for this site—specifically, take a look at \texttt{assets/sass/style.scss}\pagenote{\url{https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/assets/sass/style.scss}}} If you have Bootstrap included, then the script is \emph{supposed} to detect that and not include its own version. My experience is that this is unreliable. So, if you're using the script embed—which is recommended\pagenote{\url{https://bibbase.org/documentation}}—then make sure to include the option \texttt{css=[link to your bootstrap]} in the URL. This should force BibBase to detect that you already have Bootstrap.
+This generates a list of my publications on my homepage from a Zotero collection. Pretty useful! I had to heavily modify some of the CSS to get it to gel with the rest of the site. \marginpar{\raggedright\footnotesize If you want to know what I changed then you can take a look at the source for this site—specifically, take a look at \texttt{assets/sass/style.scss}\footnote{\url{https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/assets/sass/style.scss}}} If you have Bootstrap included, then the script is \emph{supposed} to detect that and not include its own version. My experience is that this is unreliable. So, if you're using the script embed—which is recommended\footnote{\url{https://bibbase.org/documentation}}—then make sure to include the option \texttt{css=[link to your bootstrap]} in the URL. This should force BibBase to detect that you already have Bootstrap.
 
 \section{MathJax}
 
-This is the only thing that definitely won't work without JavaScript. Here's an example (Cauchy's integral formula\pagenote{\url{https://en.wikipedia.org/wiki/Cauchy's_integral_formula}}) so you can see what it looks like with and without JS.
+This is the only thing that definitely won't work without JavaScript. Here's an example (Cauchy's integral formula\footnote{\url{https://en.wikipedia.org/wiki/Cauchy's_integral_formula}}) so you can see what it looks like with and without JS.
 
 \begin{equation*}
   f(a) = \frac{1}{2 \pi i} \oint_{\gamma} \frac{f(z)}{z - a}\, \mathrm{d}z
@@ -230,10 +190,8 @@ This is the only thing that definitely won't work without JavaScript. Here's an 
 
 \chapter[Accessibility]{Accessibility}
 
-I've tried to design most of the site with accessibility in mind, but I'm far from an expert at this. If you spot any glaring issues then please feel free to email me\pagenote{\url{mailto:conor.reynolds@mu.ie}} and I'd be happy to fix them. There's some more musing on this in the \textsc{hyperlinks} article.
-\vspace*{3.5ex}
-\hrule
-\vspace*{1.5ex}
+I've tried to design most of the site with accessibility in mind, but I'm far from an expert at this. If you spot any glaring issues then please feel free to email me\footnote{\url{mailto:conor.reynolds@mu.ie}} and I'd be happy to fix them. There's some more musing on this in the \textsc{hyperlinks} article.
+
 \printpagenotes
 \printbibliography
 \end{document}
