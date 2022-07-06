@@ -15,3 +15,8 @@ hugo.linux
 # Pollen/Racket/LaTeX
 compiled/
 build/
+
+# potentially sensitive info
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log

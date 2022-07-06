@@ -187,7 +187,7 @@
 (define (extlink #:desc [desc #f] url . elems)
   (case (current-poly-target)
     [(tex) (apply string-append 
-                  `(,@elems "\\footnote{"
+                  `(,@elems "\\pagenote{"
                             ,(if (string? desc) (string-append "\\textit{" desc "}\\\\") "")
                             "\\url{" ,url "}}"))]
     [(html) `(a [[class "extlink"] [href ,url]] ,@elems)]

@@ -15,9 +15,9 @@ I went with Charter. I converted the ◊extlink["https://ctan.org/pkg/xcharter"]
 
 The PDF versions are typeset in Matthew Butterick's ◊extlink["https://mbtype.com/fonts/equity/"]{◊em{Equity}.}
 
-◊chapter{Tool}
+◊chapter{Static-Site Generator}
 
-I went with Hugo. Why? Not sure. Looked good, figured I'd give it a shot. I quite like it now. I host on GitHub because it's free and because it's linked to my professional GitHub account where I host my projects. It's easy to set up a redirect from my ◊extlink["https://www.cs.nuim.ie/~creynolds"]{department site} (don't click that). If I change departments I can just keep setting up redirects to here. And if GitHub Pages dies for some reason, I can move it easily.
+I went with Hugo. I host on GitHub because it's free and because it's linked to my professional GitHub account where I host my projects. It's easy to set up a redirect from my ◊extlink["https://www.cs.nuim.ie/~creynolds"]{department site} (don't click that). If I change departments I can just keep setting up redirects to here. And if GitHub Pages dies for some reason, I can move it easily.
 
 ◊chapter{Colour Schemes}
 
@@ -31,7 +31,7 @@ The site is open source and available ◊extlink["https://github.com/ConorReynol
 
 ◊chapter{Asides}
 
-The PDF versions of the posts get sidenotes, but on the web you instead get a nice little button. ◊aside{Cool, right? Well, unless you're reading this on a PDF, then it's a little less cool.}
+The PDF versions of the posts get sidenotes, but on the web you instead get a nice little button. ◊aside{Cool, right? Well, unless you're reading this on a PDF, then it's a little less cool.} These don't quite work right on mobile yet. Depending on the screen size, it might jut outside the viewport. I'll get around to fixing this soon. Maybe.
 
 ◊chapter{SASS}
 
@@ -39,7 +39,7 @@ SASS is a really nice CSS extension language. The only problem is that VS Code �
 
 ◊chapter{TypeScript}
 
-Hugo ◊em{also} lets me use TypeScript. For ◊extlink["https://github.com/gohugoio/hugo/releases/tag/v0.74.0"]{recent Hugo builds}, this is as easy as piping a TS file through ◊code{js.Build}. I try to keep the JS to a minimum because I find it really annoying. The only JS on this site that I've written is the code implementing the font-size buttons, and some minor tweaks. The external JS comes from BibBase on the ◊crossref["/"]{home} page or the MathJax on maths-enabled pages. If you have JS disabled, the BibBase information will be replaced with an iframe. The only thing that definitely won't work is the mathematics.
+For ◊extlink["https://github.com/gohugoio/hugo/releases/tag/v0.74.0"]{recent Hugo builds}, using TypeScript is as easy as piping a TS file through ◊code{js.Build}. I try to keep the JS to a minimum because I find it really annoying. The only JS on this site that I've written is the code implementing the font-size buttons, and some minor tweaks that I couldn't otherwise accomplish with CSS. The external JS comes from BibBase on the ◊crossref["/"]{home} page or the MathJax on maths-enabled pages. If you have JS disabled, the BibBase information will be replaced with an iframe. The only thing that definitely won't work is the mathematics.
 
 ◊chapter{External Stuff}
 

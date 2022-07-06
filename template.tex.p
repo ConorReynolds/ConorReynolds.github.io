@@ -73,6 +73,8 @@
         LetterSpace    = 2,
     ]
 
+    \newfontfamily{\equityit}{Equity OT A Italic}
+
     \setmathfont{latinmodern-math.otf}[
         Path = {/home/creynolds/.fonts/thick-lm-otf/},
         Scale = 1.03,
@@ -107,6 +109,46 @@
     \usepackage{xcolor}
     \definecolor{muted}{gray}{0.05}
 
+    \usepackage{calc}
+    \usepackage{hyphenat}
+    \hyphenation{
+        Java-Script
+        Bib-Base
+        Math-Jax
+    }
+
+    \makechapterstyle{custom}{%
+        \chapterstyle{default}
+        \setlength{\beforechapskip}{2.5ex}
+        \renewcommand*{\chapterheadstart}{\vspace{\beforechapskip}}
+        \setlength{\afterchapskip}{1.5ex}
+        \renewcommand{\printchaptername}{}
+        \renewcommand{\chapternamenum}{}
+        \renewcommand{\chaptitlefont}{\secfont\scshape\color{muted}}
+        \renewcommand{\chapnumfont}{\chaptitlefont}
+        \renewcommand{\printchaptertitle}[1]{\MakeLowercase{##1}}
+        \renewcommand{\printchapternum}{\chapnumfont \thechapter\quad}
+        \renewcommand{\afterchapternum}{}}
+
+    ◊; \makechapterstyle{custom}{%
+    ◊;     \renewcommand{\chapterheadstart}{}
+    ◊;     \renewcommand{\printchaptername}{}
+    ◊;     \renewcommand{\chapternamenum}{}
+    ◊;     \renewcommand{\printchapternum}{}
+    ◊;     \renewcommand{\afterchapternum}{}
+    ◊;     \renewcommand{\printchaptertitle}[1]{%
+    ◊;         \secfont\scshape\color{muted}\MakeLowercase{##1}}
+    ◊;     \renewcommand{\afterchaptertitle}{}
+    ◊; }
+    \chapterstyle{custom}
+
+    \setsecnumdepth{subsection}
+    \setsecheadstyle{\equityit\color{muted}\addperiod}
+    \setbeforesecskip{-\onelineskip}
+    \setaftersecskip{-0.5em}
+    \setsecnumformat{\secfont\csname the#1\endcsname\hspace{0.5em} \equityit}
+    \setsubsecheadstyle{\normalfont\itshape\color{muted}}
+
     \usepackage{csquotes}
 
     \usepackage[
@@ -132,19 +174,29 @@
     \postauthor{\par\end{raggedright}}
     \predate{}\postdate{}
 
+    \makepagenote
+    \continuousnotenums
+    ◊; \notepageref
+    \renewcommand*{\notesname}{Links}
+    \renewcommand*{\notedivision}{\chapter*{\scshape \notesname}}
+    \renewcommand*{\pagenotesubhead}[3]{}
+    \renewcommand*{\pagenotesubheadstarred}[3]{}
+
     \begin{document}
     \begin{raggedright}
-    {\equityspaced \huge \thetitle}\\[1em]
-    \text{\theauthor}\\
-    \textit{\href{mailto:conor.reynolds@mu.ie}{conor.reynolds@mu.ie}}
+    {\equityspaced \LARGE \thetitle}\\[1em]
+    \text{\small\theauthor}\\
+    \textit{\small\href{mailto:conor.reynolds@mu.ie}{conor.reynolds@mu.ie}}
     \end{raggedright}
     \vspace{2em}
-}
 
+    \noindent}
 ◊(require racket/list)
 ◊(apply string-append (filter string? (flatten doc)))
-
 ◊string-append{
+    \vspace*{3.5ex}
+    \hrule
+    \vspace*{1.5ex}
     \printpagenotes
     \printbibliography
     \end{document}
