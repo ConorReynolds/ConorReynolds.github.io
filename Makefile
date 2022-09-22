@@ -23,7 +23,7 @@ publish: html scss
 		$(PUB_LOCATION)/.gitattributes \
 		$(PUB_LOCATION)/monochrome.py \
 		$(PUB_LOCATION)/zotero.key
-	# gh-pages -d $(PUB_LOCATION)/
+	gh-pages -d $(PUB_LOCATION)/
 
 serve:
 	$(SERVE) $(SERVE_DIR) $(PORT)
