@@ -16,21 +16,21 @@ searchIndex.addDoc({
 searchIndex.addDoc({
   "id": id++,
   "title": `Contact`,
-  "body": `Contact Email is best: conor.reynolds@mu.ie The best way to contact me is by email at conor.reynolds@mu.ie . My social links, if you can call them that, extend only as far as a GitHub account, a GitLab account, and a Twitter account —created against my better judgement.`,
+  "body": `Contact Email is best: conor.reynolds@mu.ie The best way to contact me is by email at conor.reynolds@mu.ie. My social links, if you can call them that, extend only as far as a GitHub account, a GitLab account, and a Twitter account —created against my better judgement.`,
   "url": `contact.html`,
 });
 
 searchIndex.addDoc({
   "id": id++,
   "title": `CV`,
-  "body": `Curriculum Vitae Or résumé, whatever they’re calling it these days Still working on it! In the meantime, here’s some information of questionable note. Education PhD in Computer Science, Maynooth University, 2019–now MSc in Mathematics, Maynooth University, 2018–2019 BSc in Computational Thinking, Maynooth University, 2015–2018 Awards Hamilton Prize in Mathematics, awarded by the Royal Irish Academy in 2017 Turing and Cook Prizes for Computer Science, 2017 Delort Prize for Mathematics, 2016`,
+  "body": `Curriculum Vitae Under construction 🚧 Still working on it! In the meantime, here’s some information of questionable note. Education PhD in Computer Science, Maynooth University, 2019–now MSc in Mathematics, Maynooth University, 2018–2019 BSc in Computational Thinking, Maynooth University, 2015–2018 Awards Hamilton Prize in Mathematics, awarded by the Royal Irish Academy in 2017 Turing and Cook Prizes for Computer Science, 2017 Delort Prize for Mathematics, 2016`,
   "url": `cv.html`,
 });
 
 searchIndex.addDoc({
   "id": id++,
   "title": `Posts`,
-  "body": `Posts Everything I’ve posted to date Nothing here!`,
+  "body": `Posts Everything I’ve posted to date Nothing here! (Yet.)`,
   "url": `posts.html`,
 });
 
