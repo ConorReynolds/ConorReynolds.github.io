@@ -41,7 +41,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
   <title>
     ◊(take-noexcept (select* 'h1 doc) 2)
     ◊when/splice[(not (equal? here 'index.html))]{| Conor Reynolds}
