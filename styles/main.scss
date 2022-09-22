@@ -1,0 +1,633 @@
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fg-color: white;
+        --bg-color: #1c1c1c;
+        --red-color: #CC6666;
+        --muted-color: #949494;
+        --hover-color: rgba(255, 141, 158, 0.2);
+        --main-font: 'Valkyrie OT B', SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --fg-color: black;
+        --bg-color: #f2f2f2;
+        --red-color: #993333;
+        --hover-color: rgb(255, 182, 193, 0.5);
+        --muted-color: #464646;
+        // Picking B version of Valkyrie in dark mode prevents it from looking
+        // quite so stark
+        --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
+    }
+}
+
+:root {
+    // Pray that the end of this list is never reached.
+    --code-font: FiraCode, 'Source Code Pro', 'DejaVu Sans', 'Courier New', Courier, monospace;
+}
+
+@import 'normalize.scss';
+@import 'fonts.scss';
+@import 'highlight.scss';
+@import 'nav.scss';
+@import 'tables.scss';
+@import 'footer.scss';
+@import 'search-bar.scss';
+@import 'bib.scss';
+
+html {
+    font-size: 2.4vw;
+}
+
+@media all and (min-width: 1000px) {
+    html {
+        font-size: 24px;
+    }
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 1.5em;
+}
+
+ol {
+    margin-left: 0;
+    padding-left: 1.9em;
+}
+
+@media all and (max-width: 520px) {
+    html {
+        font-size: 18px;
+    }
+
+    ul, ol {
+        margin-left: 0;
+        padding-left: 1rem;
+        li {
+            margin-left: 0;
+        }
+    }
+}
+
+button {
+    padding: 0;  // counteract weird iOS bullshit
+}
+
+#doc {
+    font-family: var(--main-font);
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+    font-variant: oldstyle-nums;
+    line-height: 1.55;
+    max-width: 33rem;
+    font-size: 1em;
+    margin: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @media not all and (max-width: 520px) {
+        margin-top: 1rem;
+    }
+}
+
+h1 {
+    font-family: 'PT Sans Narrow', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-variant-ligatures: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-family: var(--main-font);
+    font-variant: small-caps oldstyle-nums;
+    text-transform: lowercase;
+    // font-weight: normal;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    margin-top: 1.4rem;
+
+    .anchor {
+        visibility: hidden;
+        color: grey;
+        margin-left: 0.5em;
+        &:hover {
+            visibility: visible;
+        }
+
+        i {
+            font-size: 0.65em;
+            position: relative;
+            top: -.04em;
+        }
+    }
+
+    &:hover {
+        .anchor {
+            visibility: visible;
+        }
+    }
+
+    @media not all and (hover) {
+        .anchor {
+            visibility: visible;
+            margin-left: 0.75em;
+        }
+    }
+}
+
+p {
+    margin-top: 0;
+}
+
+h3 {
+    font-family: 'PT Sans';
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.95rem;
+
+    &.toc {
+        font-size: 1rem;
+        font-family: var(--main-font);
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+}
+
+.xref {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    text-decoration-color: rgba($color: black, $alpha: 0);
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.toc h3 {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.toc div {
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    @media not all and (max-width: 520px) {
+        columns: 2;
+        -webkit-columns: 2;
+        -moz-columns: 2;
+    }
+}
+
+.toc li {
+    line-height: 1.2;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    width: 100%;
+}
+
+
+/* #doc h1 {
+    counter-reset: subsection;
+}
+
+#doc h2 {
+    counter-reset: subsubsection;
+}
+
+#doc h1::before {
+    counter-increment: section;
+    content: counter(section) " ";
+    padding-right: 0.6em;
+}
+
+#doc h2::before {
+    counter-increment: subsection;
+    content: counter(section) "." counter(subsection) " ";
+    padding-right: 0.6em;
+}
+
+#doc h3::before {
+    counter-increment: subsubsection;
+    content: counter(section) "." counter(subsection) "." counter(subsubsection) " ";
+    padding-right: 0.6em;
+} */
+
+/* title-block, aside {
+	display: block;
+	float: left;
+	position: absolute;
+	margin-left: 0;
+	left: 2.5rem;
+	width: calc(2.5rem * 3);
+	text-align: right;
+	list-style-type: none;
+	clear: both;
+	margin-bottom: 1rem;
+	font-variant-numeric: normal;
+}
+
+aside {
+	left: 0;
+	width: calc(2.5rem * 4);
+}
+
+aside p {
+    margin-top: 0;
+	font-size: 0.83rem;
+	line-height: 1.4;
+	color: #667;
+	hyphens: none;
+	font-feature-settings: "liga";
+} */
+
+mjx-container+br,
+br~mjx-container {
+    display: none;
+}
+
+squo-push {
+    margin-left: 0em;
+}
+
+squo-pull {
+    margin-left: 0em;
+}
+
+dquo-push {
+    margin-left: 0em;
+}
+
+dquo-pull {
+    margin-left: 0em;
+}
+
+ul, ol {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+ol li {
+    padding-inline-start: 0.5ch;
+}
+
+ul li {
+    list-style-type: '→';
+    padding-inline-start: 1ch;
+
+    &::marker {
+        color: grey;
+    }
+}
+
+.compact-list>li:not(:last-child) {
+    margin-bottom: 0;
+}
+
+.loose-list>li:not(:last-child) {
+    margin-bottom: 0.5em;
+}
+
+blockquote {
+    font-size: 0.9em;
+    margin-inline: 1.5em 0.5em;
+}
+
+pre.inline {
+    display: inline;
+}
+
+code {
+    font-size: 0.9em;
+    font-family: var(--code-font);
+    font-variant-numeric: normal;
+    font-variant-ligatures: none;
+    hyphens: none;
+}
+
+pre code {
+    white-space: nowrap;
+    overflow-y: scroll;
+    font-size: 0.85em;
+}
+
+div.code {
+    white-space: nowrap;
+    overflow-x: scroll;
+    font-size: 0.8em;
+    margin-left: 1em;
+}
+
+.dialogue {
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+
+    &>span:first-child {
+        text-transform: lowercase;
+    }
+
+    .speaker {
+        margin-right: 0.4em;
+    }
+}
+
+.dialogue + p {
+    margin-top: 1rem;
+}
+
+hr {
+    background: none;
+    border: 0;
+    margin: 1.2em;
+    padding: 0;
+    letter-spacing: 0.9em;
+
+    &::after {
+        content: '***';
+        display: block;
+        position: relative;
+        top: -0.31em;
+        opacity: 0.6;
+        line-height: 1;
+        text-align: center;
+    }
+}
+
+#title-block {
+    margin-bottom: .8em;
+
+    h1 {
+        margin-top: 0;
+    }
+
+    .subtitle {
+        font-family: 'PT Sans Narrow', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 0.9rem;
+        position: relative;
+        top: -.85em;
+        max-width: 35ch;
+        line-height: 1.3;
+        hyphens: none;
+        -webkit-hyphens: none;
+
+        @media all and (max-with: 520px) {
+            max-width: 50%;
+            width: 50%;
+        }
+    }
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.muted {
+    color: #999;
+}
+
+pre {
+    font-family: var(--code-font);
+    font-variant-ligatures: none;
+}
+
+.highlight {
+    font-family: var(--code-font);
+    background-color: inherit;
+    font-variant-ligatures: none;
+}
+
+.abbreviation {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+
+    @media not all and (hover) {
+        text-decoration: underline;
+        text-decoration-color: rgb(172, 172, 172);
+    }
+}
+
+.abbreviation .abbreviation-inner {
+    visibility: hidden;
+    text-align: center;
+    font-weight: normal;
+    font-style: normal;
+    hyphens: none;
+    left: 50%;
+    transform: translate(-50%, 0);
+    max-width: 10rem;
+    font-size: 0.85rem;
+    color: white;
+    background-color: var(--bg-color);
+    padding: 0.2em 0.5em;
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    bottom: 1.5rem;
+
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+
+    transition-property: all;
+    transition-duration: 0.2s;
+}
+
+@media (hover) {
+    .abbreviation:hover .abbreviation-inner {
+        visibility: visible;
+        background-color: grey;
+        opacity: 1;
+    }
+}
+
+@media not all and (hover) {
+    .abbreviation.clicked .abbreviation-inner {
+        visibility: visible;
+        background-color: grey;
+        opacity: 1;
+    }
+}
+
+@media not all and (max-width: 520px) {
+    .tooltip {
+        display: inline;
+        top: -0.1em;
+        font-size: 0.65em;
+        position: relative;
+        background: white;
+        opacity: 0.5;
+        padding: 0 0.2em 0 0.2em;
+        transition-property: opacity;
+        transition-duration: 0.20s;
+        color: black;
+        border: solid 1px grey;
+        box-sizing: content-box;
+        border-radius: 0.2em;
+        cursor: pointer;
+        z-index: 1;
+    }
+    
+    .tooltip-inner {
+        visibility: hidden;
+        position: absolute;
+        left: 50%;
+        bottom: 1rem;
+        // width: 7.5rem;
+        width: min(30vw, 9rem);
+        background: rgb(116, 116, 116);
+        color: white;
+        padding: 0.7em 1em;
+        font-size: 0.8rem;
+        border-radius: 0.5em 0.5em 0.5em 0.5em;
+        transform-origin: left bottom;
+        transform: scale(0.4) translate(-50%, 0);
+        opacity: 0;
+        transition-property: opacity;
+        transition-duration: .2s;
+        z-index: 1;
+        // hyphens: none;
+
+        .extlink::after {
+            color: rgb(255, 149, 165);
+        }
+    }
+    
+    .show-tooltip .tooltip-inner {
+        visibility: visible;
+        transform-origin: left bottom;
+        transform: scale(1) translate(-50%, 0);
+        opacity: 1;
+        cursor: pointer;
+    }
+    
+    .tooltip.show-tooltip {
+        background: #999;
+        color: white;
+        opacity: 1;
+        transition-property: opacity;
+        transition-duration: 0.2s;
+    }
+
+    @media (hover) {
+        .tooltip:hover {
+            background: #999;
+            color: white;
+            opacity: 1;
+            transition-property: opacity;
+            transition-duration: 0.2s;
+        }
+    }
+}
+
+@media all and (max-width: 520px) {
+    .tooltip {
+        display: inline;
+        top: -0.1em;
+        font-size: 0.65em;
+        position: relative;
+        background: white;
+        opacity: 0.5;
+        padding: 0 0.2em 0 0.2em;
+        transition-property: none;
+        color: black;
+        border: solid 1px grey;
+        box-sizing: content-box;
+        border-radius: 0.2em;
+        cursor: pointer;
+        z-index: 1;
+    }
+    
+    .tooltip-inner {
+        visibility: hidden;
+        position: fixed;
+        left: 50%;
+        // bottom: 20px;
+        transform: translate(-50%, -50%);
+        // margin: 0 auto;
+        bottom: 1rem;
+        width: calc(100vw - 3.7rem);
+
+        // width: 0.9vw;
+        background: rgb(116, 116, 116);
+        color: white;
+        padding: 1em;
+        font-size: 1rem;
+        border-radius: 0.5em 0.5em 0.5em 0.5em;
+        transform-origin: left bottom;
+        // transform: scale(1) translate(0, 0);
+        opacity: 0;
+        // transition-property: opacity;
+        z-index: 1;
+        hyphens: none;
+
+        .extlink::after {
+            color: rgb(255, 149, 165);
+        }
+    }
+    
+    .show-tooltip .tooltip-inner {
+        visibility: visible;
+        transform-origin: left bottom;
+        transform: scale(1) translate(-50%, 0);
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .tooltip.show-tooltip {
+        background: #999;
+        color: white;
+        opacity: 1;
+        transition-property: all;
+        transition-duration: 0.2s;
+    }
+
+    @media (hover) {
+        .tooltip:hover {
+            background: #999;
+            color: white;
+            opacity: 1;
+            transition-property: all;
+            transition-duration: 0.2s;
+        }
+    }
+}
+
+.seclink {
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.extlink::after {
+    position: relative;
+    font-family: "font awesome 5 free";
+    content: "\f08e";
+    font-weight: 900;
+    margin-left: .25em;
+    font-size: 50%;
+    top: -.65em;
+    color: var(--red-color);
+    font-feature-settings: "caps";
+    font-variant-numeric: normal;
+}
+
+.extlink:hover {
+    text-decoration: underline;
+    text-decoration-skip: ink;
+}
+
+.smallcaps {
+    font-variant: small-caps;
+}

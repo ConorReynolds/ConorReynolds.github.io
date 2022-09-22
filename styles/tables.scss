@@ -1,0 +1,27 @@
+table:not(.sourcetable) {
+    margin: auto;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+    text-align: left;
+
+    thead tr {
+        background-color: #dadada;
+        color: #1f1f1f;
+        @media (prefers-color-scheme: dark) {
+            background-color: #4b4b4b;
+            color: #f1f1f1;
+        }
+    }
+
+    th,
+    td {
+        padding: 0.2em 1em;
+        margin-right: 0.1em;
+        vertical-align: top;
+    }
+
+    tbody tr {
+        border-bottom: thin solid #999999;
+    }
+}

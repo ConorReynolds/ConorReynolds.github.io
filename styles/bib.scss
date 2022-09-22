@@ -1,0 +1,49 @@
+.bib-item {
+    margin-bottom: 1em;
+
+    .bibtex {
+        display: none;
+    }
+
+    .show-bibtex {
+        display: block;
+        pre {
+            font-size: 0.85rem;
+            font-variant-numeric: normal;
+            overflow-y: scroll;
+        }
+    }
+
+    .bib-links {
+        display: flex;
+
+        a, button {
+            margin-right: 0.5em;
+        }
+
+        @media all and (hover) {
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+
+        button {
+            background-color: var(--bg-color);
+            color: var(--fg-color);
+            border-style: hidden;
+            border-radius: 8pt;
+            transition-duration: 0.1s;
+            padding: 0 0.5em 0 0.5em;
+            transition-property: background-color;
+            @media all and (hover) {
+                &:hover {
+                    background-color: rgb(212, 212, 212);
+                }
+            }
+
+            &:active {
+                background-color: rgb(175, 175, 175);
+            }
+        }
+    }
+}
