@@ -4,9 +4,9 @@
     --fg-color: white;
     --bg-color: #1c1c1c;
     --red-color: #CC6666;
-    --muted-color: #949494;
     --hover-color: rgba(255, 141, 158, 0.2);
-    --main-font: "Valkyrie OT B", SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
+    --muted-color: #949494;
+    --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
   }
 }
 @media (prefers-color-scheme: light) {
