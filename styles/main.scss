@@ -3,9 +3,10 @@
         --fg-color: white;
         --bg-color: #1c1c1c;
         --red-color: #CC6666;
-        --muted-color: #949494;
         --hover-color: rgba(255, 141, 158, 0.2);
-        --main-font: 'Valkyrie OT B', SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
+        --muted-color: #949494;
+        // maybe load B version in dark mode?
+        --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
     }
 }
 
@@ -16,8 +17,6 @@
         --red-color: #993333;
         --hover-color: rgb(255, 182, 193, 0.5);
         --muted-color: #464646;
-        // Picking B version of Valkyrie in dark mode prevents it from looking
-        // quite so stark
         --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
     }
 }
