@@ -5,22 +5,31 @@
   racket/file
   racket/string
   racket/list
+  racket/match
 
-  txexpr
+  (submod txexpr safe)
   pollen/core
   pollen/setup
   pollen/decode
+  pollen/tag
+  pollen/file
+  ; pollen-count
 
   pollen/unstable/pygments
   pollen/unstable/typography
   hyphenate
+
+  "src/glossary.rkt"
+  "src/zotero.rkt"
   )
 
 (provide (all-defined-out))
+(provide (all-from-out "src/glossary.rkt"))
+(provide (all-from-out "src/zotero.rkt"))
 
 (module setup racket/base
   (provide (all-defined-out))
-  (define poly-targets '(html tex)))
+  (define poly-targets '(html)))
 
 (define no-hyphens-attr '(hyphens "none"))
 
@@ -33,8 +42,22 @@
              #:min-right-length 3
              #:omit-txexpr no-hyphens?))
 
+(define ((make-replacer query+replacement) str)
+  (for/fold ([str str])
+            ([qr (in-list query+replacement)])
+    (match-define (list query replacement) qr)
+    (regexp-replace* query str replacement)))
+
+(define (smart-dashes-preserve-space str)
+  (define dashes
+    ;; fix em dashes first, else they'll be mistaken for en dashes
+    ;; \\s is whitespace + #\u00A0 is nonbreaking space
+    '((#px"(---|—)" "—") ; em dash
+      (#px"(--|–)" "–"))) ; en dash
+  ((make-replacer dashes) str))
+
 (define text-typography
-  (compose1 smart-quotes smart-dashes smart-ellipses))
+  (compose1 smart-quotes smart-dashes-preserve-space smart-ellipses))
 
 (define (make-quotes-hangable str)
   (define substrs (regexp-match* #px"\\s?[“‘]" str #:gap-select? #t))
@@ -49,288 +72,177 @@
                                        [else (list str)])
                                      (list str)))) substrs))))
 
-(define (latex-ellipses str)
-  (regexp-replace* #px"\\.{3}" str "\\\\dots{}"))
-
-(define (html-root elems)
+(define (root . elems)
   (define elements-with-paragraphs
-    (decode-elements elems #:txexpr-elements-proc decode-paragraphs))
-  (list* 'div '((id "doc"))
+    (decode-elements elems
+                     #:txexpr-elements-proc decode-paragraphs
+                     #:exclude-tags '(title-block table)
+                     #:exclude-attrs '((class "bib-item"))))
+  (list* 'div '((id "doc") (role "main"))
          (decode-elements elements-with-paragraphs
                           #:block-txexpr-proc hyphenate-block
-                          #:string-proc (compose1 make-quotes-hangable
-                                                  text-typography)
+                          #:string-proc (compose1 string-proc-extras text-typography)
                           #:exclude-tags '(style script code))))
 
-(define (root . xs)
-  (case (current-poly-target)
-    [(html) (html-root xs)]
-    [else (decode-elements #:string-proc (compose1 smart-dashes smart-ellipses) xs)]))
+(define soft-hyphen "\u00AD")
 
-; Checks if a math expression ends in any one of a number of problematic characters.
-; If so, add relevant space.
-(define (mkern str)
-  (define kerning-table
-    (make-hash '(("M" . "2.5")
-                 ("F" . "2.5")
-                 ("P" . "2.5")
-                 ("T" . "2.3")
-                 ("\\phi" . "0.3"))))
-  (define match? (regexp-match #rx"([MFPT]|\\\\phi)$" str))
-  (if (and (boolean? match?) (not match?)) str
-      (string-append str "\\mkern" (hash-ref kerning-table (first match?)) "mu")))
+(define (title-block . elems)
+  `(div [[id "title-block"]] ,@elems))
+
+(define (title . elems)
+  `(h1 ,@elems))
+
+(define (subtitle . elems)
+  `(div [[class "subtitle"]] ,@elems))
+
+(define (section . elems)
+  (define strs (findf*-txexpr (cons 'x elems) string?))
+  (define label (string-join (list* "#" strs) ""))
+  `(h2 [[id ,(substring label 1)] [class "section"]]
+       ,@elems
+       (a [[class "anchor"]
+           [href ,label]
+           [title "permalink to this section"]]
+          (i [[class "fas fa-link"]]))))
 
 ; non-breaking space
-(define nbsp " ")
-
-; Correct spacing after full-stop which does not end a sentence.
-; Irrelevant if frenchspacing is active (tex)
-(define ._
-  (case (current-poly-target)
-    [(tex) ".\\"]
-    [else "."]))
-
+(define (nbsp) (string #\u00A0))
+(define (linebreak) (string #\newline))
 
 (define (get-date)
   (date->string (current-date)))
 
+(define (get-year)
+  (format "~a" (date-year (current-date))))
 
-(define (chapter #:label [label #f] 
-                 #:numbered [numbered #t]
-                 #:short [short #f]
-                 . elems)
-  (case (current-poly-target)
-    [(tex)
-     (if (string? label)
-         (apply string-append
-                `("\\chapter" ,(if numbered "" "*") "[" ,@(if (string? short) '(short) elems) "]"
-                              "{" ,@elems "}"
-                              "\n\\label{chap:" ,label "}"))
-         (apply string-append
-                `("\\chapter" ,(if numbered "" "*") "[" ,@(if (string? short) '(short) elems) "]"
-                              "{" ,@elems "}")))]
-    [(html) 
-     `(h2
-       ,(if (string? label) `((id ,(string-append "chap:" label))) '())
-       ,@elems)]
-    [else "[!not implemented]"]))
+(define (link url #:class [class-name #f] . tx-elements)
+  (let* ([url (string-append "/" (symbol->string url))]
+         [tx-elements (if (empty? tx-elements)
+                          (list url)
+                          tx-elements)]
+         [link-tx (txexpr 'a empty tx-elements)]
+         [link-tx (attr-set link-tx 'href url)])
+    (if class-name
+        (attr-set link-tx 'class class-name)
+        link-tx)))
 
+(define (format-as-filename target)
+  (define nonbreaking-space (string #\u00A0))
+  (let* ([x target]
+         [x (string-trim x "?")]
+         [x (string-downcase x)]
+         [x (string-replace x nonbreaking-space "-")]
+         [x (string-replace x " " "-")])
+    (format "~a.html" x)))
 
-(define (section #:label [label #f]
-                 #:numbered [numbered #t]
-                 . elems)
-  (case (current-poly-target)
-    [(tex)
-     (if (string? label)
-         (apply string-append `("\\section" ,(if numbered "" "*") "{" ,@elems "}\n\\label{sec:" ,label "}"))
-         (apply string-append `("\\section" ,(if numbered "" "*") "{" ,@elems "}")))]
-    [(html)
-     `(h3
-       ,(if (string? label) `((id ,(string-append "sec:" label))) '())
-       ,@elems)]
-    [else (map string-upcase elems)]))
+(define (target->url target)
+  (define actual-filenames
+    (map path->string (remove-duplicates (map ->output-path (directory-list (string->path "."))))))
+  (define target-variants (let* ([plural-regex #rx"s$"]
+                                 [singular-target (regexp-replace plural-regex target "")]
+                                 [plural-target (string-append singular-target "s")])
+                            (list singular-target plural-target)))
+  (or (for*/first ([tfn (in-list (map format-as-filename target-variants))]
+                   [afn (in-list actual-filenames)]
+                   #:when (equal? tfn afn))
+        tfn)
+      "#"))
 
-(define (subsection #:label [label #f]
-                    #:numbered [numbered #t]
-                    . elems)
-  (case (current-poly-target)
-    [(tex)
-     (if (string? label)
-         (apply string-append `("\\subsection" ,(if numbered "" "*") "{" ,@elems "}\n\\label{subsec:" ,label "}"))
-         (apply string-append `("\\subsection" ,(if numbered "" "*") "{" ,@elems "}")))]
-    [(html)
-     `(h4
-       ,(if (string? label) `((id ,(string-append "subsec:" label))) '())
-       ,@elems)]
-    [else (map string-upcase elems)]))
+(define xref
+  (case-lambda
+    [(target)
+     (xref (target->url target) target)]
+    [(url target)
+     (apply attr-set* (link url target) 'class "xref" no-hyphens-attr)]
+    [more-than-two-args
+     (apply raise-arity-error 'xref (list 1 2) more-than-two-args)]))
 
 (define (em . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\emph{" ,@elems "}"))]
-    [(html) `(em ,@elems)]
-    [else `("*" ,@elems "*")]))
+  `(em ,@elems))
 
-(define (include . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\input{" ,@elems ".tex}"))]
-    [else ""]))
+(define (underline . elems)
+  `(span [[style "text-decoration: underline;"]] ,@elems))
 
 (define (ul #:compact [compact #t] . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\begin{itemize}"
-                                  ,(if compact "[noitemsep]" "") "\n"
-                                  ,@elems
-                                  "\n\\end{itemize}"))]
-    [else (txexpr 'ul 
-                  (if compact 
-                      '((class "compact-list")) 
-                      '((class "loose-list"))) 
-                  elems)]))
+  (txexpr 'ul
+          (if compact
+              '((class "compact-list"))
+              '((class "loose-list")))
+          elems))
 
 (define (ol #:compact [compact #t] . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\begin{enumerate}"
-                                  ,(if compact "[noitemsep]" "") "\n"
-                                  ,@elems
-                                  "\n\\end{enumerate}"))]
-    [else (txexpr 'ol 
-                  (if compact
-                      '((class "compact-list")) 
-                      '((class "loose-list"))) 
-                  elems)]))
+  (txexpr 'ol
+          (if compact
+              '((class "compact-list"))
+              '((class "loose-list")))
+          elems))
 
-(define (li . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("  \\item " ,@elems))]
-    [else `(li ,@elems)]))
+(define (item . elems)
+  `(li ,@elems))
+
+(define (quick-table . elems)
+  (define rows-of-text-cells
+    (let ([text-rows (filter-not whitespace? elems)])
+      (for/list ([text-row (in-list text-rows)])
+        (for/list ([text-cell (in-list (string-split text-row "|"))])
+          (string-trim text-cell)))))
+
+  (match-define (list tr-tag td-tag th-tag) (map default-tag-function '(tr td th)))
+
+  (define html-rows
+    (match-let ([(cons header-row other-rows) rows-of-text-cells])
+      (cons (map th-tag header-row)
+            (for/list ([row (in-list other-rows)])
+              (map td-tag row)))))
+
+  (cons 'table (for/list ([html-row (in-list html-rows)])
+                 (apply tr-tag html-row))))
+
 
 (define (extlink #:desc [desc #f] url . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append 
-                  `(,@elems "\\pagenote{"
-                            ,(if (string? desc) (string-append "\\textit{" desc "}\\\\") "")
-                            "\\url{" ,url "}}"))]
-    [(html) `(a [[class "extlink"] [href ,url]] ,@elems)]
-    [else "[!not implemented]"]))
-
-(define (crossref url . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\textsc{" ,@elems "}"))]
-    [(html) `(a [[class "crossref"] [href ,url]] ,@elems)]))
-
-(define (cite . label)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\autocite{" ,@label "}"))]
-    [(html) "[?]"]
-    [else "[?]"]))
+  `(a [[class "extlink"] [href ,url]] ,@elems))
 
 (define (sc . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\textsc{" ,@elems "}"))]
-    [(html) `(span [[class "smallcaps"]] ,@elems)]
-    [else elems]))
+  `(span [[class "smallcaps"]] ,@elems))
 
 (define ($ . elems)
-  (define raw (apply string-append elems))
-  (define space-corrected (mkern raw))
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\( " ,space-corrected " \\)"))]
-    [(html) (apply string-append `("\\(" ,@elems "\\)"))]
-    [else elems]))
+  `(span [[class "inline-math"] [hyphens "none"]]
+         ,(apply string-append `("\\(" ,@elems "\\)"))))
 
-(define ($$ #:align [align #f] . elems)
-  (define env (if align "align*" "equation*"))
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\begin{" ,env "}\n  " ,@elems "\n\\end{" ,env "}"))]
-    [(html) (apply string-append `("\\begin{align*}\n  " ,@elems "\n\\end{align*}"))]
-    [else elems]))
+(define ($$ . elems)
+  (apply string-append `("\\begin{align*}\n  " ,@elems "\n\\end{align*}")))
 
-(define (quot . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\textquote{" ,@elems "}"))]
-    [(html) `(span "‘" ,@elems "’")]
-    [else elems]))
-
+; Call this like `◊verb["…"]`
 (define (verb . elems)
   (define raw (apply string-append elems))
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\Verb|" ,raw "|"))]
-    [(html) `(code ,raw)]))
+  `(code ,raw))
 
 (define (code . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\texttt{" ,@elems "}"))]
-    [(html) `(code ,@elems)]))
+  `(code ,@elems))
 
 (define (codeblock [lang 'racket] . elems)
   (define raw (apply string-append elems))
-  (case (current-poly-target)
-    [(tex) (apply string-append
-                  `("\\begin{minted}{"
-                    ,(symbol->string lang) "}\n"
-                    ,@elems
-                    "\n\\end{minted}"))]
-    [(html) (highlight
-             #:python-executable "python3"
+  (highlight #:python-executable "python3"
              lang
-             (apply string-append elems))]
-    [else raw]))
+             raw))
 
-(define (coqblock . elems)
-  (codeblock 'coq (apply string-append elems)))
-
-
-(define (codeexample [lang 'racket] . elems)
-  (define raw (apply string-append elems))
-  (case (current-poly-target)
-    [(tex) (apply string-append
-                  `("\\begin{VerbatimOut}{minted.doc.out}\n"
-                    ,@elems
-                    "\n\\end{VerbatimOut}\n"
-                    "\\inputminted{" ,(symbol->string lang) "}{build/minted.doc.out}"))]
-    [(html) (highlight
-             #:python-executable "python3"
-             lang
-             (apply string-append elems))]
-    [else raw]))
-
-
-;; Similar to MB’s Beautiful Racket -- I just don’t like sidenotes very much in HTML
+;; Similar to MB’s Beautiful Racket — I just don’t like sidenotes very much in HTML
 (define (aside . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("\\marginpar{\\raggedright\\footnotesize " ,@elems "}"))]
-    [(html) `(span [[class "tooltip"]
-                    [onclick "this.classList.toggle(\"show-tooltip\")"]]
-                   "+"
-                   (span [[class "tooltip-inner"]] ,@elems))]
-    [else "[asides not yet implemented]"]))
-
+  `(span [[class "tooltip"]
+          [onclick "this.classList.toggle(\"show-tooltip\")"]]
+         (i [[class "fa fa-plus"] [aria-hidden "true"]])
+         (span [[class "tooltip-inner"]] ,@elems)))
 
 (define hrule
-  (case (current-poly-target)
-    [(tex) "\\pfbreak"]
-    [(html) '(hr)]
-    [else "[hrule not yet implemented]"]))
-
-
-(define mainmatter
-  (case (current-poly-target)
-    [(tex) "\\mainmatter"]
-    [else ""]))
-
-(define backmatter
-  (case (current-poly-target)
-    [(tex) "\\backmatter"]
-    [else ""]))
-
-(define (latex)
-  (case (current-poly-target)
-    [(tex) "\\LaTeX{}"]
-    [else "LaTeX"]))
-
-(define \R
-  "\\mathbb{R}")
-
-(define \Sig
-  "\\mathsf{Sig}")
-
-(define \FOPEQ
-  "\\text{\\sffamily\\itshape FOPEQ}")
-
-(define \EVT
-  "\\text{\\sffamily\\itshape EVT}")
-
-(define (\set . elems)
-  (apply string-append `("\\{" ,@elems "\\}" )))
+  '(hr))
 
 (define \defeq "≜")
 
 (define (ipa . elems)
-  (case (current-poly-target)
-    [(tex) (apply string-append `("{\\ipafont " ,@elems "}"))]
-    [else `(span [[class "ipa"]] ,@elems)]))
+  `(span [[class "ipa"]] ,@elems))
 
-(define (EventB . elems)
-  (case (current-poly-target)
-    [(tex) "Event\\nobreakdash-B"]
-    [else "Event‑B"]))
+(define (©-nbsp str)
+  (regexp-replace #px"© " str (string-append "©" (nbsp))))
+
+(define string-proc-extras
+  ©-nbsp)

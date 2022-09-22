@@ -4,9 +4,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "make all",
+            "label": "Build All Targets",
             "type": "shell",
-            "command": "make all",
+            "command": "make",
+            "args": ["pdf"],
             "problemMatcher": [],
             "group": {
                 "kind": "build",

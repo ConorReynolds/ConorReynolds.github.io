@@ -1,0 +1,26 @@
+// A lot of this is repeated information. Should provide a basic
+// @extend rule with the basics in it.
+
+.horizontal-rule {
+    visibility: hidden;
+    margin: 1rem;
+    max-width: 33rem;
+
+	border: 0;
+	border-top: 1px solid rgba(0,0,0,.15);
+}
+
+#footer {
+    font-family: var(--main-font);
+    font-size: 0.85rem;
+    color: var(--muted-color);
+    line-height: 1.55;
+
+    max-width: 33rem;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

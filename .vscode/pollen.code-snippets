@@ -16,6 +16,12 @@
 	// 	"description": "Log output to console"
 	// }
 
+	"Post Template": {
+		"scope": "pollen-markup",
+		"prefix": "post-template",
+		"body": "#lang pollen\n\n◊(define-meta title \"$1\")\n\n◊title-block{\n  ◊title{$1}\n  ◊subtitle{$2}\n}\n$0",
+	},
+
 	"Inline maths": {
 		"scope": "pollen-markup",
 		"prefix": ["$", "math"],
@@ -31,13 +37,19 @@
 	"Ordered list": {
 		"scope": "pollen-markup",
 		"prefix": ["ol", "enumerate"],
-		"body": "◊ol{\n  $1\n}",
+		"body": "◊ol{\n  $0\n}",
+	},
+
+	"Unordered list": {
+		"scope": "pollen-markup",
+		"prefix": ["ul", "itemize", "unordered-list"],
+		"body": "◊ul{\n  $0\n}",
 	},
 
 	"List item": {
 		"scope": "pollen-markup",
 		"prefix": ["li", "item"],
-		"body": "◊li{$1}$0",
+		"body": "◊item{$0}",
 	},
 
 	"Emphasis": {
@@ -104,5 +116,11 @@
 		"scope": "pollen-markup",
 		"prefix": ["aside", "sidenote"],
 		"body": "◊aside{$0}",
+	},
+
+	"Cross Reference": {
+		"scope": "pollen-markup",
+		"prefix": "xref",
+		"body": "◊xref[\"$2\"]{${1:${TM_SELECTED_TEXT}}}$0",
 	}
 }

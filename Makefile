@@ -1,22 +1,35 @@
-# Make sure to `make` everything before publishing!
+POLLEN := raco pollen
+HTML_SRC := index.ptree auxiliary.ptree
+SERVE_DIR := .
+DST := build/
+PORT := 8080
 
-DST := build
+RENDER := $(POLLEN) render
+SERVE := $(POLLEN) start
+PUBLISH := $(POLLEN) publish
+PUB_LOCATION := ../projects/pollen-blog-public
 
-LATEX := latexmk
-LATEX_ARGS := -synctex=1 -interaction=nonstopmode -shell-escape -file-line-error -pdflua -outdir=$(DST)
 
-html:
-	raco pollen render index.ptree
+scss: styles/*.scss
+	sass styles/main.scss main.css
 
-serve: html
-	hugo server
+html: scss
+	$(RENDER) $(HTML_SRC)
 
-latex:
-	raco pollen render tex.ptree
-	$(LATEX) $(LATEX_ARGS) content/posts/*.tex
-	cp $(DST)/*.pdf content/posts
+publish: html scss
+	$(PUBLISH) . $(PUB_LOCATION)
+	rm -rf $(PUB_LOCATION)/.vscode/ \
+		$(PUB_LOCATION)/src/ \
+		$(PUB_LOCATION)/.gitattributes \
+		$(PUB_LOCATION)/monochrome.py \
+		$(PUB_LOCATION)/zotero.key
+	# gh-pages -d $(PUB_LOCATION)/
 
-pdf: latex
-	raco pollen render pdf.ptree
+serve:
+	$(SERVE) $(SERVE_DIR) $(PORT)
 
-all: html latex
+clean:
+	$(POLLEN) reset
+
+sasswatch: styles/*.scss
+	sass --watch styles/main.scss main.css
