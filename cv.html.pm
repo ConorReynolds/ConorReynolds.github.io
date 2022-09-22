@@ -4,7 +4,7 @@
 
 ◊title-block{
   ◊title{Curriculum Vitae}
-  ◊subtitle{Or résumé, whatever they’re calling it these days}
+  ◊subtitle{Under construction 🚧}
 }
 
 Still working on it! In the meantime, here’s some information of questionable note.

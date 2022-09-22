@@ -7,7 +7,7 @@ PORT := 8080
 RENDER := $(POLLEN) render
 SERVE := $(POLLEN) start
 PUBLISH := $(POLLEN) publish
-PUB_LOCATION := ../projects/pollen-blog-public
+PUB_LOCATION := ../projects/webpage-public
 
 
 scss: styles/*.scss
