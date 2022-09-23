@@ -317,7 +317,7 @@ code {
 
 pre code {
     white-space: nowrap;
-    overflow-y: scroll;
+    overflow-x: scroll;
     font-size: 0.85em;
 }
 
@@ -394,7 +394,7 @@ a {
 }
 
 .muted {
-    color: #999;
+    color: var(--muted-color);
 }
 
 pre {
@@ -406,6 +406,20 @@ pre {
     font-family: var(--code-font);
     background-color: inherit;
     font-variant-ligatures: none;
+    font-variant-numeric: normal;
+    margin-top: 0;
+    margin-bottom: 1rem;
+
+    pre {
+        margin: 0;
+    }
+}
+
+.code-wrap {
+    overflow-x: clip;
+    pre {
+        white-space: pre-line;
+    }
 }
 
 .abbreviation {
@@ -615,8 +629,8 @@ pre {
     content: "\f08e";
     font-weight: 900;
     margin-left: .25em;
-    font-size: 50%;
-    top: -.65em;
+    font-size: 45%;
+    top: -.7em;
     color: var(--red-color);
     font-feature-settings: "caps";
     font-variant-numeric: normal;
@@ -630,3 +644,18 @@ pre {
 .smallcaps {
     font-variant: small-caps;
 }
+
+.post-list {
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+
+    .post-item {
+        margin-bottom: 0.4rem;
+    }
+}
+
+// Reset KaTeX font size
+.katex {
+    font-size: 1.08em !important;
+}
+

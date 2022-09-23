@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    About This Site
+    | Conor Reynolds
+  </title>
+
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+
+<body><div class="nav-top" role="navigation"><a href="/index.html">Home</a>/<a href="/contact.html">Contact</a>/<a href="/cv.html">CV</a>/<a href="/posts.html">Posts</a></div>
+
+<div id="search-wrapper"><form class="searchbar-outer" id="searchbar-outer"><input aria-controls="searchresults-outer" aria-describedby="searchresults-header" autocomplete="off" id="searchbar" name="searchbar" placeholder="Search …" type="search"/></form>
+<div class="searchresults-outer" id="searchresults-outer"><div class="searchresults-header" id="searchresults-header"></div></div></div>
+
+<div id="doc" role="main"><div id="title-block"><h1>About This Site</h1><div class="subtitle">Pollen + Make­file = all you need</div></div><p>This site is built using <a class="extlink" href="https://docs.racket-lang.org/pollen">Pollen,</a> an incred­i­bly flex­i­ble tool for cre­at­ing web books. To over­sim­plify: Pollen source files are fed in, writ­ten in a markup lan­guage of one’s own design, and HTML is spat out. It’s like LaTeX for the web—but where LaTeX is a giant macro pre­proces­sor, Racket is a mod­ern pro­gram­ming lan­guage. This site is <a class="extlink" href="https://github.com/ConorReynolds/ConorReynolds.github.io">open source,</a> so feel free to have a dig around to see how it works.</p><p>Instead of explain­ing in detail exactly what makes Pollen great, I’ll pro­vide an exam­ple of how I use it.</p><p>I wanted to list my pub­li­ca­tions on the front page of my site. I also wanted to auto­mate this process, since the job of curat­ing such a list by hand is ini­tially tedious and even­tu­ally for­got­ten out­right.</p><p>I main­tain a list of my pub­li­ca­tions on my Zotero account. In the past I used <a class="extlink" href="https://bibbase.org/">Bib­Base</a> to present this infor­ma­tion on my site, but found that it was extremely finicky to style to my lik­ing, and very slow to load. For longer lists the wait becomes nearly unbear­able.</p><p>I even­tu­ally got sick of this and decided to gen­er­ate the infor­ma­tion at com­pile time with a small Racket script. The source for the <a class="xref" hyphens="none" href="/#">home</a> page looks some­thing like this:</p><div class="highlight code-wrap"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="source"><pre><span></span>◊sec­tion{Pub­li­ca­tions}
+
+The fol­low­ing is pulled from my Zotero account. ◊aside{See the ◊extlink["https://github.com/Conor­Reynolds/Conor­Reynolds.github.io/blob/main/src/zotero.rkt"]{source repo} for details on how this is gen­er­ated.}
+
+◊(cons &#39;@ ◊(bib-items))
+</pre></div>
+</td></tr></tbody></table></div><p>The func­tion <code>bib-items</code> is defined in <a class="extlink" href="https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt"><code>src/zotero.rkt</code>.</a> It pulls my pub­li­ca­tions directly from Zotero’s API and con­structs a list of divs that I can splice into the doc­u­ment. This is done at com­pile time, so a user vis­it­ing the page just sees plain HTML. And that’s it! It loads faster, it’s eas­ier to cus­tomise, and it pro­vides almost as much automa­tion—all for a mea­gre frac­tion of the time I spent tweak­ing Bib­Base. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">Though, if this isn’t your cup of tea, I would still highly rec­om­mend Bib­Base as an alter­na­tive.</span></span></p><h2 id="Full-Text Search" class="section">Full-Text Search<a class="anchor" href="#Full-Text Search" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The site comes with non-fuzzy full-text search. This was a fea­ture that I cre­ated for another project I’m work­ing on, but it works for any(?) Pollen-gen­er­ated web­site, so I fig­ured I’d add it for fun. It’s basi­cally a thin wrap­per over <a class="extlink" href="http://elasticlunr.com/">elas­ti­clunr</a> and is <em>very</em> bare­bones, but it’s fast and gets the job done.</p></div>
+
+<div class="horizontal-rule"></div>
+
+<div id="footer">Last updated on Friday, September 23rd, 2022 <br/>
+© Conor Reynolds
+  2022  
+<a class="fab fa-github fa-1x" href="https://github.com/ConorReynolds" title="GitHub"></a>  
+<a class="fab fa-gitlab fa-1x" href="https://gitlab.cs.nuim.ie/creynolds" title="GitLab"></a>  
+<a class="fab fa-twitter fa-1x" href="https://twitter.com/ConorEReynolds" title="Twitter"></a>  
+<a class="fas fa-envelope fa-1x" href="mailto:conor.reynolds@mu.ie" title="Email"></a></div></body>
+
+<script src="/js/utils.js"></script>
+<script src="/js/elasticlunr.js"></script>
+<script src="/js/search-index.js"></script>
+<script src="/js/searcher.js"></script>
+<script src="/js/checkParams.js"></script>
+
+</html>
