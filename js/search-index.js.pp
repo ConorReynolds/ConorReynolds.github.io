@@ -8,6 +8,8 @@
     (regexp-replace* soft-hyphen
       (string-join (findf*-txexpr tx string?)) "")))
 
+elasticlunr.clearStopWords();
+
 var searchIndex = elasticlunr(function () {
   this.setRef('id');
   this.addField('title');
