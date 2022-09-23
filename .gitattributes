@@ -44,6 +44,6 @@
 *.exe filter=lfs diff=lfs merge=lfs -text
 
 # Syntax highlighting isn’t gonna work for multi-language files
-*.poly.pm linguist-language=Text
+*.html.pm linguist-language=Text
 *.js.pp linguist-language=Text
 *.html.p linguist-language=Text

@@ -60,7 +60,7 @@
       (txexpr 'div '((class "bib-item"))
               `((div [[class "bib-desc"]]
                      (strong ,title) ". "
-                     ,(string-append (string-join authors "; " #:before-last " and ") " ")
+                     ,(string-append (string-join authors "; " #:before-last "; and ") " ")
                      "In "
                      ,(if (not (null? editors))
                           (string-append (string-join editors "; " #:before-last "; and ") ", editor(s), ")
