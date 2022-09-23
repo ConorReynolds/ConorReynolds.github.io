@@ -13,6 +13,7 @@
   pollen/decode
   pollen/tag
   pollen/file
+  sugar/coerce
   ; pollen-count
 
   pollen/unstable/pygments
@@ -116,7 +117,7 @@
   (format "~a" (date-year (current-date))))
 
 (define (link url #:class [class-name #f] . tx-elements)
-  (let* ([url (string-append "/" (symbol->string url))]
+  (let* ([url (string-append "/" (->string url))]
          [tx-elements (if (empty? tx-elements)
                           (list url)
                           tx-elements)]
@@ -220,11 +221,10 @@
 (define (code . elems)
   `(code ,@elems))
 
-(define (codeblock [lang 'racket] . elems)
+(define (codeblock #:wrap [wrap? #f] [lang 'racket] . elems)
   (define raw (apply string-append elems))
-  (highlight #:python-executable "python3"
-             lang
-             raw))
+  (define rendered (highlight #:python-executable "python3" lang raw))
+  (if wrap? (attr-join rendered 'class "code-wrap") rendered))
 
 ;; Similar to MB’s Beautiful Racket — I just don’t like sidenotes very much in HTML
 (define (aside . elems)
@@ -232,6 +232,12 @@
           [onclick "this.classList.toggle(\"show-tooltip\")"]]
          (i [[class "fa fa-plus"] [aria-hidden "true"]])
          (span [[class "tooltip-inner"]] ,@elems)))
+
+(define (muted . elems)
+  `(span [[class "muted"]] ,@elems))
+
+(define (latex)
+  "LaTeX")
 
 (define hrule
   '(hr))

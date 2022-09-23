@@ -16,10 +16,16 @@
 	// 	"description": "Log output to console"
 	// }
 
+	"Page Template": {
+		"scope": "pollen-markup",
+		"prefix": "page-template",
+		"body": "#lang pollen\n\n◊(define-meta title \"$1\")\n\n◊title-block{\n  ◊title{$1}\n  ◊subtitle{$2}\n}\n$0",
+	},
+
 	"Post Template": {
 		"scope": "pollen-markup",
 		"prefix": "post-template",
-		"body": "#lang pollen\n\n◊(define-meta title \"$1\")\n\n◊title-block{\n  ◊title{$1}\n  ◊subtitle{$2}\n}\n$0",
+		"body": "#lang pollen\n\n◊(define-meta title \"$1\")\n◊(define-meta math? $3)\n◊(define-meta created \"$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\")\n\n◊title-block{\n  ◊title{$1}\n  ◊subtitle{$2}\n}\n$0",
 	},
 
 	"Inline maths": {
