@@ -30,7 +30,7 @@ function getSearchResults(query) {
     var resultslist = document.createElement('ul');
     for (let result of results) {
         var link = document.createElement('a');
-        link.href = `${getAbsoluteUrl(result.doc.url)}?search=${query}`;
+        link.href = `/${result.doc.url}?search=${query}`;
         link.textContent = result.doc.title;
         var item = document.createElement('li');
         item.appendChild(link);

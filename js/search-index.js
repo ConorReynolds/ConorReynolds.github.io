@@ -1,3 +1,5 @@
+elasticlunr.clearStopWords();
+
 var searchIndex = elasticlunr(function () {
   this.setRef('id');
   this.addField('title');
