@@ -21,7 +21,7 @@ publish: html scss
 	rm -rf $(PUB_LOCATION)/.vscode/ \
 		$(PUB_LOCATION)/src/ \
 		$(PUB_LOCATION)/.gitattributes \
-		$(PUB_LOCATION)/monochrome.py \
+		$(PUB_LOCATION)/*.py \
 		$(PUB_LOCATION)/zotero.key
 	gh-pages -d $(PUB_LOCATION)/
 
