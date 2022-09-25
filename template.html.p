@@ -74,6 +74,12 @@
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"> 
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
+
+  <link rel="preload" href="/fonts/FiraCode/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/FiraCode/FiraCode-Light.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/FiraCode/FiraCode-Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/FiraCode/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/FiraCode/FiraCode-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
 

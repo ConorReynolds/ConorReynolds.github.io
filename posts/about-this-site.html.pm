@@ -1,5 +1,7 @@
 #lang pollen
 
+◊(require xml)
+
 ◊(define-meta title "About This Site")
 ◊(define-meta math? #false)
 ◊(define-meta created "2022-09-23")
@@ -19,7 +21,8 @@ I maintain a list of my publications on my Zotero account. In the past I used �
 
 I eventually got sick of this and decided to generate the information at compile time with a small Racket script. The source for the ◊xref{home} page looks something like this:
 
-◊codeblock[#:wrap #t 'text "◊section{Publications}\n\nThe following is pulled from my Zotero account. ◊aside{See the ◊extlink[\"https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt\"]{source repo} for details on how this is generated.}\n\n◊(cons '@ ◊(bib-items))"]{}
+◊; Copy–pasted from VSCode for syntax highlighting (with some modifications)
+◊(cons 'verbatim `(,(string->xexpr "<div class=\"highlight code-wrap\"><pre><div><span style=\"color: var(--fg-color);\">◊</span><span style=\"color: #219aa5;\">section</span><span style=\"color: var(--fg-color);\">{Publications}</span></div><br/><div><span style=\"color: var(--fg-color);\">The following is pulled from my Zotero account. ◊</span><span style=\"color: #219aa5;\">aside</span><span style=\"color: var(--fg-color);\">{See the ◊</span><span style=\"color: #219aa5;\">extlink</span><span style=\"color: var(--fg-color);\">[</span><span style=\"color: #555555;\">\"https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt\"</span><span style=\"color: var(--fg-color);\">]{source repo} for details on how this is generated.}</span></div><br/><div><span style=\"color: var(--fg-color);\">◊(</span><span style=\"color: #219aa5;\">cons</span><span style=\"color: var(--fg-color);\"> '@ ◊(bib-items))</span></div></pre></div>")))
 
 The function ◊code{bib-items} is defined in ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt"]{◊code{src/zotero.rkt}.} It pulls my publications directly from Zotero's API and constructs a list of divs that I can splice into the document. This is done at compile time, so a user visiting the page just sees plain HTML. And that's it! It loads faster, it's easier to customise, and it provides almost as much automation---all for a meagre fraction of the time I spent tweaking BibBase. ◊aside{Though, if this isn't your cup of tea, I would still highly recommend BibBase as an alternative.}
 

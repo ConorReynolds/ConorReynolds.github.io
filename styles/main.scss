@@ -5,19 +5,18 @@
         --red-color: #CC6666;
         --hover-color: rgba(255, 141, 158, 0.2);
         --muted-color: #949494;
-        // maybe load B version in dark mode?
-        --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
+        --main-font: ValkyrieB, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
     }
 }
 
 @media (prefers-color-scheme: light) {
     :root {
         --fg-color: black;
-        --bg-color: #f2f2f2;
+        --bg-color: white;
         --red-color: #993333;
         --hover-color: rgb(255, 182, 193, 0.5);
         --muted-color: #464646;
-        --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
+        --main-font: ValkyrieB, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
     }
 }
 
@@ -62,7 +61,7 @@ ol {
 
 @media all and (max-width: 520px) {
     html {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     ul, ol {
@@ -83,8 +82,10 @@ button {
     font-weight: normal;
     text-rendering: optimizeLegibility;
     font-variant: oldstyle-nums;
+    hyphens: auto;
+    
     line-height: 1.55;
-    max-width: 33rem;
+    max-width: 32rem;
     font-size: 1em;
     margin: auto;
     padding-left: 1rem;
@@ -318,7 +319,7 @@ code {
 pre code {
     white-space: nowrap;
     overflow-x: scroll;
-    font-size: 0.85em;
+    font-size: 0.85rem;
 }
 
 div.code {
@@ -404,7 +405,11 @@ pre {
 
 .highlight {
     font-family: var(--code-font);
-    background-color: inherit;
+    font-size: 0.8rem;
+    background-color: #fbfbfb;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem;
     font-variant-ligatures: none;
     font-variant-numeric: normal;
     margin-top: 0;
@@ -418,7 +423,11 @@ pre {
 .code-wrap {
     overflow-x: clip;
     pre {
-        white-space: pre-line;
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
     }
 }
 

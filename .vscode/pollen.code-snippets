@@ -64,6 +64,12 @@
 		"body": "◊em{${1:${TM_SELECTED_TEXT}}}$0",
 	},
 
+	"Bold": {
+		"scope": "pollen-markup",
+		"prefix": ["bold", "strong"],
+		"body": "◊bold{${1:${TM_SELECTED_TEXT}}}$0",
+	},
+
 	"Quotation": {
 		"scope": "pollen-markup",
 		"prefix": ["quot", "quotation"],
@@ -128,5 +134,11 @@
 		"scope": "pollen-markup",
 		"prefix": "xref",
 		"body": "◊xref[\"$2\"]{${1:${TM_SELECTED_TEXT}}}$0",
-	}
+	},
+
+	"Quick Table": {
+		"scope": "pollen-markup",
+		"prefix": ["table", "quick-table"],
+		"body": "◊quick-table{\n  $0\n}",
+	},
 }

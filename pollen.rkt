@@ -77,13 +77,13 @@
   (define elements-with-paragraphs
     (decode-elements elems
                      #:txexpr-elements-proc decode-paragraphs
-                     #:exclude-tags '(title-block table)
+                     #:exclude-tags '(title-block table verbatim)
                      #:exclude-attrs '((class "bib-item"))))
   (list* 'div '((id "doc") (role "main"))
          (decode-elements elements-with-paragraphs
-                          #:block-txexpr-proc hyphenate-block
+                          ; #:block-txexpr-proc hyphenate-block
                           #:string-proc (compose1 string-proc-extras text-typography)
-                          #:exclude-tags '(style script code))))
+                          #:exclude-tags '(style script code verbatim))))
 
 (define soft-hyphen "\u00AD")
 
@@ -160,6 +160,9 @@
 
 (define (em . elems)
   `(em ,@elems))
+
+(define (bold . elems)
+  `(strong ,@elems))
 
 (define (underline . elems)
   `(span [[style "text-decoration: underline;"]] ,@elems))
