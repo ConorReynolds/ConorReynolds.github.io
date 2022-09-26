@@ -141,4 +141,16 @@
 		"prefix": ["table", "quick-table"],
 		"body": "◊quick-table{\n  $0\n}",
 	},
+
+	"Image": {
+		"scope": "pollen-markup",
+		"prefix": ["image", "img"],
+		"body": "◊image[#:src \"$1\"]{$2}\n\n$0",
+	},
+
+	"Video": {
+		"scope": "pollen-markup",
+		"prefix": ["video"],
+		"body": "◊video[#:src \"$1\"]\n\n$0",
+	}
 }

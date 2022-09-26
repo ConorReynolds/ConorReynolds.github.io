@@ -22,6 +22,7 @@
 
   "src/glossary.rkt"
   "src/zotero.rkt"
+  "src/utils.rkt"
   )
 
 (provide (all-defined-out))
@@ -77,7 +78,7 @@
   (define elements-with-paragraphs
     (decode-elements elems
                      #:txexpr-elements-proc decode-paragraphs
-                     #:exclude-tags '(title-block table verbatim)
+                     #:exclude-tags '(figure table title-block verbatim)
                      #:exclude-attrs '((class "bib-item"))))
   (list* 'div '((id "doc") (role "main"))
          (decode-elements elements-with-paragraphs
@@ -235,6 +236,20 @@
           [onclick "this.classList.toggle(\"show-tooltip\")"]]
          (i [[class "fa fa-plus"] [aria-hidden "true"]])
          (span [[class "tooltip-inner"]] ,@elems)))
+
+(define (image #:width [width "80%"] #:lazy [lazy #t] #:src src #:alt [alt #f] . caption)
+  (let ([src (if (regexp-match #rx"^https?://" src) src (format "/media/~a" src))])
+    `(figure
+      (img [[src ,src] [style ,(format "width: ~a;" width)]
+            [alt ,(or alt (apply string-append (findf*-txexpr (cons '@ caption) string?)))]
+            ,(if lazy '(@ [loading "lazy"] [decoding "async"]) '(@))])
+      (figcaption ,(em `(@ ,@caption))))))
+
+(define (video #:width [width "100%"] #:src src)
+  (let ([src (if (regexp-match #rx"^https?://" src) src (format "/media/~a" src))])
+    `(video [[width ,width] [onloadstart "this.volume = 0.5"] [controls ""] [muted ""]]
+            (source [[src ,src]])
+            "Your browser doesn’t support video—sorry!")))
 
 (define (muted . elems)
   `(span [[class "muted"]] ,@elems))
