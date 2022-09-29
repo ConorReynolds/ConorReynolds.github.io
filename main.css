@@ -967,7 +967,7 @@ table:not(.sourcetable) tbody tr {
   font-size: 0.85rem;
   color: var(--muted-color);
   line-height: 1.55;
-  max-width: 33rem;
+  max-width: 32rem;
   margin: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -1091,6 +1091,20 @@ table:not(.sourcetable) tbody tr {
   background-color: #afafaf;
 }
 
+figure {
+  text-align: center;
+}
+figure img {
+  margin: 0 0 1rem 0;
+}
+figure figcaption {
+  color: var(--muted-color);
+}
+
+video {
+  margin: 0rem 0 1rem 0;
+}
+
 html {
   font-size: 2.4vw;
 }
@@ -1191,6 +1205,10 @@ h2:hover .anchor {
 
 p {
   margin-top: 0;
+}
+
+em > em {
+  font-style: normal;
 }
 
 h3 {
