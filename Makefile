@@ -30,6 +30,7 @@ serve:
 
 clean:
 	$(POLLEN) reset
+	find . -name "*.html" -type f -delete
 
 sasswatch: styles/*.scss
 	sass --watch styles/main.scss main.css

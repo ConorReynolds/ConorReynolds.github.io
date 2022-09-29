@@ -112,7 +112,7 @@
     ◊div[#:class "horizontal-rule"]
 
     ◊div[#:id "footer"]{
-      Last updated on ◊(get-date) ◊(br)
+      ◊; Last updated on ◊(get-date) ◊(br)
       © Conor Reynolds
         ◊(if (equal? (get-year) "2022")
              "2022"
