@@ -33,6 +33,10 @@
   (provide (all-defined-out))
   (define poly-targets '(html)))
 
+
+(define project-root
+  (getenv "PROJECT_ROOT"))
+
 (define no-hyphens-attr '(hyphens "none"))
 
 (define (hyphenate-block block-tx)
@@ -133,13 +137,14 @@
   (let* ([x target]
          [x (string-trim x "?")]
          [x (string-downcase x)]
+         [x (if (regexp-match "home" x) "index" x)]
          [x (string-replace x nonbreaking-space "-")]
          [x (string-replace x " " "-")])
     (format "~a.html" x)))
 
 (define (target->url target)
   (define actual-filenames
-    (map path->string (remove-duplicates (map ->output-path (directory-list (string->path "."))))))
+    (map path->string (remove-duplicates (map ->output-path (directory-list (string->path project-root))))))
   (define target-variants (let* ([plural-regex #rx"s$"]
                                  [singular-target (regexp-replace plural-regex target "")]
                                  [plural-target (string-append singular-target "s")])

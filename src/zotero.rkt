@@ -11,15 +11,16 @@
 
 (provide bib-items)
 
+(define project-root
+  (getenv "PROJECT_ROOT"))
+
+
 (define base-url "https://api.zotero.org")
 (define user-id "4711353")
 (define collection-id "I9IF6ZAC")
 
-; I really hope there’s a better way to do this
 (define key
-  (if (file-exists? "zotero.key")
-      (file->string "zotero.key")
-      (file->string "../zotero.key")))
+  (file->string (format "~a/zotero.key" project-root)))
 
 (define target
   (format "~a/users/~a/collections/~a/items?include=data,bibtex&key=~a"

@@ -4,6 +4,8 @@ SERVE_DIR := .
 DST := build/
 PORT := 8080
 
+export PROJECT_ROOT = ${CURDIR}
+
 RENDER := $(POLLEN) render
 SERVE := $(POLLEN) start
 PUBLISH := $(POLLEN) publish
@@ -21,7 +23,7 @@ publish: html scss
 	rm -rf $(PUB_LOCATION)/.vscode/ \
 		$(PUB_LOCATION)/src/ \
 		$(PUB_LOCATION)/.gitattributes \
-		$(PUB_LOCATION)/*.py \
+		$(PUB_LOCATION)/pygments \
 		$(PUB_LOCATION)/zotero.key
 	gh-pages -d $(PUB_LOCATION)/
 
