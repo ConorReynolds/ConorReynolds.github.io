@@ -13,7 +13,7 @@ PUB_LOCATION := ../projects/webpage-public
 
 
 scss: styles/*.scss
-	sass styles/main.scss main.css
+	sass --style=compressed styles/main.scss main.css
 
 html: scss
 	$(RENDER) $(HTML_SRC)
