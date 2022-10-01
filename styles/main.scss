@@ -84,6 +84,7 @@ button {
     text-rendering: optimizeLegibility;
     font-variant: oldstyle-nums;
     hyphens: auto;
+    -webkit-hyphens: auto;
     
     line-height: 1.55;
     max-width: 32rem;
@@ -144,6 +145,8 @@ h2 {
 
 p {
     margin-top: 0;
+    hyphens: auto;
+    -webkit-hyphens: auto;
 }
 
 em > em {

@@ -1,7 +1,14 @@
-
 const searchBar = document.getElementById('searchbar');
 const searchForm = document.getElementById('searchbar-outer');
 var searchResults = document.getElementById('searchresults-outer');
+
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === "/") {
+        event.preventDefault();
+        searchBar.focus();
+    }
+});
 
 searchForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -10,7 +17,6 @@ searchForm.addEventListener('submit', function (event) {
         window.location.assign(getAbsoluteUrl(topResult.firstChild.href));
     }
 });
-
 
 searchBar.oninput = function (_event) {
     if (searchBar.value === '') {
@@ -26,6 +32,10 @@ function getSearchResults(query) {
     const results = searchIndex.search(query, {
         expand: true,
         bool: "AND",
+        fields: {
+            title: {boost: 2},
+            body: {boost: 1},
+        },
     });
     var resultslist = document.createElement('ul');
     for (let result of results) {
