@@ -90,7 +90,7 @@
 
 	"External Links": {
 		"scope": "pollen-markup",
-		"prefix": ["extlink", "hyperlink", "href"],
+		"prefix": ["link", "extlink", "hyperlink", "href"],
 		"body": "◊extlink[\"$2\"]{${1:${TM_SELECTED_TEXT}}}$0"
 	},
 
