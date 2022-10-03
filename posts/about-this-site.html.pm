@@ -58,6 +58,12 @@ Plenty of sites (like GitHub) and browsers (like Firefox) have this sort of func
 
 Pollen comes with a ◊extlink["https://git.matthewbutterick.com/mbutterick/pollen/src/commit/c182a30f57ea5096440aea3d097f5fe3b78bb236/pollen/unstable/pygments.rkt#L157"]{◊code{highlight}} function, which statically generates syntax-highlighted code using ◊extlink["https://pygments.org/"]{Pygments.} I was not particularly enamoured with the provided styles. Some are nice, but few suit the style of this site. There was also no lexer for Pollen. Without one, showcasing examples of Pollen markup would prove some unpleasant combination of tricky and annoying.
 
-I decided to try writing my own monochrome style. It suits the site, sure, but it's pretty boring. I also decided to add a Pollen lexer, which you can find ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/pygments/pollen.py"]{here.} It's almost certainly ◊em{far} too simple, but it works fine on the basic snippets I've tried.
+I decided to try writing my own monochrome style. It suits the site, sure, but at the cost of being boring. I also wrote a Pollen lexer, which you can find ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/pygments/pollen.py"]{here.} It's almost certainly ◊em{far} too simple, but it works fine on the basic snippets I've tried.
 
 The easiest way to add new lexers, it seems, is to just fork a copy of Pygments, add the lexer directly, rebuild the lexer mapping with ◊code{make mapfiles} (as ◊extlink["https://pygments.org/docs/lexerdevelopment/#adding-and-testing-a-new-lexer"]{described in the docs}), then pip install your local copy of Pygments. You can throw your custom styles in there too while you're at it.
+
+◊section{Full Disclosure}
+
+I use ◊extlink["https://clicky.com"]{clicky} for tracking. I just want a basic overview of traffic, and maybe some insight into where traffic is coming from. No personal data is logged.
+
+Want to opt out? You probably have already. If you have virutally any sort of ad blocker installed---and at this point, who doesn't?---clicky will be blocked. If you have JavaScript disabled, the clicky script won't load. (But neither will some other useful features.)

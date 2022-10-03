@@ -124,11 +124,15 @@
     }
   })
 
-◊; Search Engine
 <script src="/js/utils.js"></script>
+<script src="/js/checkParams.js"></script>
+
+◊; Search Engine
 <script src="/js/elasticlunr.js"></script>
 <script src="/js/search-index.js"></script>
 <script src="/js/searcher.js"></script>
-<script src="/js/checkParams.js"></script>
+
+◊; Clicky Analytics
+<script async src="//static.getclicky.com/101382862.js"></script>
 
 </html>

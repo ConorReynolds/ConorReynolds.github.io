@@ -2,6 +2,9 @@ compiled/
 *.html
 *~
 
+# Gets copied over, but there’s no point committing it here.
+CNAME
+
 # other generated files
 js/search-index.js
 main.css
