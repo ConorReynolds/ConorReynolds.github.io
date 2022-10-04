@@ -66,4 +66,4 @@ The easiest way to add new lexers, it seems, is to just fork a copy of Pygments,
 
 I use ◊extlink["https://clicky.com"]{clicky} for tracking. I just want a basic overview of traffic, and maybe some insight into where traffic is coming from. No personal data is logged.
 
-Want to opt out? You probably have already. If you have virutally any sort of ad blocker installed---and at this point, who doesn't?---clicky will be blocked. If you have JavaScript disabled, the clicky script won't load. (But neither will some other useful features.)
+Want to opt out? You probably have already. If you have virtually any sort of ad blocker installed---and at this point, who doesn't?---clicky will be blocked. If you have JavaScript disabled, the clicky script won't load. (But neither will some other useful features.)
