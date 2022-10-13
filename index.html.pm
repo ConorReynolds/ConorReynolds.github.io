@@ -1,11 +1,8 @@
 #lang pollen
 
-◊(define-meta title "Home")
-
-◊title-block{
-  ◊title{Conor Reynolds}
-  ◊subtitle{PhD Student & Formal Methods Researcher}
-}
+◊(define-meta toc-title "Home")
+◊(define-meta title "Conor Reynolds")
+◊(define-meta subtitle "PhD Student & Formal Methods Researcher")
 
 I am a PhD student at ◊extlink["https://www.maynoothuniversity.ie/"]{Maynooth University.} My research interests include the ◊extlink["https://iep.utm.edu/insti-th/"]{theory of institutions,} the ◊extlink["https://coq.inria.fr/"]{Coq proof assistant,} the ◊extlink["http://www.event-b.org/"]{Event‑B formal modelling tool,} and formal software design in general.
 

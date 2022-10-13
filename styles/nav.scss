@@ -49,11 +49,7 @@
 }
 
 .nav-top {
-    position: absolute;
-    margin-top: 0.5rem;
-    margin-left: auto;
-    right: 50%;
-    transform: translate(16rem, 0);
+    margin-top: 0.3rem;
     font-size: 1rem;
     font-family: 'PT Sans Narrow';
 
@@ -77,13 +73,12 @@
 
 @media all and (max-width: 520px) {
     .nav-top {
-        position: relative;
+        order: -2;
+        // position: relative;
         right: unset;
         transform: unset;
-        margin-top: 1rem;
+        // margin-top: 1rem;
         margin-bottom: 0.5rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
         font-size: 0.9rem;
         padding-bottom: 0;
     }

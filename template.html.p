@@ -25,7 +25,7 @@
   })
 
 ◊(define (make-top-nav-link pagenode)
-   (link pagenode (select 'title pagenode)))
+   (link pagenode (select-from-metas 'toc-title pagenode)))
 
 ◊(define (parents node)
    (if (parent node)
@@ -42,8 +42,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    ◊(take-noexcept (select* 'h1 doc) 2)
-    ◊when/splice[(not (equal? here 'index.html))]{| Conor Reynolds}
+    ◊(select-from-metas 'title here) ◊when/splice[(not (equal? here 'index.html))]{| Conor Reynolds}
   </title>
 
   ◊; KaTeX
@@ -85,25 +84,32 @@
 
 ◊(->html
   ◊body{
-    ◊div[#:class "nav-top" #:role "navigation"]{
-      ◊for/splice[([item (add-between (map make-top-nav-link
-                                           (map (λ (x) (if (list? x) (car x) x))
-                                           (cdr (current-pagetree)))) "/")])]{
-        ◊|item|
+    ◊div[#:class "header"]{
+      ◊title-block{
+        ◊title{◊(select-from-metas 'title here)}
+        ◊subtitle{◊(select-from-metas 'subtitle here)}
       }
-    }
 
-    ◊div[#:id "search-wrapper"]{
-      ◊form[#:id "searchbar-outer" #:class "searchbar-outer"]{
-        ◊input[
-          #:type "search" #:id "searchbar" #:name "searchbar"
-          #:autocomplete "off"
-          #:placeholder "Search …"
-          #:aria-controls "searchresults-outer"
-          #:aria-describedby "searchresults-header"]
+      ◊div[#:class "nav-top" #:role "navigation"]{
+        ◊for/splice[([item (add-between (map make-top-nav-link
+                                            (map (λ (x) (if (list? x) (car x) x))
+                                            (cdr (current-pagetree)))) "/")])]{
+          ◊|item|
+        }
       }
-      ◊div[#:id "searchresults-outer" #:class "searchresults-outer"]{
-        ◊div[#:id "searchresults-header" #:class "searchresults-header"]
+
+      ◊div[#:id "search-wrapper"]{
+        ◊form[#:id "searchbar-outer" #:class "searchbar-outer"]{
+          ◊input[
+            #:type "search" #:id "searchbar" #:name "searchbar"
+            #:autocomplete "off"
+            #:placeholder "Search …"
+            #:aria-controls "searchresults-outer"
+            #:aria-describedby "searchresults-header"]
+        }
+        ◊div[#:id "searchresults-outer" #:class "searchresults-outer"]{
+          ◊div[#:id "searchresults-header" #:class "searchresults-header"]
+        }
       }
     }
 

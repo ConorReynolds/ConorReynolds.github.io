@@ -1,11 +1,8 @@
 #lang pollen
 
-◊(define-meta title "CV")
-
-◊title-block{
-  ◊title{Curriculum Vitae}
-  ◊subtitle{Under construction 🚧}
-}
+◊(define-meta toc-title "CV")
+◊(define-meta title "Curriculum Vitae")
+◊(define-meta subtitle "Under construction 🚧")
 
 Still working on it! In the meantime, here’s some information of questionable note.
 

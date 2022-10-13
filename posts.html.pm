@@ -29,10 +29,7 @@
                     ,(muted (~t (get-date post) "E, MMMM dd, y"))))))
 
 ◊(define-meta title "Posts")
-
-◊title-block{
-  ◊title{Posts}
-  ◊subtitle{Everything I've posted to date}
-}
+◊(define-meta toc-title "Posts")
+◊(define-meta subtitle "Everything I've posted to date")
 
 ◊(post-toc)
