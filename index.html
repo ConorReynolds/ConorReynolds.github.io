@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    Conor Reynolds
-
+    Conor Reynolds 
   </title>
 
 
@@ -24,17 +23,20 @@
   <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
 
-<body><div class="nav-top" role="navigation"><a href="/index.html">Home</a>/<a href="/contact.html">Contact</a>/<a href="/cv.html">CV</a>/<a href="/posts.html">Posts</a></div>
+<body><div class="header"><div id="title-block"><h1>Conor Reynolds</h1>
+<div class="subtitle">PhD Student &amp; Formal Methods Researcher</div></div>
+
+<div class="nav-top" role="navigation"><a href="/index.html">Home</a>/<a href="/contact.html">Contact</a>/<a href="/cv.html">CV</a>/<a href="/posts.html">Posts</a></div>
 
 <div id="search-wrapper"><form class="searchbar-outer" id="searchbar-outer"><input aria-controls="searchresults-outer" aria-describedby="searchresults-header" autocomplete="off" id="searchbar" name="searchbar" placeholder="Search …" type="search"/></form>
-<div class="searchresults-outer" id="searchresults-outer"><div class="searchresults-header" id="searchresults-header"></div></div></div>
+<div class="searchresults-outer" id="searchresults-outer"><div class="searchresults-header" id="searchresults-header"></div></div></div></div>
 
-<div id="doc" role="main"><div id="title-block"><h1>Conor Reynolds</h1><div class="subtitle">PhD Student &amp; Formal Methods Researcher</div></div><p>I am a PhD student at <a class="extlink" href="https://www.maynoothuniversity.ie/">Maynooth University.</a> My research interests include the <a class="extlink" href="https://iep.utm.edu/insti-th/">theory of institutions,</a> the <a class="extlink" href="https://coq.inria.fr/">Coq proof assistant,</a> the <a class="extlink" href="http://www.event-b.org/">Event‑B formal modelling tool,</a> and formal software design in general.</p><p>I’m working on formalising the theory of institutions in Coq, with the institution for Event‑B as a primary use-case—supervised by Dr Rosemary Monahan and funded by the <a class="extlink" href="https://research.ie/">Irish Research Council.</a> The formalisation is open source and available <a class="extlink" href="https://github.com/ConorReynolds/coq-institutions">on my GitHub.</a></p><h2 id="Publications" class="section">Publications<a class="anchor" href="#Publications" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The following is pulled from my Zotero account. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">See the <a class="extlink" href="https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt">source repo</a> for details on how this is generated.</span></span></p><div class="bib-item"><div class="bib-desc"><strong>Machine-Assisted Proofs for Institutions in Coq</strong>. Reynolds, C.; and Monahan, R. In Aït-Ameur, Y.; and Crăciun, F., editor(s), <em>Theoretical Aspects of Software Engineering</em>, pages 180–196, Cham, 2022. Springer International Publishing</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gqfnb6">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><pre hyphens="none">@inproceedings{reynolds_machine-assisted_2022,
+<div id="doc" role="main"><p>I am a PhD student at <a class="extlink" href="https://www.maynoothuniversity.ie/">Maynooth University.</a> My research interests include the <a class="extlink" href="https://iep.utm.edu/insti-th/">theory of institutions,</a> the <a class="extlink" href="https://coq.inria.fr/">Coq proof assistant,</a> the <a class="extlink" href="http://www.event-b.org/">Event‑B formal modelling tool,</a> and formal software design in general.</p><p>I’m working on formalising the theory of institutions in Coq, with the institution for Event‑B as a primary use-case—supervised by Dr Rosemary Monahan and funded by the <a class="extlink" href="https://research.ie/">Irish Research Council.</a> The formalisation is open source and available <a class="extlink" href="https://github.com/ConorReynolds/coq-institutions">on my GitHub.</a></p><h2 id="Publications" class="section">Publications<a class="anchor" href="#Publications" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The following is pulled from my Zotero account. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">See the <a class="extlink" href="https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt">source repo</a> for details on how this is generated.</span></span></p><div class="bib-item"><div class="bib-desc"><strong>Machine-Assisted Proofs for Institutions in Coq</strong>. Reynolds, C.; and Monahan, R. In Aït-Ameur, Y.; and Crăciun, F., editor(s), <em>Theoretical Aspects of Software Engineering</em>, pages 180–196, Cham, 2022. Springer International Publishing</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10.1007/978-3-031-10363-6_13">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><pre hyphens="none">@inproceedings{reynolds_machine-assisted_2022,
   address = {Cham},
   title = {Machine-{Assisted} {Proofs} for {Institutions} in {Coq}},
   isbn = {978-3-031-10363-6},
   url = {https://doi.org/10.1007/978-3-031-10363-6_13},
-  doi = {10/gqfnb6},
+  doi = {10.1007/978-3-031-10363-6_13},
   abstract = {The theory of institutions provides an abstract mathematical framework for specifying logical systems and their semantic relationships. Institutions are based on category theory and have deep roots in a well-developed branch of algebraic specification. However, there are no machine-assisted proofs of correctness for institution-theoretic constructions—chiefly satisfaction conditions for institutions and their (co)morphisms—making them difficult to incorporate into mainstream formal methods. This paper therefore provides the details of our approach to formalizing a fragment of the theory of institutions in the Coq proof assistant. We instantiate this framework with the institutions FOPEQ for first-order predicate logic and EVT for the Event-B specification language, both of which will serve as an illustration and evaluation of the overall approach.},
   booktitle = {Theoretical {Aspects} of {Software} {Engineering}},
   publisher = {Springer International Publishing},

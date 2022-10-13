@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    About This Site
-    | Conor Reynolds
+    About This Site | Conor Reynolds
   </title>
 
 
@@ -24,12 +23,15 @@
   <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
 
-<body><div class="nav-top" role="navigation"><a href="/index.html">Home</a>/<a href="/contact.html">Contact</a>/<a href="/cv.html">CV</a>/<a href="/posts.html">Posts</a></div>
+<body><div class="header"><div id="title-block"><h1>About This Site</h1>
+<div class="subtitle">Pollen + Makefile = all you need</div></div>
+
+<div class="nav-top" role="navigation"><a href="/index.html">Home</a>/<a href="/contact.html">Contact</a>/<a href="/cv.html">CV</a>/<a href="/posts.html">Posts</a></div>
 
 <div id="search-wrapper"><form class="searchbar-outer" id="searchbar-outer"><input aria-controls="searchresults-outer" aria-describedby="searchresults-header" autocomplete="off" id="searchbar" name="searchbar" placeholder="Search …" type="search"/></form>
-<div class="searchresults-outer" id="searchresults-outer"><div class="searchresults-header" id="searchresults-header"></div></div></div>
+<div class="searchresults-outer" id="searchresults-outer"><div class="searchresults-header" id="searchresults-header"></div></div></div></div>
 
-<div id="doc" role="main"><div id="title-block"><h1>About This Site</h1><div class="subtitle">Pollen + Makefile = all you need</div></div><p>This site is built using <a class="extlink" href="https://docs.racket-lang.org/pollen">Pollen,</a> an incredibly flexible tool for creating web books. To oversimplify: Pollen source files go in, written in a markup language of your own design, and HTML comes out. It’s like LaTeX for the web—but where LaTeX is a giant macro preprocessor, Racket is a modern programming language. This turns out to have quite a few benefits. This site is <a class="extlink" href="https://github.com/ConorReynolds/ConorReynolds.github.io">open source,</a> so feel free to have a dig around to see how it works.</p><p>Instead of explaining in detail exactly what makes Pollen great, I’ll provide an example of how I use it.</p><p>I wanted to list my publications on the front page of my site. I also wanted to automate this process, since the job of curating such a list by hand is initially tedious and eventually forgotten outright.</p><p>I already maintain a list of my publications on my Zotero account. In the past I used <a class="extlink" href="https://bibbase.org/">BibBase</a> to present this information on my site, but found that it was extremely finicky to style to my liking, and very slow to load. For longer lists the wait becomes nearly unbearable.</p><p>It occurred to me that this information could be generated at compile time with a small Racket script rather than every time the site is served. Pollen easily facilitates this. Part of the source for the <a class="xref" hyphens="none" href="/index.html">home</a> page looks something like this:</p><div class="highlight code-wrap"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<div id="doc" role="main"><p>This site is built using <a class="extlink" href="https://docs.racket-lang.org/pollen">Pollen,</a> an incredibly flexible tool for creating web books. To oversimplify: Pollen source files go in, written in a markup language of your own design, and HTML comes out. It’s like LaTeX for the web—but where LaTeX is a giant macro preprocessor, Racket is a modern programming language. This turns out to have quite a few benefits. This site is <a class="extlink" href="https://github.com/ConorReynolds/ConorReynolds.github.io">open source,</a> so feel free to have a dig around to see how it works.</p><p>Instead of explaining in detail exactly what makes Pollen great, I’ll provide an example of how I use it.</p><p>I wanted to list my publications on the front page of my site. I also wanted to automate this process, since the job of curating such a list by hand is initially tedious and eventually forgotten outright.</p><p>I already maintain a list of my publications on my Zotero account. In the past I used <a class="extlink" href="https://bibbase.org/">BibBase</a> to present this information on my site, but found that it was extremely finicky to style to my liking, and very slow to load. For longer lists the wait becomes nearly unbearable.</p><p>It occurred to me that this information could be generated at compile time with a small Racket script rather than every time the site is served. Pollen easily facilitates this. Part of the source for the <a class="xref" hyphens="none" href="/index.html">home</a> page looks something like this:</p><div class="highlight code-wrap"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
