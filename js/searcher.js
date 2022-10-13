@@ -34,6 +34,7 @@ function getSearchResults(query) {
         bool: "AND",
         fields: {
             title: {boost: 2},
+            toctitle: {boost: 2},
             body: {boost: 1},
         },
     });
@@ -41,7 +42,7 @@ function getSearchResults(query) {
     for (let result of results) {
         var link = document.createElement('a');
         link.href = `/${result.doc.url}?search=${query}`;
-        link.textContent = result.doc.title;
+        link.textContent = result.doc.toctitle;
         var item = document.createElement('li');
         item.appendChild(link);
         resultslist.appendChild(item);

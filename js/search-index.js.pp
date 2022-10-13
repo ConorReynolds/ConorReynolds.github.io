@@ -13,6 +13,7 @@ elasticlunr.clearStopWords();
 var searchIndex = elasticlunr(function () {
   this.setRef('id');
   this.addField('title');
+  this.addField('toctitle');
   this.addField('body');
 });
 
@@ -22,6 +23,7 @@ var id = 0;
   searchIndex.addDoc({
     "id": id++,
     "title": `◊(select-from-metas 'title page)`,
+    "toctitle": `◊(select-from-metas 'toc-title page)`,
     "body": `◊(grab-strs (get-doc page))`,
     "url": `◊|page|`,
   });
