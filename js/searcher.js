@@ -23,9 +23,9 @@ searchBar.oninput = function (_event) {
         while (searchResults.firstChild) {
             searchResults.removeChild(searchResults.firstChild);
         }
+    } else {
+        getSearchResults(searchBar.value);
     }
-
-    getSearchResults(searchBar.value);
 };
 
 function getSearchResults(query) {
@@ -38,14 +38,20 @@ function getSearchResults(query) {
             body: {boost: 1},
         },
     });
-    var resultslist = document.createElement('ul');
-    for (let result of results) {
-        var link = document.createElement('a');
-        link.href = `/${result.doc.url}?search=${query}`;
-        link.textContent = result.doc.toctitle;
-        var item = document.createElement('li');
-        item.appendChild(link);
-        resultslist.appendChild(item);
+    if (results && results.length) {
+        var resultslist = document.createElement('ul');
+        for (let result of results) {
+            var link = document.createElement('a');
+            link.href = `/${result.doc.url}?search=${query}`;
+            link.textContent = result.doc.toctitle;
+            var item = document.createElement('li');
+            item.appendChild(link);
+            resultslist.appendChild(item);
+        }
+        searchResults.replaceChildren(resultslist);
+    } else {
+        while (searchResults.firstChild) {
+            searchResults.removeChild(searchResults.firstChild);
+        }
     }
-    searchResults.replaceChildren(resultslist);
 }
