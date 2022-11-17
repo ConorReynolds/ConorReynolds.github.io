@@ -9,27 +9,22 @@
 
 
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
 
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-Light.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-Medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-mediumitalic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-bolditalic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
 
 <body><div class="header"><div id="title-block"><h1>Conor Reynolds</h1>
 <div class="subtitle">PhD Student &amp; Formal Methods Researcher</div></div>
 
-<div class="nav-top" role="navigation"><a href="/index.html">Home</a>/<a href="/contact.html">Contact</a>/<a href="/cv.html">CV</a>/<a href="/posts.html">Posts</a></div>
+<div class="nav-container"><div class="nav-top" role="navigation"><a href="/index.html">Home</a>/<a href="/contact.html">Contact</a>/<a href="/cv.html">CV</a>/<a href="/posts.html">Posts</a></div>
 
 <div id="search-wrapper"><form class="searchbar-outer" id="searchbar-outer"><input aria-controls="searchresults-outer" aria-describedby="searchresults-header" autocomplete="off" id="searchbar" name="searchbar" placeholder="Search …" type="search"/></form>
-<div class="searchresults-outer" id="searchresults-outer"><div class="searchresults-header" id="searchresults-header"></div></div></div></div>
+<div class="searchresults-outer" id="searchresults-outer"><div class="searchresults-header" id="searchresults-header"></div></div></div></div></div>
 
 <div id="doc" role="main"><p>I am a PhD student at <a class="extlink" href="https://www.maynoothuniversity.ie/">Maynooth University.</a> My research interests include the <a class="extlink" href="https://iep.utm.edu/insti-th/">theory of institutions,</a> the <a class="extlink" href="https://coq.inria.fr/">Coq proof assistant,</a> the <a class="extlink" href="http://www.event-b.org/">Event‑B formal modelling tool,</a> and formal software design in general.</p><p>I’m working on formalising the theory of institutions in Coq, with the institution for Event‑B as a primary use-case—supervised by Dr Rosemary Monahan and funded by the <a class="extlink" href="https://research.ie/">Irish Research Council.</a> The formalisation is open source and available <a class="extlink" href="https://github.com/ConorReynolds/coq-institutions">on my GitHub.</a></p><h2 id="Publications" class="section">Publications<a class="anchor" href="#Publications" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The following is pulled from my Zotero account. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">See the <a class="extlink" href="https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt">source repo</a> for details on how this is generated.</span></span></p><div class="bib-item"><div class="bib-desc"><strong>Machine-Assisted Proofs for Institutions in Coq</strong>. Reynolds, C.; and Monahan, R. In Aït-Ameur, Y.; and Crăciun, F., editor(s), <em>Theoretical Aspects of Software Engineering</em>, pages 180–196, Cham, 2022. Springer International Publishing</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10.1007/978-3-031-10363-6_13">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><pre hyphens="none">@inproceedings{reynolds_machine-assisted_2022,
   address = {Cham},
@@ -78,7 +73,7 @@
 
 <div class="horizontal-rule"></div>
 
-<div id="footer">© Conor Reynolds
+<div aria-hidden="true" id="footer">© Conor Reynolds
   2022  
 <a class="fab fa-github fa-1x" href="https://github.com/ConorReynolds" title="GitHub"></a>  
 <a class="fab fa-gitlab fa-1x" href="https://gitlab.cs.nuim.ie/creynolds" title="GitLab"></a>  

@@ -51,7 +51,7 @@
 .nav-top {
     margin-top: 0.3rem;
     font-size: 1rem;
-    font-family: 'PT Sans Narrow';
+    font-family: var(--alt-font);
 
     a {
         margin-left: 0.5em;
@@ -72,15 +72,22 @@
 }
 
 @media all and (max-width: 520px) {
-    .nav-top {
+    .nav-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
         order: -2;
-        // position: relative;
-        right: unset;
-        transform: unset;
-        // margin-top: 1rem;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-        padding-bottom: 0;
+        .nav-top {
+            // position: relative;
+            right: unset;
+            transform: unset;
+            // margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            padding-bottom: 0;
+        }
     }
 
     .nav-inner {

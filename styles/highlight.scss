@@ -1,3 +1,11 @@
+:root {
+    --auburn: #993333;
+    --sky-blue: #97D2FB;
+    --slate-blue: #7161EF;
+    --ebony: #161B33;
+}
+
+
 @media (prefers-color-scheme: dark) {
     :root {
         --kw-color: #dbdbdb;
@@ -11,17 +19,24 @@
 
 @media (prefers-color-scheme: light) {
     :root {
-        --kw-color: #303030;
+        // --kw-color: #303030;
+        --kw-color: var(--auburn);
         --op-color: #555555;
         --num-color: #666666;
+        --comment-color: #777777;
 
         --code-bg-color: #fbfbfb;
         --code-border-color: #ddd;
+        --code-filename-bg-color: #f0f0f0;
     }
 }
 
-.highlight {
+.highlight .source {
     overflow-x: auto;
+}
+
+.highlight .sourcetable {
+    display: block;
 }
 
 .highlight .linenos {
@@ -51,8 +66,8 @@
 }
 
 .highlight .c {
-    color: #408080;
-    font-style: italic
+    color: var(--comment-color);
+    // font-style: italic
 }
 
 /* Comment */
@@ -63,7 +78,7 @@
 /* Error */
 .highlight .k {
     color: var(--kw-color);
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Keyword */
@@ -74,13 +89,13 @@
 /* Operator */
 .highlight .ch {
     color: #408080;
-    font-style: italic
+    // font-style: italic
 }
 
 /* Comment.Hashbang */
 .highlight .cm {
     color: #408080;
-    font-style: italic
+    // font-style: italic
 }
 
 /* Comment.Multiline */
@@ -91,19 +106,19 @@
 /* Comment.Preproc */
 .highlight .cpf {
     color: #408080;
-    font-style: italic
+    // font-style: italic
 }
 
 /* Comment.PreprocFile */
 .highlight .c1 {
     color: #408080;
-    font-style: italic
+    // font-style: italic
 }
 
 /* Comment.Single */
 .highlight .cs {
     color: #408080;
-    font-style: italic
+    // font-style: italic
 }
 
 /* Comment.Special */
@@ -113,7 +128,7 @@
 
 /* Generic.Deleted */
 .highlight .ge {
-    font-style: italic
+    // font-style: italic
 }
 
 /* Generic.Emph */
@@ -124,7 +139,7 @@
 /* Generic.Error */
 .highlight .gh {
     color: #000080;
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Generic.Heading */
@@ -140,18 +155,18 @@
 /* Generic.Output */
 .highlight .gp {
     color: #000080;
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Generic.Prompt */
 .highlight .gs {
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Generic.Strong */
 .highlight .gu {
     color: #800080;
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Generic.Subheading */
@@ -162,18 +177,19 @@
 /* Generic.Traceback */
 .highlight .kc {
     color: var(--kw-color);
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Keyword.Constant */
 .highlight .kd {
-    color: inherit;
+    color: var(--kw-color);
+    // font-weight: bold;
 }
 
 /* Keyword.Declaration */
 .highlight .kn {
     color: var(--kw-color);
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Keyword.Namespace */
@@ -184,12 +200,12 @@
 /* Keyword.Pseudo */
 .highlight .kr {
     color: var(--kw-color);
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Keyword.Reserved */
 .highlight .kt {
-    color: #B00040
+    color: var(--slate-blue)
 }
 
 /* Keyword.Type */
@@ -202,9 +218,13 @@
     color: var(--op-color)
 }
 
+.highlight .n {
+    color: inherit;
+}
+
 /* Literal.String */
 .highlight .na {
-    color: #7D9029
+    color: inherit;
 }
 
 /* Name.Attribute */
@@ -214,8 +234,8 @@
 
 /* Name.Builtin */
 .highlight .nc {
-    color: #0000FF;
-    font-weight: bold
+    color: var(--slate-blue);
+    // font-weight: bold;
 }
 
 /* Name.Class */
@@ -225,52 +245,52 @@
 
 /* Name.Constant */
 .highlight .nd {
-    color: #AA22FF
+    color: var(--op-color)
 }
 
 /* Name.Decorator */
 .highlight .ni {
     color: #999999;
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Name.Entity */
 .highlight .ne {
     color: #D2413A;
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Name.Exception */
 .highlight .nf {
-    color: #0000FF
+    color: inherit;
 }
 
 /* Name.Function */
 .highlight .nl {
-    color: #A0A000
+    color: var(--op-color);
 }
 
 /* Name.Label */
 .highlight .nn {
-    color: #0000FF;
-    font-weight: bold
+    color: var(--slate-blue);
+    // font-weight: bold
 }
 
 /* Name.Namespace */
 .highlight .nt {
     color: var(--kw-color);
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Name.Tag */
 .highlight .nv {
-    color: #19177C
+    color: inherit
 }
 
 /* Name.Variable */
 .highlight .ow {
-    color: #AA22FF;
-    font-weight: bold
+    color: var(--op-color);
+    // font-weight: bold
 }
 
 /* Operator.Word */
@@ -326,7 +346,7 @@
 /* Literal.String.Delimiter */
 .highlight .sd {
     color: var(--op-color);
-    font-style: italic
+    // font-style: italic
 }
 
 /* Literal.String.Doc */
@@ -337,7 +357,7 @@
 /* Literal.String.Double */
 .highlight .se {
     color: var(--op-color);
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Literal.String.Escape */
@@ -348,7 +368,7 @@
 /* Literal.String.Heredoc */
 .highlight .si {
     color: #BB6688;
-    font-weight: bold
+    // font-weight: bold
 }
 
 /* Literal.String.Interpol */
@@ -378,27 +398,27 @@
 
 /* Name.Builtin.Pseudo */
 .highlight .fm {
-    color: #0000FF
+    color: var(--slate-blue)
 }
 
 /* Name.Function.Magic */
 .highlight .vc {
-    color: #19177C
+    color: var(--slate-blue)
 }
 
 /* Name.Variable.Class */
 .highlight .vg {
-    color: #19177C
+    color: var(--slate-blue)
 }
 
 /* Name.Variable.Global */
 .highlight .vi {
-    color: #19177C
+    color: var(--slate-blue)
 }
 
 /* Name.Variable.Instance */
 .highlight .vm {
-    color: #19177C
+    color: var(--slate-blue)
 }
 
 /* Name.Variable.Magic */
@@ -416,24 +436,37 @@ pre {
 }
 
 .highlight {
-    font-family: var(--code-font);
-    font-size: 0.8rem;
-    background-color: var(--code-bg-color);
-    border-top: 1px solid var(--code-border-color);
-    border-bottom: 1px solid var(--code-border-color);
-    padding: 0.5rem;
-    font-variant-ligatures: none;
-    font-variant-numeric: normal;
-    margin-top: 0;
-    margin-bottom: 1rem;
+    .source {
+        font-family: var(--code-font);
+        font-size: 0.9rem;
+        background-color: var(--code-bg-color);
+        border-top: 1px solid var(--code-border-color);
+        border-bottom: 1px solid var(--code-border-color);
+        padding: 0.5rem;
+        font-variant-ligatures: none;
+        font-variant-numeric: normal;
+        margin-top: 0;
+        margin-bottom: 1rem;
 
-    pre {
-        margin: 0;
+        pre {
+            margin: 0;
+        }
+    }
+
+    .caption {
+        font-family: var(--alt-font);
+        font-size: 0.8em;
+        font-style: italic;
+        margin: auto;
+        padding: 0.2rem 0 0.2rem 0.5rem;
+        color: var(--muted-color);
+        background-color: var(--code-filename-bg-color);
     }
 }
 
 .code-wrap {
     overflow-x: clip;
+
     pre {
         white-space: pre-wrap;
         white-space: -moz-pre-wrap;
