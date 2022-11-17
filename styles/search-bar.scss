@@ -2,7 +2,7 @@
     z-index: 100;
     font-size: 0.85rem;
     width: 7rem;
-    // margin-top: 2rem;
+    margin-top: 0.3rem;
     padding: 0;
     background-color: var(--bg-color);
     margin-left: auto;
@@ -13,7 +13,7 @@
     // transform: translate(16rem, 0);
     font-family: var(--main-font);
     font-style: normal;
-    transform: translateY(-2rem);
+    // transform: translateY(-2rem);
 
     input {
         float: right;
@@ -87,9 +87,9 @@
 
 @media all and (max-width: 520px) {
     #search-wrapper {
-        order: -1;
         width: 35%;
         transform: unset;
-        // margin-top: 2.3rem;
+        margin: 0;
+        padding: 0;
     }
 }

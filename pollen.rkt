@@ -83,11 +83,12 @@
     (decode-elements elems
                      #:txexpr-elements-proc decode-paragraphs
                      #:exclude-tags '(figure table title-block verbatim)
-                     #:exclude-attrs '((class "bib-item"))))
+                     #:exclude-attrs '((class "bib-item") (class "highlight"))))
   (list* 'div '((id "doc") (role "main"))
          (decode-elements elements-with-paragraphs
                           ; #:block-txexpr-proc hyphenate-block
                           #:string-proc (compose1 string-proc-extras text-typography)
+                          #:exclude-attrs '((class "highlight"))
                           #:exclude-tags '(style script code verbatim))))
 
 (define soft-hyphen "\u00AD")
@@ -102,13 +103,23 @@
   `(div [[class "subtitle"]] ,@elems))
 
 (define (section . elems)
-  (define strs (findf*-txexpr (cons 'x elems) string?))
+  (define strs (findf*-txexpr (cons '@ elems) string?))
   (define label (string-join (list* "#" strs) ""))
   `(h2 [[id ,(substring label 1)] [class "section"]]
        ,@elems
        (a [[class "anchor"]
            [href ,label]
            [title "permalink to this section"]]
+          (i [[class "fas fa-link"]]))))
+
+(define (subsection . elems)
+  (define strs (findf*-txexpr (cons '@ elems) string?))
+  (define label (string-join (list* "#" strs) ""))
+  `(h3 [[id ,(substring label 1)] [class "subsection"]]
+       ,@elems
+       (a [[class "anchor"]
+           [href ,label]
+           [title "permalink to this subsection"]]
           (i [[class "fas fa-link"]]))))
 
 ; non-breaking space
@@ -144,7 +155,10 @@
 
 (define (target->url target)
   (define actual-filenames
-    (map path->string (remove-duplicates (map ->output-path (directory-list (string->path project-root))))))
+    (map path->string
+         (remove-duplicates (map ->output-path
+                                 (append (directory-list (string->path project-root))
+                                         (directory-list (format "~a/posts/" project-root)))))))
   (define target-variants (let* ([plural-regex #rx"s$"]
                                  [singular-target (regexp-replace plural-regex target "")]
                                  [plural-target (string-append singular-target "s")])
@@ -173,6 +187,9 @@
 (define (underline . elems)
   `(span [[style "text-decoration: underline;"]] ,@elems))
 
+(define (strikethrough . elems)
+  `(span [[style "text-decoration: line-through"]] ,@elems))
+
 (define (ul #:compact [compact #t] . elems)
   (txexpr 'ul
           (if compact
@@ -189,6 +206,10 @@
 
 (define (item . elems)
   `(li ,@elems))
+
+(define (block-emphasis . elems)
+  `(div [[class "block-emphasis"]]
+        ,@elems))
 
 (define (quick-table . elems)
   (define rows-of-text-cells
@@ -220,7 +241,7 @@
          ,(apply string-append `("\\(" ,@elems "\\)"))))
 
 (define ($$ . elems)
-  (apply string-append `("\\begin{align*}\n  " ,@elems "\n\\end{align*}")))
+  (apply string-append `("\\[\n  " ,@elems "\n\\]")))
 
 ; Call this like `◊verb["…"]`
 (define (verb . elems)
@@ -230,10 +251,15 @@
 (define (code . elems)
   `(code ,@elems))
 
-(define (codeblock #:wrap [wrap? #f] [lang 'racket] . elems)
+(define (codeblock #:wrap [wrap? #f] [lang 'racket] #:name [caption #f] . elems)
   (define raw (apply string-append elems))
-  (define rendered (highlight #:python-executable "python3" lang raw))
-  (if wrap? (attr-join rendered 'class "code-wrap") rendered))
+  (define pre-rendered (highlight #:python-executable "python3" lang raw))
+  (define rendered (if wrap? (attr-join pre-rendered 'class "code-wrap") pre-rendered))
+  (apply txexpr*
+         (get-tag rendered)
+         (get-attrs rendered)
+         (if caption `(div [[class "caption"]] ,caption) '(@))
+         (get-elements rendered)))
 
 ;; Similar to MB’s Beautiful Racket — I just don’t like sidenotes very much in HTML
 (define (aside . elems)

@@ -6,7 +6,7 @@
   (define soft-hyphen "\u00AD")
   (string-normalize-spaces
     (regexp-replace* soft-hyphen
-      (string-join (findf*-txexpr tx string?)) "")))
+      (string-join (or (findf*-txexpr tx string?) null)) "")))
 
 elasticlunr.clearStopWords();
 

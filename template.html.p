@@ -68,17 +68,12 @@
     </script>
   }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"> 
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
 
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-Light.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-Medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/FiraCode/FiraCode-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-mediumitalic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-bolditalic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
 
@@ -90,25 +85,27 @@
         ◊subtitle{◊(select-from-metas 'subtitle here)}
       }
 
-      ◊div[#:class "nav-top" #:role "navigation"]{
-        ◊for/splice[([item (add-between (map make-top-nav-link
-                                            (map (λ (x) (if (list? x) (car x) x))
-                                            (cdr (current-pagetree)))) "/")])]{
-          ◊|item|
+      ◊div[#:class "nav-container"]{
+        ◊div[#:class "nav-top" #:role "navigation"]{
+          ◊for/splice[([item (add-between (map make-top-nav-link
+                                              (map (λ (x) (if (list? x) (car x) x))
+                                              (cdr (current-pagetree)))) "/")])]{
+            ◊|item|
+          }
         }
-      }
 
-      ◊div[#:id "search-wrapper"]{
-        ◊form[#:id "searchbar-outer" #:class "searchbar-outer"]{
-          ◊input[
-            #:type "search" #:id "searchbar" #:name "searchbar"
-            #:autocomplete "off"
-            #:placeholder "Search …"
-            #:aria-controls "searchresults-outer"
-            #:aria-describedby "searchresults-header"]
-        }
-        ◊div[#:id "searchresults-outer" #:class "searchresults-outer"]{
-          ◊div[#:id "searchresults-header" #:class "searchresults-header"]
+        ◊div[#:id "search-wrapper"]{
+          ◊form[#:id "searchbar-outer" #:class "searchbar-outer"]{
+            ◊input[
+              #:type "search" #:id "searchbar" #:name "searchbar"
+              #:autocomplete "off"
+              #:placeholder "Search …"
+              #:aria-controls "searchresults-outer"
+              #:aria-describedby "searchresults-header"]
+          }
+          ◊div[#:id "searchresults-outer" #:class "searchresults-outer"]{
+            ◊div[#:id "searchresults-header" #:class "searchresults-header"]
+          }
         }
       }
     }
@@ -117,7 +114,7 @@
 
     ◊div[#:class "horizontal-rule"]
 
-    ◊div[#:id "footer"]{
+    ◊div[#:id "footer" #:aria-hidden "true"]{
       ◊; Last updated on ◊(get-date) ◊(br)
       © Conor Reynolds
         ◊(if (equal? (get-year) "2022")

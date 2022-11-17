@@ -8,11 +8,6 @@
 ◊(define-meta math? #false)
 ◊(define-meta created "2022-09-23")
 
-◊; ◊title-block{
-◊;   ◊title{About This Site: Here's an Additional Bit of Title to Test the Layout}
-◊;   ◊subtitle{Pollen + Makefile = all you need}
-◊; }
-
 This site is built using ◊extlink["https://docs.racket-lang.org/pollen"]{Pollen,} an incredibly flexible tool for creating web books. To oversimplify: Pollen source files go in, written in a markup language of your own design, and HTML comes out. It's like ◊latex[] for the web---but where ◊latex[] is a giant macro preprocessor, Racket is a modern programming language. This turns out to have quite a few benefits. This site is ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io"]{open source,} so feel free to have a dig around to see how it works.
 
 Instead of explaining in detail exactly what makes Pollen great, I'll provide an example of how I use it.

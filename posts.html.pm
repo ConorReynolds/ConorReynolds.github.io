@@ -24,12 +24,12 @@
    (txexpr 'div '((class "post-list"))
            (for/list ([post in-order])
              `(div [[class "post-item"]]
-                    ,(em (node->link post))
+                    (span [[class "post-title"]] ,(node->link post))
                     " ~ "
                     ,(muted (~t (get-date post) "E, MMMM dd, y"))))))
 
 ◊(define-meta title "Posts")
 ◊(define-meta toc-title "Posts")
-◊(define-meta subtitle "Everything I've posted to date")
+◊(define-meta subtitle "Everything I’ve posted to date")
 
 ◊(post-toc)

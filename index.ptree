@@ -1,10 +1,11 @@
 #lang pollen
 
 ◊(require "src/ptree.rkt")
+◊(define include-drafts #false)
 
 index.html
 contact.html
 cv.html
 ◊posts.html{
-  ◊(cons '@ (posttree "posts"))
+  ◊(cons '@ (posttree "posts" include-drafts))
 }

@@ -22,5 +22,8 @@ Icon
 
 *.log
 
+# Draft posts
+posts/draft*
+
 # Secrets
 zotero.key

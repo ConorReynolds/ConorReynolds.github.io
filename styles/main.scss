@@ -6,6 +6,7 @@
         --hover-color: rgba(255, 141, 158, 0.2);
         --muted-color: #949494;
         --main-font: ValkyrieB, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
+        
     }
 }
 
@@ -21,8 +22,8 @@
 }
 
 :root {
-    // Pray that the end of this list is never reached.
-    --code-font: FiraCode, 'Source Code Pro', 'DejaVu Sans', 'Courier New', Courier, monospace;
+    --alt-font: Concourse;
+    --code-font: Iosevka, FiraCode, 'DejaVu Sans Mono', 'Courier New', Courier, monospace;
 }
 
 @mixin defaults {
@@ -59,6 +60,7 @@ html {
 body {
     background-color: var(--bg-color);
     color: var(--fg-color);
+    -webkit-text-size-adjust: 100%;
 }
 
 ul {
@@ -78,10 +80,16 @@ ol {
 
     ul, ol {
         margin-left: 0;
+        padding: 0;
         padding-left: 1rem;
         li {
             margin-left: 0;
         }
+    }
+
+    ol {
+        margin-left: calc(1em + 1ch);
+        padding: 0;
     }
 }
 
@@ -91,6 +99,8 @@ button {
 
 // Trying out some fancy hyphenation options from
 // https://medium.com/clear-left-thinking/all-you-need-to-know-about-hyphenation-in-css-2baee2d89179
+// Note that most of this only actually works in Edge and Safari. Consider this
+// future-proofing.
 @mixin hyphens {
     -webkit-hyphens: auto;
     -webkit-hyphenate-limit-before: 3;
@@ -133,7 +143,7 @@ button {
     
     @include hyphens;
     
-    line-height: 1.55;
+    line-height: 1.45;
     max-width: 32rem;
     font-size: 1em;
     margin: auto;
@@ -145,23 +155,28 @@ button {
     }
 }
 
+h1, h2, h3, h4, h5, h6 {
+    @include no-hyphens;
+}
+
 h1 {
-    font-family: 'PT Sans Narrow', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--alt-font);
     font-variant-ligatures: none;
     font-weight: bold;
     font-size: 1.5rem;
+    padding-bottom: 0.2rem;
 }
 
 h2 {
-    font-family: var(--main-font);
-    font-variant: small-caps oldstyle-nums;
-    text-transform: lowercase;
-    // font-weight: normal;
+    font-family: var(--alt-font);
+    font-variant: oldstyle-nums;
     font-size: 1rem;
     margin-bottom: 0.4rem;
     margin-top: 1.4rem;
 
     .anchor {
+        display: inline;
+        clear: left;
         visibility: hidden;
         color: grey;
         margin-left: 0.5em;
@@ -199,10 +214,41 @@ em > em {
 }
 
 h3 {
-    font-family: 'PT Sans';
+    font-family: var(--main-font);
     font-weight: normal;
+    font-variant: oldstyle-nums;
     font-style: italic;
     font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+    margin-top: 1.4rem;
+
+    .anchor {
+        visibility: hidden;
+        color: grey;
+        margin-left: 0.5em;
+        &:hover {
+            visibility: visible;
+        }
+
+        i {
+            font-size: 0.65em;
+            position: relative;
+            top: -.04em;
+        }
+    }
+
+    &:hover {
+        .anchor {
+            visibility: visible;
+        }
+    }
+
+    @media not all and (hover) {
+        .anchor {
+            visibility: visible;
+            margin-left: 0.75em;
+        }
+    }
 
     &.toc {
         font-size: 1rem;
@@ -357,15 +403,20 @@ blockquote {
     margin-inline: 1.5em 0.5em;
 }
 
+.block-emphasis {
+    margin: 0 1.5em 1em 1.5em;
+}
+
 pre.inline {
     display: inline;
 }
 
 code {
-    font-size: 0.88em;
+    font-size: 0.9em;
     font-family: var(--code-font);
     font-variant-numeric: normal;
     font-variant-ligatures: none;
+    padding: 0 0.05rem 0 0.05rem;
     @include no-hyphens;
 }
 
@@ -426,7 +477,7 @@ hr {
     }
 
     .subtitle {
-        font-family: 'PT Sans Narrow', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: var(--alt-font);
         font-size: 0.9rem;
         position: relative;
         top: -.85em;
@@ -511,6 +562,7 @@ a {
 
 @media not all and (max-width: 520px) {
     .tooltip {
+        font-family: var(--alt-font);
         display: inline;
         top: -0.1em;
         font-size: 0.65em;
@@ -546,7 +598,7 @@ a {
         transition-property: opacity;
         transition-duration: .2s;
         z-index: 1;
-        // hyphens: none;
+        @include no-hyphens;
 
         .extlink::after {
             color: rgb(255, 149, 165);
@@ -582,6 +634,7 @@ a {
 
 @media all and (max-width: 520px) {
     .tooltip {
+        font-family: var(--alt-font);
         display: inline;
         top: -0.1em;
         font-size: 0.65em;
@@ -687,6 +740,9 @@ a {
 
     .post-item {
         margin-bottom: 0.4rem;
+        .post-title {
+            font-family: var(--alt-font);
+        }
     }
 }
 
@@ -694,4 +750,3 @@ a {
 .katex {
     font-size: 1.08em !important;
 }
-
