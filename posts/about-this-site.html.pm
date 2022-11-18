@@ -18,7 +18,7 @@ I already maintain a list of my publications on my Zotero account. In the past I
 
 It occurred to me that this information could be generated at compile time with a small Racket script rather than every time the site is served. Pollen easily facilitates this. Part of the source for the ◊xref{home} page looks something like this:
 
-◊codeblock['pollen #:wrap #t "◊section{Publications}\n\nThe following is pulled from my Zotero account. ◊aside{See the ◊extlink[\"https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt\"]{source repo} for details on how this is generated.}\n\n◊(cons '@ ◊(bib-items))"]{}
+◊codeblock['pollen #:name "index.html.pm" #:wrap #t "◊section{Publications}\n\nThe following is pulled from my Zotero account. ◊aside{See the ◊extlink[\"https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt\"]{source repo} for details on how this is generated.}\n\n◊(cons '@ ◊(bib-items))"]{}
 
 The function ◊code{bib-items} is defined in ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt"]{◊code{src/zotero.rkt}.} It pulls my publications directly from Zotero's API and constructs a list of divs that I can splice into the document. Since this is done at compile time, a user visiting the page just sees plain HTML. And that's it! It loads faster, it's easier to customise, and it provides almost as much automation---all for a meagre fraction of the time I spent tweaking BibBase. ◊aside{Though, if this isn't your cup of tea, I would still highly recommend BibBase as an alternative.}
 
@@ -40,7 +40,7 @@ Some known weirdness includes (but is certainly not limited to):
 
 While it would be nice to include a more detailed preview of the context of your search, like for ◊extlink["https://github.com/rust-lang/mdBook"]{mdBook-generated sites,} it seems like overkill. In practice, the search feature was intended primarily to facilitate keyboard-first navigation. To this end, the forward-slash character is set to focus the search bar.
 
-◊codeblock['javascript]{
+◊codeblock['javascript #:name "searcher.js"]{
   document.addEventListener('keydown', (event) => {
     if (event.key === "/") {
         event.preventDefault();
@@ -53,9 +53,9 @@ Plenty of sites (like GitHub) and browsers (like Firefox) have this sort of func
 
 ◊section{Syntax Highlighting}
 
-Pollen comes with a ◊extlink["https://git.matthewbutterick.com/mbutterick/pollen/src/commit/c182a30f57ea5096440aea3d097f5fe3b78bb236/pollen/unstable/pygments.rkt#L157"]{◊code{highlight}} function, which statically generates syntax-highlighted code using ◊extlink["https://pygments.org/"]{Pygments.} I was not particularly enamoured with the provided styles. Some are nice, but few suit the style of this site. There was also no lexer for Pollen. Without one, showcasing examples of Pollen markup would prove some unpleasant combination of tricky and annoying.
+Pollen comes with a ◊extlink["https://git.matthewbutterick.com/mbutterick/pollen/src/commit/c182a30f57ea5096440aea3d097f5fe3b78bb236/pollen/unstable/pygments.rkt#L157"]{◊code{highlight}} function, which statically generates syntax-highlighted code using ◊extlink["https://pygments.org/"]{Pygments.} Most styles didn't really suit the site, so ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/styles/highlight.scss"]{I wrote my own.}
 
-I decided to try writing my own monochrome style. It suits the site, sure, but at the cost of being boring. I also wrote a Pollen lexer, which you can find ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/pygments/pollen.py"]{here.} It's almost certainly ◊em{far} too simple, but it works fine on the basic snippets I've tried.
+I also wrote a Pollen lexer, which you can find ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/pygments/pollen.py"]{here.} It's almost certainly ◊em{far} too simple, but it works fine on the basic snippets I've tried.
 
 The easiest way to add new lexers, it seems, is to just fork a copy of Pygments, add the lexer directly, rebuild the lexer mapping with ◊code{make mapfiles} (as ◊extlink["https://pygments.org/docs/lexerdevelopment/#adding-and-testing-a-new-lexer"]{described in the docs}), then pip install your local copy of Pygments. You can throw your custom styles in there too while you're at it.
 
