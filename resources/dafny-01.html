@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    Dafny Lab Sheet 1 (Draft) | Conor Reynolds
+  </title>
+
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
+
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-mediumitalic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Iosevka/iosevka-web-bolditalic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+
+<body><div class="header"><div id="title-block"><h1>Dafny Lab Sheet 1 (Draft)</h1>
+<div class="subtitle">An introduction to the Dafny language</div></div>
+
+</div>
+
+<div id="doc" role="main"><h2 id="Prerequisites" class="section">Prerequisites<a class="anchor" href="#Prerequisites" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Programming experience in C-style languages—Java, C, C#, JavaScript, etc.—must be assumed. The algorithms you will write and verify are deliberately simple so that you can focus on the verification.</p><p>The <a class="extlink" href="http://dafny.org/dafny/DafnyRef/DafnyRef.html">Dafny language reference</a> and the <a class="extlink" href="http://dafny.org/dafny/OnlineTutorial/guide.html">Dafny Guide</a> will be extremely useful resources for you.</p><h2 id="Instructions" class="section">Instructions<a class="anchor" href="#Instructions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Open VS Code—<em>not</em> Visual Studio. If you’re using one of the lab computers, Dafny is already installed. If not, hit <kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd></kbd> to bring up the extensions menu, then search for and install the Dafny extension.</p><p>Create the following file:</p><div class="highlight"><div class="caption">Dafny01.dfy</div><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Abs</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">result</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="n">n</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">:=</span> <span class="o">-</span><span class="n">n</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">method</span> {:main} <span class="nf">TestAbs</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="n">x</span> <span class="o">:=</span> <span class="n">Abs</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>
+    <span class="k">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="fm">print</span> <span class="n">x</span><span class="p">,</span> <span class="s2">"\n"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>All going well, you should see a message at the bottom-left which reads ‘Verification Succeeded’. If so, the installation was successful. If not, try reloading the window (<kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd>, then type ‘Reload Window’ and press Enter). Press F5 to compile and run the code.</p><h2 id="Dafny Syntax" class="section">Dafny Syntax<a class="anchor" href="#Dafny Syntax" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny’s syntax is C-like, so it should be familiar to you. To demonstrate how similar the languages are, here is the absolute value function defined above translated to Java.</p><div class="highlight"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Dafny does not have for-loops, but they are an unnecessary syntactic convenience. Since Dafny supports verification constructs, it is more important than usual that its syntax is simple. Where in Java you would have written:</p><div class="highlight"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// some code</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// loop body</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// some more code</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>… in Dafny, you can write:</p><div class="highlight"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">{</span>
+    <span class="c1">// some code</span>
+
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="p">{</span>
+        <span class="c1">// loop body</span>
+        <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// some more code</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>You can create new scopes in Dafny with braces just like you can in Java if you’re concerned about <code>i</code> escaping its scope.</p><p>As you can see, assignment in Dafny is denoted <code>:=</code> rather than <code>=</code>. Dafny also has mathematical syntax for assertions, preconditions, and postconditions: <code>==&gt;</code> is implication, <code>&amp;&amp;</code> is conjunction, <code>||</code> is disjunction, <code>!</code> is negation.</p><p>A key difference between Dafny methods and methods in other C-like languages is that Dafny methods require you to define the names of the return values in the function signature. For example, in <code>abs</code> above, the name of the return variable was <code>result</code>.</p><p>This is necessary because there would otherwise be no straightforward way to refer to the returned value in the function’s contract. The postcondition for <code>Abs</code> says that <code>result</code> must be either <code>n</code> or <code>-n</code>. We couldn’t write this if <code>result</code> was not already defined. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">Some specification languages, like JML, use a special name for the return value instead.</span></span></p><h2 id="General Tips" class="section">General Tips<a class="anchor" href="#General Tips" title="permalink to this section"><i class="fas fa-link"></i></a></h2><ol class="loose-list"><li>Dafny accepting your code as verified is not by itself an indication that you have answered the question correctly.</li><li>You may know your code is correct before Dafny does. Correct code is not by itself an indication that you have answered the question correctly.</li><li>Correct code and a verified postcondition together are not an indication that you have answered the question correctly.</li><li>A weak condition is satisfied by many models. A strong condition is satisfied by few models.</li><li>Always look for the strongest postcondition. A postcondition is strengthened by exposing its weaknesses. Try to imagine output which satisfies your postcondition, but behaves in a way that you do not want or expect. What your code really does is irrelevant here. It may well be correct. But the postcondition is the means by which you communicate what your code does to the rest of the program. If it is too weak, then other functions may not know enough about what your function guarantees to progress with their own proofs.</li><li>Always look for the weakest precondition. The ideal precondition is no condition at all. Ask for what you need, and no more.</li></ol><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write and verify a method which computes the maximum of two integers. Use the following as a template. You should provide the weakest precondition and the strongest postcondition for full marks. All the tests in <code>TestMax</code> should pass.</p><div class="highlight"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Max</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// todo</span>
+<span class="p">}</span>
+
+<span class="kd">method</span> {:test} <span class="nf">TestMax</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="n">x</span> <span class="o">:=</span> <span class="n">Max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="k">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="n">y</span> <span class="o">:=</span> <span class="n">Max</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">assert</span> <span class="n">y</span> <span class="o">==</span> <span class="o">-</span><span class="mi">4</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="n">z</span> <span class="o">:=</span> <span class="n">Max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">assert</span> <span class="n">z</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Decide what the methods <code>M1</code> and <code>A1</code> do and provide an appropriate postcondition for each. Verify the program using Dafny.</p><div class="highlight"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">M1</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="c1">// ensures r == ?</span>
+    <span class="k">decreases</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">M1</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="o">-</span><span class="n">r</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">M1</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">A1</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">method</span> <span class="nf">A1</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="c1">// ensures r == ?</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="n">n</span> <span class="o">:=</span> <span class="n">y</span><span class="p">;</span>
+        <span class="k">while</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span>
+            <span class="k">invariant</span> <span class="n">r</span> <span class="o">==</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">-</span> <span class="n">n</span>
+            <span class="k">invariant</span> <span class="o">-</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="p">{</span>
+            <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">n</span> <span class="o">:=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="n">n</span> <span class="o">:=</span> <span class="n">y</span><span class="p">;</span>
+        <span class="k">while</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span>
+            <span class="k">invariant</span> <span class="n">r</span> <span class="o">==</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">-</span> <span class="n">n</span>
+            <span class="k">invariant</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="p">{</span>
+            <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">n</span> <span class="o">:=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method that swaps the values <code>a[i]</code> and <code>a[j]</code> in-place. This method will modify <code>a</code>, so we have to declare that with the frame condition <code>modifies a</code>. (A frame condition for a method just describes what can and cannot be modified by that method. Dafny assumes that methods do not modify anything, unless you say otherwise.)</p><div class="highlight"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">swap</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="kt">nat</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">modifies</span> <span class="n">a</span>
+
+    <span class="c1">// requires relationship between i and a.Length</span>
+    <span class="c1">// requires relationship between j and a.Length</span>
+
+    <span class="k">ensures</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="fm">old</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">ensures</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="fm">old</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="p">{</span>
+    <span class="c1">// todo</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div></div>
+
+<div class="horizontal-rule"></div>
+
+<div aria-hidden="true" id="footer">© Conor Reynolds
+  2022  
+<a class="fab fa-github fa-1x" href="https://github.com/ConorReynolds" title="GitHub"></a>  
+<a class="fab fa-gitlab fa-1x" href="https://gitlab.cs.nuim.ie/creynolds" title="GitLab"></a>  
+<a class="fab fa-twitter fa-1x" href="https://twitter.com/ConorEReynolds" title="Twitter"></a>  
+<a class="fas fa-envelope fa-1x" href="mailto:conor.reynolds@mu.ie" title="Email"></a></div></body>
+
+<script src="/js/utils.js"></script>
+<script src="/js/checkParams.js"></script>
+
+<script src="/js/elasticlunr.js"></script>
+<script src="/js/search-index.js"></script>
+<script src="/js/searcher.js"></script>
+
+<script async src="//static.getclicky.com/101382862.js"></script>
+
+</html>

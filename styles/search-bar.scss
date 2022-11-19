@@ -1,5 +1,7 @@
 #search-wrapper {
     z-index: 100;
+    font-family: var(--alt-font);
+    font-style: normal;
     font-size: 0.85rem;
     width: 7rem;
     margin-top: 0.3rem;
@@ -11,8 +13,6 @@
     // width: 10rem;
     // right: 50%;
     // transform: translate(16rem, 0);
-    font-family: var(--main-font);
-    font-style: normal;
     // transform: translateY(-2rem);
 
     input {
@@ -30,7 +30,7 @@
         padding: 5px 0 5px 5px;
         // padding-right: 0.5rem;
         border-radius: 3px;
-        font-family: var(--main-font), "Font Awesome 5 Free";
+        font-family: var(--alt-font), "Font Awesome 5 Free";
         font-style: normal;
 
         &::active {
