@@ -48,6 +48,11 @@
     ◊(select-from-metas 'title here) ◊when/splice[(not (equal? here 'index.html))]{| Conor Reynolds}
   </title>
 
+  ◊; Prevent resources from appearing in search results (for now, anyway).
+  ◊when/splice[(resource? here)]{
+    <meta name="robots" content="noindex,nofollow">
+  }
+
   ◊; KaTeX
   ◊when/splice[(select-from-metas 'math? here)]{
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
@@ -73,10 +78,10 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
 
-  <link rel="preload" href="/fonts/Iosevka/iosevka-web-medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/Iosevka/iosevka-web-mediumitalic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/Iosevka/iosevka-web-bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/Iosevka/iosevka-web-bolditalic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/SourceCodePro/SourceCodePro-Bold.otf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/SourceCodePro/SourceCodePro-BoldIt.otf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/SourceCodePro/SourceCodePro-Medium.otf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/SourceCodePro/SourceCodePro-MediumIt.otf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
 
