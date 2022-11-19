@@ -19,7 +19,8 @@ var searchIndex = elasticlunr(function () {
 
 var id = 0;
 
-◊for/splice[([page (cdr (flatten (current-pagetree)))])]{
+◊for/splice[([page (cdr (flatten (current-pagetree)))]
+             #:when (not (regexp-match #rx"^resources/" (symbol->string page))))]{
   searchIndex.addDoc({
     "id": id++,
     "title": `◊(select-from-metas 'title page)`,

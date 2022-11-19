@@ -9,3 +9,4 @@ cv.html
 ◊posts.html{
   ◊(cons '@ (posttree "posts" include-drafts))
 }
+◊(cons '@ (posttree "resources" #t))

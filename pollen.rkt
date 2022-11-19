@@ -6,6 +6,7 @@
   racket/string
   racket/list
   racket/match
+  racket/contract
 
   (submod txexpr safe)
   pollen/core
@@ -229,6 +230,16 @@
   (cons 'table (for/list ([html-row (in-list html-rows)])
                  (apply tr-tag html-row))))
 
+
+(define/contract (kbd . elems)
+  (->* () #:rest (listof string?) txexpr?)
+  (define raw (apply string-append elems))
+  (define keys (regexp-split #rx"\\+" raw))
+  (txexpr 'kbd '()
+          (add-between
+           (for/list ([key (in-list keys)])
+             `(kbd ,(string-trim key)))
+           "+")))
 
 (define (extlink #:desc [desc #f] url . elems)
   `(a [[class "extlink"] [href ,url]] ,@elems))

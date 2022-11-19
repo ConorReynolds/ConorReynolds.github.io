@@ -23,7 +23,7 @@
 
 :root {
     --alt-font: Concourse;
-    --code-font: Iosevka, FiraCode, 'DejaVu Sans Mono', 'Courier New', Courier, monospace;
+    --code-font: SourceCodePro, 'DejaVu Sans Mono', monospace;
 }
 
 @mixin defaults {
@@ -172,7 +172,7 @@ h2 {
     font-variant: oldstyle-nums;
     font-size: 1rem;
     margin-bottom: 0.4rem;
-    margin-top: 1.4rem;
+    margin-top: 1.75rem;
 
     .anchor {
         display: inline;
@@ -220,7 +220,7 @@ h3 {
     font-style: italic;
     font-size: 0.95rem;
     margin-bottom: 0.4rem;
-    margin-top: 1.4rem;
+    margin-top: 1.75rem;
 
     .anchor {
         visibility: hidden;
@@ -412,11 +412,11 @@ pre.inline {
 }
 
 code {
-    font-size: 0.9em;
+    font-size: 0.94em;
     font-family: var(--code-font);
     font-variant-numeric: normal;
     font-variant-ligatures: none;
-    padding: 0 0.05rem 0 0.05rem;
+    padding: 0 0.1rem 0 0.1rem;
     @include no-hyphens;
 }
 
@@ -431,6 +431,18 @@ div.code {
     overflow-x: scroll;
     font-size: 0.8em;
     margin-left: 1em;
+}
+
+kbd {
+    all: unset;
+    color: var(--muted-color);
+}
+
+kbd>kbd {
+    font-family: var(--alt-font);
+    color: var(--fg-color);
+    padding: 0 0.1em;
+    white-space: nowrap;
 }
 
 .dialogue {
@@ -453,7 +465,7 @@ div.code {
 hr {
     background: none;
     border: 0;
-    margin: 1.2em;
+    margin: 2em;
     padding: 0;
     letter-spacing: 0.9em;
 

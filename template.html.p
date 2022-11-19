@@ -13,6 +13,9 @@
 ◊(define (post? node)
   (regexp-match #rx"^posts/" (symbol->string node)))
 
+◊(define (resource? node)
+  (regexp-match #rx"^resources/" (symbol->string node)))
+
 ◊(define (make-side-nav id url text)
   ◊div[#:class "nav-outer" #:id id #:role "navigation"]{
     ◊(link (or url "")
@@ -85,26 +88,28 @@
         ◊subtitle{◊(select-from-metas 'subtitle here)}
       }
 
-      ◊div[#:class "nav-container"]{
-        ◊div[#:class "nav-top" #:role "navigation"]{
-          ◊for/splice[([item (add-between (map make-top-nav-link
-                                              (map (λ (x) (if (list? x) (car x) x))
-                                              (cdr (current-pagetree)))) "/")])]{
-            ◊|item|
+      ◊when/splice[(not (resource? here))]{
+        ◊div[#:class "nav-container"]{
+          ◊div[#:class "nav-top" #:role "navigation"]{
+            ◊for/splice[([item (add-between (map make-top-nav-link
+                                                (map (λ (x) (if (list? x) (car x) x))
+                                                (take-noexcept (cdr (current-pagetree)) 4))) "/")])]{
+              ◊|item|
+            }
           }
-        }
 
-        ◊div[#:id "search-wrapper"]{
-          ◊form[#:id "searchbar-outer" #:class "searchbar-outer"]{
-            ◊input[
-              #:type "search" #:id "searchbar" #:name "searchbar"
-              #:autocomplete "off"
-              #:placeholder "Search …"
-              #:aria-controls "searchresults-outer"
-              #:aria-describedby "searchresults-header"]
-          }
-          ◊div[#:id "searchresults-outer" #:class "searchresults-outer"]{
-            ◊div[#:id "searchresults-header" #:class "searchresults-header"]
+          ◊div[#:id "search-wrapper"]{
+            ◊form[#:id "searchbar-outer" #:class "searchbar-outer"]{
+              ◊input[
+                #:type "search" #:id "searchbar" #:name "searchbar"
+                #:autocomplete "off"
+                #:placeholder "Search …"
+                #:aria-controls "searchresults-outer"
+                #:aria-describedby "searchresults-header"]
+            }
+            ◊div[#:id "searchresults-outer" #:class "searchresults-outer"]{
+              ◊div[#:id "searchresults-header" #:class "searchresults-header"]
+            }
           }
         }
       }

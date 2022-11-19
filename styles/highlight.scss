@@ -22,7 +22,7 @@
         // --kw-color: #303030;
         --kw-color: var(--auburn);
         --op-color: #555555;
-        --num-color: #666666;
+        --num-color: #444444;
         --comment-color: #777777;
 
         --code-bg-color: #fbfbfb;
@@ -88,13 +88,13 @@
 
 /* Operator */
 .highlight .ch {
-    color: #408080;
+    color: var(--comment-color);
     // font-style: italic
 }
 
 /* Comment.Hashbang */
 .highlight .cm {
-    color: #408080;
+    color: var(--comment-color);
     // font-style: italic
 }
 
@@ -105,19 +105,19 @@
 
 /* Comment.Preproc */
 .highlight .cpf {
-    color: #408080;
+    color: var(--comment-color);
     // font-style: italic
 }
 
 /* Comment.PreprocFile */
 .highlight .c1 {
-    color: #408080;
+    color: var(--comment-color);
     // font-style: italic
 }
 
 /* Comment.Single */
 .highlight .cs {
-    color: #408080;
+    color: var(--comment-color);
     // font-style: italic
 }
 
@@ -438,7 +438,7 @@ pre {
 .highlight {
     .source {
         font-family: var(--code-font);
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         background-color: var(--code-bg-color);
         border-top: 1px solid var(--code-border-color);
         border-bottom: 1px solid var(--code-border-color);
@@ -457,6 +457,7 @@ pre {
         font-family: var(--alt-font);
         font-size: 0.8em;
         font-style: italic;
+        font-variant-numeric: lining-nums;
         margin: auto;
         padding: 0.2rem 0 0.2rem 0.5rem;
         color: var(--muted-color);
