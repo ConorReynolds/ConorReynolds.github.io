@@ -40,7 +40,7 @@ In either case, create the following file:
   }
 }
 
-All going well, you should see a message at the bottom-left which reads 'Verification Succeeded'. If so, the installation was successful. If not, try reloading the window (◊kbd{Ctrl+Shift+P}, then type 'Reload Window' and press Enter). Press F5 to compile and run the code.
+All going well, you should see a message at the bottom-left which reads 'Verification Succeeded'. If so, the installation was successful. If not, try reloading the window (◊kbd{Ctrl+Shift+P}, then type 'Reload Window' and press ◊kbd{Enter}). Press ◊kbd{F5} to compile and run the code.
 
 If you're already comfortable with Dafny, you can skip right ahead to the ◊xref["resources/dafny-01.html#Question 1"]{lab questions}. ◊aside{Even if you ◊em{are} comfortable with Dafny, the sections are still worth reading.} If you are not, then I strongly recommend reading the next few sections carefully, since they will help prepare you for the lab.
 
@@ -153,7 +153,7 @@ Let's fix that by adding a silly contract.
 ◊codeblock['dafny]{
   method Abs(x: int) returns (result: int)
       requires -10 < x < 10
-      ensures result >= 0  // ✓ passes
+      ensures result >= 0  // ✓ succeeds
   {
       if x < 0 {
           result := -x;
@@ -169,7 +169,7 @@ Dafny can prove both the postcondition and the assertion automatically.
   method {:main} TestAbs()
   {
       var x := Abs(-3);
-      assert x >= 0;  // ✓ passes
+      assert x >= 0;  // ✓ succeeds
   }
 }
 
@@ -187,7 +187,7 @@ Since there is no good reason to restrict ◊code{Abs} in this way, we can remov
 
 ◊codeblock['dafny]{
   method Abs(x: int) returns (result: int)
-      ensures result >= 0  // ✓ passes
+      ensures result >= 0  // ✓ succeeds
   {
       if x < 0 {
           result := -x;
@@ -203,7 +203,7 @@ Let's see what Dafny can infer about the function now.
   method {:main} TestAbs()
   {
       var x := Abs(-3);
-      assert x >= 0;  // ✓ passes
+      assert x >= 0;  // ✓ succeeds
       assert x == 3;  // ✗ fails
   }
 }
@@ -212,7 +212,7 @@ Dafny can prove the first assertion, but it cannot prove the stronger fact that 
 
 ◊codeblock['dafny]{
   method Abs(x: int) returns (result: int)
-      ensures result >= 0  // ✓ still passes!
+      ensures result >= 0  // ✓ still succeeds!
   {
       if x < 0 {
           result := -x;

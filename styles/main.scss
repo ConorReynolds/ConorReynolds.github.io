@@ -436,11 +436,13 @@ div.code {
 
 kbd {
     all: unset;
+    font-family: var(--alt-font);
+    font-size: 1em;
+    font-variant-numeric: lining-nums;
     color: var(--muted-color);
 }
 
 kbd>kbd {
-    font-family: var(--alt-font);
     color: var(--fg-color);
     padding: 0 0.1em;
     white-space: nowrap;
@@ -590,7 +592,6 @@ a {
         box-sizing: content-box;
         border-radius: 0.2em;
         cursor: pointer;
-        z-index: 1;
     }
     
     .tooltip-inner {
@@ -661,7 +662,6 @@ a {
         box-sizing: content-box;
         border-radius: 0.2em;
         cursor: pointer;
-        z-index: 1;
     }
     
     .tooltip-inner {
