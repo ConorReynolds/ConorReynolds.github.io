@@ -261,6 +261,7 @@ h3 {
 .xref {
     text-transform: lowercase;
     font-variant: small-caps;
+    white-space: nowrap;
     text-decoration-color: rgba($color: black, $alpha: 0);
 
     &:hover {
