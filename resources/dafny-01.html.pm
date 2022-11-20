@@ -125,7 +125,9 @@ This is necessary because there would otherwise be no straightforward way to ref
   }
 }
 
-To illustrate points 3–6, consider the following code which computes the absolute value of any ◊${x \in \Z}, denoted mathematically as ◊${\lvert x \rvert}.
+◊section{Worked Example}
+
+To illustrate points 3--6, consider the following code which computes the absolute value of any ◊${x \in \Z}, denoted mathematically as ◊${\lvert x \rvert}.
 
 ◊codeblock['dafny]{
   method Abs(x: int) returns (result: int)
@@ -279,7 +281,7 @@ Write and verify a method which computes the maximum of two integers. Use the fo
       assert x == 3;
 
       var y := Max(-4, 1);
-      assert y == -4;
+      assert y == 1;
 
       var z := Max(0, 0);
       assert z == 0;
@@ -287,6 +289,29 @@ Write and verify a method which computes the maximum of two integers. Use the fo
 }
 
 ◊section{Question 2}
+
+Write and verify a method which computes the minimum of two integers. Use the following as a template. You should provide the weakest precondition and the strongest postcondition for full marks. All the tests in ◊code{TestMin} should pass.
+
+◊codeblock['dafny]{
+  method Min(a: int, b: int) returns (m: int)
+  {
+      // todo
+  }
+
+  method {:test} TestMin()
+  {
+      var x := Min(2, 3);
+      assert x == 2;
+
+      var y := Min(-4, 1);
+      assert y == -4;
+
+      var z := Min(0, 0);
+      assert z == 0;
+  }
+}
+
+◊section{Question 3}
 
 Decide what the methods ◊code{M1} and ◊code{A1} do and provide an appropriate postcondition for each. Verify the program using Dafny.
 
@@ -332,7 +357,7 @@ Decide what the methods ◊code{M1} and ◊code{A1} do and provide an appropriat
   }
 }
 
-◊section{Question 3}
+◊section{Question 4}
 
 Write a method that swaps the values ◊code{a[i]} and ◊code{a[j]} in-place. This method will modify ◊code{a}, so we have to declare that with the frame condition ◊code{modifies a}. (A frame condition for a method just describes what can and cannot be modified by that method. Dafny assumes that methods do not modify anything, unless you say otherwise.)
 
