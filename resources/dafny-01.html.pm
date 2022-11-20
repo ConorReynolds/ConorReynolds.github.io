@@ -373,4 +373,13 @@ Write a method that swaps the values ◊code{a[i]} and ◊code{a[j]} in-place. T
   {
       // todo
   }
+
+  method {:main} TestSwap()
+  {
+      var a := new int[] [1, 2, 3, 4];
+
+      assert a[1] == 2 && a[3] == 4;
+      swap(a, 1, 3);
+      assert a[1] == 4 && a[3] == 2;
+  }
 }
