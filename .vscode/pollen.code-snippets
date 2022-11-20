@@ -115,7 +115,7 @@
 	"Code block": {
 		"scope": "pollen-markup",
 		"prefix": "code-block",
-		"body": "◊codeblock{\n  $0\n}",
+		"body": "◊codeblock['$1]{\n  $0\n}",
 	},
 
 	"Coq block": {
