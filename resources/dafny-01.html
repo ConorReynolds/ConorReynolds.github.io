@@ -78,7 +78,7 @@
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>All going well, you should see a message at the bottom-left which reads ‘Verification Succeeded’. If so, the installation was successful. If not, try reloading the window (<kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd>, then type ‘Reload Window’ and press Enter). Press F5 to compile and run the code.</p><p>If you’re already comfortable with Dafny, you can skip right ahead to the <a class="xref" hyphens="none" href="/resources/dafny-01.html#Question 1">lab questions</a>. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">Even if you <em>are</em> comfortable with Dafny, the sections are still worth reading.</span></span> If you are not, then I strongly recommend reading the next few sections carefully, since they will help prepare you for the lab.</p><h2 id="Dafny Syntax" class="section">Dafny Syntax<a class="anchor" href="#Dafny Syntax" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny’s syntax is C-like, so it should be familiar to you. To demonstrate how similar the languages are, here is the absolute value function defined above translated to Java.</p><div class="highlight"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+</div><p>All going well, you should see a message at the bottom-left which reads ‘Verification Succeeded’. If so, the installation was successful. If not, try reloading the window (<kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd>, then type ‘Reload Window’ and press <kbd><kbd>Enter</kbd></kbd>). Press <kbd><kbd>F5</kbd></kbd> to compile and run the code.</p><p>If you’re already comfortable with Dafny, you can skip right ahead to the <a class="xref" hyphens="none" href="/resources/dafny-01.html#Question 1">lab questions</a>. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">Even if you <em>are</em> comfortable with Dafny, the sections are still worth reading.</span></span> If you are not, then I strongly recommend reading the next few sections carefully, since they will help prepare you for the lab.</p><h2 id="Dafny Syntax" class="section">Dafny Syntax<a class="anchor" href="#Dafny Syntax" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny’s syntax is C-like, so it should be familiar to you. To demonstrate how similar the languages are, here is the absolute value function defined above translated to Java.</p><div class="highlight"><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
@@ -176,7 +176,7 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Abs</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
     <span class="k">requires</span> <span class="o">-</span><span class="mi">10</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span>
-    <span class="k">ensures</span> <span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1">// ✓ passes</span>
+    <span class="k">ensures</span> <span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1">// ✓ succeeds</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
         <span class="n">result</span> <span class="o">:=</span> <span class="o">-</span><span class="n">x</span><span class="p">;</span>
@@ -193,7 +193,7 @@
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> {:main} <span class="nf">TestAbs</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="kd">var</span> <span class="n">x</span> <span class="o">:=</span> <span class="n">Abs</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>
-    <span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// ✓ passes</span>
+    <span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// ✓ succeeds</span>
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
@@ -217,7 +217,7 @@
 <span class="normal">7</span>
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Abs</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
-    <span class="k">ensures</span> <span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1">// ✓ passes</span>
+    <span class="k">ensures</span> <span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1">// ✓ succeeds</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
         <span class="n">result</span> <span class="o">:=</span> <span class="o">-</span><span class="n">x</span><span class="p">;</span>
@@ -235,7 +235,7 @@
 <span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> {:main} <span class="nf">TestAbs</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="kd">var</span> <span class="n">x</span> <span class="o">:=</span> <span class="n">Abs</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>
-    <span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// ✓ passes</span>
+    <span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// ✓ succeeds</span>
     <span class="k">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="p">;</span>  <span class="c1">// ✗ fails</span>
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
@@ -251,7 +251,7 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Abs</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
-    <span class="k">ensures</span> <span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1">// ✓ still passes!</span>
+    <span class="k">ensures</span> <span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1">// ✓ still succeeds!</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
         <span class="n">result</span> <span class="o">:=</span> <span class="o">-</span><span class="n">x</span><span class="p">;</span>
