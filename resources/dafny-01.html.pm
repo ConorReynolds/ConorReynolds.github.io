@@ -3,7 +3,7 @@
 ◊(define-meta title "Dafny Lab Sheet 1 (Draft)")
 ◊(define-meta toc-title "Dafny Lab Sheet 1 (Draft)")
 ◊(define-meta subtitle "An introduction to the Dafny language")
-◊(define-meta math? #false)
+◊(define-meta math? #true)
 ◊(define-meta created "2022-11-18")
 
 ◊section{Prerequisites}
@@ -14,7 +14,9 @@ The ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef.html"]{Dafny language r
 
 ◊section{Instructions}
 
-Open VS Code---◊em{not} Visual Studio. If you're using one of the lab computers, Dafny is already installed. If not, hit ◊kbd{Ctrl + Shift + X} to bring up the extensions menu, then search for and install the Dafny extension.
+If you're using the computers in the lab, everything should already be installed---just open VS Code.
+
+If you're using your own computer, ◊extlink["https://code.visualstudio.com/download"]{install VS Code,} run it, hit ◊kbd{Ctrl + Shift + X} to bring up the extensions menu, then search for and install the Dafny extension.
 
 Create the following file:
 
@@ -38,6 +40,8 @@ Create the following file:
 }
 
 All going well, you should see a message at the bottom-left which reads 'Verification Succeeded'. If so, the installation was successful. If not, try reloading the window (◊kbd{Ctrl+Shift+P}, then type 'Reload Window' and press Enter). Press F5 to compile and run the code.
+
+If you're already comfortable with Dafny, you can skip right ahead to the ◊xref["resources/dafny-01.html#Question 1"]{lab questions}. ◊aside{Even if you ◊em{are} comfortable with Dafny, the sections are still worth reading.} If you are not, then I strongly recommend reading the next few sections carefully, since they will help prepare you for the lab.
 
 ◊section{Dafny Syntax}
 
@@ -112,13 +116,149 @@ This is necessary because there would otherwise be no straightforward way to ref
   }
 
   ◊item{
-    Always look for the strongest postcondition. A postcondition is strengthened by exposing its weaknesses. Try to imagine output which satisfies your postcondition, but behaves in a way that you do not want or expect. What your code really does is irrelevant here. It may well be correct. But the postcondition is the means by which you communicate what your code does to the rest of the program. If it is too weak, then other functions may not know enough about what your function guarantees to progress with their own proofs.
+    Always look for the weakest precondition. The ideal precondition is no condition at all. Ask for what you need, and no more.
   }
 
   ◊item{
-    Always look for the weakest precondition. The ideal precondition is no condition at all. Ask for what you need, and no more.
+    Always look for the strongest postcondition. ◊aside{This isn't always the case, but it's a good rule to follow as a beginner.} A postcondition is strengthened by exposing its weaknesses. Try to imagine output which satisfies your postcondition, but behaves in a way that you do not want or expect. What your code really does is irrelevant here---it may well be correct. But the postcondition is the means by which you communicate what your code does to the rest of the program. If it is too weak, then other methods may not know enough about what your code guarantees to progress with their own proofs.
   }
 }
+
+To illustrate points 3–6, consider the following code which computes the absolute value of any ◊${x \in \Z}, denoted mathematically as ◊${\lvert x \rvert}.
+
+◊codeblock['dafny]{
+  method Abs(x: int) returns (result: int)
+  {
+      if x < 0 {
+          result := -x;
+      } else {
+          result := x;
+      }
+  }
+}
+
+The code is correct, but it has no contract. This prevents the verifier from inferring anything about the code. For example, even this simple assertion will fail.
+
+◊codeblock['dafny]{
+  method {:main} TestAbs()
+  {
+      var x := Abs(-3);
+      assert x >= 0;  // ✗ fails
+  }
+}
+
+Let's fix that by adding a silly contract.
+
+◊codeblock['dafny]{
+  method Abs(x: int) returns (result: int)
+      requires -10 < x < 10
+      ensures result >= 0  // ✓ passes
+  {
+      if x < 0 {
+          result := -x;
+      } else {
+          result := x;
+      }
+  }
+}
+
+Dafny can prove both the postcondition and the assertion automatically.
+
+◊codeblock['dafny]{
+  method {:main} TestAbs()
+  {
+      var x := Abs(-3);
+      assert x >= 0;  // ✓ passes
+  }
+}
+
+In some sense, therefore, this code is 'correct'---but it has some issues. The precondition requires that ◊${-10 < x < 10}, but the absolute value function should work for ◊em{any} integer, not just a small range of them. If we use any integer outside this range, Dafny will complain that the precondition is violated.
+
+◊codeblock['dafny]{
+  method {:main} TestAbs()
+  {
+      var x := Abs(-10);  // ✗ fails (precondition violation)
+      assert x >= 0;
+  }
+}
+
+Since there is no good reason to restrict ◊code{Abs} in this way, we can remove it. Of course, the postcondition still holds.
+
+◊codeblock['dafny]{
+  method Abs(x: int) returns (result: int)
+      ensures result >= 0  // ✓ passes
+  {
+      if x < 0 {
+          result := -x;
+      } else {
+          result := x;
+      }
+  }
+}
+
+Let's see what Dafny can infer about the function now.
+
+◊codeblock['dafny]{
+  method {:main} TestAbs()
+  {
+      var x := Abs(-3);
+      assert x >= 0;  // ✓ passes
+      assert x == 3;  // ✗ fails
+  }
+}
+
+Dafny can prove the first assertion, but it cannot prove the stronger fact that ◊code{x} should not ◊em{just} be some non-negative integer, but ◊em{exactly} ◊code{3}. As far as Dafny is concerned, all ◊code{Abs} guarantees is that its output is greater than zero. Notice that this postcondition would still hold if instead ◊code{Abs} was defined to be ‘◊code{Abs} plus three’.
+
+◊codeblock['dafny]{
+  method Abs(x: int) returns (result: int)
+      ensures result >= 0  // ✓ still passes!
+  {
+      if x < 0 {
+          result := -x;
+      } else {
+          result := x;
+      }
+      result := result + 3;
+      // or even `result := 0`!
+  }
+}
+
+That's a big problem! But we can fix it easily by adding more postconditions that explain in more detail what ◊code{Abs} guarantees.
+
+For any ◊${x \in \Z}, we know that ◊${\lvert x \rvert} has to be one of exactly two possible values: ◊${x} or ◊${-x}. Let's add this as a postcondition.
+
+◊codeblock['dafny]{
+  method Abs(x: int) returns (result: int)
+      ensures result >= 0
+      ensures result == x || result == -x
+  {
+      if x < 0 {
+          result := -x;
+      } else {
+          result := x;
+      }
+  }
+}
+
+Notice that Dafny can now prove both assertions.
+
+Alternatively, note that we know the exact conditions under which ◊${\lvert x \rvert} is ◊${x} or ◊${-x} respectively. Specifically, we know that ◊${\lvert x \rvert = x} when ◊${x \ge 0} and that ◊${\lvert x \rvert = -x} whenever ◊${x < 0}.
+
+◊codeblock['dafny]{
+  method Abs(x: int) returns (result: int)
+      ensures result >= 0
+      ensures x >= 0 ==> result == x
+      ensures x < 0  ==> result == -x
+  {
+      if x < 0 {
+          result := -x;
+      } else {
+          result := x;
+      }
+  }
+}
+
+Dafny can automatically verify these postconditions and both assertions.
 
 ◊hrule
 
