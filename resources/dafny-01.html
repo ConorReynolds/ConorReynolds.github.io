@@ -462,7 +462,16 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">swap</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="kt">nat</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">swap</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="kt">nat</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
     <span class="k">modifies</span> <span class="n">a</span>
 
     <span class="c1">// requires relationship between i and a.Length</span>
@@ -472,6 +481,15 @@
     <span class="k">ensures</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="fm">old</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 <span class="p">{</span>
     <span class="c1">// todo</span>
+<span class="p">}</span>
+
+<span class="kd">method</span> {:main} <span class="nf">TestSwap</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="n">a</span> <span class="o">:=</span> <span class="n">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+
+    <span class="k">assert</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="k">assert</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
