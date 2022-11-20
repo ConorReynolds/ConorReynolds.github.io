@@ -18,10 +18,11 @@ If you're using the computers in the lab, everything should already be installed
 
 If you're using your own computer, ◊extlink["https://code.visualstudio.com/download"]{install VS Code,} run it, hit ◊kbd{Ctrl + Shift + X} to bring up the extensions menu, then search for and install the Dafny extension.
 
-Create the following file:
+In either case, create the following file:
 
 ◊codeblock['dafny #:name "Dafny01.dfy"]{
-  method Abs(n: int) returns (result: nat)
+  method Abs(n: int) returns (result: int)
+      ensures result >= 0
       ensures result == n || result == -n
   {
       if n < 0 {
@@ -92,7 +93,7 @@ You can create new scopes in Dafny with braces just like you can in Java if you'
 
 As you can see, assignment in Dafny is denoted ◊code{:=} rather than ◊code{=}. Dafny also has mathematical syntax for assertions, preconditions, and postconditions: ◊code{==>} is implication, ◊code{&&} is conjunction, ◊code{||} is disjunction, ◊code{!} is negation.
 
-A key difference between Dafny methods and methods in other C-like languages is that Dafny methods require you to define the names of the return values in the function signature. For example, in ◊code{abs} above, the name of the return variable was ◊code{result}.
+A key difference between Dafny methods and methods in other C-like languages is that Dafny methods require you to define the names of the return values in the function signature. For example, in ◊code{Abs} above, the name of the return variable was ◊code{result}.
 
 This is necessary because there would otherwise be no straightforward way to refer to the returned value in the function's contract. The postcondition for ◊code{Abs} says that ◊code{result} must be either ◊code{n} or ◊code{-n}. We couldn't write this if ◊code{result} was not already defined. ◊aside{Some specification languages, like JML, use a special name for the return value instead.}
 
@@ -172,7 +173,7 @@ Dafny can prove both the postcondition and the assertion automatically.
   }
 }
 
-In some sense, therefore, this code is 'correct'---but it has some issues. The precondition requires that ◊${-10 < x < 10}, but the absolute value function should work for ◊em{any} integer, not just a small range of them. If we use any integer outside this range, Dafny will complain that the precondition is violated.
+In some sense, this code is 'correct'---but it has some issues. The precondition requires that ◊${-10 < x < 10}, but the absolute value function should work for ◊em{any} integer, not just a small range of them. If we use any integer outside this range, Dafny will complain that the precondition is violated.
 
 ◊codeblock['dafny]{
   method {:main} TestAbs()
@@ -207,7 +208,7 @@ Let's see what Dafny can infer about the function now.
   }
 }
 
-Dafny can prove the first assertion, but it cannot prove the stronger fact that ◊code{x} should not ◊em{just} be some non-negative integer, but ◊em{exactly} ◊code{3}. As far as Dafny is concerned, all ◊code{Abs} guarantees is that its output is greater than zero. Notice that this postcondition would still hold if instead ◊code{Abs} was defined to be ‘◊code{Abs} plus three’.
+Dafny can prove the first assertion, but it cannot prove the stronger fact that ◊code{x} should not ◊em{just} be some non-negative integer, but ◊em{exactly} ◊code{3}. As far as Dafny is concerned, all ◊code{Abs} guarantees is that its output is greater than or equal to zero. Notice that this postcondition would still hold if instead ◊code{Abs} was defined to be ‘◊code{Abs} plus three’.
 
 ◊codeblock['dafny]{
   method Abs(x: int) returns (result: int)
