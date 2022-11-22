@@ -177,10 +177,6 @@ This way of expressing the term to be proved can be a little verbose. We could, 
 
   (*   ↓H1     ↓H2         ↓H3      *)
   Goal A -> (A -> B) -> (B -> C) -> C.
-    apply H3.
-    apply H2.
-    exact H1.
-  Qed.
 }
 
 This is equivalent to what we had before, but the proof begins in a different state.
