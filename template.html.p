@@ -133,6 +133,7 @@
       ◊a[#:href "https://github.com/ConorReynolds" #:class "fab fa-github fa-1x" #:title "GitHub"] ◊(nbsp)
       ◊a[#:href "https://gitlab.cs.nuim.ie/creynolds" #:class "fab fa-gitlab fa-1x" #:title "GitLab"] ◊(nbsp)
       ◊a[#:href "https://twitter.com/ConorEReynolds" #:class "fab fa-twitter fa-1x" #:title "Twitter"] ◊(nbsp)
+      ◊a[#:href "https://www.linkedin.com/in/conor-reynolds-931049258/" #:class "fab fa-linkedin-in fa-1x" #:title "LinkedIn"] ◊(nbsp)
       ◊a[#:href "mailto:conor.reynolds@mu.ie" #:class "fas fa-envelope fa-1x" #:title "Email"]
     }
   })
