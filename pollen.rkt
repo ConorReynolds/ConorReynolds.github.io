@@ -262,6 +262,11 @@
 (define (code . elems)
   `(code ,@elems))
 
+(define (copy-button str)
+  `(button [[class "copy-button"]
+            [onclick ,(format "navigator.clipboard.writeText(`~a`)" str)]]
+           (i [[class "fas fa-copy"]])))
+
 (define (codeblock #:wrap [wrap? #f] [lang 'racket] #:name [caption #f] . elems)
   (define raw (apply string-append elems))
   (define pre-rendered (highlight #:python-executable "python3" lang raw))
@@ -270,6 +275,7 @@
          (get-tag rendered)
          (get-attrs rendered)
          (if caption `(div [[class "caption"]] ,caption) '(@))
+         (copy-button raw)
          (get-elements rendered)))
 
 ;; Similar to MB’s Beautiful Racket — I just don’t like sidenotes very much in HTML

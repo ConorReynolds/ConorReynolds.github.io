@@ -436,6 +436,7 @@ pre {
 }
 
 .highlight {
+    position: relative;
     .source {
         font-family: var(--code-font);
         font-size: 0.8rem;
@@ -462,6 +463,50 @@ pre {
         padding: 0.2rem 0 0.2rem 0.5rem;
         color: var(--muted-color);
         background-color: var(--code-filename-bg-color);
+    }
+
+    .copy-button {
+        all: unset;
+        visibility: hidden;
+        opacity: 0.2;
+        transition-property: opacity, color;
+        transition-duration: 0.1s;
+        border: 0.5px gray solid;
+        border-radius: 0.25em;
+        position: absolute;
+        color: rgba($color: #000000, $alpha: 0.2);
+        left: 100%;
+        transform: translate(-100%, 0);
+        margin: 0.5em 0 0 -0.5em;
+        padding: 0 0.2em 0 0.2em;
+
+        @media (hover) {
+            &:hover {
+                color: rgba($color: #000000, $alpha: 0.5);
+            }
+        }
+
+        &:active {
+            color: var(--fg-color);
+        }
+    }
+
+    @media (hover) {
+        &:hover {
+            .copy-button {
+                visibility: visible;
+                opacity: 1.0;
+                transition-property: opacity, color;
+                transition-duration: 0.1s;
+            }
+        }
+    }
+
+    @media not all and (hover) {
+        .copy-button {
+            visibility: hidden;
+            opacity: 0.0;
+        }
     }
 }
 
