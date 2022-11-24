@@ -43,26 +43,26 @@
 
 </div>
 
-<div id="doc" role="main"><h2 id="Prerequisites" class="section">Prerequisites<a class="anchor" href="#Prerequisites" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Some knowledge of formal logic and proof theory (as well as general mathematical maturity and experience with proofs) will be helpful.</p><h2 id="Instructions" class="section">Instructions<a class="anchor" href="#Instructions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>If you’re on the lab computers, everything is already installed—just open CoqIDE.</p><p>If you’re using your own computer, download and install the latest version of the <a class="extlink" href="https://coq.inria.fr/download">Coq Platform.</a> This should install, amongst other things, CoqIDE—we recommend using this if you’re new to Coq. The install size is fairly big so make sure you have enough disk space.</p><p>If you know what you’re doing, there’s also generally decent support for using Coq in your preferred text editor (as long as you’re not using Windows). As far as I know, VS Code and Emacs have the best experience as of this writing.</p><p>You must put everything into a single file called <code>Lab02.v</code> for submission. The file should look like this:</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`Section Lab02.
+<div id="doc" role="main"><h2 id="Prerequisites" class="section">Prerequisites<a class="anchor" href="#Prerequisites" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Some knowledge of formal logic and proof theory (as well as general mathematical maturity and experience with proofs) will be helpful.</p><h2 id="Instructions" class="section">Instructions<a class="anchor" href="#Instructions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>If you’re on the lab computers, everything is already installed—just open CoqIDE.</p><p>If you’re using your own computer, download and install the latest version of the <a class="extlink" href="https://coq.inria.fr/download">Coq Platform.</a> This should install, amongst other things, CoqIDE—we recommend using this if you’re new to Coq. The install size is fairly big so make sure you have enough disk space.</p><p>If you know what you’re doing, there’s also generally decent support for using Coq in your preferred text editor (as long as you’re not using Windows). As far as I know, VS Code and Emacs have the best experience as of this writing.</p><p>You must put everything into a single file for submission. The file should look like this:</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`Section CoqLab01.
 Context (A B C D : Prop).
 
 (* your lab work goes here *)
 
-End Lab02.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+End CoqLab01.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Section</span> <span class="n">Lab02</span><span class="o">.</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Section</span> <span class="n">CoqLab01</span><span class="o">.</span>
 <span class="kn">Context</span> <span class="o">(</span><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">).</span>
 
 <span class="c">(* your lab work goes here *)</span>
 
-<span class="kn">End</span> <span class="n">Lab02</span><span class="o">.</span>
+<span class="kn">End</span> <span class="n">CoqLab01</span><span class="o">.</span>
 </pre></div></td></tr></tbody></table></div>
 
 </div><p>You can skip ahead to the <a class="xref" hyphens="none" href="/resources/coq-01.html#Questions">lab questions</a> if you’re confident enough, but I highly recommend reading through the next two sections to get an overview of the tactics required for the lab, and a <a class="xref" hyphens="none" href="/resources/coq-01.html#Worked Example">worked example</a>.</p><h2 id="Basic Tactics" class="section">Basic Tactics<a class="anchor" href="#Basic Tactics" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Tactics are commands you can run that transform the proof state in some way. You will need three tactics for this lab: <code>intros</code>, <code>apply</code>, and <code>exact</code>.</p><ul class="loose-list"><li><code>intros</code> applies the <em>introduction rule</em> for an implication. That is, it transforms the proof state from <span class="inline-math" hyphens="none">\(\Gamma \vdash A \to B\)</span> into <span class="inline-math" hyphens="none">\(\Gamma, A \vdash B\)</span>.</li><li><code>apply</code> applies the <em>elimination rule</em> for an implication, but ‘backwards’. That is, it transforms the proof state from <span class="inline-math" hyphens="none">\(\Gamma, A \to B \vdash B\)</span> into <span class="inline-math" hyphens="none">\(\Gamma, A \to B \vdash A\)</span>.</li><li><code>exact</code> closes the proof when the proof state looks like <span class="inline-math" hyphens="none">\(\Gamma, A \vdash A\)</span>.</li></ul><p>For a simple description of these tactics (and many others) I recommend you take a look at this <a class="extlink" href="https://pjreddie.com/coq-tactics">simplified tactic index.</a> It also has some examples of the tactics in use.</p><p>If you’re feeling particularly adventurous, I encourage you to brave the official <a class="extlink" href="https://coq.inria.fr/refman/proof-engine/tactics.html">Coq tactic index.</a> For example, you can read some very detailed info about the <code>apply</code> tactic <a class="extlink" href="https://coq.inria.fr/refman/proof-engine/tactics.html#coq:tacn.apply">here.</a></p><h2 id="Worked Example" class="section">Worked Example<a class="anchor" href="#Worked Example" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Let’s prove that \[
-  A, \; A \to B, \; B \to C \vdash C \tag{∗}
+  A, \; A \to B, \; B \to C \; \vdash \; C \tag{∗}
 \] using Coq.</p><p>First, though, we should remind ourselves what this means. The mathematical expression <span class="inline-math" hyphens="none">\(\Gamma \vdash \phi\)</span> means that, from the list of assumptions <span class="inline-math" hyphens="none">\(\Gamma\)</span>, we can prove the proposition <span class="inline-math" hyphens="none">\(\phi\)</span>. Therefore, <span class="inline-math" hyphens="none">\((∗)\)</span> means this: given that we know</p><ol class="compact-list"><li><span class="inline-math" hyphens="none">\(A\)</span></li><li><span class="inline-math" hyphens="none">\(A \to B\)</span></li><li><span class="inline-math" hyphens="none">\(B \to C\)</span></li></ol><p>we should be able to prove <span class="inline-math" hyphens="none">\(C\)</span>.</p><p>In Coq, we can represent the situation like this.</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`Section WorkedExample.
 
 Context (A B C : Prop).
@@ -285,42 +285,45 @@ C`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourc
 <span class="n">C</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>It’s up to you which method you prefer. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">But note that <code>intros</code> will never reduce head-constants if invoked with no arguments (unlike <code>intro</code>).</span></span></p><hr/><h2 id="Questions" class="section">Questions<a class="anchor" href="#Questions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Prove the following lemmas in Coq.</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`(* Implication is transitive. *)
+</div><p>It’s up to you which method you prefer. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">But note that <code>intros</code> will never reduce head-constants if invoked with no arguments (unlike <code>intro</code>).</span></span></p><hr/><h2 id="Questions" class="section">Questions<a class="anchor" href="#Questions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Prove the following lemmas in Coq. When you have completed a proof, replace <code>Admitted</code> with <code>Qed</code>. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">You can copy any code snippet by hovering over the snippet and clicking the <i class="fa fa-copy" style="margin: 0 0.1em 0 0.1em"></i> button which appears on the top right.</span></span></p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`Section CoqLab01.
+Context (A B C D : Prop).
+
+(* Implication is transitive. *)
 Lemma q1 : (A -&gt; B) -&gt; (B -&gt; C) -&gt; (A -&gt; C).
 Proof.
   (* todo *)
-Qed.
+Admitted.
 
 (* Anything implies itself. *)
 Lemma q2 : A -&gt; A.
 Proof.
   (* todo *)
-Qed.
+Admitted.
 
 (* Extra hypotheses can be introduced without affecting
  * provability. *)
 Lemma q3 : A -&gt; (B -&gt; A).
 Proof.
   (* todo *)
-Qed.
+Admitted.
 
 (* The order of the hypotheses is irrelevant. *)
 Lemma q4 : (A -&gt; B -&gt; C) -&gt; B -&gt; A -&gt; C.
 Proof.
   (* todo *)
-Qed.
+Admitted.
 
 (* Duplicate hypotheses can be merged. *)
 Lemma q6 : (A -&gt; A -&gt; B) -&gt; A -&gt; B.
 Proof.
   (* todo *)
-Qed.
+Admitted.
 
 (* Duplicate hypotheses can be introduced. *)
 Lemma q7 : (A -&gt; B) -&gt; A -&gt; A -&gt; B.
 Proof.
   (* todo *)
-Qed.
+Admitted.
 
 (* Diamond lemma:
  *        A
@@ -332,14 +335,16 @@ Qed.
 Lemma q8 : (A -&gt; B) -&gt; (A -&gt; C) -&gt; (B -&gt; C -&gt; D) -&gt; A -&gt; D.
 Proof.
   (* todo *)
-Qed.
+Admitted.
 
 (* Weak version of Peirce’s law. The strong version implies
  * LEM and therefore can’t be proved in constructive logic. *)
 Lemma q9 : ((((A -&gt; B) -&gt; A) -&gt; A) -&gt; B) -&gt; B.
 Proof.
   (* todo *)
-Qed.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+Admitted.
+
+End CoqLab01.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -393,42 +398,50 @@ Qed.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="so
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
-<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><span class="c">(* Implication is transitive. *)</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Section</span> <span class="n">CoqLab01</span><span class="o">.</span>
+<span class="kn">Context</span> <span class="o">(</span><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">).</span>
+
+<span class="c">(* Implication is transitive. *)</span>
 <span class="kn">Lemma</span> <span class="n">q1</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
-<span class="kn">Qed</span><span class="o">.</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Anything implies itself. *)</span>
 <span class="kn">Lemma</span> <span class="n">q2</span> <span class="o">:</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
-<span class="kn">Qed</span><span class="o">.</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Extra hypotheses can be introduced without affecting</span>
 <span class="c"> * provability. *)</span>
 <span class="kn">Lemma</span> <span class="n">q3</span> <span class="o">:</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
-<span class="kn">Qed</span><span class="o">.</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* The order of the hypotheses is irrelevant. *)</span>
 <span class="kn">Lemma</span> <span class="n">q4</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
-<span class="kn">Qed</span><span class="o">.</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Duplicate hypotheses can be merged. *)</span>
 <span class="kn">Lemma</span> <span class="n">q6</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
-<span class="kn">Qed</span><span class="o">.</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Duplicate hypotheses can be introduced. *)</span>
 <span class="kn">Lemma</span> <span class="n">q7</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
-<span class="kn">Qed</span><span class="o">.</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Diamond lemma:</span>
 <span class="c"> *        A</span>
@@ -440,14 +453,16 @@ Qed.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="so
 <span class="kn">Lemma</span> <span class="n">q8</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
-<span class="kn">Qed</span><span class="o">.</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Weak version of Peirce’s law. The strong version implies</span>
 <span class="c"> * LEM and therefore can’t be proved in constructive logic. *)</span>
 <span class="kn">Lemma</span> <span class="n">q9</span> <span class="o">:</span> <span class="o">((((</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
-<span class="kn">Qed</span><span class="o">.</span>
+<span class="kn">Admitted</span><span class="o">.</span>
+
+<span class="kn">End</span> <span class="n">CoqLab01</span><span class="o">.</span>
 </pre></div></td></tr></tbody></table></div>
 
 </div></div>
