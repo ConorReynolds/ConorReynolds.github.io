@@ -18,15 +18,15 @@ If you're using your own computer, download and install the latest version of th
 
 If you know what you're doing, there's also generally decent support for using Coq in your preferred text editor (as long as you're not using Windows). As far as I know, VS Code and Emacs have the best experience as of this writing.
 
-You must put everything into a single file called ◊code{Lab02.v} for submission. The file should look like this:
+You must put everything into a single file for submission. The file should look like this:
 
 ◊codeblock['coq]{
-  Section Lab02.
+  Section CoqLab01.
   Context (A B C D : Prop).
 
   (* your lab work goes here *)
 
-  End Lab02.
+  End CoqLab01.
 }
 
 You can skip ahead to the ◊xref["resources/coq-01.html#Questions"]{lab questions} if you're confident enough, but I highly recommend reading through the next two sections to get an overview of the tactics required for the lab, and a ◊xref["resources/coq-01.html#Worked Example"]{worked example}. 
@@ -55,7 +55,7 @@ If you're feeling particularly adventurous, I encourage you to brave the officia
 
 ◊section{Worked Example}
 
-Let's prove that ◊$${A, \; A \to B, \; B \to C \vdash C \tag{∗}} using Coq.
+Let's prove that ◊$${A, \; A \to B, \; B \to C \; \vdash \; C \tag{∗}} using Coq.
 
 First, though, we should remind ourselves what this means. The mathematical expression ◊${\Gamma \vdash \phi} means that, from the list of assumptions ◊${\Gamma}, we can prove the proposition ◊${\phi}. Therefore, ◊${(∗)} means this: given that we know
 
@@ -236,45 +236,48 @@ It's up to you which method you prefer. ◊aside{But note that ◊code{intros} w
 
 ◊section{Questions}
 
-Prove the following lemmas in Coq.
+Prove the following lemmas in Coq. When you have completed a proof, replace ◊code{Admitted} with ◊code{Qed}. ◊aside{You can copy any code snippet by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em"] button which appears on the top right.}
 
 ◊codeblock['coq]{
+  Section CoqLab01.
+  Context (A B C D : Prop).
+  
   (* Implication is transitive. *)
   Lemma q1 : (A -> B) -> (B -> C) -> (A -> C).
   Proof.
     (* todo *)
-  Qed.
+  Admitted.
 
   (* Anything implies itself. *)
   Lemma q2 : A -> A.
   Proof.
     (* todo *)
-  Qed.
+  Admitted.
 
   (* Extra hypotheses can be introduced without affecting
    * provability. *)
   Lemma q3 : A -> (B -> A).
   Proof.
     (* todo *)
-  Qed.
+  Admitted.
 
   (* The order of the hypotheses is irrelevant. *)
   Lemma q4 : (A -> B -> C) -> B -> A -> C.
   Proof.
     (* todo *)
-  Qed.
+  Admitted.
 
   (* Duplicate hypotheses can be merged. *)
   Lemma q6 : (A -> A -> B) -> A -> B.
   Proof.
     (* todo *)
-  Qed.
+  Admitted.
 
   (* Duplicate hypotheses can be introduced. *)
   Lemma q7 : (A -> B) -> A -> A -> B.
   Proof.
     (* todo *)
-  Qed.
+  Admitted.
 
   (* Diamond lemma:
    *        A
@@ -286,12 +289,14 @@ Prove the following lemmas in Coq.
   Lemma q8 : (A -> B) -> (A -> C) -> (B -> C -> D) -> A -> D.
   Proof.
     (* todo *)
-  Qed.
+  Admitted.
 
   (* Weak version of Peirce’s law. The strong version implies
    * LEM and therefore can’t be proved in constructive logic. *)
   Lemma q9 : ((((A -> B) -> A) -> A) -> B) -> B.
   Proof.
     (* todo *)
-  Qed.
+  Admitted.
+
+  End CoqLab01.
 }
