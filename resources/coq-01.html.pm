@@ -236,7 +236,7 @@ It's up to you which method you prefer. ◊aside{But note that ◊code{intros} w
 
 ◊section{Questions}
 
-Prove the following lemmas in Coq. When you have completed a proof, replace ◊code{Admitted} with ◊code{Qed}. ◊aside{You can copy any code snippet by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em"] button which appears on the top right.}
+Prove the following lemmas in Coq. When you have completed a proof, replace ◊code{Admitted} with ◊code{Qed}. ◊aside{You can copy any code snippet by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em"] button which appears on the top right. This doesn't work on mobile, but you shouldn't be programming on mobile anyway.}
 
 ◊codeblock['coq]{
   Section CoqLab01.
