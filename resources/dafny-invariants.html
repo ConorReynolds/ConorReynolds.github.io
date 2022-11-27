@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    Designing Invariants (Draft) | Conor Reynolds
+  </title>
+
+  <meta name="robots" content="noindex,nofollow">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // customised options
+              // • auto-render specific keys, e.g.:
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+                  {left: '\\(', right: '\\)', display: false},
+                  {left: '\\[', right: '\\]', display: true}
+              ],
+              // • rendering keys, e.g.:
+              throwOnError : false
+          });
+      });
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
+
+  <link rel="preload" href="/fonts/SourceCodePro/SourceCodePro-Bold.otf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/SourceCodePro/SourceCodePro-BoldIt.otf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/SourceCodePro/SourceCodePro-Medium.otf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/SourceCodePro/SourceCodePro-MediumIt.otf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+
+<body><div class="header"><div id="title-block"><h1>Designing Invariants (Draft)</h1>
+<div class="subtitle">Using Dafny to verify nontrivial programs</div></div>
+
+</div>
+
+<div id="doc" role="main"><p>As we have seen already, the elementary integer exponentiation algorithm can be encoded and verified in Dafny as follows.</p><div class="highlight"><div class="caption">FastExp.dfy</div><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`function ExpDef(a: int, n: nat): int
+{
+    if n == 0 then
+        1
+    else
+        a * ExpDef(a, n - 1)
+}
+
+method SlowExp(a: int, n: nat) returns (r: int)
+    ensures r == ExpDef(a, n)
+{
+    r := 1;
+    var i := n;
+    while i &gt; 0
+        invariant i &gt;= 0
+        invariant r == ExpDef(a, n - i)
+    {
+        r := r * a;
+        i := i - 1;
+    }
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">):</span> <span class="kt">int</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
+        <span class="mi">1</span>
+    <span class="k">else</span>
+        <span class="n">a</span> <span class="o">*</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">method</span> <span class="nf">SlowExp</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">invariant</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="k">invariant</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+        <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>This verification is in many ways not very interesting, but the main reason is because the definition <code>ExpDef</code> computes powers in basically the same way as <code>SlowExp</code>.</p><p>The definition computes by β-reduction like this:</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`ExpDef(3, 4) ⇝ᵦ 3 * ExpDef(3, 3)
+             ⇝ᵦ 3 * 3 * ExpDef(3, 2)
+             ⇝ᵦ 3 * 3 * 3 * ExpDef(3, 1)
+             ⇝ᵦ 3 * 3 * 3 * 3 * ExpDef(3, 0)
+             ⇝ᵦ 3 * 3 * 3 * 3 * 1
+             ⇝ᵦ 3 * 3 * 3 * 3
+             ⇝ᵦ 3 * 3 * 9
+             ⇝ᵦ 3 * 27
+             ⇝ᵦ 81`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span>ExpDef(3, 4) ⇝ᵦ 3 * ExpDef(3, 3)
+             ⇝ᵦ 3 * 3 * ExpDef(3, 2)
+             ⇝ᵦ 3 * 3 * 3 * ExpDef(3, 1)
+             ⇝ᵦ 3 * 3 * 3 * 3 * ExpDef(3, 0)
+             ⇝ᵦ 3 * 3 * 3 * 3 * 1
+             ⇝ᵦ 3 * 3 * 3 * 3
+             ⇝ᵦ 3 * 3 * 9
+             ⇝ᵦ 3 * 27
+             ⇝ᵦ 81
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>… and the imperative computation table looks like this:</p><table class="quick-table"><tr><th><span class="inline-math" hyphens="none">\(\boldsymbol{i}\)</span></th><th><span class="inline-math" hyphens="none">\(\boldsymbol{r}\)</span></th></tr><tr><td><span class="inline-math" hyphens="none">\(4\)</span></td><td><span class="inline-math" hyphens="none">\(1\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(3\)</span></td><td><span class="inline-math" hyphens="none">\(1 \times 3 = 3\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(2\)</span></td><td><span class="inline-math" hyphens="none">\(3 \times 3 = 9\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(1\)</span></td><td><span class="inline-math" hyphens="none">\(9 \times 3 = 27\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(0\)</span></td><td><span class="inline-math" hyphens="none">\(27 \times 3 = 81\)</span></td></tr></table><p>Specifications are supposed to tell us <em>what</em> we are computing. Programs are supposed to tell us <em>how</em> to compute it. Sometimes, like in this case, the <em>what</em> gives us sufficient information to perform the computation.</p><p>But sometimes the algorithm is too slow and we want to speed it up. In doing so, however, we want to compute the same <em>what</em>. Tools like Dafny allow us to improve on the <em>how</em> in such a way that we do not change what we are computing.</p><p>Let’s return to exponentiation. Notice that <span class="inline-math" hyphens="none">\(a^{10} = (a^2)^5\)</span>. This seemingly trivial observation is very useful. With the naive algorithm, <span class="inline-math" hyphens="none">\(a^{10}\)</span> takes ten iterations. But <span class="inline-math" hyphens="none">\((a^2)^5\)</span> only takes six—one iteration to square <span class="inline-math" hyphens="none">\(a\)</span>, five to compute <span class="inline-math" hyphens="none">\((a^2)^5\)</span>. This leads to the following much faster algorithm for exponentiation.</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`method FastExp(a: int, n: nat) returns (r: int)
+{
+    r := 1;
+    var b := a;
+    var i := n;
+
+    while i &gt; 0 {
+        if i % 2 == 0 {
+            b := b * b;
+            i := i / 2;
+        } else {
+            r := r * b;
+            i := i - 1;
+        }
+    }
+}
+
+method {:main} TestFastExp()
+{
+    var x := FastExp(3, 4);
+    print x, &quot;\n&quot;;  // prints 81
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FastExp</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">b</span> <span class="o">:=</span> <span class="n">a</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="n">b</span> <span class="o">:=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">method</span> {:main} <span class="nf">TestFastExp</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="n">x</span> <span class="o">:=</span> <span class="n">FastExp</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="fm">print</span> <span class="n">x</span><span class="p">,</span> <span class="s2">"\n"</span><span class="p">;</span>  <span class="c1">// prints 81</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>But how can we be sure that we’ve computed the right thing? This algorithm is much less straightforward than the simple one and therefore genuinely <em>requires</em> a proof for us to be really certain that it works.</p><p>Again, the trick here is to identify an invariant. Let’s tabulate the values for <span class="inline-math" hyphens="none">\(3^7\)</span>.</p><table class="quick-table"><tr><th><span class="inline-math" hyphens="none">\(\boldsymbol{b}\)</span></th><th><span class="inline-math" hyphens="none">\(\boldsymbol{i}\)</span></th><th><span class="inline-math" hyphens="none">\(\boldsymbol{r}\)</span></th></tr><tr><td><span class="inline-math" hyphens="none">\(3\)</span></td><td><span class="inline-math" hyphens="none">\(7\)</span></td><td><span class="inline-math" hyphens="none">\(1\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(3\)</span></td><td><span class="inline-math" hyphens="none">\(6\)</span></td><td><span class="inline-math" hyphens="none">\(3\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(3^2\)</span></td><td><span class="inline-math" hyphens="none">\(3\)</span></td><td><span class="inline-math" hyphens="none">\(3\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(3^2\)</span></td><td><span class="inline-math" hyphens="none">\(2\)</span></td><td><span class="inline-math" hyphens="none">\(3 \times 3^2\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(3^4\)</span></td><td><span class="inline-math" hyphens="none">\(1\)</span></td><td><span class="inline-math" hyphens="none">\(3 \times 3^2\)</span></td></tr><tr><td><span class="inline-math" hyphens="none">\(3^4\)</span></td><td><span class="inline-math" hyphens="none">\(0\)</span></td><td><span class="inline-math" hyphens="none">\(3 \times 3^2 \times 3^4\)</span></td></tr></table><p>At the beginning of the loop, <span class="inline-math" hyphens="none">\(r \cdot b^i = 1 \cdot 3^7 = 3^7\)</span>, which is the result we’re looking for—that’s usually a good start.</p><p>That will remain true in the simple case since <span class="inline-math" hyphens="none">\(r \cdot b^i = 3 \cdot 3^6\)</span> on the second line. On the third line, after one iteration in the more complicated branch, <span class="inline-math" hyphens="none">\(r \cdot b^i = 3 \cdot (3^2)^3 = 3 \cdot 3^6 = 3^7\)</span>—exactly what we wanted.</p><p>Now that we have identified what we think is an invariant, we should prove it. You can do this on paper, or you can get Dafny to do it for you.</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`method FastExp(a: int, n: nat) returns (r: int)
+    ensures r == ExpDef(a, n)
+{
+    r := 1;
+    var b := a;
+    var i := n;
+
+    while i &gt; 0
+        invariant i &gt;= 0
+        // ✗ fails – might not be maintained
+        invariant r * ExpDef(b, i) == ExpDef(a, n)
+    {
+        if i % 2 == 0 {
+            b := b * b;
+            i := i / 2;
+        } else {
+            r := r * b;
+            i := i - 1;
+        }
+    }
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FastExp</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">b</span> <span class="o">:=</span> <span class="n">a</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">invariant</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="c1">// ✗ fails – might not be maintained</span>
+        <span class="k">invariant</span> <span class="n">r</span> <span class="o">*</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="n">b</span> <span class="o">:=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Unfortunately, Dafny is not <em>quite</em> that smart. What is the problem? If you copy the invariant into the loop, you will notice that it holds in the second branch, but not in the first. The reason for this is that Dafny does not know the properties of exponentiation like we do.</p><p>Performing Hoare logic calculations by hand, we can work up to the top of the condition to see what Dafny is missing.</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`if i % 2 == 0 {
+    assert r * ExpDef(b * b, i / 2) == ExpDef(a, n);
+    b := b * b;
+    i := i / 2;
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+    <span class="k">assert</span> <span class="n">r</span> <span class="o">*</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">,</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+    <span class="n">b</span> <span class="o">:=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>If Dafny knew that <span class="inline-math" hyphens="none">\((b^2)^{i/2} = b^i\)</span> (when <span class="inline-math" hyphens="none">\(i\)</span> is even), Dafny could complete the proof. For that, we will need a lemma.</p><p>A <em>lemma</em> in Dafny is a ghost method where the sole purpose is to establish the postcondition. For example, you might imagine writing a lemma like this:</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`lemma prop_54_43()
+    ensures 1 + 1 == 2
+{}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">prop_54_43</span><span class="p">()</span>
+    <span class="k">ensures</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="p">{}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>This method has no body and cannot be executed besides, but if you call it somewhere, Dafny will be exposed to the earth-shattering realisation that <span class="inline-math" hyphens="none">\(1 + 1 = 2\)</span>. This occasionally useful fact does not require a lemma, but our fact about exponentiation does.</p><p>We want Dafny to be able to prove the following:</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`lemma ExpSquare(a: int, n: nat)
+    ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
+{}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">{}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>This requires that <span class="inline-math" hyphens="none">\(n\)</span> is even, of course. We can add this as a precondition.</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`lemma ExpSquare(a: int, n: nat)
+    requires n % 2 == 0
+    ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
+{}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">requires</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">ensures</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">{}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Dafny cannot automatically prove that this holds, but it turns out to be enough to remind Dafny that the inductive hypothesis holds in the case where <span class="inline-math" hyphens="none">\(n \ne 0\)</span>.</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`lemma ExpSquare(a: int, n: nat)
+    requires n % 2 == 0
+    ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
+{
+    if n != 0 {
+        // note that n &gt; 1 here (Dafny knows this)
+        ExpSquare(a, n - 2);
+    }
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">requires</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">ensures</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="c1">// note that n &gt; 1 here (Dafny knows this)</span>
+        <span class="n">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Now all that remains is to make this lemma visible in the body of <code>FastExp</code>.</p><div class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`method FastExp(a: int, n: nat) returns (r: int)
+    ensures r == ExpDef(a, n)  // ✓ succeeds
+{
+    r := 1;
+    var b := a;
+    var i := n;
+
+    while i &gt; 0
+        invariant i &gt;= 0
+        invariant r * ExpDef(b, i) == ExpDef(a, n)
+    {
+        if i % 2 == 0 {
+            ExpSquare(b, i);
+            b := b * b;
+            i := i / 2;
+        } else {
+            r := r * b;
+            i := i - 1;
+        }
+    }
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FastExp</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1">// ✓ succeeds</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">b</span> <span class="o">:=</span> <span class="n">a</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">invariant</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="k">invariant</span> <span class="n">r</span> <span class="o">*</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="n">ExpSquare</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+            <span class="n">b</span> <span class="o">:=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>This is now fully verified.</p></div>
+
+<div class="horizontal-rule"></div>
+
+<div aria-hidden="true" id="footer">© Conor Reynolds
+  2022  
+<a class="fab fa-github fa-1x" href="https://github.com/ConorReynolds" title="GitHub"></a>  
+<a class="fab fa-gitlab fa-1x" href="https://gitlab.cs.nuim.ie/creynolds" title="GitLab"></a>  
+<a class="fab fa-twitter fa-1x" href="https://twitter.com/ConorEReynolds" title="Twitter"></a>  
+<a class="fab fa-linkedin-in fa-1x" href="https://www.linkedin.com/in/conor-reynolds-931049258/" title="LinkedIn"></a>  
+<a class="fas fa-envelope fa-1x" href="mailto:conor.reynolds@mu.ie" title="Email"></a></div></body>
+
+<script src="/js/utils.js"></script>
+<script src="/js/checkParams.js"></script>
+
+<script src="/js/elasticlunr.js"></script>
+<script src="/js/search-index.js"></script>
+<script src="/js/searcher.js"></script>
+
+
+
+</html>
