@@ -15,6 +15,7 @@
   pollen/tag
   pollen/file
   sugar/coerce
+  sugar/list
   ; pollen-count
 
   pollen/unstable/pygments
@@ -213,11 +214,14 @@
         ,@elems))
 
 (define (quick-table . elems)
+  (define split-into-rows
+    (filter-split (decode-elements #:string-proc (λ (x) (string-split x "|")) elems)
+                  (λ (x) (and (string? x) (regexp-match "\n" x)))))
   (define rows-of-text-cells
-    (let ([text-rows (filter-not whitespace? elems)])
+    (let ([text-rows split-into-rows])
       (for/list ([text-row (in-list text-rows)])
-        (for/list ([text-cell (in-list (string-split text-row "|"))])
-          (string-trim text-cell)))))
+        (for/list ([text-cell (in-list (filter-not whitespace? text-row))])
+          (if (string? text-cell) (string-trim text-cell) text-cell)))))
 
   (match-define (list tr-tag td-tag th-tag) (map default-tag-function '(tr td th)))
 
@@ -227,8 +231,9 @@
             (for/list ([row (in-list other-rows)])
               (map td-tag row)))))
 
-  (cons 'table (for/list ([html-row (in-list html-rows)])
-                 (apply tr-tag html-row))))
+  (attr-set (cons 'table (for/list ([html-row (in-list html-rows)])
+                           (apply tr-tag html-row)))
+            'class "quick-table"))
 
 
 (define/contract (kbd . elems)
@@ -240,6 +245,11 @@
            (for/list ([key (in-list keys)])
              `(kbd ,(string-trim key)))
            "+")))
+
+(define (spoiler . elems)
+  (txexpr 'span '[[class "spoiler"]
+                  [onclick "this.classList.toggle(\"clicked\")"]]
+          elems))
 
 (define (extlink #:desc [desc #f] url . elems)
   `(a [[class "extlink"] [href ,url]] ,@elems))

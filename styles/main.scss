@@ -450,6 +450,31 @@ kbd>kbd {
     white-space: nowrap;
 }
 
+.spoiler {
+    // background-color: rgba($color: #000000, $alpha: 0.2);
+    // color: transparent;
+    filter: blur(0.3em);
+    user-select: none;
+    transition-property: filter;
+    transition-duration: 0.2s;
+    border-radius: 0.25em;
+    line-height: 1;
+
+    padding: 0 0.1em 0 0.1em;
+
+    @media (hover) {
+        &:hover {
+            filter: none;
+        }
+    }
+
+    @media not all and (hover) {
+        &.clicked {
+            filter: none;
+        }
+    }
+}
+
 .dialogue {
     padding-left: 1.5em;
     text-indent: -1.5em;
