@@ -91,7 +91,6 @@ As we have seen already, the elementary integer exponentiation algorithm can be 
         r := 1;
         var i := n;
         while i > 0
-            invariant i >= 0
             invariant r == ExpDef(a, n - i)
         {
             r := r * a;
@@ -187,7 +186,6 @@ Now that we have identified what we think is an invariant, we should prove it. Y
         var i := n;
 
         while i > 0
-            invariant i >= 0
             // ✗ fails – might not be maintained
             invariant r * ExpDef(b, i) == ExpDef(a, n)
         {
@@ -268,11 +266,10 @@ Now all that remains is to make this lemma visible in the body of ◊code{FastEx
         var i := n;
 
         while i > 0
-            invariant i >= 0
             invariant r * ExpDef(b, i) == ExpDef(a, n)
         {
             if i % 2 == 0 {
-                ExpSquare(b, i);
+                ExpSquare(b, i);  // ← this line added
                 b := b * b;
                 i := i / 2;
             } else {

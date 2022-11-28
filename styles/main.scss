@@ -1,10 +1,10 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --fg-color: white;
-        --bg-color: #1c1c1c;
+        --bg-color: #16171d;
         --red-color: #CC6666;
         --hover-color: rgba(255, 141, 158, 0.2);
-        --muted-color: #949494;
+        --muted-color: #c2c2c2;
         --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
         
     }
@@ -16,7 +16,7 @@
         --bg-color: white;
         --red-color: #993333;
         --hover-color: rgb(255, 182, 193, 0.5);
-        --muted-color: #464646;
+        --muted-color: #696969;
         --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
     }
 }
@@ -609,12 +609,12 @@ a {
         top: -0.1em;
         font-size: 0.65em;
         position: relative;
-        background: white;
+        background: var(--bg-color);
         opacity: 0.5;
         padding: 0 0.2em 0 0.2em;
         transition-property: opacity;
         transition-duration: 0.20s;
-        color: black;
+        color: var(--fg-color);
         border: solid 1px grey;
         box-sizing: content-box;
         border-radius: 0.2em;
@@ -629,6 +629,9 @@ a {
         // width: 7.5rem;
         width: min(30vw, 9rem);
         background: rgb(116, 116, 116);
+        @media (prefers-color-scheme: dark) {
+            background: rgb(60, 60, 60);
+        }
         color: white;
         padding: 0.7em 1em;
         font-size: 0.8rem;
@@ -656,7 +659,7 @@ a {
     
     .tooltip.show-tooltip {
         background: #999;
-        color: white;
+        color: var(--fg-color);
         opacity: 1;
         transition-property: opacity;
         transition-duration: 0.2s;
@@ -665,7 +668,7 @@ a {
     @media (hover) {
         .tooltip:hover {
             background: #999;
-            color: white;
+            color: var(--bg-color);
             opacity: 1;
             transition-property: opacity;
             transition-duration: 0.2s;
@@ -680,11 +683,11 @@ a {
         top: -0.1em;
         font-size: 0.65em;
         position: relative;
-        background: white;
+        background: var(--bg-color);
         opacity: 0.5;
         padding: 0 0.2em 0 0.2em;
         transition-property: none;
-        color: black;
+        color: var(--fg-color);
         border: solid 1px grey;
         box-sizing: content-box;
         border-radius: 0.2em;
@@ -703,6 +706,9 @@ a {
 
         // width: 0.9vw;
         background: rgb(116, 116, 116);
+        @media (prefers-color-scheme: dark) {
+            background: rgb(60, 60, 60);
+        }
         color: white;
         padding: 1em;
         font-size: 1rem;
@@ -738,7 +744,7 @@ a {
     @media (hover) {
         .tooltip:hover {
             background: #999;
-            color: white;
+            color: var(--bg-color);
             opacity: 1;
             transition-property: all;
             transition-duration: 0.2s;
