@@ -40,6 +40,8 @@
   (getenv "PROJECT_ROOT"))
 
 (define no-hyphens-attr '(hyphens "none"))
+(define no-paragraphs-attr '(paragraphs "none"))
+(define no-smart-typography-attr '(smart-typography "none"))
 
 (define (hyphenate-block block-tx)
   (define (no-hyphens? tx)
@@ -85,12 +87,14 @@
     (decode-elements elems
                      #:txexpr-elements-proc decode-paragraphs
                      #:exclude-tags '(figure table title-block verbatim)
-                     #:exclude-attrs '((class "bib-item") (class "highlight"))))
+                     #:exclude-attrs `((class "bib-item")
+                                       (class "highlight")
+                                       ,no-paragraphs-attr)))
   (list* 'div '((id "doc") (role "main"))
          (decode-elements elements-with-paragraphs
                           ; #:block-txexpr-proc hyphenate-block
                           #:string-proc (compose1 string-proc-extras text-typography)
-                          #:exclude-attrs '((class "highlight"))
+                          #:exclude-attrs `((class "highlight") ,no-smart-typography-attr)
                           #:exclude-tags '(style script code verbatim))))
 
 (define soft-hyphen "\u00AD")
@@ -283,7 +287,9 @@
   (define rendered (if wrap? (attr-join pre-rendered 'class "code-wrap") pre-rendered))
   (apply txexpr*
          (get-tag rendered)
-         (get-attrs rendered)
+         (list* no-paragraphs-attr
+                no-smart-typography-attr
+                (get-attrs rendered))
          (if caption `(div [[class "caption"]] ,caption) '(@))
          (copy-button raw)
          (get-elements rendered)))
