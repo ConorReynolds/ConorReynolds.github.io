@@ -1,19 +1,31 @@
 :root {
+    // Light mode colors
     --auburn: #993333;
     --sky-blue: #97D2FB;
     --slate-blue: #7161EF;
     --ebony: #161B33;
+
+    --light-red: #ff6b6b;
+    --true-blue: #4464AD;
+    --blue-purple: #A4B0F5;
 }
 
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --kw-color: #dbdbdb;
-        --op-color: #d3d3d3;
-        --num-color: #bbbbbb;
+        --kw-color: var(--light-red);
+        --op-color: #e2e2e2;
+        --num-color: #e9e7e7;
+        --comment-color: #bebdbd;
 
-        --code-bg-color: #202020;
-        --code-border-color: #2e2e2e;
+        --color-01: var(--light-red);
+        --color-02: var(--true-blue);
+        --color-03: var(--blue-purple);
+
+        --code-bg-color: #1c1e25;
+        --code-border-color: #1f232b;
+        --code-filename-bg-color: #343434;
+        --caption-color: white;
     }
 }
 
@@ -25,9 +37,15 @@
         --num-color: #444444;
         --comment-color: #777777;
 
+        --color-01: var(--auburn);
+        --color-02: var(--sky-blue);
+        --color-03: var(--slate-blue);
+        --color-04: var(--ebony);
+
         --code-bg-color: #fbfbfb;
         --code-border-color: #ddd;
         --code-filename-bg-color: #f0f0f0;
+        --caption-color: var(--muted-color);
     }
 }
 
@@ -205,7 +223,7 @@
 
 /* Keyword.Reserved */
 .highlight .kt {
-    color: var(--slate-blue)
+    color: var(--color-03);
 }
 
 /* Keyword.Type */
@@ -234,7 +252,7 @@
 
 /* Name.Builtin */
 .highlight .nc {
-    color: var(--slate-blue);
+    color: var(--color-03);
     // font-weight: bold;
 }
 
@@ -272,7 +290,7 @@
 
 /* Name.Label */
 .highlight .nn {
-    color: var(--slate-blue);
+    color: var(--color-03);
     // font-weight: bold
 }
 
@@ -398,27 +416,27 @@
 
 /* Name.Builtin.Pseudo */
 .highlight .fm {
-    color: var(--slate-blue)
+    color: var(--color-03);
 }
 
 /* Name.Function.Magic */
 .highlight .vc {
-    color: var(--slate-blue)
+    color: var(--color-03);
 }
 
 /* Name.Variable.Class */
 .highlight .vg {
-    color: var(--slate-blue)
+    color: var(--color-03);
 }
 
 /* Name.Variable.Global */
 .highlight .vi {
-    color: var(--slate-blue)
+    color: var(--color-03);
 }
 
 /* Name.Variable.Instance */
 .highlight .vm {
-    color: var(--slate-blue)
+    color: var(--color-03);
 }
 
 /* Name.Variable.Magic */
@@ -461,7 +479,7 @@ pre {
         font-variant-numeric: lining-nums;
         margin: auto;
         padding: 0.2rem 0 0.2rem 0.5rem;
-        color: var(--muted-color);
+        color: var(--caption-color);
         background-color: var(--code-filename-bg-color);
     }
 
@@ -474,7 +492,10 @@ pre {
         border: 0.5px gray solid;
         border-radius: 0.25em;
         position: absolute;
-        color: rgba($color: #000000, $alpha: 0.2);
+        color: rgba($color: black, $alpha: 0.2);
+        @media (prefers-color-scheme: dark) {
+            color: rgba($color: white, $alpha: 0.3);
+        }
         left: 100%;
         transform: translate(-100%, 0);
         margin: 0.5em 0 0 -0.5em;
@@ -482,7 +503,10 @@ pre {
 
         @media (hover) {
             &:hover {
-                color: rgba($color: #000000, $alpha: 0.5);
+                color: rgba($color: black, $alpha: 0.5);
+                @media (prefers-color-scheme: dark) {
+                    color: rgba($color: white, $alpha: 0.6);
+                }
             }
         }
 
