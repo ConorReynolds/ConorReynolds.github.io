@@ -20,7 +20,7 @@ html: scss
 
 publish: html scss
 	$(PUBLISH) . $(PUB_LOCATION)
-	rm $(PUB_LOCATION)/posts/draft* \
+	rm -f $(PUB_LOCATION)/posts/draft* \
 		$(PUB_LOCATION)/resources/draft*
 
 	rm -rf $(PUB_LOCATION)/.vscode/ \
