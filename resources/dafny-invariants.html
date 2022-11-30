@@ -301,7 +301,7 @@ method {:main} TestFastExp()
 <span class="p">{}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Dafny cannot automatically prove that this holds, but it turns out to be enough to remind Dafny that the inductive hypothesis holds in the case where <span class="inline-math" hyphens="none">\(n \ne 0\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`lemma ExpSquare(a: int, n: nat)
+</div><p>Dafny will try to prove lemmas automatically by induction on the lemma’s arguments, if possible. However, Dafny cannot automatically prove that this lemma is true. It turns out to be enough to remind Dafny that the inductive hypothesis holds in the case where <span class="inline-math" hyphens="none">\(n \ne 0\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`lemma ExpSquare(a: int, n: nat)
     requires n % 2 == 0
     ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
 {
@@ -388,7 +388,24 @@ method {:main} TestFastExp()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>This is now fully verified.</p></div>
+</div><p>This is now fully verified.</p><hr/><p>Why couldn’t Dafny prove the <code>ExpSquare</code> lemma automatically by induction? I don’t know for sure, but I have a sensible guess.</p><p>The base case is easy, so we won’t bother discussing that. The proof of the inductive step can’t start in the usual way—if we assume that the lemma holds for <span class="inline-math" hyphens="none">\(a^k\)</span>, we can’t prove it for <span class="inline-math" hyphens="none">\(a^{k + 1}\)</span>, since <span class="inline-math" hyphens="none">\(k + 1\)</span> is odd, and the lemma does not apply. We want to prove it for all <em>even</em> numbers, so we prove it in the case <span class="inline-math" hyphens="none">\(n = 0\)</span>, and then, assuming it holds for even <span class="inline-math" hyphens="none">\(k\)</span>, prove it for <span class="inline-math" hyphens="none">\(k + 2\)</span>. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">Note that the equality marked <span class="inline-math" hyphens="none">\(\stackrel{\ast}{=}\)</span> follows from the inductive hypothesis.</span></span></p><div class="display-math" hyphens="none" paragraphs="none">\[\begin{aligned}
+  a^{k + 2} &amp;= a^2 \cdot a^{k} \\
+          &amp;\stackrel{\ast}{=} a^2 \cdot (a^2)^{k/2} \\
+          &amp;= (a^2)^{(k + 1)/2}
+\end{aligned}\]</div><p>I can’t give you the precise reason why Dafny fails to guess this calculation, but more than likely it is due to the fact that the induction step is unusual, requiring <em>strong induction</em>. This is probably why it sufficed to point out that the induction step held for <span class="inline-math" hyphens="none">\(n - 2\)</span> in the lemma itself. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">Proving something for all natural numbers <span class="inline-math" hyphens="none">\(n\)</span>, under the condition that <span class="inline-math" hyphens="none">\(n\)</span> is even, is subtly different from proving something for all even numbers. In the first case you need strong induction, but in the second case you don’t.</span></span></p><p>If instead we declare the lemma like so:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" onclick="navigator.clipboard.writeText(String.raw`lemma ExpSquare(a: int, n: nat)
+    ensures ExpDef(a, 2*n) == ExpDef(a*a, n)
+{}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>… then Dafny <em>can</em> prove this automatically. Why? Presumably because the proof only requires standard induction. There’s also no more precondition, and we no longer have to reason about division.</p><div class="display-math" hyphens="none" paragraphs="none">\[\begin{aligned}
+  a^{2(k + 1)} &amp;= a^2 \cdot a^{2k} \\
+             &amp;\stackrel{\ast}{=} a^2 \cdot (a^2)^{k} \\
+             &amp;= (a^2)^{k + 1}
+\end{aligned}\]</div><p>Always keep in mind that automated and interactive theorem provers can be sensitive to the specific way in which a goal is expressed. Even if two lemmas are logically equivalent, it does not guarantee that they will be equivalently easy to prove.</p></div>
 
 <div class="horizontal-rule"></div>
 
