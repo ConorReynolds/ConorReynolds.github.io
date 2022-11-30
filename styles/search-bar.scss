@@ -1,5 +1,4 @@
 #search-wrapper {
-    z-index: 100;
     font-family: var(--alt-font);
     font-style: normal;
     font-size: 0.85rem;
@@ -60,6 +59,7 @@
 
     #searchresults-outer {
         position: absolute;
+        z-index: 100;
         float: left;
         background-color: var(--bg-color);
         margin-top: 1.5rem;
