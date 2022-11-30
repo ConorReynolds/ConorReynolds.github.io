@@ -262,11 +262,12 @@
   `(span [[class "smallcaps"]] ,@elems))
 
 (define ($ . elems)
-  `(span [[class "inline-math"] [hyphens "none"]]
+  `(span [[class "inline-math"] ,no-hyphens-attr]
          ,(apply string-append `("\\(" ,@elems "\\)"))))
 
 (define ($$ . elems)
-  (apply string-append `("\\[\n  " ,@elems "\n\\]")))
+  `(div [[class "display-math"] ,no-hyphens-attr ,no-paragraphs-attr]
+        ,(apply string-append `("\\[\\begin{aligned}\n  " ,@elems "\n\\end{aligned}\\]"))))
 
 ; Call this like `◊verb["…"]`
 (define (verb . elems)

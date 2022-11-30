@@ -20,6 +20,9 @@ html: scss
 
 publish: html scss
 	$(PUBLISH) . $(PUB_LOCATION)
+	rm $(PUB_LOCATION)/posts/draft* \
+		$(PUB_LOCATION)/resources/draft*
+
 	rm -rf $(PUB_LOCATION)/.vscode/ \
 		$(PUB_LOCATION)/src/ \
 		$(PUB_LOCATION)/.gitattributes \

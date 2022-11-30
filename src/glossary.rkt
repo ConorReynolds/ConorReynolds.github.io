@@ -3,7 +3,7 @@
 (provide (all-defined-out))
 
 (define glossary-entries
-  (make-hash '()))
+  (make-hash '(("LEM" . "law of excluded middle"))))
 
 (define (abbr short)
   `(span [[class "abbreviation"]

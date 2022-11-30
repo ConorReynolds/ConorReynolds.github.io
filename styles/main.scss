@@ -565,6 +565,7 @@ a {
 .abbreviation .abbreviation-inner {
     visibility: hidden;
     text-align: center;
+    font-family: var(--alt-font);
     font-weight: normal;
     font-style: normal;
     @include no-hyphens;

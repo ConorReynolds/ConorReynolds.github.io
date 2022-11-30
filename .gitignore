@@ -24,6 +24,7 @@ Icon
 
 # Draft posts
 posts/draft*
+resources/draft*
 
 # Secrets
 zotero.key

@@ -241,7 +241,7 @@ This requires that ◊${n} is even, of course. We can add this as a precondition
     {}
 }
 
-Dafny cannot automatically prove that this holds, but it turns out to be enough to remind Dafny that the inductive hypothesis holds in the case where ◊${n \ne 0}.
+Dafny will try to prove lemmas automatically by induction on the lemma's arguments, if possible. However, Dafny cannot automatically prove that this lemma is true. It turns out to be enough to remind Dafny that the inductive hypothesis holds in the case where ◊${n \ne 0}.
 
 ◊codeblock['dafny]{
     lemma ExpSquare(a: int, n: nat)
@@ -281,3 +281,35 @@ Now all that remains is to make this lemma visible in the body of ◊code{FastEx
 }
 
 This is now fully verified.
+
+◊hrule
+
+Why couldn't Dafny prove the ◊code{ExpSquare} lemma automatically by induction? I don't know for sure, but I have a sensible guess.
+
+The base case is easy, so we won't bother discussing that. The proof of the inductive step can't start in the usual way---if we assume that the lemma holds for ◊${a^k}, we can't prove it for ◊${a^{k + 1}}, since ◊${k + 1} is odd, and the lemma does not apply. We want to prove it for all ◊em{even} numbers, so we prove it in the case ◊${n = 0}, and then, assuming it holds for even ◊${k}, prove it for ◊${k + 2}. ◊aside{Note that the equality marked ◊${\stackrel{\ast}{=}} follows from the inductive hypothesis.}
+
+◊$${
+    a^{k + 2} &= a^2 \cdot a^{k} \\
+              &\stackrel{\ast}{=} a^2 \cdot (a^2)^{k/2} \\
+              &= (a^2)^{(k + 1)/2}
+}
+
+I can't give you the precise reason why Dafny fails to guess this calculation, but more than likely it is due to the fact that the induction step is unusual, requiring ◊em{strong induction}. This is probably why it sufficed to point out that the induction step held for ◊${n - 2} in the lemma itself. ◊aside{Proving something for all natural numbers ◊${n}, under the condition that ◊${n} is even, is subtly different from proving something for all even numbers. In the first case you need strong induction, but in the second case you don't.}
+
+If instead we declare the lemma like so:
+
+◊codeblock['dafny]{
+    lemma ExpSquare(a: int, n: nat)
+        ensures ExpDef(a, 2*n) == ExpDef(a*a, n)
+    {}
+}
+
+... then Dafny ◊em{can} prove this automatically. Why? Presumably because the proof only requires standard induction. There's also no more precondition, and we no longer have to reason about division.
+
+◊$${
+    a^{2(k + 1)} &= a^2 \cdot a^{2k} \\
+                 &\stackrel{\ast}{=} a^2 \cdot (a^2)^{k} \\
+                 &= (a^2)^{k + 1}
+}
+
+Always keep in mind that automated and interactive theorem provers can be sensitive to the specific way in which a goal is expressed. Even if two lemmas are logically equivalent, it does not guarantee that they will be equivalently easy to prove.
