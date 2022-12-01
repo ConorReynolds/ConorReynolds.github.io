@@ -761,6 +761,7 @@ a {
 
 .extlink::after {
     position: relative;
+    display: inline-block;  // prevents underline
     font-family: "font awesome 5 free";
     content: "\f08e";
     font-weight: 900;
@@ -768,8 +769,6 @@ a {
     font-size: 45%;
     top: -.7em;
     color: var(--red-color);
-    font-feature-settings: "caps";
-    font-variant-numeric: normal;
 }
 
 .extlink:hover {
