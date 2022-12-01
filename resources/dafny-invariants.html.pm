@@ -6,74 +6,6 @@
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-11-26")
 
-◊; ◊section{Iterative Factorial}
-
-◊; Create the following file.
-
-◊; ◊codeblock['dafny #:name "Factorial.dfy"]{
-◊;   function Fac(n: nat): nat
-◊;   {
-◊;       if n == 0
-◊;         then 1
-◊;         else n * Fac(n - 1)
-◊;   }
-
-◊;   method FacIter(n: nat) returns (r: nat)
-◊;   {
-◊;       r := 1;
-◊;       var i := n;
-◊;       while i > 0 {
-◊;           r := r * i;
-◊;           i := i - 1;
-◊;       }
-◊;   }
-◊; }
-
-◊; An ◊em{invariant} is a value that remains the same or a property that remains true under a certain transformation. Identifying invariants is a key technique not just in software verification, but in mathematics more generally.
-
-◊; How do we discover invariants? Unfortunately there is no general principle that can help---though, if you can find such a principle, there might be a Field's medal in it for you.
-
-◊; Often the best approach is simply to tabulate the values at each iteration of the loop and stare at them until you see a pattern. Let's calculate ◊code{FacIter(5)}.
-
-◊; ◊quick-table{
-◊;   ◊${\boldsymbol{r}} | ◊${\boldsymbol{i}}
-◊;   ◊${1} | ◊${5}
-◊;   ◊${5} | ◊${4}
-◊;   ◊${20} | ◊${3}
-◊;   ◊${60} | ◊${2}
-◊;   ◊${120} | ◊${1}
-◊; }
-
-◊; Helpful? Maybe not. Sometimes it's more useful to tabulate the values without actually performing the calculations, since the calculations can often hide structure.
-
-◊; ◊quick-table{
-◊;   ◊${\boldsymbol{r}} | ◊${\boldsymbol{i}}
-◊;   ◊${1} | ◊${5}
-◊;   ◊${5} | ◊${4}
-◊;   ◊${5 \times 4} | ◊${3}
-◊;   ◊${5 \times 4 \times 3} | ◊${2}
-◊;   ◊${5 \times 4 \times 3 \times 2} | ◊${1}
-◊; }
-
-◊; Do you see a pattern emerging yet? We can go further an tabulate the values for an arbitrary ◊${n}.
-
-◊; ◊quick-table{
-◊;     ◊${\mathit{\boldsymbol{r}}} | ◊${\mathit{\boldsymbol{i}}} | ◊${\mathit{\boldsymbol{r \cdot i!}}}
-◊;     ◊${1} | ◊${n} | ◊${n!}
-◊;     ◊${n} | ◊${n - 1} | ◊${n \cdot (n - 1)! = n!}
-◊;     ◊${n \cdot (n - 1)} | ◊${n - 2} | ◊${[n \cdot (n - 1)] \cdot (n - 2)! = n!}
-◊;     ◊${\vdots} | ◊${\vdots} | ◊${\vdots}
-◊;     ◊${n!} | ◊${0} | ◊${n!}
-◊; }
-
-◊; Try to figure out what the invariant property should be. Don't peek at the answer until you've tried it.
-
-◊; ◊spoiler{
-◊;     The invariant property is ◊${r \cdot i! = n!}---notice that this equation holds at each iteration. We can encode this in Dafny by writing ◊code{invariant r * Fac(i) == Fac(n)}.
-◊; }
-
-◊; ◊section{Fast Exponentiation by Squaring}
-
 As we have seen already, the elementary integer exponentiation algorithm can be encoded and verified in Dafny as follows.
 
 ◊codeblock['dafny #:name "FastExp.dfy"]{
@@ -241,7 +173,7 @@ This requires that ◊${n} is even, of course. We can add this as a precondition
     {}
 }
 
-Dafny will try to prove lemmas automatically by induction on the lemma's arguments, if possible. However, Dafny cannot automatically prove that this lemma is true. It turns out to be enough to remind Dafny that the inductive hypothesis holds in the case where ◊${n \ne 0}.
+Dafny will try to prove lemmas automatically by induction on the lemma's arguments, if possible. However, Dafny cannot automatically prove that this lemma is true. It turns out to be enough to remind Dafny that the inductive hypothesis holds for ◊${n - 2} in the case where ◊${n \ne 0}.
 
 ◊codeblock['dafny]{
     lemma ExpSquare(a: int, n: nat)
@@ -291,7 +223,7 @@ The base case is easy, so we won't bother discussing that. The proof of the indu
 ◊$${
     a^{k + 2} &= a^2 \cdot a^{k} \\
               &\stackrel{\ast}{=} a^2 \cdot (a^2)^{k/2} \\
-              &= (a^2)^{(k + 1)/2}
+              &= (a^2)^{(k + 2)/2}
 }
 
 I can't give you the precise reason why Dafny fails to guess this calculation, but more than likely it is due to the fact that the induction step is unusual, requiring ◊em{strong induction}. This is probably why it sufficed to point out that the induction step held for ◊${n - 2} in the lemma itself. ◊aside{Proving something for all natural numbers ◊${n}, under the condition that ◊${n} is even, is subtly different from proving something for all even numbers. In the first case you need strong induction, but in the second case you don't.}
