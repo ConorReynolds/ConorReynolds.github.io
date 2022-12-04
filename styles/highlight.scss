@@ -485,6 +485,7 @@ pre {
 
     .copy-button {
         all: unset;
+        outline: revert;
         visibility: hidden;
         display: flex;
         opacity: 0.2;

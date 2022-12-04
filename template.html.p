@@ -16,9 +16,9 @@
 ◊(define (resource? node)
   (regexp-match #rx"^resources" (symbol->string node)))
 
-◊(define (make-side-nav id url text)
+◊(define (make-side-nav id label url text)
   ◊div[#:class "nav-outer" #:id id #:role "navigation"]{
-    ◊(link (or url "")
+    ◊(link (or url "") #:alt label
            ◊div[#:class "nav-inner"]{◊div[#:class "nav-flex" text]})
   })
 
@@ -124,7 +124,7 @@
 
     ◊div[#:class "horizontal-rule"]
 
-    ◊div[#:id "footer" #:aria-hidden "true"]{
+    ◊div[#:id "footer"]{
       ◊; Last updated on ◊(get-date) ◊(br)
       © Conor Reynolds
         ◊(if (equal? (get-year) "2022")
@@ -139,10 +139,10 @@
 
     ◊when/splice[(resource? here)]{
       ◊when/splice[previous-page]{
-        ◊make-side-nav["prev" previous-page]{⟨}
+        ◊make-side-nav["prev" "Go to previous page" previous-page]{⟨}
       }
       ◊when/splice[next-page]{
-        ◊make-side-nav["next" next-page]{⟩}
+        ◊make-side-nav["next" "Go to next page" next-page]{⟩}
       }
     }
     ◊; ◊(cond
@@ -155,9 +155,11 @@
 <script src="/js/checkParams.js"></script>
 
 ◊; Search Engine
-<script src="/js/elasticlunr.js"></script>
-<script src="/js/search-index.js"></script>
-<script src="/js/searcher.js"></script>
+◊when/splice[(not (resource? here))]{
+  <script src="/js/elasticlunr.js"></script>
+  <script src="/js/search-index.js"></script>
+  <script src="/js/searcher.js"></script>
+}
 
 ◊; Clicky Analytics
 ◊when/splice[(not (resource? here))]{

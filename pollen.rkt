@@ -138,16 +138,16 @@
 (define (get-year)
   (format "~a" (date-year (current-date))))
 
-(define (link url #:class [class-name #f] . tx-elements)
+(define (link url #:class [class-name #f] #:alt [alt-text #f] . tx-elements)
   (let* ([url (string-append "/" (->string url))]
          [tx-elements (if (empty? tx-elements)
                           (list url)
                           tx-elements)]
          [link-tx (txexpr 'a empty tx-elements)]
-         [link-tx (attr-set link-tx 'href url)])
-    (if class-name
-        (attr-set link-tx 'class class-name)
-        link-tx)))
+         [link-tx (attr-set link-tx 'href url)]
+         [link-tx (if class-name (attr-set link-tx 'class class-name) link-tx)]
+         [link-tx (if alt-text (attr-set link-tx 'alt alt-text) link-tx)])
+    link-tx))
 
 (define (format-as-filename target)
   (define nonbreaking-space (string #\u00A0))
@@ -298,9 +298,10 @@
 
 ;; Similar to MB’s Beautiful Racket — I just don’t like sidenotes very much in HTML
 (define (aside . elems)
-  `(span [[class "tooltip"]
-          [onclick "this.classList.toggle(\"show-tooltip\")"]]
-         (i [[class "fa fa-plus"] [aria-hidden "true"]])
+  `(span [[class "tooltip"] [role "button"] [aria-expanded "false"] [tabindex "0"]
+          [onclick
+           "this.classList.toggle(\"show-tooltip\"); toggleAriaExpanded(this);"]]
+         (i [[class "fa fa-plus"]])
          (span [[class "tooltip-inner"]] ,@elems)))
 
 (define (image #:width [width "80%"] #:lazy [lazy #t] #:src src #:alt [alt #f] . caption)

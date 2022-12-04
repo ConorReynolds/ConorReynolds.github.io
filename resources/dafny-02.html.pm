@@ -86,7 +86,7 @@ This means that functions can be used to specify the behaviour of methods. This 
   }
 }
 
-This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in ◊xref["resources/coq-01.html"]{lab 1}.
+This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in ◊xref["resources/dafny-01.html"]{lab 1}.
 
 ◊codeblock['dafny]{
   ensures r >= 0
