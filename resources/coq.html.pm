@@ -2,7 +2,7 @@
 
 ◊(define-meta title "Coq Resources")
 ◊(define-meta toc-title "Coq Resources")
-◊(define-meta subtitle "")
+◊(define-meta subtitle "Table of contents")
 ◊(define-meta math? #false)
 ◊(define-meta created "2022-12-03")
 
