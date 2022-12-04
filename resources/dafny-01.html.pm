@@ -1,7 +1,7 @@
 #lang pollen
 
 ◊(define-meta title "Dafny Lab Sheet 1 (Draft)")
-◊(define-meta toc-title "Dafny Lab Sheet 1 (Draft)")
+◊(define-meta toc-title "Dafny Lab Sheet 1: An introduction to Dafny")
 ◊(define-meta subtitle "An introduction to the Dafny language")
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-11-18")

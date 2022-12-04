@@ -9,4 +9,13 @@ cv.html
 ◊posts.html{
   ◊(cons '@ (posttree "posts" include-drafts))
 }
-◊(cons '@ (posttree "resources" include-drafts))
+◊resources.html{
+  ◊resources/coq.html{
+    resources/coq-01.html
+  }
+  ◊resources/dafny.html{
+    resources/dafny-01.html
+    resources/dafny-02.html
+    resources/dafny-invariants.html
+  }
+}

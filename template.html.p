@@ -14,7 +14,7 @@
   (regexp-match #rx"^posts/" (symbol->string node)))
 
 ◊(define (resource? node)
-  (regexp-match #rx"^resources/" (symbol->string node)))
+  (regexp-match #rx"^resources" (symbol->string node)))
 
 ◊(define (make-side-nav id url text)
   ◊div[#:class "nav-outer" #:id id #:role "navigation"]{
@@ -136,6 +136,19 @@
       ◊a[#:href "https://www.linkedin.com/in/conor-reynolds-931049258/" #:class "fab fa-linkedin-in fa-1x" #:title "LinkedIn"] ◊(nbsp)
       ◊a[#:href "mailto:conor.reynolds@mu.ie" #:class "fas fa-envelope fa-1x" #:title "Email"]
     }
+
+    ◊when/splice[(resource? here)]{
+      ◊when/splice[previous-page]{
+        ◊make-side-nav["prev" previous-page]{⟨}
+      }
+      ◊when/splice[next-page]{
+        ◊make-side-nav["next" next-page]{⟩}
+      }
+    }
+    ◊; ◊(cond
+    ◊;   [(and next-page parent-page) ◊make-side-nav["next" next-page]{⟩}]
+    ◊;   [(not parent-page) ◊make-side-nav["next" next-page ""]]
+    ◊;   [else ""])
   })
 
 <script src="/js/utils.js"></script>

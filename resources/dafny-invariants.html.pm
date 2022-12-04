@@ -1,7 +1,7 @@
 #lang pollen
 
 ◊(define-meta title "Designing Invariants (Draft)")
-◊(define-meta toc-title "Designing Invariants (Draft)")
+◊(define-meta toc-title "Designing Invariants")
 ◊(define-meta subtitle "Using Dafny to verify nontrivial programs")
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-11-26")
@@ -14,7 +14,7 @@ As we have seen already, the elementary integer exponentiation algorithm can be 
         if n == 0 then
             1
         else
-            a * ExpDef(a, n - 1) 
+            a * ExpDef(a, n - 1)
     }
     
     method SlowExp(a: int, n: nat) returns (r: int)

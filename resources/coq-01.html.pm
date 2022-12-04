@@ -1,7 +1,7 @@
 #lang pollen
 
 ◊(define-meta title "Coq Lab Sheet 1 (Draft)")
-◊(define-meta toc-title "Coq Lab Sheet 1 (Draft)")
+◊(define-meta toc-title "Coq Lab Sheet 1: An introduction to Coq")
 ◊(define-meta subtitle "An introduction to the Coq proof assistant")
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-11-21")
@@ -20,7 +20,7 @@ If you know what you're doing, there's also generally decent support for using C
 
 You must put everything into a single file for submission. The file should look like this:
 
-◊codeblock['coq]{
+◊codeblock['coq #:name "CoqLab01.v"]{
   Section CoqLab01.
   Context (A B C D : Prop).
 
@@ -96,9 +96,9 @@ Step the proof state to the goal (◊kbd{Ctrl + ↓} in CoqIDE). You should see 
   C
 }
 
-Our goal---the proposition we want to prove---is ◊code{C}. What we know is listed above the line. In order: we know that ◊code{A}, ◊code{B}, and ◊code{C} are propositions. We know that ◊code{A} is true. We know that ◊code{A -> B} is true. We know that ◊code{B -> C} is true. Each of these hypotheses was given a label, which we will use to refer to that proposition in the proof.
+Our goal is ◊code{C}; that is what we want to prove. What we know is listed above the line. In order: we know that ◊code{A}, ◊code{B}, and ◊code{C} are propositions. We know that ◊code{A} is true. We know that ◊code{A -> B} is true. We know that ◊code{B -> C} is true. Each of these hypotheses was given a label, which we will use to refer to that proposition in the proof.
 
-Our first attempt at a proof will use ◊em{backward reasoning}. Forward reasoning starts with hypotheses and tries to work towards the goal. Backward reasoning, by contrast, starts from the ◊em{goal} and tries to work backward to the hypotheses. ◊aside{Why backward reasoning? There is no complex reason for it---it's just easier to prove things in proof assistants working backward.}
+Our first attempt at a proof will use ◊em{backward reasoning}. Forward reasoning starts with hypotheses and tries to work towards the goal. Backward reasoning, by contrast, starts from the ◊em{goal} and tries to work backward to the hypotheses. ◊aside{Why backward reasoning? There is no complex reason for it---it's just easier to prove things in proof assistants like Coq working backward.}
 
 Here is the basic idea of backward reasoning. Notice that the goal is ◊code{C} and that our hypothesis ◊code{H3 : B -> C} has the conclusion ◊code{C}. If we were somehow able to prove ◊code{B}, we could then use the fact that we know ◊code{B -> C} to get ◊code{C}---which is our goal. Therefore, it suffices for us to prove ◊code{B}. (And we hope of course that we ◊em{can} prove ◊code{B}.)
 
