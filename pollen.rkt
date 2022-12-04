@@ -279,7 +279,8 @@
 
 (define (copy-button str)
   `(button [[class "copy-button"]
-            [onclick ,(format "navigator.clipboard.writeText(String.raw`~a`)" str)]]
+            [title "Copy code to clipboard"]
+            [onclick ,(format "copyAndConfirm(this, String.raw`~a`)" str)]]
            (i [[class "fas fa-copy"]])))
 
 (define (codeblock #:wrap [wrap? #f] [lang 'racket] #:name [caption #f] . elems)

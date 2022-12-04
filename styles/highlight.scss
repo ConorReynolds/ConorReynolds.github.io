@@ -23,7 +23,7 @@
         --color-03: var(--blue-purple);
 
         --code-bg-color: #1c1e25;
-        --code-border-color: #1f232b;
+        --code-border-color: #303744;
         --code-filename-bg-color: #343434;
         --caption-color: white;
     }
@@ -90,7 +90,7 @@
 
 /* Comment */
 .highlight .err {
-    border: 1px solid #FF0000
+    // border: 1px solid #FF0000
 }
 
 /* Error */
@@ -486,6 +486,7 @@ pre {
     .copy-button {
         all: unset;
         visibility: hidden;
+        display: flex;
         opacity: 0.2;
         transition-property: opacity, color;
         transition-duration: 0.1s;
@@ -499,7 +500,13 @@ pre {
         left: 100%;
         transform: translate(-100%, 0);
         margin: 0.5em 0 0 -0.5em;
-        padding: 0 0.2em 0 0.2em;
+        min-width: 1.5rem;
+        min-height: 1.5rem;
+        justify-content: center;
+
+        i {
+            margin: auto;
+        }
 
         @media (hover) {
             &:hover {

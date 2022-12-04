@@ -56,6 +56,42 @@
 }
 
 @font-face {
+    font-family: SourceCodeProLighter;
+    font-style: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: auto;
+    src: url(fonts/SourceCodePro/SourceCodePro-Regular.otf.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: SourceCodeProLighter;
+    font-style: italic;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: auto;
+    src: url(fonts/SourceCodePro/SourceCodePro-It.otf.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: SourceCodeProLighter;
+    font-style: normal;
+    font-weight: bold;
+    font-stretch: normal;
+    font-display: auto;
+    src: url(fonts/SourceCodePro/SourceCodePro-Bold.otf.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: SourceCodeProLighter;
+    font-style: italic;
+    font-weight: bold;
+    font-stretch: normal;
+    font-display: auto;
+    src: url(fonts/SourceCodePro/SourceCodePro-BoldIt.otf.woff2) format("woff2");
+}
+
+@font-face {
     font-family: ValkyrieA;
     font-style: normal;
     font-weight: normal;
