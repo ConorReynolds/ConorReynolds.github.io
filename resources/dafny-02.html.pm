@@ -29,7 +29,7 @@ Why worry about termination? Besides the obvious issues with code that loops for
 
 Dafny accepts this. Why? Because ◊em{if} the loop ever terminates, its loop condition must be false. If ◊${x^2 \neq a} is false, then ◊${x^2 = a} is true, so ◊${x} must be a square root of ◊${a}. This code is therefore partially correct. But it also doesn't do anything.
 
-We will insist on total correctness for the remainder of this course. There are two situations where you must prove termination: loops and recursive functions. To prove termination, you must show that some value bounded from below strictly decreases with each recursive call or each iteration of a loop. Dafny is normally pretty good at figuring this out for you, but it will occasionally require some help. See the ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef#sec-loop-termination"]{Dafny documentation on loop termination} for more details
+We will insist on total correctness for the remainder of this course. There are two situations where you must prove termination: loops and recursive functions. To prove termination, you must show that some value bounded from below strictly decreases with each recursive call or each iteration of a loop. Dafny is normally pretty good at figuring this out for you, but it will occasionally require some help. See the ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef#sec-loop-termination"]{Dafny documentation on loop termination} for more details.
 
 ◊section{Functions vs Methods}
 
@@ -129,7 +129,7 @@ This instructs Dafny to check that, whatever happens in the loop, ◊${i} should
 
 The body of the loop will usually say something like ◊code{i := i + 1}, but Dafny can't do anything with this information unless you provide an invariant. Usually you will want to conclude that ◊${i = n} once the loop finishes, but all Dafny will know is the negation of the loop condition, which is ◊${i \geq n}. In order to conclude ◊${i = n}, Dafny needs an upper bound on ◊${i}, specifically ◊${i \leq n}.
 
-Note that counting down to zero often does not require nearly as much care. If ◊${i} is declared ◊code{nat}, then Dafny already knows that it much check that ◊${i \ge 0}.
+Note that counting down to zero often does not require nearly as much care. If ◊${i} is declared ◊code{nat}, then Dafny already knows that it must check that ◊${i \ge 0}.
 
 ◊section{Ghost and Compiled Constructs}
 
