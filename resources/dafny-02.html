@@ -181,34 +181,40 @@ method Abs(x: int) returns (r: int)
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in <a class="xref" hyphens="none" href="/resources/dafny-01.html">lab 1</a>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`ensures r &gt;= 0
+</div><p>This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in <a class="xref" hyphens="none" href="/resources/dafny-01.html#Instructions">lab 1</a>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`ensures r &gt;= 0
 ensures r == x || r == -x`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">ensures</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">0</span>
 <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">x</span> <span class="o">||</span> <span class="n">r</span> <span class="o">==</span> <span class="o">-</span><span class="n">x</span>
 </pre></div></td></tr></tbody></table></div>
 
 </div><p>This is not a particularly interesting example, since the specification and the code are not meaningfully different. We will see more interesting examples in the later labs.</p><h2 id="Some Useful Collections" class="section">Some Useful Collections<a class="anchor" href="#Some Useful Collections" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny supports sets, multisets, sequences, and (in)finite maps. These types can be useful for specifying program behaviour. In particular, I want to draw your attention to <em>sequences</em>, because they’re extremely useful for specifying properties of arrays.</p><p>Normally, to specify that some element <code>e</code> is found in some array <code>a</code>, one must say that there exists an <code>i</code> such that <code>0 &lt;= i &lt; a.Length</code> and <code>a[i] == e</code>. But it’s much easier to just convert <code>a</code> to a sequence by writing <code>a[..]</code>, and then ask if <code>e in a[..]</code>. That is to say, the following two predicates are exactly the same.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`predicate elem(a: array&lt;int&gt;, e: int)
+    reads a
 {
     exists i | 0 &lt;= i &lt; a.Length :: a[i] == e
 }
 
 predicate elem(a: array&lt;int&gt;, e: int)
+    reads a
 {
     e in a[..]
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">predicate</span> <span class="nf">elem</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">predicate</span> <span class="nf">elem</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">reads</span> <span class="n">a</span>
 <span class="p">{</span>
     <span class="n">exists</span> <span class="n">i</span> <span class="o">|</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span> <span class="p">::</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">e</span>
 <span class="p">}</span>
 
 <span class="kd">predicate</span> <span class="nf">elem</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">reads</span> <span class="n">a</span>
 <span class="p">{</span>
     <span class="n">e</span> <span class="o">in</span> <span class="n">a</span><span class="p">[..]</span>
 <span class="p">}</span>
