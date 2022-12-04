@@ -181,7 +181,7 @@ method Abs(x: int) returns (r: int)
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in <a class="xref" hyphens="none" href="/resources/coq-01.html">lab 1</a>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`ensures r &gt;= 0
+</div><p>This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in <a class="xref" hyphens="none" href="/resources/dafny-01.html">lab 1</a>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`ensures r &gt;= 0
 ensures r == x || r == -x`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">ensures</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">0</span>
 <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">x</span> <span class="o">||</span> <span class="n">r</span> <span class="o">==</span> <span class="o">-</span><span class="n">x</span>
@@ -394,7 +394,7 @@ function min(a: int, b: int): int
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Unfortunately, Dafny cannot prove that this algorithm terminates. Provide a decreases clause for this function to prove that it terminates. (Hint: You are looking for an expression involving <span class="inline-math" hyphens="none">\(a\)</span> and <span class="inline-math" hyphens="none">\(b\)</span> which strictly decreases each time the function is called recursively.)</p><h2 id="Question 5" class="section">Question 5<a class="anchor" href="#Question 5" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The code below specifies an incomplete predicate and method for binary search through an array. You may assume that the code is correct and does not need changing. Complete the specification by fixing the commented-out lines. <span class="tooltip" onclick="this.classList.toggle(&quot;show-tooltip&quot;)"><i class="fa fa-plus" aria-hidden="true"></i><span class="tooltip-inner">Note that this method uses the standard convention of returning <span class="inline-math" hyphens="none">\(-1\)</span> if the value could not be found.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`predicate sorted(a: array&lt;int&gt;)
+</div><p>Unfortunately, Dafny cannot prove that this algorithm terminates. Provide a decreases clause for this function to prove that it terminates. (Hint: You are looking for an expression involving <span class="inline-math" hyphens="none">\(a\)</span> and <span class="inline-math" hyphens="none">\(b\)</span> which strictly decreases each time the function is called recursively.)</p><h2 id="Question 5" class="section">Question 5<a class="anchor" href="#Question 5" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The code below specifies an incomplete predicate and method for binary search through an array. You may assume that the code is correct and does not need changing. Complete the specification by fixing the commented-out lines. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Note that this method uses the standard convention of returning <span class="inline-math" hyphens="none">\(-1\)</span> if the value could not be found.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`predicate sorted(a: array&lt;int&gt;)
     reads a
 {
     // forall i, j | 0 &lt;= i &lt; j &lt; a.Length :: ...
@@ -494,7 +494,7 @@ method BinarySearch(a: array&lt;int&gt;, value: int) returns (index: int)
 
 <div class="horizontal-rule"></div>
 
-<div aria-hidden="true" id="footer">© Conor Reynolds
+<div id="footer">© Conor Reynolds
   2022  
 <a class="fab fa-github fa-1x" href="https://github.com/ConorReynolds" title="GitHub"></a>  
 <a class="fab fa-gitlab fa-1x" href="https://gitlab.cs.nuim.ie/creynolds" title="GitLab"></a>  
@@ -502,15 +502,13 @@ method BinarySearch(a: array&lt;int&gt;, value: int) returns (index: int)
 <a class="fab fa-linkedin-in fa-1x" href="https://www.linkedin.com/in/conor-reynolds-931049258/" title="LinkedIn"></a>  
 <a class="fas fa-envelope fa-1x" href="mailto:conor.reynolds@mu.ie" title="Email"></a></div>
 
-<div class="nav-outer" id="prev" role="navigation"><a href="/resources/dafny-01.html"><div class="nav-inner"><div class="nav-flex">⟨</div></div></a></div>
-<div class="nav-outer" id="next" role="navigation"><a href="/resources/dafny-invariants.html"><div class="nav-inner"><div class="nav-flex">⟩</div></div></a></div></body>
+<div class="nav-outer" id="prev" role="navigation"><a alt="Go to previous page" href="/resources/dafny-01.html"><div class="nav-inner"><div class="nav-flex">⟨</div></div></a></div>
+<div class="nav-outer" id="next" role="navigation"><a alt="Go to next page" href="/resources/dafny-invariants.html"><div class="nav-inner"><div class="nav-flex">⟩</div></div></a></div></body>
 
 <script src="/js/utils.js"></script>
 <script src="/js/checkParams.js"></script>
 
-<script src="/js/elasticlunr.js"></script>
-<script src="/js/search-index.js"></script>
-<script src="/js/searcher.js"></script>
+
 
 
 
