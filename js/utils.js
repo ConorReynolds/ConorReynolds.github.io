@@ -8,7 +8,14 @@ var getAbsoluteUrl = function (url) {
   return getAbsoluteUrl(url);
 }
 
-function copyToClipboard(text) {
-  let url = getAbsoluteUrl(text);
-  navigator.clipboard.writeText(url);
+function copyAndConfirm(node, str) {
+  navigator.clipboard.writeText(str);
+  const children = node.querySelector('*');
+  node.replaceChildren(new DOMParser().parseFromString(
+    `<i class="fa fa-check"></i>`,
+    'text/html'
+  ).body.firstChild);
+  setTimeout(function () {
+    node.replaceChildren(children);
+  }, 1000.0);
 }
