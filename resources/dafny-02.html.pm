@@ -86,7 +86,7 @@ This means that functions can be used to specify the behaviour of methods. This 
   }
 }
 
-This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in ◊xref["resources/dafny-01.html"]{lab 1}.
+This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in ◊xref["resources/dafny-01.html#Instructions"]{lab 1}.
 
 ◊codeblock['dafny]{
   ensures r >= 0
@@ -103,11 +103,13 @@ Normally, to specify that some element ◊code{e} is found in some array ◊code
 
 ◊codeblock['dafny]{
   predicate elem(a: array<int>, e: int)
+      reads a
   {
       exists i | 0 <= i < a.Length :: a[i] == e
   }
 
   predicate elem(a: array<int>, e: int)
+      reads a
   {
       e in a[..]
   }
