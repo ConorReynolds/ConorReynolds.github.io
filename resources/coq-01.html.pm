@@ -29,7 +29,7 @@ You must put everything into a single file for submission. The file should look 
   End CoqLab01.
 }
 
-You can skip ahead to the ◊xref["resources/coq-01.html#Questions"]{lab questions} if you're confident enough, but I highly recommend reading through the next two sections to get an overview of the tactics required for the lab, and a ◊xref["resources/coq-01.html#Worked Example"]{worked example}. 
+You can skip ahead to the ◊xref["resources/coq-01.html#Questions"]{lab questions} if you're confident enough, but I highly recommend reading through the next two sections to get an overview of the tactics required for the lab, and a ◊xref["resources/coq-01.html#Worked Example"]{worked example}.
 
 ◊section{Basic Tactics}
 
@@ -69,7 +69,7 @@ we should be able to prove ◊${C}.
 
 In Coq, we can represent the situation like this.
 
-◊codeblock['coq]{
+◊codeblock['coq #:name "Example.v" #:download #t]{
   Section WorkedExample.
 
   Context (A B C : Prop).
@@ -236,9 +236,9 @@ It's up to you which method you prefer. ◊aside{But note that ◊code{intros} w
 
 ◊section{Questions}
 
-Prove the following lemmas in Coq. When you have completed a proof, replace ◊code{Admitted} with ◊code{Qed}. ◊aside{You can copy any code snippet by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em"] button which appears on the top right. This doesn't work on mobile, but you shouldn't be programming on mobile anyway.}
+Prove the following lemmas in Coq. When you have completed a proof, replace ◊code{Admitted} with ◊code{Qed}. You can download the file by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename. ◊aside{You can also copy any code snippet by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em"] button which appears on the top right. This doesn't work on mobile, but you shouldn't be programming on mobile anyway.}
 
-◊codeblock['coq]{
+◊codeblock['coq #:name "CoqLab01.v" #:download #t]{
   Section CoqLab01.
   Context (A B C D : Prop).
   

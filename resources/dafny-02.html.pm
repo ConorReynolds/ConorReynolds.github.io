@@ -6,34 +6,11 @@
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-12-03")
 
-You can skip to the ◊xref["resources/dafny-02.html#Question 1"]{lab questions} if you're in a hurry, but as always I recommend reading the succeeding sections as they give good context for the lab.
-
-◊section{Termination}
-
-We have so far only concerned ourselves with proving the ◊em{partial correctness} of programs. A program is partially correct when it gives the right result whenever it terminates. To prove ◊em{total correctness}, we must prove that it is partially correct ◊em{and} that it always terminates.
-
-Why worry about termination? Besides the obvious issues with code that loops forever, there are even deeper issues. Consider the following method in Dafny for computing the square root of a real number ◊${a \in \R}.
-
-◊codeblock['dafny]{
-  method Sqrt(a: real) returns (x: real)
-      decreases *  // disables termination check
-      ensures x * x == a
-  {
-      while x * x != a
-          decreases *  // disables termination check
-      {
-          // do nothing!
-      }
-  }
-}
-
-Dafny accepts this. Why? Because ◊em{if} the loop ever terminates, its loop condition must be false. If ◊${x^2 \neq a} is false, then ◊${x^2 = a} is true, so ◊${x} must be a square root of ◊${a}. This code is therefore partially correct. But it also doesn't do anything.
-
-We will insist on total correctness for the remainder of this course. There are two situations where you must prove termination: loops and recursive functions. To prove termination, you must show that some value bounded from below strictly decreases with each recursive call or each iteration of a loop. Dafny is normally pretty good at figuring this out for you, but it will occasionally require some help. See the ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef#sec-loop-termination"]{Dafny documentation on loop termination} for more details.
+You can skip to the ◊xref["#Question 1"]{lab questions} if you're in a hurry, but as always I recommend reading the succeeding sections as they give good context for the lab.
 
 ◊section{Functions vs Methods}
 
-From outside a method's body, Dafny's verifier can only see the specification and not the code itself. However, Dafny's verifier can always see the contents of a function. To illustrate this, consider the following function and method:
+From outside a method's body, Dafny's verifier can only see the specification for that method, and not the code inside the method. However, Dafny's verifier can always see the contents of a function. To illustrate this, consider the following function and method:
 
 ◊codeblock['dafny]{
   function AbsDef(x: int): int
@@ -86,14 +63,14 @@ This means that functions can be used to specify the behaviour of methods. This 
   }
 }
 
-This is quite a bit clearer than the following more explicit specification for the absolute value function we gave in ◊xref["resources/dafny-01.html#Instructions"]{lab 1}.
+This is a bit clearer and less error-prone than the following more explicit specification for the absolute value function we gave in ◊xref["resources/dafny-01.html#Instructions"]{lab 1}.
 
 ◊codeblock['dafny]{
   ensures r >= 0
   ensures r == x || r == -x
 }
 
-This is not a particularly interesting example, since the specification and the code are not meaningfully different. We will see more interesting examples in the later labs.
+Of course, this is not a particularly interesting example, since the specification and the code are not meaningfully different. We will see more interesting examples in the later labs.
 
 ◊section{Some Useful Collections}
 
@@ -117,21 +94,91 @@ Normally, to specify that some element ◊code{e} is found in some array ◊code
 
 Check out the online ◊extlink["https://dafny-lang.github.io/dafny/OnlineTutorial/Sequences.html"]{Dafny documentation} for more information on sequences.
 
-◊section{Common Loop Invariants}
-Similarly to the way that Dafny cannot see 'inside' methods, neither can it see inside loops. Most automatic verifiers need an awful lot of help seeing what a loop is supposed to be doing. Loop invariants are a specification of that behaviour.
+◊section{Termination}
 
-A common invariant looks something like this.
+We have so far only concerned ourselves with proving the ◊em{partial correctness} of programs. A program is partially correct when it gives the right result whenever it terminates. To prove ◊em{total correctness}, we must prove that it is partially correct ◊em{and} that it always terminates.
+
+Why worry about termination? Besides the obvious issues with code that loops forever, nonterminating code can satisfy specifications without actually computing the correct result. As an example, consider the following method in Dafny for computing the square root of a real number ◊${a \in \R}.
+
+◊codeblock['dafny]{
+  method Sqrt(a: real) returns (x: real)
+      decreases *  // disables termination check
+      ensures x * x == a
+  {
+      while x * x != a
+          decreases *  // disables termination check
+      {
+          // do nothing!
+      }
+  }
+}
+
+Dafny accepts this. Why? Because ◊em{if} the loop ever terminates, its loop condition must be false. If ◊${x^2 \neq a} is false, then ◊${x^2 = a} is true, so ◊${x} must be a square root of ◊${a}. This code is therefore partially correct. But it also doesn't do anything.
+
+We will insist on total correctness for the remainder of this course. There are two situations where you must prove termination: loops and recursive functions/methods. To prove termination, you must show that some expression bounded from below strictly decreases with each recursive call or each iteration of a loop. Dafny can often figure this out if the expression is simple, but it will occasionally require some help. See the ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef#sec-loop-termination"]{Dafny documentation on loop termination} for more details.
+
+For example, consider the following function.
+
+◊codeblock['dafny]{
+  function interleave(a: seq<int>, b: seq<int>): seq<int>
+  {
+      if a == [] then
+        b
+      else
+        [a[0]] + interleave(b, a[1..])
+  }
+}
+
+This function will interleave two sequences together. Here is an example of how it works:
+
+◊codeblock['text]{
+    interleave([1, 2], [7, 8])
+    = [1] + interleave([7, 8], [2])
+    = [1] + [7] + interleave([2], [8])
+    = [1] + [7] + [2] + interleave([8], [])
+    = [1] + [7] + [2] + [8] + interleave([], [])
+    = [1] + [7] + [2] + [8] + []
+    = [1, 7, 2, 8]
+}
+
+Dafny cannot automatically prove termination for this function. Why?
+
+By default, Dafny will guess that one of the parameters to the function decreases---so, in this case, it tries ◊code{decreases a, b}. This means that it will first try to prove that the first parameter decreases, and if it can't, it will try to prove that the second parameter decreases.
+
+Be careful here: when deciding if, for example, ◊code{a} is decreasing, we're not comparing ◊code{a} and ◊code{a[1..]}, we're comparing the original function call's first parameter with the first parameter of the recursive call.
+
+Let's see what this means in practice. If the function is called like:
+
+◊codeblock['dafny]{
+  interleave(a, b)
+}
+
+... then, assuming we're not at the base case, the recursive call is:
+
+◊codeblock['dafny]{
+  interleave(b, a[1..])
+}
+
+Dafny first tries to prove that ◊code{b} is smaller than ◊code{a}. Can it? No---nothing is known about the relative sizes of ◊code{a} and ◊code{b}. Then, it tries to prove that ◊code{a[1..]} is smaller than ◊code{b}. Can it? Again, no, for the same reasons.
+
+The problem is that we're comparing the wrong things. The intuitive reason that this function terminates is because, at each recursive call, the ◊em{total} number of elements to process decreases. Can you use that information to provide an expression that strictly decreases at each step? (You may want to consult the ◊extlink["http://dafny.org/dafny/OnlineTutorial/Sequences.html"]{documentation on sequences.})
+
+◊section{Common Loop Invariants}
+
+Most automatic verifiers need an awful lot of help seeing what a loop is supposed to be doing. Loop invariants are a specification of that behaviour.
+
+Finding loop invariants is a difficult problem in general---there is no general method for finding them. But some invariants crop up over and over again, and are worth remembering.
+
+One such invariant looks something like this.
 
 ◊codeblock['dafny]{
   while i < n
     invariant 0 <= i <= n
 }
 
-This instructs Dafny to check that, whatever happens in the loop, ◊${i} should remain between ◊${0} and ◊${n}.
+This instructs Dafny to check that ◊${i} is between ◊${0} and ◊${n} before the loop begins and stays there after each iteration. This is useful when you have a loop that uses ◊${i} to count up from ◊${0} to ◊${n}. If you don't include this invariant, then Dafny won't know what is true about ◊${i} besides the negation of the loop condition, which is ◊${i \ge n}. Usually you will need to conclude that ◊${i = n} once the loop finishes. In order to do so, Dafny needs an upper bound on ◊${i}, specifically ◊${i \leq n}.
 
-The body of the loop will usually say something like ◊code{i := i + 1}, but Dafny can't do anything with this information unless you provide an invariant. Usually you will want to conclude that ◊${i = n} once the loop finishes, but all Dafny will know is the negation of the loop condition, which is ◊${i \geq n}. In order to conclude ◊${i = n}, Dafny needs an upper bound on ◊${i}, specifically ◊${i \leq n}.
-
-Note that counting down to zero often does not require nearly as much care. If ◊${i} is declared ◊code{nat}, then Dafny already knows that it must check that ◊${i \ge 0}.
+The lower bound on ◊${i} is generally not necessary, especially if ◊${i} is a ◊code{nat}, since Dafny must always check ◊${i \ge 0}. For this reason, counting down typically does not require an invariant like this.
 
 ◊section{Ghost and Compiled Constructs}
 
@@ -139,45 +186,19 @@ All of Dafny's specification constructs are called ◊em{ghosts}. The reason for
 
 There are two main types of 'simple' top-level declarations in Dafny: methods and functions. Methods contain imperative code, functions contain functional code. Methods are compiled by default. Functions are ghost by default. If a method is ghost, it's a lemma. If a function is compiled, it's a function method. If a function is boolean-valued, it's a predicate.
 
-◊section{Recursive Algorithms}
-A recursive algorithm is any algorithm which makes a call to itself in its own definition. Some problems can be solved by dividing them into smaller sub-problems and combining the results. These algorithms can usually be expressed recursively.
-
-Consider the problem of sorting a list of numbers. If I have two lists, both of which are sorted, I can easily merge them into one list which is itself sorted: walk through both lists at once and take the smaller element from each to construct the new list. If I have a singleton list, that is automatically sorted. That sounds like a fine sorting algorithm to me. Let's try it out. 
-
-◊codeblock['dafny]{
-  function method merge(a: seq<int>, b: seq<int>): seq<int>
-  {
-      if a == [] then b else
-      if b == [] then a
-      else
-        if a[0] < b[0] then
-          [a[0]] + merge(a[1..], b)
-        else
-          [b[0]] + merge(a, b[1..])
-  }
-
-  function method sort(s: seq<int>): seq<int>
-  {
-      if |s| <= 1 then s
-      else
-        var mid := |s| / 2;
-        merge(sort(s[..mid]), sort(s[mid..]))
-  }
-}
-
-Try this out if you like.
+◊hrule
 
 ◊section{Question 1}
 
-Rewrite your ◊code{Max} and ◊code{Min} methods from last week to use the following functions as part of their specification. (See the previous section on ◊xref["resources/dafny-02.html#Functions vs Methods"]{functions vs methods}.)
+Rewrite your ◊code{Max} and ◊code{Min} methods from the previous lab to use the following functions as part of their specification. (See the previous section on ◊xref["#Functions vs Methods"]{functions vs methods}.)
 
 ◊codeblock['dafny]{
-  function max(a: int, b: int): int
+  function MaxDef(a: int, b: int): int
   {
       if a > b then a else b
   }
 
-  function min(a: int, b: int): int
+  function MinDef(a: int, b: int): int
   {
       if a < b then a else b
   }
@@ -237,7 +258,7 @@ Euclid detailed an algorithm in his ◊em{Elements} for computing the greatest c
   }
 }
 
-Unfortunately, Dafny cannot prove that this algorithm terminates. Provide a decreases clause for this function to prove that it terminates. (Hint: You are looking for an expression involving ◊${a} and ◊${b} which strictly decreases each time the function is called recursively.)
+Unfortunately, Dafny cannot prove that this algorithm terminates. Provide a decreases clause for this function to prove that it terminates. (Hint: You are looking for an expression involving ◊${a} and ◊${b} which strictly decreases each time the function is called recursively. You might want to read the section on ◊xref["#Termination"]{termination} if you haven't already.)
 
 ◊section{Question 5}
 

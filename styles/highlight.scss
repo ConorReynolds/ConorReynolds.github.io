@@ -483,6 +483,38 @@ pre {
         background-color: var(--code-filename-bg-color);
     }
 
+    .download-button {
+        all: unset;
+        outline: revert;
+        font-size: 0.95em;
+        display: inline-flex;
+        opacity: 0.8;
+        border: 0.5px solid;
+        border-color: var(--code-filename-bg-color);
+        border-radius: 0.25em;
+
+        transition-property: border-color;
+        transition-timing-function: ease-in-out;
+        transition-duration: 0.15s;
+
+        margin-left: 0.5em;
+        min-width: 1.5em;
+        min-height: 1.5em;
+
+        justify-content: center;
+        align-items: center;
+
+        @media (hover) {
+            &:hover {
+                border-color: gray;
+            }
+        }
+
+        &:active {
+            color: var(--fg-color);
+        }
+    }
+
     .copy-button {
         all: unset;
         outline: revert;

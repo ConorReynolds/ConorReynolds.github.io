@@ -139,7 +139,8 @@
   (format "~a" (date-year (current-date))))
 
 (define (link url #:class [class-name #f] #:alt [alt-text #f] . tx-elements)
-  (let* ([url (string-append "/" (->string url))]
+  (let* ([url (->string url)]
+         [url (if (regexp-match #rx"^#" url) url (string-append "/" url))]
          [tx-elements (if (empty? tx-elements)
                           (list url)
                           tx-elements)]
@@ -279,11 +280,21 @@
 
 (define (copy-button str)
   `(button [[class "copy-button"]
-            [title "Copy code to clipboard"]
+            [title "Copy snippet to clipboard"]
             [onclick ,(format "copyAndConfirm(this, String.raw`~a`)" str)]]
            (i [[class "fas fa-copy"]])))
 
-(define (codeblock #:wrap [wrap? #f] [lang 'racket] #:name [caption #f] . elems)
+(define (download-button filename text)
+  `(button [[class "download-button"]
+            [title ,(format "Download snippet as ~a" filename)]
+            [onclick ,(format "download(this, `~a`, String.raw`~a`)"
+                              filename text)]]
+           (i [[class "fa fa-download"]])))
+
+(define (codeblock [lang 'racket]
+                   #:wrap [wrap? #f]
+                   #:name [caption #f]
+                   #:download [dl? #f] . elems)
   (define raw (apply string-append elems))
   (define pre-rendered (highlight #:python-executable "python3" lang raw))
   (define rendered (if wrap? (attr-join pre-rendered 'class "code-wrap") pre-rendered))
@@ -292,7 +303,11 @@
          (list* no-paragraphs-attr
                 no-smart-typography-attr
                 (get-attrs rendered))
-         (if caption `(div [[class "caption"]] ,caption) '(@))
+         (if caption
+             `(div [[class "caption"]]
+                   ,caption
+                   ,(if dl? (download-button caption raw) '(@)))
+             '(@))
          (copy-button raw)
          (get-elements rendered)))
 

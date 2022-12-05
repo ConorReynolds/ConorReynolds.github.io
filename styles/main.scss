@@ -752,7 +752,7 @@ a {
 
     .tooltip.show-tooltip {
         background: #999;
-        color: var(--fg-color);
+        color: var(--bg-color);
         opacity: 1;
         transition-property: all;
         transition-duration: 0.2s;
@@ -761,7 +761,7 @@ a {
     @media (hover) {
         .tooltip:hover {
             background: #999;
-            color: var(--fg-color);
+            color: var(--bg-color);
             opacity: 1;
             transition-property: all;
             transition-duration: 0.2s;

@@ -20,7 +20,7 @@ If you're using your own computer, ◊extlink["https://code.visualstudio.com/dow
 
 In either case, create the following file:
 
-◊codeblock['dafny #:name "Dafny01.dfy"]{
+◊codeblock['dafny #:name "Test.dfy" #:download #t]{
   method Abs(n: int) returns (result: int)
       ensures result >= 0
       ensures result == n || result == -n
