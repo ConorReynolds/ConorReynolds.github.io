@@ -43,7 +43,23 @@
 
 </div>
 
-<div id="doc" role="main"><h2 id="Prerequisites" class="section">Prerequisites<a class="anchor" href="#Prerequisites" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Programming experience in C-style languages—Java, C, C#, JavaScript, etc.—must be assumed. The algorithms you will write and verify are deliberately simple so that you can focus on the verification.</p><p>The <a class="extlink" href="http://dafny.org/dafny/DafnyRef/DafnyRef.html">Dafny language reference</a> and the <a class="extlink" href="http://dafny.org/dafny/OnlineTutorial/guide.html">Dafny Guide</a> will be extremely useful resources for you.</p><h2 id="Instructions" class="section">Instructions<a class="anchor" href="#Instructions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>If you’re using the computers in the lab, everything should already be installed—just open VS Code.</p><p>If you’re using your own computer, <a class="extlink" href="https://code.visualstudio.com/download">install VS Code,</a> run it, hit <kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd></kbd> to bring up the extensions menu, then search for and install the Dafny extension.</p><p>In either case, create the following file:</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">Dafny01.dfy</div><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(n: int) returns (result: int)
+<div id="doc" role="main"><h2 id="Prerequisites" class="section">Prerequisites<a class="anchor" href="#Prerequisites" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Programming experience in C-style languages—Java, C, C#, JavaScript, etc.—must be assumed. The algorithms you will write and verify are deliberately simple so that you can focus on the verification.</p><p>The <a class="extlink" href="http://dafny.org/dafny/DafnyRef/DafnyRef.html">Dafny language reference</a> and the <a class="extlink" href="http://dafny.org/dafny/OnlineTutorial/guide.html">Dafny Guide</a> will be extremely useful resources for you.</p><h2 id="Instructions" class="section">Instructions<a class="anchor" href="#Instructions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>If you’re using the computers in the lab, everything should already be installed—just open VS Code.</p><p>If you’re using your own computer, <a class="extlink" href="https://code.visualstudio.com/download">install VS Code,</a> run it, hit <kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd></kbd> to bring up the extensions menu, then search for and install the Dafny extension.</p><p>In either case, create the following file:</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">Test.dfy<button class="download-button" title="Download snippet as Test.dfy" onclick="download(this, `Test.dfy`, String.raw`method Abs(n: int) returns (result: int)
+    ensures result &gt;= 0
+    ensures result == n || result == -n
+{
+    if n &lt; 0 {
+        result := -n;
+    } else {
+        result := n;
+    }
+}
+
+method {:main} TestAbs()
+{
+    var x := Abs(-3);
+    assert x == 3;
+    print x, &quot;\n&quot;;
+}`)"><i class="fa fa-download"></i></button></div><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(n: int) returns (result: int)
     ensures result &gt;= 0
     ensures result == n || result == -n
 {
@@ -94,7 +110,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>All going well, you should see a message at the bottom-left which reads ‘Verification Succeeded’. If so, the installation was successful. If not, try reloading the window (<kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd>, then type ‘Reload Window’ and press <kbd><kbd>Enter</kbd></kbd>). Press <kbd><kbd>F5</kbd></kbd> to compile and run the code.</p><p>If you’re already comfortable with Dafny, you can skip right ahead to the <a class="xref" hyphens="none" href="/resources/dafny-01.html#Question 1">lab questions</a>. If you are not, then I strongly recommend reading the next few sections carefully, since they will help prepare you for the lab.</p><h2 id="Dafny Syntax" class="section">Dafny Syntax<a class="anchor" href="#Dafny Syntax" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny’s syntax is C-like, so it should be familiar to you. To demonstrate how similar the languages are, here is the absolute value function defined above translated to Java.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`static int abs(int n)
+</div><p>All going well, you should see a message at the bottom-left which reads ‘Verification Succeeded’. If so, the installation was successful. If not, try reloading the window (<kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd>, then type ‘Reload Window’ and press <kbd><kbd>Enter</kbd></kbd>). Press <kbd><kbd>F5</kbd></kbd> to compile and run the code.</p><p>If you’re already comfortable with Dafny, you can skip right ahead to the <a class="xref" hyphens="none" href="/resources/dafny-01.html#Question 1">lab questions</a>. If you are not, then I strongly recommend reading the next few sections carefully, since they will help prepare you for the lab.</p><h2 id="Dafny Syntax" class="section">Dafny Syntax<a class="anchor" href="#Dafny Syntax" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny’s syntax is C-like, so it should be familiar to you. To demonstrate how similar the languages are, here is the absolute value function defined above translated to Java.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`static int abs(int n)
 {
     if (n &lt; 0) {
         return -n;
@@ -118,7 +134,7 @@ method {:main} TestAbs()
 <span class="p">}</span><span class="w"></span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Dafny does not have for-loops, but they are an unnecessary syntactic convenience. Since Dafny supports verification constructs, it is more important than usual that its syntax is simple. Where in Java you would have written:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`{
+</div><p>Dafny does not have for-loops, but they are an unnecessary syntactic convenience. Since Dafny supports verification constructs, it is more important than usual that its syntax is simple. Where in Java you would have written:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`{
     // some code
 
     for (int i = 0; i &lt; n; i++) {
@@ -145,7 +161,7 @@ method {:main} TestAbs()
 <span class="p">}</span><span class="w"></span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>… in Dafny, you can write:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`{
+</div><p>… in Dafny, you can write:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`{
     // some code
 
     var i := 0;
@@ -178,7 +194,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>You can create new scopes in Dafny with braces just like you can in Java if you’re concerned about <code>i</code> escaping its scope.</p><p>As you can see, assignment in Dafny is denoted <code>:=</code> rather than <code>=</code>. Dafny also has mathematical syntax for assertions, preconditions, and postconditions: <code>==&gt;</code> is implication, <code>&amp;&amp;</code> is conjunction, <code>||</code> is disjunction, <code>!</code> is negation.</p><p>A key difference between Dafny methods and methods in other C-like languages is that Dafny methods require you to define the names of the return values in the function signature. For example, in <code>Abs</code> above, the name of the return variable was <code>result</code>.</p><p>This is necessary because there would otherwise be no straightforward way to refer to the returned value in the function’s contract. The postcondition for <code>Abs</code> says that <code>result</code> must be either <code>n</code> or <code>-n</code>. We couldn’t write this if <code>result</code> was not already defined. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Some specification languages, like JML, use a special name for the return value instead.</span></span></p><h2 id="General Tips" class="section">General Tips<a class="anchor" href="#General Tips" title="permalink to this section"><i class="fas fa-link"></i></a></h2><ol class="loose-list"><li>Dafny accepting your code as verified is not by itself an indication that you have answered the question correctly.</li><li>You may know your code is correct before Dafny does. Correct code is not by itself an indication that you have answered the question correctly.</li><li>Correct code and a verified postcondition together are not an indication that you have answered the question correctly.</li><li>A weak condition is satisfied by many models. A strong condition is satisfied by few models.</li><li>Always look for the weakest precondition. The ideal precondition is no condition at all. Ask for what you need, and no more.</li><li>Always look for the strongest postcondition. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">This isn’t always the case, but it’s a good rule to follow as a beginner.</span></span> A postcondition is strengthened by exposing its weaknesses. Try to imagine output which satisfies your postcondition, but behaves in a way that you do not want or expect. What your code really does is irrelevant here—it may well be correct. But the postcondition is the means by which you communicate what your code does to the rest of the program. If it is too weak, then other methods may not know enough about what your code guarantees to progress with their own proofs.</li></ol><h2 id="Worked Example" class="section">Worked Example<a class="anchor" href="#Worked Example" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>To illustrate points 3–6, consider the following code which computes the absolute value of any <span class="inline-math" hyphens="none">\(x \in \Z\)</span>, denoted mathematically as <span class="inline-math" hyphens="none">\(\lvert x \rvert\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
+</div><p>You can create new scopes in Dafny with braces just like you can in Java if you’re concerned about <code>i</code> escaping its scope.</p><p>As you can see, assignment in Dafny is denoted <code>:=</code> rather than <code>=</code>. Dafny also has mathematical syntax for assertions, preconditions, and postconditions: <code>==&gt;</code> is implication, <code>&amp;&amp;</code> is conjunction, <code>||</code> is disjunction, <code>!</code> is negation.</p><p>A key difference between Dafny methods and methods in other C-like languages is that Dafny methods require you to define the names of the return values in the function signature. For example, in <code>Abs</code> above, the name of the return variable was <code>result</code>.</p><p>This is necessary because there would otherwise be no straightforward way to refer to the returned value in the function’s contract. The postcondition for <code>Abs</code> says that <code>result</code> must be either <code>n</code> or <code>-n</code>. We couldn’t write this if <code>result</code> was not already defined. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Some specification languages, like JML, use a special name for the return value instead.</span></span></p><h2 id="General Tips" class="section">General Tips<a class="anchor" href="#General Tips" title="permalink to this section"><i class="fas fa-link"></i></a></h2><ol class="loose-list"><li>Dafny accepting your code as verified is not by itself an indication that you have answered the question correctly.</li><li>You may know your code is correct before Dafny does. Correct code is not by itself an indication that you have answered the question correctly.</li><li>Correct code and a verified postcondition together are not an indication that you have answered the question correctly.</li><li>A weak condition is satisfied by many models. A strong condition is satisfied by few models.</li><li>Always look for the weakest precondition. The ideal precondition is no condition at all. Ask for what you need, and no more.</li><li>Always look for the strongest postcondition. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">This isn’t always the case, but it’s a good rule to follow as a beginner.</span></span> A postcondition is strengthened by exposing its weaknesses. Try to imagine output which satisfies your postcondition, but behaves in a way that you do not want or expect. What your code really does is irrelevant here—it may well be correct. But the postcondition is the means by which you communicate what your code does to the rest of the program. If it is too weak, then other methods may not know enough about what your code guarantees to progress with their own proofs.</li></ol><h2 id="Worked Example" class="section">Worked Example<a class="anchor" href="#Worked Example" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>To illustrate points 3–6, consider the following code which computes the absolute value of any <span class="inline-math" hyphens="none">\(x \in \Z\)</span>, denoted mathematically as <span class="inline-math" hyphens="none">\(\lvert x \rvert\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
 {
     if x &lt; 0 {
         result := -x;
@@ -202,7 +218,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>The code is correct, but it has no contract. This prevents the verifier from inferring anything about the code. For example, even this simple assertion will fail.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} TestAbs()
+</div><p>The code is correct, but it has no contract. This prevents the verifier from inferring anything about the code. For example, even this simple assertion will fail.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} TestAbs()
 {
     var x := Abs(-3);
     assert x &gt;= 0;  // ✗ fails
@@ -217,7 +233,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Let’s fix that by adding a silly contract.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
+</div><p>Let’s fix that by adding a silly contract.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
     requires -10 &lt; x &lt; 10
     ensures result &gt;= 0  // ✓ succeeds
 {
@@ -247,7 +263,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Dafny can prove both the postcondition and the assertion automatically.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} TestAbs()
+</div><p>Dafny can prove both the postcondition and the assertion automatically.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} TestAbs()
 {
     var x := Abs(-3);
     assert x &gt;= 0;  // ✓ succeeds
@@ -262,7 +278,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>In some sense, this code is ‘correct’—but it has some issues. The precondition requires that <span class="inline-math" hyphens="none">\(-10 &lt; x &lt; 10\)</span>, but the absolute value function should work for <em>any</em> integer, not just a small range of them. If we use any integer outside this range, Dafny will complain that the precondition is violated.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} TestAbs()
+</div><p>In some sense, this code is ‘correct’—but it has some issues. The precondition requires that <span class="inline-math" hyphens="none">\(-10 &lt; x &lt; 10\)</span>, but the absolute value function should work for <em>any</em> integer, not just a small range of them. If we use any integer outside this range, Dafny will complain that the precondition is violated.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} TestAbs()
 {
     var x := Abs(-10);  // ✗ fails (precondition violation)
     assert x &gt;= 0;
@@ -277,7 +293,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Since there is no good reason to restrict <code>Abs</code> in this way, we can remove it. Of course, the postcondition still holds.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
+</div><p>Since there is no good reason to restrict <code>Abs</code> in this way, we can remove it. Of course, the postcondition still holds.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
     ensures result &gt;= 0  // ✓ succeeds
 {
     if x &lt; 0 {
@@ -304,7 +320,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Let’s see what Dafny can infer about the function now.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} TestAbs()
+</div><p>Let’s see what Dafny can infer about the function now.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} TestAbs()
 {
     var x := Abs(-3);
     assert x &gt;= 0;  // ✓ succeeds
@@ -322,7 +338,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Dafny can prove the first assertion, but it cannot prove the stronger fact that <code>x</code> should not <em>just</em> be some non-negative integer, but <em>exactly</em> <code>3</code>. As far as Dafny is concerned, all <code>Abs</code> guarantees is that its output is greater than or equal to zero. Notice that this postcondition would still hold if instead <code>Abs</code> was defined to be ‘<code>Abs</code> plus three’.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
+</div><p>Dafny can prove the first assertion, but it cannot prove the stronger fact that <code>x</code> should not <em>just</em> be some non-negative integer, but <em>exactly</em> <code>3</code>. As far as Dafny is concerned, all <code>Abs</code> guarantees is that its output is greater than or equal to zero. Notice that this postcondition would still hold if instead <code>Abs</code> was defined to be ‘<code>Abs</code> plus three’.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
     ensures result &gt;= 0  // ✓ still succeeds!
 {
     if x &lt; 0 {
@@ -355,7 +371,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>That’s a big problem! But we can fix it easily by adding more postconditions that explain in more detail what <code>Abs</code> guarantees.</p><p>For any <span class="inline-math" hyphens="none">\(x \in \Z\)</span>, we know that <span class="inline-math" hyphens="none">\(\lvert x \rvert\)</span> has to be one of exactly two possible values: <span class="inline-math" hyphens="none">\(x\)</span> or <span class="inline-math" hyphens="none">\(-x\)</span>. Let’s add this as a postcondition.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
+</div><p>That’s a big problem! But we can fix it easily by adding more postconditions that explain in more detail what <code>Abs</code> guarantees.</p><p>For any <span class="inline-math" hyphens="none">\(x \in \Z\)</span>, we know that <span class="inline-math" hyphens="none">\(\lvert x \rvert\)</span> has to be one of exactly two possible values: <span class="inline-math" hyphens="none">\(x\)</span> or <span class="inline-math" hyphens="none">\(-x\)</span>. Let’s add this as a postcondition.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
     ensures result &gt;= 0
     ensures result == x || result == -x
 {
@@ -385,7 +401,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Notice that Dafny can now prove both assertions.</p><p>Alternatively, note that we know the exact conditions under which <span class="inline-math" hyphens="none">\(\lvert x \rvert\)</span> is <span class="inline-math" hyphens="none">\(x\)</span> or <span class="inline-math" hyphens="none">\(-x\)</span> respectively. Specifically, we know that <span class="inline-math" hyphens="none">\(\lvert x \rvert = x\)</span> when <span class="inline-math" hyphens="none">\(x \ge 0\)</span> and that <span class="inline-math" hyphens="none">\(\lvert x \rvert = -x\)</span> whenever <span class="inline-math" hyphens="none">\(x &lt; 0\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
+</div><p>Notice that Dafny can now prove both assertions.</p><p>Alternatively, note that we know the exact conditions under which <span class="inline-math" hyphens="none">\(\lvert x \rvert\)</span> is <span class="inline-math" hyphens="none">\(x\)</span> or <span class="inline-math" hyphens="none">\(-x\)</span> respectively. Specifically, we know that <span class="inline-math" hyphens="none">\(\lvert x \rvert = x\)</span> when <span class="inline-math" hyphens="none">\(x \ge 0\)</span> and that <span class="inline-math" hyphens="none">\(\lvert x \rvert = -x\)</span> whenever <span class="inline-math" hyphens="none">\(x &lt; 0\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Abs(x: int) returns (result: int)
     ensures result &gt;= 0
     ensures x &gt;= 0 ==&gt; result == x
     ensures x &lt; 0  ==&gt; result == -x
@@ -418,7 +434,7 @@ method {:main} TestAbs()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><p>Dafny can automatically verify these postconditions and both assertions.</p><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write and verify a method which computes the maximum of two integers. Use the following as a template. You should provide the weakest precondition and the strongest postcondition for full marks. All the tests in <code>TestMax</code> should pass.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Max(a: int, b: int) returns (m: int)
+</div><p>Dafny can automatically verify these postconditions and both assertions.</p><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write and verify a method which computes the maximum of two integers. Use the following as a template. You should provide the weakest precondition and the strongest postcondition for full marks. All the tests in <code>TestMax</code> should pass.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Max(a: int, b: int) returns (m: int)
 {
     // todo
 }
@@ -466,7 +482,7 @@ method {:test} TestMax()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write and verify a method which computes the minimum of two integers. Use the following as a template. You should provide the weakest precondition and the strongest postcondition for full marks. All the tests in <code>TestMin</code> should pass.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method Min(a: int, b: int) returns (m: int)
+</div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write and verify a method which computes the minimum of two integers. Use the following as a template. You should provide the weakest precondition and the strongest postcondition for full marks. All the tests in <code>TestMin</code> should pass.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Min(a: int, b: int) returns (m: int)
 {
     // todo
 }
@@ -514,7 +530,7 @@ method {:test} TestMin()
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Decide what the methods <code>M1</code> and <code>A1</code> do and provide an appropriate postcondition for each. Verify the program using Dafny.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method M1(x: int, y: int) returns (r: int)
+</div><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Decide what the methods <code>M1</code> and <code>A1</code> do and provide an appropriate postcondition for each. Verify the program using Dafny.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method M1(x: int, y: int) returns (r: int)
     // ensures r == ?
     decreases x &lt; 0, x
 {
@@ -631,7 +647,7 @@ method A1(x: int, y: int) returns (r: int)
 <span class="p">}</span>
 </pre></div></td></tr></tbody></table></div>
 
-</div><h2 id="Question 4" class="section">Question 4<a class="anchor" href="#Question 4" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method that swaps the values <code>a[i]</code> and <code>a[j]</code> in-place. This method will modify <code>a</code>, so we have to declare that with the frame condition <code>modifies a</code>. (A frame condition for a method just describes what can and cannot be modified by that method. Dafny assumes that methods do not modify anything, unless you say otherwise.)</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy code to clipboard" onclick="copyAndConfirm(this, String.raw`method swap(a: array&lt;int&gt;, i: nat, j: nat)
+</div><h2 id="Question 4" class="section">Question 4<a class="anchor" href="#Question 4" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method that swaps the values <code>a[i]</code> and <code>a[j]</code> in-place. This method will modify <code>a</code>, so we have to declare that with the frame condition <code>modifies a</code>. (A frame condition for a method just describes what can and cannot be modified by that method. Dafny assumes that methods do not modify anything, unless you say otherwise.)</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method swap(a: array&lt;int&gt;, i: nat, j: nat)
     modifies a
 
     // requires relationship between i and a.Length
