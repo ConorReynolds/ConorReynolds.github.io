@@ -137,14 +137,14 @@
       ◊a[#:href "mailto:conor.reynolds@mu.ie" #:class "fas fa-envelope fa-1x" #:title "Email"]
     }
 
-    ◊when/splice[(resource? here)]{
-      ◊when/splice[previous-page]{
-        ◊make-side-nav["prev" "Go to previous page" previous-page]{⟨}
-      }
-      ◊when/splice[next-page]{
-        ◊make-side-nav["next" "Go to next page" next-page]{⟩}
-      }
-    }
+    ◊; ◊when/splice[(resource? here)]{
+    ◊;   ◊when/splice[previous-page]{
+    ◊;     ◊make-side-nav["prev" "Go to previous page" previous-page]{⟨}
+    ◊;   }
+    ◊;   ◊when/splice[next-page]{
+    ◊;     ◊make-side-nav["next" "Go to next page" next-page]{⟩}
+    ◊;   }
+    ◊; }
     ◊; ◊(cond
     ◊;   [(and next-page parent-page) ◊make-side-nav["next" next-page]{⟩}]
     ◊;   [(not parent-page) ◊make-side-nav["next" next-page ""]]
