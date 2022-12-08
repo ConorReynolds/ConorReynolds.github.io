@@ -24,6 +24,7 @@
 
 :root {
     --alt-font: Concourse;
+    --heading-font: ConcourseHeadings;
 }
 
 @mixin defaults {
@@ -163,15 +164,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-family: var(--alt-font);
+    font-family: var(--heading-font);
     font-variant-ligatures: none;
-    font-weight: bold;
     font-size: 1.5rem;
     padding-bottom: 0.2rem;
 }
 
 h2 {
-    font-family: var(--alt-font);
+    font-family: var(--heading-font);
     font-variant: oldstyle-nums;
     font-size: 1rem;
     margin-bottom: 0.4rem;
@@ -255,8 +255,7 @@ h3 {
 
     &.toc {
         font-size: 1rem;
-        font-family: var(--alt-font);
-        font-weight: bold;
+        font-family: var(--heading-font);
         margin-bottom: 0;
     }
 }
@@ -282,8 +281,9 @@ h3 {
     font-variant-numeric: lining-nums;
 
     h3 {
+        font-family: var(--heading-font);
+        font-style: normal;
         font-size: 1.1rem;
-        font-weight: bold;
         margin: 0;
     }
 
