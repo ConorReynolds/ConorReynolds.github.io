@@ -61,8 +61,9 @@ body {
     background-color: var(--bg-color);
     color: var(--fg-color);
     -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    // Not clear if we should have options like this. Probably not.
+    // -webkit-font-smoothing: antialiased;
+    // -moz-osx-font-smoothing: grayscale;
 }
 
 ul {
