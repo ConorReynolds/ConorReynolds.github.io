@@ -46,20 +46,48 @@ If you're already comfortable with Dafny, you can skip right ahead to the ◊xre
 
 ◊section{Dafny Syntax}
 
-Dafny's syntax is C-like, so it should be familiar to you. To demonstrate how similar the languages are, here is the absolute value function defined above translated to Java.
+Dafny's syntax is C-like, so it should be familiar to you. To demonstrate how similar Dafny and Java are, lets define a very basic ◊code{isPrime} function in both.
 
-◊codeblock['java]{
-  static int abs(int n)
+◊codeblock['java #:name "Primes in Java"]{
+  // only works for n >= 0
+  static boolean isPrime(int n)
   {
-      if (n < 0) {
-          return -n;
-      } else {
-          return n;
+      if (n < 2) {
+          return false;
       }
+
+      for (int i = 2; i * i <= n; i++) {
+          if (n % i == 0) {
+              return false;
+          }
+      }
+      
+      return true;
   }
 }
 
-Dafny does not have for-loops, but they are an unnecessary syntactic convenience. Since Dafny supports verification constructs, it is more important than usual that its syntax is simple. Where in Java you would have written:
+◊codeblock['dafny #:name "Primes in Dafny"]{
+  method isPrime(n: nat) returns (r: bool)
+  {
+      if n < 2 {
+          return false;
+      }
+
+      var i := 2;
+      while i * i <= n {
+          if n % i == 0 {
+              return false;
+          }
+          i := i + 1;
+      }
+
+      return true;
+  }
+}
+
+These two snippets only differ by minor syntactical details.
+
+Notice that Dafny does not have for-loops, but they are at any rate an unnecessary syntactic convenience. Since Dafny supports verification constructs, it is more important than usual that its syntax is simple. Where in Java you would have written:
 
 ◊codeblock['java]{
   {
@@ -267,7 +295,7 @@ Dafny can automatically verify these postconditions and both assertions.
 
 ◊section{Question 1}
 
-Write and verify a method which computes the maximum of two integers. Use the following as a template. You should provide the weakest precondition and the strongest postcondition for full marks. All the tests in ◊code{TestMax} should pass.
+Write and verify a method which computes the maximum of two integers. Use the following as a template. You should provide the weakest precondition and the strongest postcondition for full marks. All the tests in ◊code{TestMax} should pass. ◊aside{If the tests don't pass, it is almost certainly because your postcondition is not strong enough---Dafny can imagine a situation where your postcondition is true but the assertions don't hold.}
 
 ◊codeblock['dafny]{
   method Max(a: int, b: int) returns (m: int)
