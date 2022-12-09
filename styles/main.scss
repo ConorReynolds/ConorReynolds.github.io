@@ -755,7 +755,7 @@ a {
         background: #999;
         color: var(--bg-color);
         opacity: 1;
-        transition-property: all;
+        transition-property: color, background-color;
         transition-duration: 0.2s;
     }
 
@@ -764,7 +764,7 @@ a {
             background: #999;
             color: var(--bg-color);
             opacity: 1;
-            transition-property: all;
+            transition-property: color, background-color;
             transition-duration: 0.2s;
         }
     }
