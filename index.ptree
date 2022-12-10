@@ -12,6 +12,7 @@ cv.html
 ◊resources.html{
   ◊resources/coq.html{
     resources/coq-01.html
+    resources/coq-02.html
   }
   ◊resources/dafny.html{
     resources/dafny-01.html
