@@ -18,7 +18,7 @@ For example, if we have a hypothesis of the form ◊${A \wedge B}, the left-elim
     \frac{\Gamma, A \wedge B \vdash C}{\Gamma, A, B \vdash C}
 }
 
-In plain English: if we know ‘◊${A \wedge B}’, then we know ◊${A}, and we also know ◊${B}. It breaks apart the original hypothesis so that we can use ◊${A} and ◊${B} separately. Not very interesting.
+In plain English: if we know ◊${A \wedge B}, then we know ◊${A}, and we also know ◊${B}. It breaks apart the original hypothesis so that we can use ◊${A} and ◊${B} separately. Not very interesting.
 
 A more interesting example involves the hypothesis ◊${A \vee B}. The left-elimination rule for 'or' is as follows:
 
@@ -90,12 +90,12 @@ Prove the following propositions in Coq. When you have completed the proof, repl
     (* todo *)
   Admitted.
 
-  Lemma q3 : (A \/ B) \/ C  -> A \/ (B \/ C).
+  Lemma q3 : (A \/ B) \/ C -> A \/ (B \/ C).
   Proof.
     (* todo *)
   Admitted.
 
-  Lemma q4 : (A \/ B) -> C  -> (A -> (B -> C)).
+  Lemma q4 : ((A \/ B) -> C) -> (A -> (B -> C)).
   Proof.
     (* todo *)
   Admitted.
@@ -103,17 +103,17 @@ Prove the following propositions in Coq. When you have completed the proof, repl
   (***************************************************)
   (* Negation *)
 
-  Lemma q5 : (~A \/ B)  ->  (A -> B).
+  Lemma q5 : (~A \/ B) -> (A -> B).
   Proof.
     (* todo *)
   Admitted.
 
-  Lemma q6 : (A -> B)  ->  (~B -> ~A).
+  Lemma q6 : (A -> B) -> (~B -> ~A).
   Proof.
     (* todo *)
   Admitted.
 
-  Lemma q7 : ~ (A /\ ~A).
+  Lemma q7 : ~(A /\ ~A).
   Proof.
     (* todo *)
   Admitted.
@@ -123,22 +123,22 @@ Prove the following propositions in Coq. When you have completed the proof, repl
 
   Hypothesis LEM : forall P : Prop, P \/ ~P.
 
-  Lemma q8 : ~ (A \/ B)  ->  ~ A /\ ~ B.
+  Lemma q8 : ~(A \/ B) -> ~A /\ ~B.
   Proof.
     (* todo *)
   Admitted.
 
-  Lemma q9 : ~ A /\ ~ B  ->  ~ (A \/ B).
+  Lemma q9 : ~A /\ ~B -> ~(A \/ B).
   Proof.
     (* todo *)
   Admitted.
 
-  Lemma q10 : ~A \/ ~ B  ->  ~ (A /\ B).
+  Lemma q10 : ~A \/ ~B -> ~(A /\ B).
   Proof.
     (* todo *)
   Admitted.
 
-  Lemma q11 : ~(A /\ B) ->  ~ A \/ ~ B.
+  Lemma q11 : ~(A /\ B) -> ~ A \/ ~ B.
   Proof.
     (* todo *)
   Admitted.
