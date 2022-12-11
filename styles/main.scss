@@ -143,7 +143,6 @@ button {
     font-family: var(--main-font);
     font-weight: normal;
     text-rendering: optimizeLegibility;
-    font-variant: oldstyle-nums;
     
     @include hyphens;
     
@@ -164,15 +163,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-family: var(--heading-font);
-    font-variant-ligatures: none;
+    font-family: var(--alt-font);
+    font-feature-settings: "ss12" on;
     font-size: 1.5rem;
     padding-bottom: 0.2rem;
 }
 
 h2 {
-    font-family: var(--heading-font);
-    font-variant: oldstyle-nums;
+    font-family: var(--alt-font);
+    font-feature-settings: "ss12" on;
+    letter-spacing: 0.02em;
     font-size: 1rem;
     margin-bottom: 0.4rem;
     margin-top: 1.75rem;
@@ -219,7 +219,6 @@ em > em {
 h3 {
     font-family: var(--main-font);
     font-weight: normal;
-    font-variant: oldstyle-nums;
     font-style: italic;
     font-size: 0.95rem;
     margin-bottom: 0.4rem;
@@ -255,7 +254,7 @@ h3 {
 
     &.toc {
         font-size: 1rem;
-        font-family: var(--heading-font);
+        font-family: var(--alt-font);
         margin-bottom: 0;
     }
 }
@@ -273,6 +272,12 @@ h3 {
 
     &:hover {
         text-decoration-color: var(--muted-color);
+    }
+}
+
+.tooltip-inner .xref {
+    &:hover {
+        text-decoration-color: var(--bg-color);
     }
 }
 
@@ -784,6 +789,12 @@ a {
     transition-property: text-decoration-color;
     transition-timing-function: ease-in-out;
     transition-duration: 0.1s;
+}
+
+.tooltip-inner .extlink {
+    &:hover {
+        text-decoration-color: var(--bg-color);
+    }
 }
 
 .extlink::after {
