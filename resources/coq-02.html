@@ -45,7 +45,7 @@
 
 <div id="doc" role="main"><p>All natural deduction rules for propositional logic have been covered by now in the lectures. Let’s put them into practice.</p><h2 id="Proofs Involving 'And' and 'Or'" class="section">Proofs Involving ‘And’ and ‘Or’<a class="anchor" href="#Proofs Involving 'And' and 'Or'" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Recall that an elimination rule for a propositional connective ‘removes’ that connective, and more generally explains how the connective can be used or broken down into simpler parts. In Coq, it is better to think of there being two different elimination rules, which we will call <em>left- and right-elimination</em>. Which one you use will depend on whether the connective appears in the hypotheses (left) or in the goal (right).</p><p>For example, if we have a hypothesis of the form <span class="inline-math" hyphens="none">\(A \wedge B\)</span>, the left-elimination rule for ‘and’ says the following:</p><div class="display-math" hyphens="none" paragraphs="none">\[\begin{aligned}
   \frac{\Gamma, A \wedge B \vdash C}{\Gamma, A, B \vdash C}
-\end{aligned}\]</div><p>In plain English: if we know ‘<span class="inline-math" hyphens="none">\(A \wedge B\)</span>’, then we know <span class="inline-math" hyphens="none">\(A\)</span>, and we also know <span class="inline-math" hyphens="none">\(B\)</span>. It breaks apart the original hypothesis so that we can use <span class="inline-math" hyphens="none">\(A\)</span> and <span class="inline-math" hyphens="none">\(B\)</span> separately. Not very interesting.</p><p>A more interesting example involves the hypothesis <span class="inline-math" hyphens="none">\(A \vee B\)</span>. The left-elimination rule for ‘or’ is as follows:</p><div class="display-math" hyphens="none" paragraphs="none">\[\begin{aligned}
+\end{aligned}\]</div><p>In plain English: if we know <span class="inline-math" hyphens="none">\(A \wedge B\)</span>, then we know <span class="inline-math" hyphens="none">\(A\)</span>, and we also know <span class="inline-math" hyphens="none">\(B\)</span>. It breaks apart the original hypothesis so that we can use <span class="inline-math" hyphens="none">\(A\)</span> and <span class="inline-math" hyphens="none">\(B\)</span> separately. Not very interesting.</p><p>A more interesting example involves the hypothesis <span class="inline-math" hyphens="none">\(A \vee B\)</span>. The left-elimination rule for ‘or’ is as follows:</p><div class="display-math" hyphens="none" paragraphs="none">\[\begin{aligned}
   \frac{\Gamma, A \vee B \vdash C}{\Gamma, A \vdash C \qquad \Gamma, B \vdash C}
 \end{aligned}\]</div><p>In plain English: if we can prove <span class="inline-math" hyphens="none">\(C\)</span> using <span class="inline-math" hyphens="none">\(A \vee B\)</span>, then in fact we should be able to prove <span class="inline-math" hyphens="none">\(C\)</span> from <span class="inline-math" hyphens="none">\(A\)</span> only, <em>and</em> we should be able to prove <span class="inline-math" hyphens="none">\(C\)</span> from <span class="inline-math" hyphens="none">\(B\)</span> only. The point is that if we claim that <em>either <span class="inline-math" hyphens="none">\(A\)</span> or <span class="inline-math" hyphens="none">\(B\)</span></em> is sufficient to prove <span class="inline-math" hyphens="none">\(C\)</span>, then either one alone should be enough to prove <span class="inline-math" hyphens="none">\(C\)</span>.</p><p>The right-elimination rules explain what happens when ‘and’ or ‘or’ appear in the goal, rather than in our hypotheses. The right-elimination rule for conjunction is:</p><div class="display-math" hyphens="none" paragraphs="none">\[\begin{aligned}
   \frac{\Gamma \vdash A \wedge B}{\Gamma \vdash A \qquad \Gamma \vdash B}
@@ -77,12 +77,12 @@ Proof.
   (* todo *)
 Admitted.
 
-Lemma q3 : (A \/ B) \/ C  -&gt; A \/ (B \/ C).
+Lemma q3 : (A \/ B) \/ C -&gt; A \/ (B \/ C).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q4 : (A \/ B) -&gt; C  -&gt; (A -&gt; (B -&gt; C)).
+Lemma q4 : ((A \/ B) -&gt; C) -&gt; (A -&gt; (B -&gt; C)).
 Proof.
   (* todo *)
 Admitted.
@@ -90,17 +90,17 @@ Admitted.
 (***************************************************)
 (* Negation *)
 
-Lemma q5 : (~A \/ B)  -&gt;  (A -&gt; B).
+Lemma q5 : (~A \/ B) -&gt; (A -&gt; B).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q6 : (A -&gt; B)  -&gt;  (~B -&gt; ~A).
+Lemma q6 : (A -&gt; B) -&gt; (~B -&gt; ~A).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q7 : ~ (A /\ ~A).
+Lemma q7 : ~(A /\ ~A).
 Proof.
   (* todo *)
 Admitted.
@@ -110,22 +110,22 @@ Admitted.
 
 Hypothesis LEM : forall P : Prop, P \/ ~P.
 
-Lemma q8 : ~ (A \/ B)  -&gt;  ~ A /\ ~ B.
+Lemma q8 : ~(A \/ B) -&gt; ~A /\ ~B.
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q9 : ~ A /\ ~ B  -&gt;  ~ (A \/ B).
+Lemma q9 : ~A /\ ~B -&gt; ~(A \/ B).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q10 : ~A \/ ~ B  -&gt;  ~ (A /\ B).
+Lemma q10 : ~A \/ ~B -&gt; ~(A /\ B).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q11 : ~(A /\ B) -&gt;  ~ A \/ ~ B.
+Lemma q11 : ~(A /\ B) -&gt; ~ A \/ ~ B.
 Proof.
   (* todo *)
 Admitted.
@@ -147,12 +147,12 @@ Proof.
   (* todo *)
 Admitted.
 
-Lemma q3 : (A \/ B) \/ C  -&gt; A \/ (B \/ C).
+Lemma q3 : (A \/ B) \/ C -&gt; A \/ (B \/ C).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q4 : (A \/ B) -&gt; C  -&gt; (A -&gt; (B -&gt; C)).
+Lemma q4 : ((A \/ B) -&gt; C) -&gt; (A -&gt; (B -&gt; C)).
 Proof.
   (* todo *)
 Admitted.
@@ -160,17 +160,17 @@ Admitted.
 (***************************************************)
 (* Negation *)
 
-Lemma q5 : (~A \/ B)  -&gt;  (A -&gt; B).
+Lemma q5 : (~A \/ B) -&gt; (A -&gt; B).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q6 : (A -&gt; B)  -&gt;  (~B -&gt; ~A).
+Lemma q6 : (A -&gt; B) -&gt; (~B -&gt; ~A).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q7 : ~ (A /\ ~A).
+Lemma q7 : ~(A /\ ~A).
 Proof.
   (* todo *)
 Admitted.
@@ -180,22 +180,22 @@ Admitted.
 
 Hypothesis LEM : forall P : Prop, P \/ ~P.
 
-Lemma q8 : ~ (A \/ B)  -&gt;  ~ A /\ ~ B.
+Lemma q8 : ~(A \/ B) -&gt; ~A /\ ~B.
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q9 : ~ A /\ ~ B  -&gt;  ~ (A \/ B).
+Lemma q9 : ~A /\ ~B -&gt; ~(A \/ B).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q10 : ~A \/ ~ B  -&gt;  ~ (A /\ B).
+Lemma q10 : ~A \/ ~B -&gt; ~(A /\ B).
 Proof.
   (* todo *)
 Admitted.
 
-Lemma q11 : ~(A /\ B) -&gt;  ~ A \/ ~ B.
+Lemma q11 : ~(A /\ B) -&gt; ~ A \/ ~ B.
 Proof.
   (* todo *)
 Admitted.
@@ -287,12 +287,12 @@ End CoqLab02.`)"><i class="fas fa-copy"></i></button><div class="source"><table 
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
-<span class="kn">Lemma</span> <span class="n">q3</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">\/</span> <span class="n">C</span>  <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">\/</span> <span class="o">(</span><span class="n">B</span> <span class="o">\/</span> <span class="n">C</span><span class="o">).</span>
+<span class="kn">Lemma</span> <span class="n">q3</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">\/</span> <span class="n">C</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">\/</span> <span class="o">(</span><span class="n">B</span> <span class="o">\/</span> <span class="n">C</span><span class="o">).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
-<span class="kn">Lemma</span> <span class="n">q4</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">C</span>  <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)).</span>
+<span class="kn">Lemma</span> <span class="n">q4</span> <span class="o">:</span> <span class="o">((</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
@@ -300,17 +300,17 @@ End CoqLab02.`)"><i class="fas fa-copy"></i></button><div class="source"><table 
 <span class="c">(***************************************************)</span>
 <span class="c">(* Negation *)</span>
 
-<span class="kn">Lemma</span> <span class="n">q5</span> <span class="o">:</span> <span class="o">(~</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span>  <span class="o">-&gt;</span>  <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">).</span>
+<span class="kn">Lemma</span> <span class="n">q5</span> <span class="o">:</span> <span class="o">(~</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
-<span class="kn">Lemma</span> <span class="n">q6</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span>  <span class="o">-&gt;</span>  <span class="o">(~</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="o">~</span><span class="n">A</span><span class="o">).</span>
+<span class="kn">Lemma</span> <span class="n">q6</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(~</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="o">~</span><span class="n">A</span><span class="o">).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
-<span class="kn">Lemma</span> <span class="n">q7</span> <span class="o">:</span> <span class="o">~</span> <span class="o">(</span><span class="n">A</span> <span class="o">/\</span> <span class="o">~</span><span class="n">A</span><span class="o">).</span>
+<span class="kn">Lemma</span> <span class="n">q7</span> <span class="o">:</span> <span class="o">~(</span><span class="n">A</span> <span class="o">/\</span> <span class="o">~</span><span class="n">A</span><span class="o">).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
@@ -320,22 +320,22 @@ End CoqLab02.`)"><i class="fas fa-copy"></i></button><div class="source"><table 
 
 <span class="kn">Hypothesis</span> <span class="n">LEM</span> <span class="o">:</span> <span class="k">forall</span> <span class="n">P</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">P</span> <span class="o">\/</span> <span class="o">~</span><span class="n">P</span><span class="o">.</span>
 
-<span class="kn">Lemma</span> <span class="n">q8</span> <span class="o">:</span> <span class="o">~</span> <span class="o">(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span>  <span class="o">-&gt;</span>  <span class="o">~</span> <span class="n">A</span> <span class="o">/\</span> <span class="o">~</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Lemma</span> <span class="n">q8</span> <span class="o">:</span> <span class="o">~(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">~</span><span class="n">A</span> <span class="o">/\</span> <span class="o">~</span><span class="n">B</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
-<span class="kn">Lemma</span> <span class="n">q9</span> <span class="o">:</span> <span class="o">~</span> <span class="n">A</span> <span class="o">/\</span> <span class="o">~</span> <span class="n">B</span>  <span class="o">-&gt;</span>  <span class="o">~</span> <span class="o">(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">).</span>
+<span class="kn">Lemma</span> <span class="n">q9</span> <span class="o">:</span> <span class="o">~</span><span class="n">A</span> <span class="o">/\</span> <span class="o">~</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="o">~(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
-<span class="kn">Lemma</span> <span class="n">q10</span> <span class="o">:</span> <span class="o">~</span><span class="n">A</span> <span class="o">\/</span> <span class="o">~</span> <span class="n">B</span>  <span class="o">-&gt;</span>  <span class="o">~</span> <span class="o">(</span><span class="n">A</span> <span class="o">/\</span> <span class="n">B</span><span class="o">).</span>
+<span class="kn">Lemma</span> <span class="n">q10</span> <span class="o">:</span> <span class="o">~</span><span class="n">A</span> <span class="o">\/</span> <span class="o">~</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="o">~(</span><span class="n">A</span> <span class="o">/\</span> <span class="n">B</span><span class="o">).</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
-<span class="kn">Lemma</span> <span class="n">q11</span> <span class="o">:</span> <span class="o">~(</span><span class="n">A</span> <span class="o">/\</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span>  <span class="o">~</span> <span class="n">A</span> <span class="o">\/</span> <span class="o">~</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Lemma</span> <span class="n">q11</span> <span class="o">:</span> <span class="o">~(</span><span class="n">A</span> <span class="o">/\</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">~</span> <span class="n">A</span> <span class="o">\/</span> <span class="o">~</span> <span class="n">B</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
