@@ -4,7 +4,6 @@
 
 ◊(define-meta toc-title "About This Site")
 ◊(define-meta title "About This Site")
-◊(define-meta subtitle "Pollen + Makefile = all you need")
 ◊(define-meta math? #false)
 ◊(define-meta created "2022-09-23")
 
@@ -20,7 +19,9 @@ It occurred to me that this information could be generated at compile time with 
 
 ◊codeblock['pollen #:name "index.html.pm" #:wrap #t "◊section{Publications}\n\nThe following is pulled from my Zotero account. ◊aside{See the ◊extlink[\"https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt\"]{source repo} for details on how this is generated.}\n\n◊(cons '@ ◊(bib-items))"]{}
 
-The function ◊code{bib-items} is defined in ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt"]{◊code{src/zotero.rkt}.} It pulls my publications directly from Zotero's API and constructs a list of divs that I can splice into the document. Since this is done at compile time, a user visiting the page just sees plain HTML. And that's it! It loads faster, it's easier to customise, and it provides almost as much automation---all for a meagre fraction of the time I spent tweaking BibBase. ◊aside{Though, if this isn't your cup of tea, I would still highly recommend BibBase as an alternative.}
+The function ◊code{bib-items} is defined in ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt"]{◊code{src/zotero.rkt}.} It pulls my publications directly from Zotero's API and constructs a list of divs that I can splice into the document. Since this is done at compile time, a user visiting the page just sees plain HTML.
+
+That's all there is to it. It loads faster, it's easier to customise, and it provides almost as much automation---all for a fraction of the time I spent tweaking BibBase. ◊aside{Though, if this isn't your cup of tea, I would still highly recommend BibBase as an alternative.}
 
 ◊section{Full-Text Search}
 
@@ -39,15 +40,6 @@ Some known weirdness includes (but is certainly not limited to):
 }
 
 While it would be nice to include a more detailed preview of the context of your search, like for ◊extlink["https://github.com/rust-lang/mdBook"]{mdBook-generated sites,} it seems like overkill. In practice, the search feature was intended primarily to facilitate keyboard-first navigation. To this end, the forward-slash character is set to focus the search bar.
-
-◊codeblock['javascript #:name "searcher.js"]{
-  document.addEventListener('keydown', (event) => {
-    if (event.key === "/") {
-        event.preventDefault();
-        searchBar.focus();
-    }
-  })
-}
 
 Plenty of sites (like GitHub) and browsers (like Firefox) have this sort of functionality, but I mean---is overriding this considered annoying? I have no idea. Let me know if this is annoying.
 

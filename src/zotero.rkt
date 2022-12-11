@@ -6,8 +6,9 @@
          net/url
          json
          nested-hash
+         txexpr
 
-         txexpr)
+         (only-in "tags.rkt" copy-button))
 
 (provide bib-items)
 
@@ -45,6 +46,7 @@
              #:unless (equal? (nested-hash-ref item 'data 'itemType) "attachment"))
     (let* ([data (hash-ref item 'data)]
            [bibtex (hash-ref item 'bibtex)]
+           [bibtex-entry-formatted (string-replace (string-trim bibtex) "\t" "  ")]
            [title (hash-ref data 'title)]
            [authors (map (λ (c) (fmt-name (hash-ref c 'firstName) (hash-ref c 'lastName)))
                          (filter (λ (c) (equal? (hash-ref c 'creatorType) "author"))
@@ -58,8 +60,8 @@
            [pubdate (hash-ref data 'date)]
            [publisher (hash-ref data 'publisher)]
            [doi (hash-ref data 'DOI)])
-      (txexpr 'div '((class "bib-item"))
-              `((div [[class "bib-desc"]]
+      (txexpr* 'div '((class "bib-item"))
+               `(div [[class "bib-desc"]]
                      (strong ,title) ". "
                      ,(string-append (string-join authors "; " #:before-last "; and ") " ")
                      "In "
@@ -71,12 +73,13 @@
                      ,location ", "
                      ,pubdate ". "
                      ,publisher)
-                (div [[class "bib-links"]]
+               `(div [[class "bib-links"]]
                      (a [[class "doi-link extlink"]
                          [href ,(format "https://www.doi.org/~a" doi)]]
                         "Link")
                      (button [[class "show-bibtex"]
                               [onclick "this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')"]]
                              "BibTeX"))
-                (div [[class "bibtex"]]
-                     (pre [[hyphens "none"]] ,(string-replace (string-trim bibtex) "\t" "  "))))))))
+               `(div [[class "bibtex"]]
+                     ,(copy-button bibtex-entry-formatted)
+                     (pre [[hyphens "none"]] ,bibtex-entry-formatted))))))

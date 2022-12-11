@@ -22,17 +22,21 @@
   pollen/unstable/typography
   hyphenate
 
+  "src/tags.rkt"
   "src/glossary.rkt"
   "src/zotero.rkt"
-  "src/utils.rkt"
-  )
+  "src/utils.rkt")
 
 (provide (all-defined-out))
+(provide (all-from-out "src/tags.rkt"))
 (provide (all-from-out "src/glossary.rkt"))
 (provide (all-from-out "src/zotero.rkt"))
 
 (module setup racket/base
   (provide (all-defined-out))
+  (require file/glob)
+  (define src-files (glob "src/*.rkt"))
+  (define cache-watchlist src-files)
   (define poly-targets '(html)))
 
 
@@ -277,19 +281,6 @@
 
 (define (code . elems)
   `(code ,@elems))
-
-(define (copy-button str)
-  `(button [[class "copy-button"]
-            [title "Copy snippet to clipboard"]
-            [onclick ,(format "copyAndConfirm(this, String.raw`~a`)" str)]]
-           (i [[class "fas fa-copy"]])))
-
-(define (download-button filename text)
-  `(button [[class "download-button"]
-            [title ,(format "Download snippet as ~a" filename)]
-            [onclick ,(format "download(this, `~a`, String.raw`~a`)"
-                              filename text)]]
-           (i [[class "fa fa-download"]])))
 
 (define (codeblock [lang 'racket]
                    #:wrap [wrap? #f]

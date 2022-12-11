@@ -90,7 +90,12 @@
     ◊div[#:class "header"]{
       ◊title-block{
         ◊title{◊(select-from-metas 'title here)}
-        ◊subtitle{◊(select-from-metas 'subtitle here)}
+        ◊when/splice[(select-from-metas 'subtitle here)]{
+          ◊subtitle{◊(select-from-metas 'subtitle here)}
+        }
+        ◊when/splice[(post? here)]{
+          ◊publish-date[◊(select-from-metas 'created here)]
+        }
       }
 
       ◊when/splice[(not (resource? here))]{

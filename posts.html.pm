@@ -10,7 +10,7 @@
 
 ◊(define (node->link node)
    (define node-string (->string node))
-   (define link-name (select-from-metas 'title node))
+   (define link-name (select-from-metas 'toc-title node))
    ◊link[node-string]{◊link-name})
 
 ◊(define (post-toc)
@@ -25,8 +25,8 @@
            (for/list ([post in-order])
              `(div [[class "post-item"]]
                     (span [[class "post-title"]] ,(node->link post))
-                    " ~ "
-                    ,(muted (~t (get-date post) "E, MMMM dd, y"))))))
+                    " — "
+                    (time [[datetime ,(date->iso8601 (get-date post))]] ,(~t (get-date post) "d MMMM y"))))))
 
 ◊(define-meta title "Posts")
 ◊(define-meta toc-title "Posts")
