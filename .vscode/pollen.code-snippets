@@ -34,6 +34,12 @@
 		"body": "◊${${1:${TM_SELECTED_TEXT}}}$0",
 	},
 
+	"Display maths": {
+		"scope": "pollen-markup",
+		"prefix": ["$$", "equation"],
+		"body": "◊$${\n  ${0:${TM_SELECTED_TEXT}}\n}",
+	},
+
 	"Inline code": {
 		"scope": "pollen-markup",
 		"prefix": "code",
@@ -104,6 +110,12 @@
 		"scope": "pollen-markup",
 		"prefix": "section",
 		"body": "◊section{$1}$0",
+	},
+
+	"Subsection": {
+		"scope": "pollen-markup",
+		"prefix": "subsection",
+		"body": "◊subsection{$1}$0",
 	},
 
 	"Chapter": {

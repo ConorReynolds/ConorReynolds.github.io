@@ -7,6 +7,7 @@
          json
          nested-hash
          txexpr
+         gregor
 
          (only-in "tags.rkt" copy-button))
 
@@ -41,8 +42,14 @@
                               (string (car (string->list name)))) ".")])
     (format "~a, ~a." lname fname)))
 
+(define (parse-date-or-year date-string)
+  (with-handlers ([exn:gregor:parse?
+                   (λ (exn) (iso8601->date date-string))])
+    (parse-date date-string "LLLL d, y")))
+
 (define (bib-items)
-  (for/list ([item (htable)]
+  (for/list ([item (sort (htable) date<?
+                         #:key (λ (x) (parse-date-or-year (or (nested-hash-ref x 'data 'date) "2019"))))]
              #:unless (equal? (nested-hash-ref item 'data 'itemType) "attachment"))
     (let* ([data (hash-ref item 'data)]
            [bibtex (hash-ref item 'bibtex)]
@@ -60,7 +67,7 @@
            [pubdate (hash-ref data 'date)]
            [publisher (hash-ref data 'publisher)]
            [doi (hash-ref data 'DOI)])
-      (txexpr* 'div '((class "bib-item"))
+      (txexpr* 'div '[[class "bib-item"]]
                `(div [[class "bib-desc"]]
                      (strong ,title) ". "
                      ,(string-append (string-join authors "; " #:before-last "; and ") " ")
