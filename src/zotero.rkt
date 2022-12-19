@@ -48,7 +48,7 @@
     (parse-date date-string "LLLL d, y")))
 
 (define (bib-items)
-  (for/list ([item (sort (htable) date<?
+  (for/list ([item (sort (htable) date>?
                          #:key (λ (x) (parse-date-or-year (or (nested-hash-ref x 'data 'date) "2019"))))]
              #:unless (equal? (nested-hash-ref item 'data 'itemType) "attachment"))
     (let* ([data (hash-ref item 'data)]
