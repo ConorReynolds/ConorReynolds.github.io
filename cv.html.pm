@@ -4,32 +4,30 @@
 ◊(define-meta title "Curriculum Vitae")
 ◊(define-meta subtitle "Under construction 🚧")
 
-Still working on it! In the meantime, here’s some information of questionable note.
-
 ◊section{Education}
 
-◊ul{
+◊hang-list{
   ◊item{
-    PhD in Computer Science, Maynooth University, 2019–now
+    PhD in ◊em{Computer Science}, Maynooth University, 2019–pres.
   }
   ◊item{
-    MSc in Mathematics, Maynooth University, 2018–2019
+    MSc in ◊em{Mathematics}, Maynooth University, 2018–2019 (◊sc-form{h1})
   }
   ◊item{
-    BSc in Computational Thinking, Maynooth University, 2015–2018
+    BSc in ◊em{Computational Thinking}, Maynooth University, 2015–2018 (◊sc-form{h1})
   }
 }
 
 ◊section{Awards}
 
-◊ul{
+◊hang-list[#:compact #f]{
   ◊item{
-    Hamilton Prize in Mathematics, awarded by the ◊extlink["https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics"]{Royal Irish Academy} in 2017
+    ◊em{Government of Ireland Postgraduate Scholarship Programme Award}, awarded by the ◊extlink["https://research.ie"]{Irish Research Council} in 2019. (This is my PhD funding.)
   }
   ◊item{
-    Turing and Cook Prizes for Computer Science, 2017
+    ◊em{Hamilton Prize} in Mathematics, awarded in 2017 by the ◊extlink["https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics"]{Royal Irish Academy} to the best undergraduate students of mathematics in Ireland in their penultimate year of study.
   }
   ◊item{
-    Delort Prize for Mathematics, 2016
+    Various 'best student' awards internal to Maynooth University, including the ◊em{Turing} and ◊em{Cook Prizes} for Computer Science and the ◊em{Delort Prize} for Mathematics.
   }
 }

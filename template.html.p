@@ -1,6 +1,56 @@
 <!DOCTYPE html>
 ◊(require pollen/setup
-          racket/list)
+          pollen/core
+          sugar/coerce
+          (submod txexpr safe)
+          racket/contract
+          racket/list
+          racket/set
+          racket/file
+          racket/string
+          json)
+
+◊(define project-root
+  (getenv "PROJECT_ROOT"))
+
+◊(define/contract (bibjson-to-hashmap bibjson)
+  (-> (listof (hash/c symbol? jsexpr?))
+      (and/c hash? hash-equal? (not/c immutable?) hash-strong?))
+  (make-hash
+   (map (λ (item) (cons (hash-ref item 'id) item))
+        bibjson)))
+
+◊(define bib
+  (let* ([file-contents (file->string (format "~a/references.json" project-root))]
+         [flat-json (string->jsexpr file-contents)])
+    (bibjson-to-hashmap flat-json)))
+
+◊(define (cite-info cite-key)
+  (let* ([bib-item (hash-ref bib cite-key)]
+         [title (hash-ref bib-item 'title)]
+         [year (->string (caar (hash-ref (hash-ref bib-item 'issued) 'date-parts)))]
+         [authors (hash-ref bib-item 'author)]
+         [first-author (hash-ref (car authors) 'family)]
+         [doi (hash-ref bib-item 'DOI #f)]
+         [url (hash-ref bib-item 'URL #f)]
+         [lnk (if doi (format "https://doi.org/~a" doi) url)])
+    (values title year authors lnk)))
+
+◊(define/contract (format-citation #:authors authors
+                                  #:title title
+                                  #:year year
+                                  #:url url)
+  (-> #:authors (listof hash?) #:title string? #:year string? #:url (or/c string? #f) txexpr?)
+  (define authors-formatted
+    (string-join
+     (for/list ([author-ht (in-list authors)])
+       (format "~a, ~a"
+               (hash-ref author-ht 'family)
+               (string-join (for/list ([given-name (string-split (hash-ref author-ht 'given))])
+                              (string (string-ref given-name 0)))
+                            (string-append "." thinspace) #:after-last ".")))
+     "; " #:before-last "; and "))
+  (txexpr* '@ '[] (em (if url `(a [[href ,url]] ,title) title)) ", " authors-formatted ", " year))
 
 ◊(define (take-noexcept list0 n0)
   (unless (exact-nonnegative-integer? n0)
@@ -15,6 +65,13 @@
 
 ◊(define (resource? node)
   (regexp-match #rx"^resources" (symbol->string node)))
+
+◊(define (all-cite-keys doc)
+  (define (citation? x)
+    (and (txexpr? x)
+        (equal? "citation" (attr-ref x 'class #f))))
+    (list->set (map (λ (elem) (attr-ref elem 'cite-key))
+          (or (findf*-txexpr doc citation?) null))))
 
 ◊(define (make-side-nav id label url text)
   ◊div[#:class "nav-outer" #:id id #:role "navigation"]{
@@ -126,6 +183,18 @@
     }
 
     ◊doc
+
+    ◊when/splice[(not (set-empty? (all-cite-keys doc)))]{
+      ◊div[#:class "cite-list"]{
+        ◊section{Citations}
+        ◊ul{
+          ◊for/splice[([cite-key (all-cite-keys doc)])]{
+            ◊(let-values ([(title year authors url) ◊(cite-info ◊|cite-key|)])
+              ◊li{◊(format-citation #:authors authors #:title title #:year year #:url url)})
+          }
+        }
+      }
+    }
 
     ◊div[#:class "horizontal-rule"]
 

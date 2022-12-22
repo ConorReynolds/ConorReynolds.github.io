@@ -47,6 +47,7 @@
 @import 'search-bar.scss';
 @import 'bib.scss';
 @import 'media.scss';
+@import 'cite-list.scss';
 
 html {
     font-size: 2.2vw;
@@ -94,6 +95,20 @@ ol {
     ol {
         margin-left: calc(1em + 1ch);
         padding: 0;
+    }
+}
+
+ul.hang-list {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0.5em;
+    >li {
+        list-style-type: none;
+        text-indent: -1em;
+    }
+
+    &.loose-list>li:not(:last-child) {
+        margin-bottom: 1em;
     }
 }
 
@@ -805,6 +820,7 @@ a {
 }
 
 .extlink::after {
+    text-indent: 0;
     position: relative;
     display: inline-block;  // prevents underline
     font-family: "font awesome 5 free";
@@ -845,4 +861,60 @@ a {
 // Reset KaTeX font size
 .katex {
     font-size: 1.08em !important;
+}
+
+.email {
+    font-style: italic;
+}
+
+.citation {
+    cursor: pointer;
+
+    .cite-tooltip {
+        cursor: auto;
+        visibility: hidden;
+        position: absolute;
+        width: min(20rem, 80vw);
+        z-index: 100;
+
+
+        // POSITIONING
+        transform-origin: left bottom;
+        left: 50%;
+        transform: translate(-50%, 1.4em);
+        
+        // COLOURING
+        background-color: var(--bg-color);
+
+        // SIZE AND SHAPE
+        padding: 0.75em 1em;
+        border-style: solid;
+        border-width: thin;
+        border-radius: 0.5em 0.5em 0.5em 0.5em;
+        border-color: var(--muted-color);
+    }
+
+    &.clicked .cite-tooltip {
+        visibility: visible;
+    }
+
+    a {
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        transition-property: text-decoration-color;
+        transition-timing-function: ease-in-out;
+        transition-duration: 0.1s;
+
+        @media (hover) {
+            &:hover {
+                text-decoration-color: var(--muted-color);
+                text-decoration-skip-ink: all;
+            }
+        }
+
+        @media not all and (hover) {
+            text-decoration-color: var(--muted-color);
+            text-decoration-skip-ink: all;
+        }
+    }
 }

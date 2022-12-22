@@ -1,12 +1,56 @@
 #lang pollen/mode racket/base
 
-(require txexpr
+(require racket/contract
+         txexpr
          gregor)
 
 (provide (except-out (all-defined-out) project-root))
 
 (define project-root
   (getenv "PROJECT_ROOT"))
+
+
+; ==============================================================================
+; Simple formatting
+
+(define (em . elems)
+  `(em ,@elems))
+
+(define (bold . elems)
+  `(strong ,@elems))
+
+(define (underline . elems)
+  `(span [[style "text-decoration: underline"]] ,@elems))
+
+(define (strikethrough . elems)
+  `(span [[style "text-decoration: line-through"]] ,@elems))
+
+(define (sc-form . elems)
+  (txexpr 'span '[[style "font-feature-settings: 'ss10'"]] elems))
+
+(define (publish-date iso-yy-mm-dd)
+  (txexpr 'time `[[datetime ,iso-yy-mm-dd]]
+          (list (~t (iso8601->date iso-yy-mm-dd)
+                    "d MMMM y"))))
+
+(define/contract (email . elems)
+  (->* () #:rest (listof string?) txexpr?)
+  (define email-address (apply string-append elems))
+  (txexpr* 'a `[[class "email"]
+                [href ,(format "mailto:~a" email-address)]]
+           email-address))
+
+; ==============================================================================
+; Lists
+
+(define (hang-list #:compact [compact? #t] . elems)
+  (let ([tx (txexpr 'ul `[[class "hang-list"]] elems)])
+    (if compact?
+        (attr-join tx 'class "compact-list")
+        (attr-join tx 'class "loose-list"))))
+
+; ==============================================================================
+; Buttons
 
 (define (copy-button str)
   `(button [[class "copy-button"]
@@ -21,7 +65,10 @@
                               filename text)]]
            (i [[class "fa fa-download"]])))
 
-(define (publish-date iso-yy-mm-dd)
-  (txexpr 'time `[[datetime ,iso-yy-mm-dd]]
-          (list (~t (iso8601->date iso-yy-mm-dd)
-                    "d MMMM y"))))
+; =============================================================================
+; Formatting characters
+
+(define thinspace (string #\u2009))
+(define soft-hyphen "\u00AD")
+(define (nbsp) (string #\u00A0))
+(define (linebreak) (string #\newline))

@@ -8,7 +8,8 @@
   racket/match
   racket/contract
 
-  (submod txexpr safe)
+  ; (submod txexpr safe)
+  txexpr
   pollen/core
   pollen/setup
   pollen/decode
@@ -23,12 +24,14 @@
   hyphenate
 
   "src/tags.rkt"
+  "src/bib.rkt"
   "src/glossary.rkt"
   "src/zotero.rkt"
   "src/utils.rkt")
 
 (provide (all-defined-out))
 (provide (all-from-out "src/tags.rkt"))
+(provide (all-from-out "src/bib.rkt"))
 (provide (all-from-out "src/glossary.rkt"))
 (provide (all-from-out "src/zotero.rkt"))
 
@@ -101,8 +104,6 @@
                           #:exclude-attrs `((class "highlight") ,no-smart-typography-attr)
                           #:exclude-tags '(style script code verbatim))))
 
-(define soft-hyphen "\u00AD")
-
 (define (title-block . elems)
   `(div [[id "title-block"]] ,@elems))
 
@@ -131,10 +132,6 @@
            [href ,label]
            [title "permalink to this subsection"]]
           (i [[class "fas fa-link"]]))))
-
-; non-breaking space
-(define (nbsp) (string #\u00A0))
-(define (linebreak) (string #\newline))
 
 (define (get-date)
   (date->string (current-date)))
@@ -188,18 +185,6 @@
      (apply attr-set* (link url target) 'class "xref" no-hyphens-attr)]
     [more-than-two-args
      (apply raise-arity-error 'xref (list 1 2) more-than-two-args)]))
-
-(define (em . elems)
-  `(em ,@elems))
-
-(define (bold . elems)
-  `(strong ,@elems))
-
-(define (underline . elems)
-  `(span [[style "text-decoration: underline;"]] ,@elems))
-
-(define (strikethrough . elems)
-  `(span [[style "text-decoration: line-through"]] ,@elems))
 
 (define (ul #:compact [compact #t] . elems)
   (txexpr 'ul

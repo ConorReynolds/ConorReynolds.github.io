@@ -69,7 +69,7 @@
            [doi (hash-ref data 'DOI)])
       (txexpr* 'div '[[class "bib-item"]]
                `(div [[class "bib-desc"]]
-                     (strong ,title) ". "
+                     (em ,title) ". "
                      ,(string-append (string-join authors "; " #:before-last "; and ") " ")
                      "In "
                      ,(if (not (null? editors))

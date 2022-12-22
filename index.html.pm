@@ -10,6 +10,6 @@ I'm working on formalising the theory of institutions in Coq, with the instituti
 
 ◊section{Publications}
 
-The following is pulled from my Zotero account. ◊aside{See the ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt"]{source repo} for details on how this is generated.}
+The following is pulled from my Zotero account. ◊aside{See the ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt"]{source repo} for details on how this is generated, or you can read ◊xref["posts/about-this-site.html"]{about this site}.}
 
 ◊(cons '@ ◊(bib-items))

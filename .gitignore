@@ -28,3 +28,7 @@ resources/draft*
 
 # Secrets
 zotero.key
+
+# ‘Secrets’
+references.bib
+references.json
