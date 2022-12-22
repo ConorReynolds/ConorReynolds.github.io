@@ -13,7 +13,7 @@
 (define project-root
   (getenv "PROJECT_ROOT"))
 
-(provide cite)
+(provide cite cite-info format-citation)
 
 (define/contract (bibjson-to-hashmap bibjson)
   (-> (listof (hash/c symbol? jsexpr?))

@@ -13,44 +13,15 @@
 ◊(define project-root
   (getenv "PROJECT_ROOT"))
 
-◊(define/contract (bibjson-to-hashmap bibjson)
-  (-> (listof (hash/c symbol? jsexpr?))
-      (and/c hash? hash-equal? (not/c immutable?) hash-strong?))
-  (make-hash
-   (map (λ (item) (cons (hash-ref item 'id) item))
-        bibjson)))
-
-◊(define bib
-  (let* ([file-contents (file->string (format "~a/references.json" project-root))]
-         [flat-json (string->jsexpr file-contents)])
-    (bibjson-to-hashmap flat-json)))
-
-◊(define (cite-info cite-key)
-  (let* ([bib-item (hash-ref bib cite-key)]
-         [title (hash-ref bib-item 'title)]
-         [year (->string (caar (hash-ref (hash-ref bib-item 'issued) 'date-parts)))]
-         [authors (hash-ref bib-item 'author)]
-         [first-author (hash-ref (car authors) 'family)]
-         [doi (hash-ref bib-item 'DOI #f)]
-         [url (hash-ref bib-item 'URL #f)]
-         [lnk (if doi (format "https://doi.org/~a" doi) url)])
-    (values title year authors lnk)))
-
-◊(define/contract (format-citation #:authors authors
-                                  #:title title
-                                  #:year year
-                                  #:url url)
-  (-> #:authors (listof hash?) #:title string? #:year string? #:url (or/c string? #f) txexpr?)
-  (define authors-formatted
-    (string-join
-     (for/list ([author-ht (in-list authors)])
-       (format "~a, ~a"
-               (hash-ref author-ht 'family)
-               (string-join (for/list ([given-name (string-split (hash-ref author-ht 'given))])
-                              (string (string-ref given-name 0)))
-                            (string-append "." thinspace) #:after-last ".")))
-     "; " #:before-last "; and "))
-  (txexpr* '@ '[] (em (if url `(a [[href ,url]] ,title) title)) ", " authors-formatted ", " year))
+◊; The module has to be dynamically loaded since the location of the file
+◊; is relative to the current directory, which can be project-root, or
+◊; project-root/posts, or project-root/resources, etc, depending on where
+◊; this file is loaded.
+◊(define/contract (bib name)
+   (-> symbol? any/c)
+   (dynamic-require
+     `(file ,(format "~a/src/bib.rkt" project-root))
+     name))
 
 ◊(define (take-noexcept list0 n0)
   (unless (exact-nonnegative-integer? n0)
@@ -66,6 +37,9 @@
 ◊(define (resource? node)
   (regexp-match #rx"^resources" (symbol->string node)))
 
+◊; When ◊cite{key} is issued, it generates a tag with the class "citation".
+◊; This function finds all such occurrences and grabs the key, which is
+◊; stored in the cite-key attribute.
 ◊(define (all-cite-keys doc)
   (define (citation? x)
     (and (txexpr? x)
@@ -189,8 +163,8 @@
         ◊section{Citations}
         ◊ul{
           ◊for/splice[([cite-key (all-cite-keys doc)])]{
-            ◊(let-values ([(title year authors url) ◊(cite-info ◊|cite-key|)])
-              ◊li{◊(format-citation #:authors authors #:title title #:year year #:url url)})
+            ◊(let-values ([(title year authors url) ◊((bib 'cite-info) ◊|cite-key|)])
+              ◊li{◊((bib 'format-citation) #:authors authors #:title title #:year year #:url url)})
           }
         }
       }

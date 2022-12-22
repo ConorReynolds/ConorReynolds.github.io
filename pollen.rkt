@@ -113,9 +113,9 @@
 (define (subtitle . elems)
   `(div [[class "subtitle"]] ,@elems))
 
-(define (section . elems)
+(define (section #:id [id #f] . elems)
   (define strs (findf*-txexpr (cons '@ elems) string?))
-  (define label (string-join (list* "#" strs) ""))
+  (define label (string-join (list* "#" (or id strs)) ""))
   `(h2 [[id ,(substring label 1)] [class "section"]]
        ,@elems
        (a [[class "anchor"]
@@ -123,9 +123,9 @@
            [title "permalink to this section"]]
           (i [[class "fas fa-link"]]))))
 
-(define (subsection . elems)
+(define (subsection #:id [id #f] . elems)
   (define strs (findf*-txexpr (cons '@ elems) string?))
-  (define label (string-join (list* "#" strs) ""))
+  (define label (string-join (list* "#" (or id strs)) ""))
   `(h3 [[id ,(substring label 1)] [class "subsection"]]
        ,@elems
        (a [[class "anchor"]
@@ -187,18 +187,12 @@
      (apply raise-arity-error 'xref (list 1 2) more-than-two-args)]))
 
 (define (ul #:compact [compact #t] . elems)
-  (txexpr 'ul
-          (if compact
-              '((class "compact-list"))
-              '((class "loose-list")))
-          elems))
+  (attr-set (txexpr 'ul '() elems)
+            'class (if compact "compact-list" "loose-list")))
 
 (define (ol #:compact [compact #t] . elems)
-  (txexpr 'ol
-          (if compact
-              '((class "compact-list"))
-              '((class "loose-list")))
-          elems))
+  (attr-set (txexpr 'ol '() elems)
+            'class (if compact "compact-list" "loose-list")))
 
 (define (item . elems)
   `(li ,@elems))
@@ -267,10 +261,11 @@
 (define (code . elems)
   `(code ,@elems))
 
-(define (codeblock [lang 'racket]
+(define (codeblock [lang 'text]
                    #:wrap [wrap? #f]
                    #:name [caption #f]
-                   #:download [dl? #f] . elems)
+                   #:download [dl? #f]
+                   . elems)
   (define raw (apply string-append elems))
   (define pre-rendered (highlight #:python-executable "python3" lang raw))
   (define rendered (if wrap? (attr-join pre-rendered 'class "code-wrap") pre-rendered))
