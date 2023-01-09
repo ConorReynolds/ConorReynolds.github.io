@@ -40,7 +40,7 @@ function toggleAriaExpanded(node) {
 // if we're using an element that isn’t a button.
 function treatNodeAsButton(node) {
   node.addEventListener('keydown', event => {
-    if (event.key === ' ' || event.key === 'Enter' || event.key === "Spacebar") {
+    if (event.key === ' ' || event.key === 'Enter' || event.key === 'Spacebar') {
       event.preventDefault();
       event.target.click();
     }
