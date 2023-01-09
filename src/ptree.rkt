@@ -4,10 +4,10 @@
 
 (provide (all-defined-out))
 
-(define (posttree dir include-drafts?)
+(define (posttree dir include-drafts)
   (for/list ([filename (directory-list dir)]
              #:when (and (regexp-match #rx"html.pm$" filename)
-                         (if include-drafts?
+                         (if include-drafts
                              #true (not (regexp-match #rx"^draft" filename)))))
     (let [(filename (path->string filename))]
       (string->symbol

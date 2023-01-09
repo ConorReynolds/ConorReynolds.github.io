@@ -1,7 +1,5 @@
 .bib-item {
     margin-bottom: 1em;
-    padding-left: 1em;
-    text-indent: -1em;
 
     .bibtex {
         display: none;
@@ -47,12 +45,23 @@
             transition-property: background-color;
             @media all and (hover) {
                 &:hover {
-                    background-color: rgb(212, 212, 212);
+                    background-color: rgb(238, 238, 238);
+                }
+                @media (prefers-color-scheme: dark) {
+                    &:hover {
+                        background-color: rgb(50, 50, 50);
+                    }
                 }
             }
 
             &:active {
                 background-color: rgb(175, 175, 175);
+            }
+
+            @media (prefers-color-scheme: dark) {
+                &:active {
+                    background-color: rgb(80, 80, 80);
+                }
             }
         }
     }

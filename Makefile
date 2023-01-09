@@ -25,6 +25,7 @@ publish: html scss
 
 	rm -rf $(PUB_LOCATION)/.vscode/ \
 		$(PUB_LOCATION)/src/ \
+		$(PUB_LOCATION)/anki/ \
 		$(PUB_LOCATION)/.gitattributes \
 		$(PUB_LOCATION)/references.* \
 		$(PUB_LOCATION)/pygments \

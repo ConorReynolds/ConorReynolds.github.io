@@ -37,6 +37,44 @@
     padding-right: 1rem;
 }
 
+// Trying out some fancy hyphenation options from
+// https://medium.com/clear-left-thinking/all-you-need-to-know-about-hyphenation-in-css-2baee2d89179
+// Note that most of this only actually works in Edge and Safari. Consider this
+// future-proofing.
+@mixin hyphens {
+    -webkit-hyphens: auto;
+    -webkit-hyphenate-limit-before: 3;
+    -webkit-hyphenate-limit-after: 3;
+    -webkit-hyphenate-limit-chars: 6 3 3;
+    -webkit-hyphenate-limit-lines: 2;
+    -webkit-hyphenate-limit-last: always;
+    -webkit-hyphenate-limit-zone: 8%;
+
+    -moz-hyphens: auto;
+    -moz-hyphenate-limit-chars: 6 3 3;
+    -moz-hyphenate-limit-lines: 2;
+    -moz-hyphenate-limit-last: always;
+    -moz-hyphenate-limit-zone: 8%;
+
+    -ms-hyphens: auto;
+    -ms-hyphenate-limit-chars: 6 3 3;
+    -ms-hyphenate-limit-lines: 2;
+    -ms-hyphenate-limit-last: always;
+    -ms-hyphenate-limit-zone: 8%;
+
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+    hyphenate-limit-lines: 2;
+    hyphenate-limit-last: always;
+}
+
+@mixin no-hyphens {
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
 @import 'normalize.scss';
 @import 'fonts.scss';
 @import 'highlight.scss';
@@ -116,44 +154,6 @@ button {
     padding: 0;  // counteract weird iOS bullshit
 }
 
-// Trying out some fancy hyphenation options from
-// https://medium.com/clear-left-thinking/all-you-need-to-know-about-hyphenation-in-css-2baee2d89179
-// Note that most of this only actually works in Edge and Safari. Consider this
-// future-proofing.
-@mixin hyphens {
-    -webkit-hyphens: auto;
-    -webkit-hyphenate-limit-before: 3;
-    -webkit-hyphenate-limit-after: 3;
-    -webkit-hyphenate-limit-chars: 6 3 3;
-    -webkit-hyphenate-limit-lines: 2;
-    -webkit-hyphenate-limit-last: always;
-    -webkit-hyphenate-limit-zone: 8%;
-
-    -moz-hyphens: auto;
-    -moz-hyphenate-limit-chars: 6 3 3;
-    -moz-hyphenate-limit-lines: 2;
-    -moz-hyphenate-limit-last: always;
-    -moz-hyphenate-limit-zone: 8%;
-
-    -ms-hyphens: auto;
-    -ms-hyphenate-limit-chars: 6 3 3;
-    -ms-hyphenate-limit-lines: 2;
-    -ms-hyphenate-limit-last: always;
-    -ms-hyphenate-limit-zone: 8%;
-
-    hyphens: auto;
-    hyphenate-limit-chars: 6 3 3;
-    hyphenate-limit-lines: 2;
-    hyphenate-limit-last: always;
-}
-
-@mixin no-hyphens {
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
-}
-
 #doc {
     font-family: var(--main-font);
     font-weight: normal;
@@ -187,7 +187,6 @@ h1 {
 h2 {
     font-family: var(--alt-font);
     font-feature-settings: "ss12" on;
-    letter-spacing: 0.02em;
     font-size: 1rem;
     margin-bottom: 0.4rem;
     margin-top: 1.75rem;
@@ -240,7 +239,6 @@ em > em {
 h3 {
     font-family: var(--heading-font);
     font-weight: normal;
-    font-style: italic;
     font-size: 0.95rem;
     margin-bottom: 0.4rem;
     margin-top: 1.75rem;
@@ -443,8 +441,28 @@ ul li {
 }
 
 blockquote {
-    font-size: 0.9em;
-    margin-inline: 1.5em 0.5em;
+    @include no-hyphens;
+    display: grid;
+    margin: auto;
+    padding: 1em 0;
+    margin-bottom: 1em;
+    width: fit-content;
+
+    max-width: 80%;
+    font-family: var(--main-font);
+    font-style: italic;
+    font-size: 1em;
+
+    author {
+        display: block;
+        justify-self: right;
+        font-style: normal;
+        font-feature-settings: "ss10" on;
+
+        &::before {
+            content: "— ";
+        }
+    }
 }
 
 .block-emphasis {
@@ -549,38 +567,6 @@ hr {
         line-height: 1;
         text-align: center;
     }
-}
-
-#title-block {
-    // margin-bottom: .8em;
-
-    h1 {
-        margin: 0 0 0.2rem 0;
-        line-height: 1.2;
-    }
-
-    .subtitle {
-        font-family: var(--alt-font);
-        font-size: 0.9rem;
-        position: relative;
-        margin-bottom: 0.25rem;
-        // top: -.85em;
-        max-width: 35ch;
-        line-height: 1.3;
-        @include no-hyphens;
-
-        @media all and (max-with: 520px) {
-            max-width: 50%;
-            width: 50%;
-        }
-    }
-
-    // &::before {
-    //     content: "";
-    //     border: 1px solid #d3d3d3;
-    //     align-self: stretch;
-    //     flex-basis: 100%;
-    // }
 }
 
 a {
@@ -807,34 +793,33 @@ a {
 
 .extlink {
     text-decoration: underline;
-    text-decoration-color: transparent;
-    transition-property: text-decoration-color;
+    text-decoration-style: dotted;
+    transition-property: color text-decoration-color;
+    text-decoration-skip-ink: all;
     transition-timing-function: ease-in-out;
     transition-duration: 0.1s;
-}
+    color: rgba(black, 0.65);
+    text-decoration-color: rgba($color: black, $alpha: 0.4);
 
-.tooltip-inner .extlink {
+    @media (prefers-color-scheme: dark) {
+        color: var(--muted-color);
+        text-decoration-color: var(--muted-color);
+    }
+
     &:hover {
-        text-decoration-color: var(--bg-color);
+        color: var(--red-color);
+        text-decoration-color: var(--red-color);
+        text-decoration-style: solid;
     }
 }
 
-.extlink::after {
-    text-indent: 0;
-    position: relative;
-    display: inline-block;  // prevents underline
-    font-family: "font awesome 5 free";
-    content: "\f08e";
-    font-weight: 900;
-    margin-left: .25em;
-    font-size: 45%;
-    top: -.7em;
-    color: var(--red-color);
-}
-
-.extlink:hover {
-    text-decoration-color: var(--muted-color);
-    text-decoration-skip-ink: all;
+.tooltip-inner .extlink {
+    color: var(--bg-color);
+    text-decoration-color: var(--bg-color);
+    &:hover {
+        color: var(--bg-color);
+        text-decoration-color: var(--bg-color);
+    }
 }
 
 .smallcaps {
@@ -915,6 +900,57 @@ a {
         @media not all and (hover) {
             text-decoration-color: var(--muted-color);
             text-decoration-skip-ink: all;
+        }
+    }
+}
+
+cite {
+    all: unset;
+    font-style: italic;
+}
+
+.callout {
+    display: block;
+    border-left: 4px solid;
+    margin-bottom: 1em;
+
+    >.callout-title {
+        display: block;
+        padding: 0 0 0.2em 1em;
+        // margin-bottom: 1em;
+
+        font-family: var(--alt-font);
+        font-feature-settings: "ss10" on;
+    }
+
+    >.callout-body {
+        padding: 0.5em 1em 0.5em 1em;
+        color: var(--fg-color);
+        background-color: #fbfbfb;
+
+        >p:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &[data-callout=note] {
+        color: #4464AD;
+        >.callout-title {
+            background-color: rgba($color: #4464AD, $alpha: 0.1);
+        }
+    }
+
+    &[data-callout=warning] {
+        color: #993333;
+        >.callout-title {
+            background-color: rgba($color: #993333, $alpha: 0.1);
+        }
+    }
+
+    &[data-callout=key-takeaway] {
+        color: #7161EF;
+        >.callout-title {
+            background-color: rgba($color: #7161EF, $alpha: 0.1);
         }
     }
 }

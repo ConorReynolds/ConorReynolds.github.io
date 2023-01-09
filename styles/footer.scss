@@ -23,4 +23,8 @@
 
     padding-left: 1rem;
     padding-right: 1rem;
+
+    a.name:hover {
+        text-decoration: underline;
+    }
 }

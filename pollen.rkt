@@ -246,11 +246,11 @@
   `(span [[class "smallcaps"]] ,@elems))
 
 (define ($ . elems)
-  `(span [[class "inline-math"] ,no-hyphens-attr]
+  `(span [[class "inline-math"] ,no-hyphens-attr ,no-smart-typography-attr]
          ,(apply string-append `("\\(" ,@elems "\\)"))))
 
 (define ($$ . elems)
-  `(div [[class "display-math"] ,no-hyphens-attr ,no-paragraphs-attr]
+  `(div [[class "display-math"] ,no-hyphens-attr ,no-paragraphs-attr ,no-smart-typography-attr]
         ,(apply string-append `("\\[\\begin{aligned}\n  " ,@elems "\n\\end{aligned}\\]"))))
 
 ; Call this like `◊verb["…"]`
@@ -291,12 +291,18 @@
          (span [[class "tooltip-inner"]] ,@elems)))
 
 (define (image #:width [width "80%"] #:lazy [lazy #t] #:src src #:alt [alt #f] . caption)
+  (define alt-text
+    (or alt (apply string-append (or (findf*-txexpr (cons '@ caption) string?) null))))
   (let ([src (if (regexp-match #rx"^https?://" src) src (format "/media/~a" src))])
     `(figure
-      (img [[src ,src] [style ,(format "width: ~a;" width)]
-            [alt ,(or alt (apply string-append (findf*-txexpr (cons '@ caption) string?)))]
+      (img [[src ,src] [style ,(format "width: ~a" width)]
+            [alt ,(if (non-empty-string? alt-text)
+                      alt-text
+                      "no alt text supplied")]
             ,(if lazy '(@ [loading "lazy"] [decoding "async"]) '(@))])
-      (figcaption ,(em `(@ ,@caption))))))
+      ,(if (not (null? caption))
+           `(figcaption ,(em `(@ ,@caption)))
+           '(@)))))
 
 (define (video #:width [width "100%"] #:src src)
   (let ([src (if (regexp-match #rx"^https?://" src) src (format "/media/~a" src))])

@@ -23,6 +23,12 @@
      `(file ,(format "~a/src/bib.rkt" project-root))
      name))
 
+◊(define/contract (anki name)
+   (-> symbol? any/c)
+   (dynamic-require
+     `(file ,(format "~a/src/anki.rkt" project-root))
+     name))
+
 ◊(define (take-noexcept list0 n0)
   (unless (exact-nonnegative-integer? n0)
     (raise-argument-error 'take-noexcept "exact-nonnegative-integer?" 1 list0 n0))
@@ -118,8 +124,16 @@
 
 ◊(->html
   ◊body{
-    ◊div[#:class "header"]{
+    ◊div[#:class "header"
+         #:data-pagetype (cond [(post? here) "post"]
+                               [(resource? here) "post"]
+                               [else ""])]{
       ◊title-block{
+        ◊when/splice[(post? here)]{
+          ◊div[#:class "mininav"]{◊a[#:href "/posts.html"]{
+            ◊i[#:class "fa-solid fa-chevron-up"]
+          }}
+        }
         ◊title{◊(select-from-metas 'title here)}
         ◊when/splice[(select-from-metas 'subtitle here)]{
           ◊subtitle{◊(select-from-metas 'subtitle here)}
@@ -129,7 +143,7 @@
         }
       }
 
-      ◊when/splice[(not (resource? here))]{
+      ◊when/splice[(not (or (resource? here) (post? here)))]{
         ◊div[#:class "nav-container"]{
           ◊div[#:class "nav-top" #:role "navigation"]{
             ◊for/splice[([item (add-between (map make-top-nav-link
@@ -158,6 +172,8 @@
 
     ◊doc
 
+    ◊(let () ((anki 'generate-anki-cards) here doc) "")
+
     ◊when/splice[(not (set-empty? (all-cite-keys doc)))]{
       ◊div[#:class "cite-list"]{
         ◊section{Citations}
@@ -174,7 +190,7 @@
 
     ◊div[#:id "footer"]{
       ◊; Last updated on ◊(get-date) ◊(br)
-      © Conor Reynolds
+      © ◊a[#:class "name" #:href "/"]{Conor Reynolds}
         ◊(if (equal? (get-year) "2022")
              "2022"
              (format "2022–~a" (get-year))) ◊(nbsp)

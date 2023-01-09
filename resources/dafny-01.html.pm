@@ -16,7 +16,7 @@ The ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef.html"]{Dafny language r
 
 If you're using the computers in the lab, everything should already be installed---just open VS Code.
 
-If you're using your own computer, ◊extlink["https://code.visualstudio.com/download"]{install VS Code,} run it, hit ◊kbd{Ctrl + Shift + X} to bring up the extensions menu, then search for and install the Dafny extension.
+If you're using your own computer, ◊extlink["https://code.visualstudio.com/download"]{install VS Code}, run it, hit ◊kbd{Ctrl + Shift + X} to bring up the extensions menu, then search for and install the Dafny extension.
 
 In either case, create the following file:
 

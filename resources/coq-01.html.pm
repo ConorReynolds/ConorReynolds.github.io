@@ -14,7 +14,7 @@ Some knowledge of formal logic and proof theory (as well as general mathematical
 
 If you're on the lab computers, everything is already installed---just open CoqIDE.
 
-If you're using your own computer, download and install the latest version of the ◊extlink["https://coq.inria.fr/download"]{Coq Platform.} This should install, amongst other things, CoqIDE---we recommend using this if you're new to Coq. The install size is fairly big so make sure you have enough disk space.
+If you're using your own computer, download and install the latest version of the ◊extlink["https://coq.inria.fr/download"]{Coq Platform}. This should install, amongst other things, CoqIDE---we recommend using this if you're new to Coq. The install size is fairly big so make sure you have enough disk space.
 
 If you know what you're doing, there's also generally decent support for using Coq in your preferred text editor (as long as you're not using Windows). As far as I know, VS Code and Emacs have the best experience as of this writing.
 
@@ -49,9 +49,9 @@ Tactics are commands you can run that transform the proof state in some way. You
   }
 }
 
-For a simple description of these tactics (and many others) I recommend you take a look at this ◊extlink["https://pjreddie.com/coq-tactics"]{simplified tactic index.} It also has some examples of the tactics in use.
+For a simple description of these tactics (and many others) I recommend you take a look at this ◊extlink["https://pjreddie.com/coq-tactics"]{simplified tactic index}. It also has some examples of the tactics in use.
 
-If you're feeling particularly adventurous, I encourage you to brave the official ◊extlink["https://coq.inria.fr/refman/proof-engine/tactics.html"]{Coq tactic index.} For example, you can read some very detailed info about the ◊code{apply} tactic ◊extlink["https://coq.inria.fr/refman/proof-engine/tactics.html#coq:tacn.apply"]{here.}
+If you're feeling particularly adventurous, I encourage you to brave the official ◊extlink["https://coq.inria.fr/refman/proof-engine/tactics.html"]{Coq tactic index}. For example, you can read some very detailed info about the ◊code{apply} tactic ◊extlink["https://coq.inria.fr/refman/proof-engine/tactics.html#coq:tacn.apply"]{here}.
 
 ◊section{Worked Example}
 

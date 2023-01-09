@@ -161,7 +161,7 @@ Let's see what this means in practice. If the function is called like:
 
 Dafny first tries to prove that ◊code{b} is smaller than ◊code{a}. Can it? No---nothing is known about the relative sizes of ◊code{a} and ◊code{b}. Then, it tries to prove that ◊code{a[1..]} is smaller than ◊code{b}. Can it? Again, no, for the same reasons.
 
-The problem is that we're comparing the wrong things. The intuitive reason that this function terminates is because, at each recursive call, the ◊em{total} number of elements to process decreases. Can you use that information to provide an expression that strictly decreases at each step? (You may want to consult the ◊extlink["http://dafny.org/dafny/OnlineTutorial/Sequences.html"]{documentation on sequences.})
+The problem is that we're comparing the wrong things. The intuitive reason that this function terminates is because, at each recursive call, the ◊em{total} number of elements to process decreases. Can you use that information to provide an expression that strictly decreases at each step? (You may want to consult the ◊extlink["http://dafny.org/dafny/OnlineTutorial/Sequences.html"]{documentation on sequences}.)
 
 ◊section{Common Loop Invariants}
 

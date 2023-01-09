@@ -79,13 +79,19 @@
 	"Quotation": {
 		"scope": "pollen-markup",
 		"prefix": ["quot", "quotation"],
-		"body": "◊quot{${1:${TM_SELECTED_TEXT}}}$0",
+		"body": "◊quotation[#:author \"$1\"]{${2:${TM_SELECTED_TEXT}}}$0",
 	},
 
 	"Citation": {
 		"scope": "pollen-markup",
 		"prefix": ["cite", "citation"],
 		"body": "◊cite{$1}$0",
+	},
+
+	"Work": {
+		"scope": "pollen-markup",
+		"prefix": "work",
+		"body": "◊work{${1:${TM_SELECTED_TEXT}}}$0",
 	},
 
 	"LaTeX": {

@@ -4,6 +4,7 @@ table:not(.sourcetable) {
     margin-bottom: 1.5rem;
     border-collapse: collapse;
     text-align: left;
+    font-variant-numeric: tabular-nums;
 
     thead tr {
         background-color: #dadada;
