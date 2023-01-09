@@ -219,7 +219,7 @@
 <script src="/js/checkParams.js"></script>
 
 ◊; Search Engine
-◊when/splice[(not (resource? here))]{
+◊when/splice[(not (or (resource? here) (post? here)))]{
   <script src="/js/elasticlunr.js"></script>
   <script src="/js/search-index.js"></script>
   <script src="/js/searcher.js"></script>

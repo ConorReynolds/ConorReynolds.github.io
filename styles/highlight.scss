@@ -454,6 +454,7 @@ pre {
 }
 
 .highlight, .bibtex {
+    @include no-hyphens;
     position: relative;
     .source {
         font-family: var(--code-font);

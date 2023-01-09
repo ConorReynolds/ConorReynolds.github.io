@@ -17,21 +17,25 @@ I already maintain a list of my publications on my Zotero account. In the past I
 
 It occurred to me that this information could be generated at compile time with a small Racket script rather than every time the site is served. Pollen easily facilitates this. Part of the source for the ◊xref{home} page looks something like this:
 
-◊codeblock['pollen #:name "index.html.pm" #:wrap #t "◊section{Publications}\n\nThe following is pulled from my Zotero account. ◊aside{See the ◊extlink[\"https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt\"]{source repo} for details on how this is generated.}\n\n◊(cons '@ ◊(bib-items))"]{}
+◊codeblock['pollen #:name "index.html.pm" #:wrap #t "◊section{Publications}\n\nThe following is pulled from my Zotero account. ◊aside{See the ◊extlink[\"...\"]{source repo} for details on how this is generated, or you can read ◊xref[\"posts/about-this-site.html\"]{about this site}.}\n\n◊(cons '@ ◊(bib-items))"]{}
 
 The function ◊code{bib-items} is defined in ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/src/zotero.rkt"]{◊code{src/zotero.rkt}}. It pulls my publications directly from Zotero's API and constructs a list of divs that I can splice into the document. Since this is done at compile time, a user visiting the page just sees plain HTML.
 
 That's all there is to it. It loads faster, it's easier to customise, and it provides almost as much automation---all for a fraction of the time I spent tweaking BibBase. ◊aside{Though, if this isn't your cup of tea, I would still highly recommend BibBase as an alternative.}
 
+◊section{Light and Dark Themes}
+
+Light and dark themes are defined for the site. I'll admit to putting more effort into the light theme, so the dark theme might look a little funky in comparison. The theme is chosen by a CSS media query based on your browser or system preferences and can't otherwise be changed.
+
 ◊section{Hidden Features}
 
 Some features are easier to signpost than others, but a few features can really suffer aesthetically and ergonomically by aggressive signposting.
 
-For example, some acronyms (like this one: ◊abbr{LEM}) can be hovered to reveal their definition. I think styling such abbreviations differently is a mistake. The new reader might miss it, but the returning reader will be constantly reminded that abbreviations can be hovered.
+For example, some acronyms (like this one: ◊abbr{LEM}) can be hovered to reveal their definition. I think styling such abbreviations differently is a mistake. True, the new reader might miss it, but the cost of signposting for the returning reader is much greater. No one wants to be reminded over and over again that acronyms can be hovered. ◊aside{This feature is a bit awkward on mobile devices at the moment.}
 
 ◊section{Full-Text Search}
 
-The site comes with non-fuzzy full-text search. This was a feature that I created for another project I'm working on, but it works for any(?) Pollen-generated website, so I figured I'd add it for fun. It's basically a thin wrapper over ◊extlink["http://elasticlunr.com/"]{elasticlunr} and is ◊em{very} barebones, but it's fast and gets the job done.
+The site comes with non-fuzzy full-text search. ◊aside{This is currently disabled on posts. Not sure where to put it, frankly.} This was a feature that I created for another project I'm working on, but it should work for any Pollen-generated website, so I figured I'd add it for fun. It's basically a thin wrapper over ◊extlink["http://elasticlunr.com/"]{elasticlunr} and is ◊em{very} barebones, but it's fast and gets the job done.
 
 Some known weirdness includes (but is certainly not limited to):
 
@@ -41,11 +45,11 @@ Some known weirdness includes (but is certainly not limited to):
   }
 
   ◊item{
-    Sometimes hidden places are searched. ◊aside{Like these asides, for example.} Since they're hidden, the browser's search functionality---invoked in JS as ◊code{window.find}---can't find them.
+    Sometimes hidden places are searched. ◊aside{Like these asides, for example.} The search feature works by simulating a ◊kbd{Ctrl + F} for the searched term when the page loads, but if the term is hidden then it won't be found.
   }
 }
 
-While it would be nice to include a more detailed preview of the context of your search, like for ◊extlink["https://github.com/rust-lang/mdBook"]{mdBook-generated sites}. it seems like overkill. In practice, the search feature was intended primarily to facilitate keyboard-first navigation. To this end, the forward-slash character is set to focus the search bar.
+While it would be nice to include a more detailed preview of the context of a search, like for ◊extlink["https://github.com/rust-lang/mdBook"]{mdBook-generated sites}, it seems like overkill. In practice, the search feature was intended primarily to facilitate keyboard-first navigation. To this end, the forward-slash character is set to focus the search bar.
 
 Plenty of sites (like GitHub) and browsers (like Firefox) have this sort of functionality, but I mean---is overriding this considered annoying? I have no idea. Let me know if this is annoying.
 
