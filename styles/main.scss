@@ -743,7 +743,7 @@ a {
     text-decoration-style: dotted;
     text-decoration-thickness: from-font;
     text-underline-offset: 0.15em;
-    transition-property: color text-decoration-color;
+    transition-property: color, text-decoration-color;
     text-decoration-skip-ink: all;
     transition-timing-function: ease-in-out;
     transition-duration: 0.1s;
