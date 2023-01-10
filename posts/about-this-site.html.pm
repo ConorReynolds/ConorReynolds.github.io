@@ -25,7 +25,7 @@ That's all there is to it. It loads faster, it's easier to customise, and it pro
 
 ◊section{Light and Dark Themes}
 
-Light and dark themes are defined for the site. I'll admit to putting more effort into the light theme, so the dark theme might look a little funky in comparison. The theme is chosen by a CSS media query based on your browser or system preferences and can't otherwise be changed.
+Light and dark themes are defined for the site. I'll admit to putting more effort into the light theme, so the dark theme might look a little funky by comparison. The theme is chosen by a CSS media query based on your browser or system preferences and can't otherwise be changed.
 
 ◊section{Hidden Features}
 
@@ -35,7 +35,7 @@ For example, some acronyms (like this one: ◊abbr{LEM}) can be hovered to revea
 
 ◊section{Full-Text Search}
 
-The site comes with non-fuzzy full-text search. ◊aside{This is currently disabled on posts. Not sure where to put it, frankly.} This was a feature that I created for another project I'm working on, but it should work for any Pollen-generated website, so I figured I'd add it for fun. It's basically a thin wrapper over ◊extlink["http://elasticlunr.com/"]{elasticlunr} and is ◊em{very} barebones, but it's fast and gets the job done.
+The site comes with non-fuzzy full-text search. ◊aside{This is currently disabled on posts. Not sure where to put the search bar, frankly.} This was a feature that I created for another project I'm working on, but it should work for any Pollen-generated website, so I figured I'd add it for fun. It's basically a thin wrapper over ◊extlink["http://elasticlunr.com/"]{elasticlunr} and is ◊em{very} barebones, but it's fast and gets the job done.
 
 Some known weirdness includes (but is certainly not limited to):
 
