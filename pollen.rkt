@@ -224,15 +224,22 @@
             'class "quick-table"))
 
 
-(define/contract (kbd . elems)
-  (->* () #:rest (listof string?) txexpr?)
+(define/contract (kbd #:os [os 'generic] . elems)
+  (->* () (#:os (or/c 'mac 'generic)) #:rest (listof string?) txexpr?)
   (define raw (apply string-append elems))
   (define keys (regexp-split #rx"\\+" raw))
-  (txexpr 'kbd '()
+  (define replacements
+    '(("Cmd" "⌘")
+      ("Ctrl" "⌃")
+      ("Option" "⌥")
+      ("Shift" "⇧")))
+  (txexpr 'kbd `((class ,(symbol->string os)))
           (add-between
            (for/list ([key (in-list keys)])
-             `(kbd ,(string-trim key)))
-           "+")))
+             `(kbd ,(if (eqv? os 'mac)
+                        ((make-replacer replacements) (string-trim key))
+                        (string-trim key))))
+           (if (eqv? os 'generic) "+" ""))))
 
 (define (spoiler . elems)
   (txexpr 'span '[[class "spoiler"]

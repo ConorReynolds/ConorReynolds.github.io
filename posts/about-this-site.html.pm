@@ -45,7 +45,7 @@ Some known weirdness includes (but is certainly not limited to):
   }
 
   ◊item{
-    Sometimes hidden places are searched. ◊aside{Like these asides, for example.} The search feature works by simulating a ◊kbd{Ctrl + F} for the searched term when the page loads, but if the term is hidden then it won't be found.
+    Sometimes hidden places are searched. ◊aside{Like these asides, for example.} The search feature works by simulating a ◊kbd{Ctrl + F} / ◊kbd[#:os 'mac]{Cmd + F} for the searched term when the page loads, but if the term is hidden then it won't be found.
   }
 }
 

@@ -16,7 +16,7 @@ The ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef.html"]{Dafny language r
 
 If you're using the computers in the lab, everything should already be installed---just open VS Code.
 
-If you're using your own computer, ◊extlink["https://code.visualstudio.com/download"]{install VS Code}, run it, hit ◊kbd{Ctrl + Shift + X} to bring up the extensions menu, then search for and install the Dafny extension.
+If you're using your own computer, ◊extlink["https://code.visualstudio.com/download"]{install VS Code}, run it, hit ◊kbd{Ctrl + Shift + X} / ◊kbd[#:os 'mac]{Cmd + Shift + X} to bring up the extensions menu, then search for and install the Dafny extension.
 
 In either case, create the following file:
 
@@ -40,7 +40,7 @@ In either case, create the following file:
   }
 }
 
-All going well, you should see a message at the bottom-left which reads 'Verification Succeeded'. If so, the installation was successful. If not, try reloading the window (◊kbd{Ctrl+Shift+P}, then type 'Reload Window' and press ◊kbd{Enter}). Press ◊kbd{F5} to compile and run the code.
+All going well, you should see a message at the bottom-left which reads 'Verification Succeeded'. If so, the installation was successful. If not, try reloading the window (◊kbd{Ctrl+Shift+P} / ◊kbd[#:os 'mac]{Cmd + Shift + P}, then type 'Reload Window' and press ◊kbd{Enter}). Press ◊kbd{F5} to compile and run the code.
 
 If you're already comfortable with Dafny, you can skip right ahead to the ◊xref["resources/dafny-01.html#Question 1"]{lab questions}. If you are not, then I strongly recommend reading the next few sections carefully, since they will help prepare you for the lab.
 

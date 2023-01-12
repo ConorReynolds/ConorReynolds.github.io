@@ -456,6 +456,10 @@ kbd>kbd {
     white-space: nowrap;
 }
 
+kbd.mac>kbd {
+    padding: 0;
+}
+
 .spoiler {
     // background-color: rgba($color: #000000, $alpha: 0.2);
     // color: transparent;
@@ -751,8 +755,8 @@ a {
     text-decoration-color: rgba($color: black, $alpha: 0.4);
 
     @media (prefers-color-scheme: dark) {
-        color: var(--muted-color);
-        text-decoration-color: var(--muted-color);
+        color: rgba($color: white, $alpha: 0.8);
+        text-decoration-color: rgba($color: white, $alpha: 0.6);
     }
 
     &:hover {
