@@ -113,6 +113,9 @@
 (define (subtitle . elems)
   `(div [[class "subtitle"]] ,@elems))
 
+(define (number-section)
+  `(h2 [[class "number-section"]]))
+
 (define (section #:id [id #f] . elems)
   (define strs (findf*-txexpr (cons '@ elems) string?))
   (define label (string-join (list* "#" (or id strs)) ""))

@@ -48,10 +48,13 @@
   (txexpr 'cite null elems))
 
 (define (quotation #:author author . elems)
-  (txexpr* 'blockquote null
+  (txexpr* 'blockquote '[[class "quotation"]]
            (cons '@ elems)
            `(author ,author)))
 
+(define (excerpt . elems)
+  (txexpr 'blockquote '[[class "excerpt"]]
+          elems))
 
 ; ==============================================================================
 ; Callout Blocks

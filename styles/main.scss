@@ -171,6 +171,8 @@ button {
     @media all and (max-width: 520px) {
         margin-top: 1rem;
     }
+
+    counter-reset: section;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -190,6 +192,17 @@ h2 {
     font-size: 1rem;
     margin-bottom: 0.4rem;
     margin-top: 1.75rem;
+
+    &.number-section {
+        &::before {
+            counter-increment: section;
+            content: counter(section);
+        }
+
+        font-family: var(--main-font);
+        text-align: center;
+        margin-bottom: 0.75rem;
+    }
 
     .anchor {
         display: inline;
@@ -387,7 +400,7 @@ ul li {
     margin-bottom: 0.5em;
 }
 
-blockquote {
+blockquote.quotation {
     @include no-hyphens;
     display: grid;
     margin: auto;
@@ -397,7 +410,7 @@ blockquote {
 
     max-width: 80%;
     font-family: var(--main-font);
-    font-style: italic;
+    // font-style: italic;
     font-size: 1em;
 
     author {
@@ -410,6 +423,14 @@ blockquote {
             content: "— ";
         }
     }
+}
+
+blockquote.excerpt {
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    font-size: 0.9em;
 }
 
 .block-emphasis {
