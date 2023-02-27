@@ -18,7 +18,7 @@
 
 ◊(define (make-toc-subsection pagenode)
   (define node-children (children pagenode))
-  (define first-child (or (not node-children) (car node-children)))
+  (define first-child (if (not node-children) #f (car node-children)))
   ◊div{
     ◊(if first-child
         ◊h3[#:class "toc"]{

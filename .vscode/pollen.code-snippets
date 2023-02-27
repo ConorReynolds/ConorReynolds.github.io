@@ -94,6 +94,24 @@
 		"body": "◊work{${1:${TM_SELECTED_TEXT}}}$0",
 	},
 
+	"Note Callout": {
+		"scope": "pollen-markup",
+		"prefix": "note",
+		"body": "◊note{\n  $0\n}",
+	},
+
+	"Warning Callout": {
+		"scope": "pollen-markup",
+		"prefix": "warning",
+		"body": "◊warning{\n  $0\n}",
+	},
+
+	"Key Takeaway Callout": {
+		"scope": "pollen-markup",
+		"prefix": "key-takeaway",
+		"body": "◊key-takeaway{\n  $0\n}",
+	},
+
 	"LaTeX": {
 		"scope": "pollen-markup",
 		"prefix": ["latex"],
