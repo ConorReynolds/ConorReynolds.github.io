@@ -24,7 +24,7 @@
 
 :root {
     --alt-font: Concourse;
-    --heading-font: ConcourseHeadings;
+    --heading-font: ValkyrieA;
 }
 
 @mixin defaults {
@@ -296,8 +296,7 @@ h3 {
 
 .xref {
     text-transform: lowercase;
-    font-variant: small-caps;
-    font-variant-numeric: oldstyle-nums;
+    font-feature-settings: "ss10" on;
     white-space: nowrap;
     text-decoration: underline;
     text-decoration-color: transparent;
@@ -321,10 +320,13 @@ h3 {
     font-variant-numeric: lining-nums;
 
     h3 {
-        font-family: var(--heading-font);
         font-style: normal;
         font-size: 1.1rem;
         margin: 0;
+
+        @media all and (max-width: 520px) {
+            font-weight: bold;
+        }
     }
 
     div {
@@ -927,9 +929,13 @@ cite {
     }
 
     &[data-callout=warning] {
-        color: #993333;
+        color: var(--red-color);
         >.callout-title {
             background-color: rgba($color: #993333, $alpha: 0.1);
+
+            @media (prefers-color-scheme: dark) {
+                background-color: rgba($color: #CC6666, $alpha: 0.2);
+            }
         }
     }
 
