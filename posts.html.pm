@@ -30,6 +30,6 @@
 
 ◊(define-meta title "Posts")
 ◊(define-meta toc-title "Posts")
-◊(define-meta subtitle "Everything I’ve posted to date")
+◊(define-meta subtitle "*tumbleweed*")
 
 ◊(post-toc)

@@ -118,7 +118,7 @@
 
 (define (section #:id [id #f] . elems)
   (define strs (findf*-txexpr (cons '@ elems) string?))
-  (define label (string-join (list* "#" (or id strs)) ""))
+  (define label (string-join (list* "#" (if id (list id) strs)) ""))
   `(h2 [[id ,(substring label 1)] [class "section"]]
        ,@elems
        (a [[class "anchor"]
@@ -128,7 +128,7 @@
 
 (define (subsection #:id [id #f] . elems)
   (define strs (findf*-txexpr (cons '@ elems) string?))
-  (define label (string-join (list* "#" (or id strs)) ""))
+  (define label (string-join (list* "#" (if id (list id) strs)) ""))
   `(h3 [[id ,(substring label 1)] [class "subsection"]]
        ,@elems
        (a [[class "anchor"]
