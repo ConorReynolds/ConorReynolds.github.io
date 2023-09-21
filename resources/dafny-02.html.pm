@@ -1,12 +1,12 @@
 #lang pollen
 
-◊(define-meta title "Dafny Lab Sheet 2 (Draft)")
+◊(define-meta title "Dafny Lab Sheet 2")
 ◊(define-meta toc-title "Dafny Lab Sheet 2: Termination and Simple Invariants")
 ◊(define-meta subtitle "Termination and simple invariants")
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-12-03")
 
-You can skip to the ◊xref["#Question 1"]{lab questions} if you're in a hurry, but as always I recommend reading the succeeding sections as they give good context for the lab.
+You can skip to the ◊xref["#Question 1"]{lab questions} if you're in a hurry, but as always I recommend reading the following sections as they give good context for the lab.
 
 ◊section{Functions vs Methods}
 

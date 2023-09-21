@@ -1,6 +1,6 @@
 #lang pollen
 
-◊(define-meta title "Dafny Lab Sheet 1 (Draft)")
+◊(define-meta title "Dafny Lab Sheet 1")
 ◊(define-meta toc-title "Dafny Lab Sheet 1: An introduction to Dafny")
 ◊(define-meta subtitle "An introduction to the Dafny language")
 ◊(define-meta math? #true)
@@ -8,9 +8,7 @@
 
 ◊section{Prerequisites}
 
-Programming experience in C-style languages---Java, C, C#, JavaScript, etc.---must be assumed. The algorithms you will write and verify are deliberately simple so that you can focus on the verification.
-
-The ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef.html"]{Dafny language reference} and the ◊extlink["http://dafny.org/dafny/OnlineTutorial/guide.html"]{Dafny Guide} will be extremely useful resources for you.
+Programming experience in C-style languages---Java, C, C#, JavaScript, etc.---must be assumed. The ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef.html"]{Dafny language reference} and the ◊extlink["http://dafny.org/dafny/OnlineTutorial/guide.html"]{Dafny Guide} will be extremely useful resources for you.
 
 ◊section{Instructions}
 

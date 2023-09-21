@@ -1,6 +1,6 @@
 #lang pollen
 
-◊(define-meta title "Coq Lab Sheet 2 (Draft)")
+◊(define-meta title "Coq Lab Sheet 2")
 ◊(define-meta toc-title "Coq Lab Sheet 2: Propositional Logic in Coq")
 ◊(define-meta subtitle "Propositional Logic in Coq")
 ◊(define-meta math? #true)
