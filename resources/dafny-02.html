@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    Dafny Lab Sheet 2 (Draft) | Conor Reynolds
+    Dafny Lab Sheet 2 | Conor Reynolds
   </title>
 
   <meta name="robots" content="noindex,nofollow">
@@ -39,13 +39,13 @@
 </head>
 
 <body><div class="header" data-pagetype="post"><div id="title-block">
-<h1>Dafny Lab Sheet 2 (Draft)</h1>
+<h1>Dafny Lab Sheet 2</h1>
 <div class="subtitle">Termination and simple invariants</div>
 </div>
 
 </div>
 
-<div id="doc" role="main"><p>You can skip to the <a class="xref" hyphens="none" href="#Question 1">lab questions</a> if you’re in a hurry, but as always I recommend reading the succeeding sections as they give good context for the lab.</p><h2 id="Functions vs Methods" class="section">Functions vs Methods<a class="anchor" href="#Functions vs Methods" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>From outside a method’s body, Dafny’s verifier can only see the specification for that method, and not the code inside the method. However, Dafny’s verifier can always see the contents of a function. To illustrate this, consider the following function and method:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function AbsDef(x: int): int
+<div id="doc" role="main"><p>You can skip to the <a class="xref" hyphens="none" href="#Question 1">lab questions</a> if you’re in a hurry, but as always I recommend reading the following sections as they give good context for the lab.</p><h2 id="Functions vs Methods" class="section">Functions vs Methods<a class="anchor" href="#Functions vs Methods" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>From outside a method’s body, Dafny’s verifier can only see the specification for that method, and not the code inside the method. However, Dafny’s verifier can always see the contents of a function. To illustrate this, consider the following function and method:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function AbsDef(x: int): int
 {
     if x &lt; 0 then -x else x
 }
@@ -482,7 +482,7 @@ method BinarySearch(a: array&lt;int&gt;, value: int) returns (index: int)
         <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">value</span> <span class="p">{</span>
             <span class="n">high</span> <span class="o">:=</span> <span class="n">mid</span><span class="p">;</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">return</span> <span class="n">mid</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="n">index</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>

@@ -528,6 +528,7 @@ pre {
         border-radius: 0.25em;
         position: absolute;
         color: rgba($color: black, $alpha: 0.2);
+        background-color: var(--code-bg-color);
         @media (prefers-color-scheme: dark) {
             color: rgba($color: white, $alpha: 0.3);
         }
@@ -561,7 +562,7 @@ pre {
             .copy-button {
                 visibility: visible;
                 opacity: 1.0;
-                transition-property: opacity, color;
+                transition-property: opacity, color, background-color;
                 transition-duration: 0.1s;
             }
         }
