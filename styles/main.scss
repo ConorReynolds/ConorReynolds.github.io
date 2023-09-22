@@ -5,6 +5,7 @@
         --red-color: #CC6666;
         --hover-color: rgba(255, 141, 158, 0.2);
         --muted-color: #c2c2c2;
+        --off-bg-color: #696d7f;
         --main-font: ValkyrieB, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
         --code-font: SourceCodeProLighter, 'DejaVu Sans Mono', monospace;
     }
@@ -17,6 +18,7 @@
         --red-color: #993333;
         --hover-color: rgb(255, 182, 193, 0.5);
         --muted-color: #696969;
+        --off-bg-color: #bababa;
         --main-font: ValkyrieA, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
         --code-font: SourceCodePro, 'DejaVu Sans Mono', monospace;
     }
@@ -294,18 +296,30 @@ h3 {
     }
 }
 
+// .xref {
+//     text-transform: lowercase;
+//     font-feature-settings: "ss10" on;
+//     white-space: nowrap;
+//     text-decoration: underline;
+//     text-decoration-color: transparent;
+//     transition-property: text-decoration-color;
+//     transition-timing-function: ease-in-out;
+//     transition-duration: 0.1s;
+
+//     &:hover {
+//         text-decoration-color: var(--muted-color);
+//     }
+// }
+
 .xref {
-    text-transform: lowercase;
-    font-feature-settings: "ss10" on;
-    white-space: nowrap;
     text-decoration: underline;
-    text-decoration-color: transparent;
+    text-decoration-color: var(--off-bg-color);
     transition-property: text-decoration-color;
     transition-timing-function: ease-in-out;
     transition-duration: 0.1s;
 
     &:hover {
-        text-decoration-color: var(--muted-color);
+        text-decoration-color: var(--fg-color);
     }
 }
 
@@ -535,6 +549,7 @@ kbd.mac>kbd {
 
 hr {
     background: none;
+    background-image: url("media/ingalls-floral-dash.svg");
     border: 0;
     margin: 2em;
     padding: 0;
@@ -798,11 +813,14 @@ a {
 }
 
 .tooltip-inner .extlink {
-    color: var(--bg-color);
-    text-decoration-color: var(--bg-color);
+    // color: var(--bg-color);
+    color: white;
+    text-decoration-color: #dddddd;
+    transition-property: text-decoration-color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.1s;
     &:hover {
-        color: var(--bg-color);
-        text-decoration-color: var(--bg-color);
+        text-decoration-color: white;
     }
 }
 
