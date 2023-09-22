@@ -8,6 +8,12 @@
 
 You can skip to the ◊xref["#Question 1"]{lab questions} if you're in a hurry, but as always I recommend reading the following sections as they give good context for the lab.
 
+◊note{
+  Code snippets can be copied by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em; color: var(--muted-color);"] button which appears on the top right.
+  
+  Some snippets are declared as files---those can be downloaded directly by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename.
+}
+
 ◊section{Functions vs Methods}
 
 From outside a method's body, Dafny's verifier can only see the specification for that method, and not the code inside the method. However, Dafny's verifier can always see the contents of a function. To illustrate this, consider the following function and method:

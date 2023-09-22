@@ -1,6 +1,6 @@
 #lang pollen
 
-◊(define-meta title "Coq Lab Sheet 1 (Draft)")
+◊(define-meta title "Coq Lab Sheet 1")
 ◊(define-meta toc-title "Coq Lab Sheet 1: An introduction to Coq")
 ◊(define-meta subtitle "An introduction to the Coq proof assistant")
 ◊(define-meta math? #true)
@@ -9,6 +9,12 @@
 ◊section{Prerequisites}
 
 Some knowledge of formal logic and proof theory (as well as general mathematical maturity and experience with proofs) will be helpful.
+
+◊note{
+  Code snippets can be copied by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em; color: var(--muted-color);"] button which appears on the top right.
+  
+  Some snippets are declared as files---those can be downloaded directly by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename.
+}
 
 ◊section{Instructions}
 
@@ -236,7 +242,7 @@ It's up to you which method you prefer. ◊aside{But note that ◊code{intros} w
 
 ◊section{Questions}
 
-Prove the following lemmas in Coq. When you have completed a proof, replace ◊code{Admitted} with ◊code{Qed}. You can download the file by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename. ◊aside{You can also copy any code snippet by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em"] button which appears on the top right. This doesn't work on mobile, but you shouldn't be programming on mobile anyway.}
+Prove the following lemmas in Coq. When you have completed a proof, replace ◊code{Admitted} with ◊code{Qed}. You can download the file by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename.
 
 ◊codeblock['coq #:name "CoqLab01.v" #:download #t]{
   Section CoqLab01.

@@ -1,14 +1,20 @@
 #lang pollen
 
 ◊(define-meta title "Dafny Lab Sheet 1")
-◊(define-meta toc-title "Dafny Lab Sheet 1: An introduction to Dafny")
+◊(define-meta toc-title "Dafny Lab Sheet 1: An Introduction to Dafny")
 ◊(define-meta subtitle "An introduction to the Dafny language")
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-11-18")
 
 ◊section{Prerequisites}
 
-Programming experience in C-style languages---Java, C, C#, JavaScript, etc.---must be assumed. The ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef.html"]{Dafny language reference} and the ◊extlink["http://dafny.org/dafny/OnlineTutorial/guide.html"]{Dafny Guide} will be extremely useful resources for you.
+Programming experience in C-style languages---Java, C, C#, JavaScript, etc.---must be assumed. The ◊extlink["http://dafny.org/dafny/DafnyRef/DafnyRef.html"]{Dafny language reference} and the ◊extlink["http://dafny.org/dafny/OnlineTutorial/guide.html"]{Dafny Guide} will be extremely useful resources for you. Finally, there's a ◊extlink["http://dafny.org/latest/QuickReference"]{quick reference} and ◊extlink["http://dafny.org/latest/DafnyCheatsheet.pdf"]{cheat sheet} if you need a refresher.
+
+◊note{
+  Code snippets can be copied by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em; color: var(--muted-color);"] button which appears on the top right.
+  
+  Some snippets are declared as files---those can be downloaded directly by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename.
+}
 
 ◊section{Instructions}
 

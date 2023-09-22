@@ -2,11 +2,17 @@
 
 ◊(define-meta title "Coq Lab Sheet 2")
 ◊(define-meta toc-title "Coq Lab Sheet 2: Propositional Logic in Coq")
-◊(define-meta subtitle "Propositional Logic in Coq")
+◊(define-meta subtitle "Propositional logic in Coq")
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-12-10")
 
 All natural deduction rules for propositional logic have been covered by now in the lectures. Let's put them into practice.
+
+◊note{
+  Code snippets can be copied by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em; color: var(--muted-color);"] button which appears on the top right.
+  
+  Some snippets are declared as files---those can be downloaded directly by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename.
+}
 
 ◊section{A quick word on sequents}
 
@@ -107,7 +113,7 @@ You will need ◊abbr{LEM} for one of the final four questions on the De Morgan 
 
 ◊section{Questions}
 
-Prove the following propositions in Coq. When you have completed the proof, replace ◊code{Admitted} with ◊code{Qed}.
+Prove the following propositions in Coq. When you have completed the proof, replace ◊code{Admitted} with ◊code{Qed}. You can download the file by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename.
 
 ◊codeblock['coq #:name "CoqLab02.v" #:download #true]{
   Section CoqLab02.

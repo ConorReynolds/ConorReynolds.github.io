@@ -8,6 +8,12 @@
 
 You can skip to the ◊xref["#Question 1"]{lab questions} if you're in a hurry, but as always I recommend reading the following sections as they give good context for the lab. For this lab you should also keep in mind the documentation for ◊extlink["http://dafny.org/dafny/OnlineTutorial/Sequences"]{sequences}, ◊extlink["http://dafny.org/dafny/OnlineTutorial/ValueTypes#multisets"]{multisets}, and ◊extlink["http://dafny.org/dafny/OnlineTutorial/ValueTypes"]{value types} in general.
 
+◊note{
+  Code snippets can be copied by hovering over the snippet and clicking the ◊i[#:class "fa fa-copy" #:style "margin: 0 0.1em 0 0.1em; color: var(--muted-color);"] button which appears on the top right.
+  
+  Some snippets are declared as files---those can be downloaded directly by clicking the ◊i[#:class "fa fa-download" #:style "position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"] button next to the filename.
+}
+
 ◊section{Loop Specifications}
 
 To fully specify a loop, you must provide two things: a termination metric and a loop invariant. Dafny can usually deduce the termination metric automatically, but it cannot guess the loop invariant, for the same reason that it cannot guess arbitrary postconditions for methods: It's up to you to decide what your code should be doing.

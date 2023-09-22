@@ -18,6 +18,7 @@ cv.html
     resources/dafny-01.html
     resources/dafny-02.html
     resources/dafny-03.html
+    resources/dafny-04.html
     resources/dafny-invariants.html
   }
   ◊resources/haskell.html{
