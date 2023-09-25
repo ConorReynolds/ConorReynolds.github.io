@@ -110,7 +110,7 @@ Notice that ◊${r = i!} at each step of the loop. This is a promising candidate
   }
 }
 
-Unfortunately this does not work---Dafny complains that it still cannot prove the postcondition. But we should not be that surprised, since ◊${(r = i!) \wedge (i \ge n)} does not imply ◊${r = n!}. We would need the stronger condition that ◊${i = n}. But we know this already---◊${i} is always equal to ◊${n} when the loop is finished. In fact, we know that ◊${0 \le i \le n} throughout the loop. Let's add this as an invariantas well.
+Unfortunately this does not work---Dafny complains that it still cannot prove the postcondition. But we should not be that surprised, since ◊${(r = i!) \wedge (i \ge n)} does not imply ◊${r = n!}. We would need the stronger condition that ◊${i = n}. But we know this already---◊${i} is always equal to ◊${n} when the loop is finished. In fact, we know that ◊${0 \le i \le n} throughout the loop. Let's add this as an invariant as well.
 
 ◊codeblock['dafny]{
   method FacIter(n: nat) returns (r: nat)

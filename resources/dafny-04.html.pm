@@ -42,7 +42,7 @@ It's important not to write ◊code{old(a)[i]}. The value ◊code{a} is a ◊em{
 
 ◊section{Classes}
 
-Classes in Dafny look exactly like classes in any other object-oriented language. A class is just a list of members of that class—fields, methods, functions. ◊aside{Note that as of this writing fields cannot be marked static, but functions and methods can.}
+Classes in Dafny look exactly like classes in any other object-oriented language. A class is just a list of members of that class—fields, methods, functions.
 
 ◊codeblock['dafny]{
   class Point2 {
@@ -55,7 +55,7 @@ Classes in Dafny look exactly like classes in any other object-oriented language
           this.y := y;
       }
 
-      function method Dot(other: Point2): real
+      function Dot(other: Point2): real
           reads this, other
       {
           x * other.x + y * other.y

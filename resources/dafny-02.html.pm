@@ -16,7 +16,7 @@ You can skip to the ◊xref["#Question 1"]{lab questions} if you're in a hurry, 
 
 ◊section{Functions vs Methods}
 
-From outside a method's body, Dafny's verifier can only see the specification for that method, and not the code inside the method. However, Dafny's verifier can always see the contents of a function. To illustrate this, consider the following function and method:
+From outside a method's body, Dafny's verifier can only see the specification for that method, and not the code inside the method. But the verifier can always see the contents of a function. To illustrate this, consider the following function and method:
 
 ◊codeblock['dafny]{
   function AbsDef(x: int): int
@@ -47,9 +47,7 @@ Both do exactly the same thing, but we have not provided preconditions or postco
   }
 }
 
-The first assertion succeeds, but the second fails, since Dafny's verifier can see the definition of ◊code{AbsDef}, but not ◊code{Abs}. Now try to print the two variables by writing ◊code{print x} and ◊code{print y}. Dafny will happily print ◊code{y}, but not ◊code{x}. This is because Dafny functions are by default ◊em{ghost}---they can only be used in specification contexts.
-
-This means that functions can be used to specify the behaviour of methods. This pattern is common and powerful. For example:
+The first assertion succeeds, but the second fails, since Dafny's verifier can see the definition of ◊code{AbsDef}, but not ◊code{Abs}. This means that functions can be used to specify the behaviour of methods. ◊aside{Functions which exist ◊em{only} to specify the behaviour of methods can be marked 'ghost' so they are erased at compile time---more on this ◊xref["#Ghost and Compiled Constructs"]{later}.} This pattern is common and powerful. For example:
 
 ◊codeblock['dafny]{
   function AbsDef(x: int): int
@@ -76,7 +74,7 @@ This is a bit clearer and less error-prone than the following more explicit spec
   ensures r == x || r == -x
 }
 
-Of course, this is not a particularly interesting example, since the specification and the code are not meaningfully different. We will see more interesting examples in the later labs.
+Since the specification and the code are not meaningfully different in this case, this example isn't of much technical interest. We will see more interesting examples in the later labs.
 
 ◊section{Some Useful Collections}
 
@@ -111,6 +109,7 @@ Why worry about termination? Besides the obvious issues with code that loops for
       decreases *  // disables termination check
       ensures x * x == a
   {
+      x := *;  // ‘indefinite’ assignment
       while x * x != a
           decreases *  // disables termination check
       {
@@ -190,7 +189,7 @@ The lower bound on ◊${i} is generally not necessary, especially if ◊${i} is 
 
 All of Dafny's specification constructs are called ◊em{ghosts}. The reason for this is that specifications do not appear in the compiled code. The verifier takes into account ghost and non-ghost constructs in order to prove correctness, but your computer does not need to know anything about the specification for a program in order to execute it. They are ◊em{erased} at compile-time. We will therefore refer to non-ghost constructs as ◊em{compiled}.
 
-There are two main types of 'simple' top-level declarations in Dafny: methods and functions. Methods contain imperative code, functions contain functional code. Methods are compiled by default. Functions are ghost by default. If a method is ghost, it's a lemma. If a function is compiled, it's a function method. If a function is boolean-valued, it's a predicate.
+There are two main types of 'simple' top-level declarations in Dafny: methods and functions. Methods contain imperative code, functions contain functional code. Methods and functions are both compiled by default (as of Dafny 4). Functions can be marked ghost, unsurprisingly, by declaring them as a ◊code{ghost function}. If a method is ghost, it's called a ◊em{lemma}. Boolean-valued functions can instead be declared as ◊em{predicates}---these are also compiled by default, and must be marked ghost if you want them to be erased at compile time.
 
 ◊hrule
 

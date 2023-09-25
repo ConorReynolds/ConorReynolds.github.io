@@ -5,7 +5,7 @@
         --red-color: #CC6666;
         --hover-color: rgba(255, 141, 158, 0.2);
         --muted-color: #c2c2c2;
-        --off-bg-color: #696d7f;
+        --off-bg-color: #999eb9;
         --main-font: ValkyrieB, SourceSerif, PTSerifMod, Charter, CharisSILW, Georgia, Times, serif;
         --code-font: SourceCodeProLighter, 'DejaVu Sans Mono', monospace;
     }
@@ -313,19 +313,25 @@ h3 {
 
 .xref {
     text-decoration: underline;
-    text-decoration-color: var(--off-bg-color);
+    text-decoration-style: dotted;
+    text-decoration-color: rgba($color: black, $alpha: 0.6);
+    @media (prefers-color-scheme: dark) {
+        text-decoration-color: rgba($color: white, $alpha: 0.7);
+    }
+
     transition-property: text-decoration-color;
     transition-timing-function: ease-in-out;
-    transition-duration: 0.1s;
+    transition-duration: 0.2s;
 
     &:hover {
         text-decoration-color: var(--fg-color);
+        text-decoration-style: solid;
     }
 }
 
 .tooltip-inner .xref {
     &:hover {
-        text-decoration-color: var(--bg-color);
+        text-decoration-color: white;
     }
 }
 
@@ -941,8 +947,14 @@ cite {
 
     &[data-callout=note] {
         color: #4464AD;
+        @media (prefers-color-scheme: dark) {
+            color: #5075CA;
+        }
         >.callout-title {
-            background-color: rgba($color: #4464AD, $alpha: 0.1);
+            background-color: rgba($color: #5075CA, $alpha: 0.15);
+            @media (prefers-color-scheme: dark) {
+                background-color: rgba(#5172BA, $alpha: 0.25);
+            }
         }
     }
 

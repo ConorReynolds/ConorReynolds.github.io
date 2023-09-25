@@ -46,88 +46,9 @@ In either case, create the following file:
 
 All going well, you should see a message at the bottom-left which reads 'Verification Succeeded'. If so, the installation was successful. If not, try reloading the window (◊kbd{Ctrl+Shift+P} / ◊kbd[#:os 'mac]{Cmd + Shift + P}, then type 'Reload Window' and press ◊kbd{Enter}). Press ◊kbd{F5} to compile and run the code.
 
+Dafny's verifier can sometimes get stuck trying to verify correct code. If you think Dafny should be verifying what you've written, try reloading the window. If it still doesn't work, then there's a real problem you must address.
+
 If you're already comfortable with Dafny, you can skip right ahead to the ◊xref["resources/dafny-01.html#Question 1"]{lab questions}. If you are not, then I strongly recommend reading the next few sections carefully, since they will help prepare you for the lab.
-
-◊section{Dafny Syntax}
-
-Dafny's syntax is C-like, so it should be familiar to you. To demonstrate how similar Dafny and Java are, lets define a very basic ◊code{isPrime} function in both.
-
-◊codeblock['java #:name "Primes in Java"]{
-  // only works for n >= 0
-  static boolean isPrime(int n)
-  {
-      if (n < 2) {
-          return false;
-      }
-
-      for (int i = 2; i * i <= n; i++) {
-          if (n % i == 0) {
-              return false;
-          }
-      }
-      
-      return true;
-  }
-}
-
-◊codeblock['dafny #:name "Primes in Dafny"]{
-  method isPrime(n: nat) returns (r: bool)
-  {
-      if n < 2 {
-          return false;
-      }
-
-      var i := 2;
-      while i * i <= n {
-          if n % i == 0 {
-              return false;
-          }
-          i := i + 1;
-      }
-
-      return true;
-  }
-}
-
-These two snippets only differ by minor syntactical details.
-
-Notice that Dafny does not have for-loops, but they are at any rate an unnecessary syntactic convenience. Since Dafny supports verification constructs, it is more important than usual that its syntax is simple. Where in Java you would have written:
-
-◊codeblock['java]{
-  {
-      // some code
-
-      for (int i = 0; i < n; i++) {
-          // loop body
-      }
-      
-      // some more code
-  }
-}
-
-... in Dafny, you can write:
-
-◊codeblock['dafny]{
-  {
-      // some code
-
-      var i := 0;
-      while i < n {
-          // loop body
-          i := i + 1;
-      }
-
-      // some more code
-  }
-}
-
-You can create new scopes in Dafny with braces just like you can in Java if you're concerned about ◊code{i} escaping its scope.
-
-As you can see, assignment in Dafny is denoted ◊code{:=} rather than ◊code{=}. Dafny also has mathematical syntax for assertions, preconditions, and postconditions: ◊code{==>} is implication, ◊code{&&} is conjunction, ◊code{||} is disjunction, ◊code{!} is negation.
-
-A key difference between Dafny methods and methods in other C-like languages is that Dafny methods require you to define the names of the return values in the function signature. For example, in ◊code{Abs} above, the name of the return variable was ◊code{result}.
-
-This is necessary because there would otherwise be no straightforward way to refer to the returned value in the function's contract. The postcondition for ◊code{Abs} says that ◊code{result} must be either ◊code{n} or ◊code{-n}. We couldn't write this if ◊code{result} was not already defined. ◊aside{Some specification languages, like JML, use a special name for the return value instead.}
 
 ◊section{General Tips}
 
@@ -137,7 +58,7 @@ This is necessary because there would otherwise be no straightforward way to ref
   }
 
   ◊item{
-    You may know your code is correct before Dafny does. Correct code is not by itself an indication that you have answered the question correctly.
+    You may know your code is correct before Dafny does. The goal is not to write correct code, but to write code that Dafny can verify to be correct. Correct code is therefore not by itself an indication that you have answered the question correctly.
   }
 
   ◊item{
