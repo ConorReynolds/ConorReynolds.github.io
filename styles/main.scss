@@ -330,6 +330,7 @@ h3 {
 }
 
 .tooltip-inner .xref {
+    text-decoration-color: rgba($color: white, $alpha: 0.7);
     &:hover {
         text-decoration-color: white;
     }
@@ -826,7 +827,13 @@ a {
     transition-timing-function: ease-in-out;
     transition-duration: 0.1s;
     &:hover {
-        text-decoration-color: white;
+        color: #ffa8a8;
+        text-decoration-color: #ffa8a8;
+        @media (prefers-color-scheme: dark) {
+            color: #ff9393;
+            text-decoration-color: #ff9393;
+        }
+        text-decoration-style: solid;
     }
 }
 

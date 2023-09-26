@@ -225,9 +225,4 @@
   <script src="/js/searcher.js"></script>
 }
 
-◊; Clicky Analytics
-◊when/splice[(not (resource? here))]{
-  <script async src="//static.getclicky.com/101382862.js"></script>
-}
-
 </html>

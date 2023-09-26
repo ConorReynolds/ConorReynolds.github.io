@@ -60,9 +60,3 @@ Pollen comes with a ◊extlink["https://git.matthewbutterick.com/mbutterick/poll
 I also wrote a Pollen lexer, which you can find ◊extlink["https://github.com/ConorReynolds/ConorReynolds.github.io/blob/main/pygments/pollen.py"]{here}. It's almost certainly ◊em{far} too simple, but it works fine on the basic snippets I've tried.
 
 The easiest way to add new lexers, it seems, is to just fork a copy of Pygments, add the lexer directly, rebuild the lexer mapping with ◊code{make mapfiles} (as ◊extlink["https://pygments.org/docs/lexerdevelopment/#adding-and-testing-a-new-lexer"]{described in the docs}), then pip install your local copy of Pygments. You can throw your custom styles in there too while you're at it.
-
-◊section{Full Disclosure}
-
-I use ◊extlink["https://clicky.com"]{clicky} for tracking. I just want a basic overview of traffic, and maybe some insight into where traffic is coming from. No personal data is logged.
-
-Want to opt out? You probably have already. If you have virtually any sort of ad blocker installed---and at this point, who doesn't?---clicky will be blocked. If you have JavaScript disabled, the clicky script won't load. (But neither will some other useful features.)
