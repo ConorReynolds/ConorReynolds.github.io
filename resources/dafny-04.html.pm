@@ -74,7 +74,7 @@ Classes in Dafny look exactly like classes in any other object-oriented language
 
 ◊section{Question 1}
 
-Consider the following class which represents a pointer to an array. It contains a single method which sets a to a new array of a given size. What does the method modify? Explain your answer.
+Consider the following class which represents a pointer to an array. It contains a single method ◊code{InitArray} which sets ◊code{a} to a new array of a given size. What does ◊code{InitArray} modify? Explain your answer.
 
 ◊codeblock['dafny]{
   class Pointer {
