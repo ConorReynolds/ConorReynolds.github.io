@@ -314,6 +314,10 @@ h3 {
 .xref {
     text-decoration: underline;
     text-decoration-style: dotted;
+    text-decoration-thickness: from-font;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: all;
+
     text-decoration-color: rgba($color: black, $alpha: 0.6);
     @media (prefers-color-scheme: dark) {
         text-decoration-color: rgba($color: white, $alpha: 0.7);
