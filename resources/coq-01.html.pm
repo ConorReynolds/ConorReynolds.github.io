@@ -1,7 +1,7 @@
 #lang pollen
 
 ◊(define-meta title "Coq Lab Sheet 1")
-◊(define-meta toc-title "Coq Lab Sheet 1: An introduction to Coq")
+◊(define-meta toc-title "Coq Lab Sheet 1: An Introduction to Coq")
 ◊(define-meta subtitle "An introduction to the Coq proof assistant")
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-11-21")
@@ -201,7 +201,7 @@ The tactic ◊code{intros} can be used in one of two ways. First is on its own, 
 For example, we can do this:
 
 ◊codeblock['coq]{
-  Goal C.
+  Goal A -> (A -> B) -> (B -> C) -> C.
     intros.
 }
 
@@ -220,7 +220,7 @@ For example, we can do this:
 (Note how Coq automatically names the hypotheses.) Or, we can do this:
 
 ◊codeblock['coq]{
-  Goal C.
+  Goal A -> (A -> B) -> (B -> C) -> C.
     intros a a_impl_b b_impl_c.
 }
 
