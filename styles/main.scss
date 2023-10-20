@@ -115,7 +115,7 @@ ul {
 
 ol {
     margin-left: 0;
-    padding-left: 1.9em;
+    padding-left: 1.2em;
 }
 
 @media all and (max-width: 520px) {
@@ -864,6 +864,10 @@ a {
 // Reset KaTeX font size
 .katex {
     font-size: 1.08em !important;
+}
+
+.display-math {
+    overflow-x: auto;
 }
 
 .email {
