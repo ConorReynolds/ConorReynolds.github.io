@@ -108,7 +108,7 @@ Our first attempt at a proof will use ◊em{backward reasoning}. Forward reasoni
 
 Here is the basic idea of backward reasoning. Notice that the goal is ◊code{C} and that our hypothesis ◊code{H3 : B -> C} has the conclusion ◊code{C}. If we were somehow able to prove ◊code{B}, we could then use the fact that we know ◊code{B -> C} to get ◊code{C}---which is our goal. Therefore, it suffices for us to prove ◊code{B}. (And we hope of course that we ◊em{can} prove ◊code{B}.)
 
-This little bit of reasoning is encoded by the ◊code{apply} tactic. When we issue the command ◊code{apply H3}, what we're instructing Coq to do is this: check if the conclusion of ◊code{H3} matches the goal. If it does, replace the goal with ◊code{H3}’s premises. Let's do that now.
+This little bit of reasoning is encoded by the ◊code{apply} tactic. When we issue the command ◊code{apply H3}, what we're instructing Coq to do is this: Check if the conclusion of ◊code{H3} matches the goal. If it does, replace the goal with ◊code{H3}’s premises. Let's do that now.
 
 ◊codeblock['coq]{
   Goal C.

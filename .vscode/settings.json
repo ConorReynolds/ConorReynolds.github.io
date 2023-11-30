@@ -199,7 +199,7 @@
 
     "[pollen-markup]": {
         "editor.wordWrap": "bounded",
-        "editor.wordWrapColumn": 88,
+        "editor.wordWrapColumn": 80,
         "editor.wordBasedSuggestions": false,
 
         "editor.snippetSuggestions": "top",
@@ -211,7 +211,7 @@
             "strings": "off"
         }
     },
-    "python.formatting.provider": "black",
+
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -225,5 +225,4 @@
         "**/*.css": true,
         "**/*.css.map": true,
     }
-    // "python.formatting.provider": "yapf"
 }

@@ -50,8 +50,8 @@
   (define (citation? x)
     (and (txexpr? x)
         (equal? "citation" (attr-ref x 'class #f))))
-    (list->set (map (λ (elem) (attr-ref elem 'cite-key))
-          (or (findf*-txexpr doc citation?) null))))
+  (list->set (map (λ (elem) (attr-ref elem 'cite-key))
+                  (or (findf*-txexpr doc citation?) null))))
 
 ◊(define (make-side-nav id label url text)
   ◊div[#:class "nav-outer" #:id id #:role "navigation"]{
@@ -179,8 +179,8 @@
         ◊section{Citations}
         ◊ul{
           ◊for/splice[([cite-key (all-cite-keys doc)])]{
-            ◊(let-values ([(title year authors url) ◊((bib 'cite-info) ◊|cite-key|)])
-              ◊li{◊((bib 'format-citation) #:authors authors #:title title #:year year #:url url)})
+            ◊(let-values ([(title year authors first-author url) ◊((bib 'cite-info) ◊|cite-key|)])
+              ◊li{◊((bib 'format-citation) #:cite-key cite-key #:authors authors #:title title #:year year #:url url)})
           }
         }
       }
@@ -210,7 +210,7 @@
     ◊;   }
     ◊; }
     ◊; ◊(cond
-    ◊;   [(and next-page parent-page) ◊make-side-nav["next" next-page]{⟩}]
+    ◊;   [(and next-page parent-page) ◊make-side-nav["next" "" next-page]{⟩}]
     ◊;   [(not parent-page) ◊make-side-nav["next" next-page ""]]
     ◊;   [else ""])
   })

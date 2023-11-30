@@ -28,7 +28,7 @@ To specify a method's frame, use a ◊code{modifies} clause. A method that modif
   modifies {a} + {o}
 }
 
-Functional code can depend on the heap state but cannot modify it. Functions and predicates therefore use a ◊code{reads} clause instead of a ◊code{modifies} clause.
+Functional code can read the heap state but cannot modify it. Functions and predicates therefore use a ◊code{reads} clause instead of a ◊code{modifies} clause.
 
 Postconditions for methods in Dafny are so-called 'two-state predicates', since they have access to the state of the heap before and after a method is executed. The expression ◊code{old(E)} refers to the value of ◊code{E} just before the enlosing method. For example, consider this postcondition for a method that increments each value in an integer array.
 
