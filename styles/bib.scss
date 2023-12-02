@@ -1,3 +1,26 @@
+.bib {
+    h2 {
+        position: relative;
+        margin-left: 0;
+        background-color: var(--bg-color);
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            border-top: 1px solid var(--muted-color);
+            top: 0.75em;
+            width: 100%;
+            left: 0%;
+        }
+        span {
+            background-color: var(--bg-color);
+            position: relative;
+            padding-right: 1em;
+            z-index: 1;
+        }
+    }
+}
+
 .bib-item {
     margin-bottom: 1em;
 
