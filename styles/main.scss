@@ -236,6 +236,9 @@ h2 {
             margin-left: 0.75em;
             // can afford to be more subtle if it’s on screen all the time
             color: rgba(black, 0.3);
+            @media (prefers-color-scheme: dark) {
+                color: rgba(white, 0.3);
+            }
         }
     }
 }
