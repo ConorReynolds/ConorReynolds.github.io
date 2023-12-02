@@ -60,7 +60,6 @@ function download(node, filename, text) {
   confirm(node);
 }
 
-document.querySelectorAll('span.tooltip').forEach(element => {
+document.querySelectorAll('[role="button"]').forEach(element => {
   treatNodeAsButton(element);
 });
-

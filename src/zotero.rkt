@@ -3,6 +3,7 @@
 (require racket/match
          racket/port
          racket/string
+         racket/list
          racket/file
          net/url
          json
@@ -93,27 +94,47 @@
 (define (bib-items)
   (define raw-string (htable))
   (define raw-json (string->jsexpr raw-string))
-  (displayln raw-string)
-  (for/list ([item (sort raw-json date>?
-                         #:key (λ (x) (parse-date-or-year (or (nested-hash-ref x 'data 'date) "2019"))))])
-    (let* ([data (hash-ref item 'data)]
-           [bibtex (hash-ref item 'bibtex)]
-           [bibtex-entry-formatted (string-replace (string-trim bibtex) "\t" "  ")]
-           [type (hash-ref data 'itemType)]
-           [doi (hash-ref data 'DOI)])
+  (define sorted-items
+    (sort raw-json date>?
+          #:key (λ (x) (parse-date-or-year (nested-hash-ref x 'data 'date)))))
+  (define items-grouped-by-year
+    (group-by (λ (x) (->year (parse-date-or-year (nested-hash-ref x 'data 'date))))
+              sorted-items))
+  (apply
+   txexpr*
+   'div '[[class "bib"]]
+   (for/list ([year-group (in-list items-grouped-by-year)])
+     (txexpr*
+      '@ null
+      (txexpr* 'h2 '[[role "button"] [aria-expanded "false"] [tabindex "0"]
+                     [style "cursor: pointer"] [title "collapse group"]
+                     [onclick "this.nextSibling.classList.toggle(\"hidden\");
+                      this.classList.toggle(\"muted\")"]]
+               `(span
+                 ,(number->string (->year (parse-date-or-year (nested-hash-ref (car year-group) 'data 'date))))))
       (txexpr*
-       'div '[[class "bib-item"]]
-       (match type
-         ["journalArticle" (journal-article data)]
-         ["conferencePaper" (conference-paper data)]
-         [_ "How embarrassing."])
-       `(div [[class "bib-links"]]
-             (a [[class "doi-link extlink"]
-                 [href ,(format "https://www.doi.org/~a" doi)]]
-                "Link")
-             (button [[class "show-bibtex"]
-                      [onclick "this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')"]]
-                     "BibTeX"))
-       `(div [[class "bibtex"]]
-             ,(copy-button bibtex-entry-formatted)
-             (pre [[hyphens "none"]] ,bibtex-entry-formatted))))))
+       'div '[[class "bib-year-group"]]
+       (cons
+        '@
+        (for/list ([item (in-list year-group)])
+          (let* ([data (hash-ref item 'data)]
+                 [bibtex (hash-ref item 'bibtex)]
+                 [bibtex-entry-formatted (string-replace (string-trim bibtex) "\t" "  ")]
+                 [type (hash-ref data 'itemType)]
+                 [doi (hash-ref data 'DOI)])
+            (txexpr*
+             'div '[[class "bib-item"]]
+             (match type
+               ["journalArticle" (journal-article data)]
+               ["conferencePaper" (conference-paper data)]
+               [_ "How embarrassing."])
+             `(div [[class "bib-links"]]
+                   (a [[class "doi-link extlink"]
+                       [href ,(format "https://www.doi.org/~a" doi)]]
+                      "Link")
+                   (button [[class "show-bibtex"]
+                            [onclick "this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')"]]
+                           "BibTeX"))
+             `(div [[class "bibtex"]]
+                   ,(copy-button bibtex-entry-formatted)
+                   (pre [[hyphens "none"]] ,bibtex-entry-formatted)))))))))))

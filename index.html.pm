@@ -10,4 +10,4 @@ I spent my PhD encoding the ◊extlink["https://iep.utm.edu/insti-th/"]{theory o
 
 ◊(hr)
 
-◊(cons '@ ◊(bib-items))
+◊(bib-items)
