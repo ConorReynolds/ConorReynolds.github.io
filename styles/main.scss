@@ -192,6 +192,7 @@ h2 {
     font-family: var(--alt-font);
     font-feature-settings: "ss12" on;
     font-size: 1rem;
+    margin: auto;
     margin-bottom: 0.4rem;
     margin-top: 1.75rem;
 
@@ -235,6 +236,9 @@ h2 {
             margin-left: 0.75em;
             // can afford to be more subtle if it’s on screen all the time
             color: rgba(black, 0.3);
+            @media (prefers-color-scheme: dark) {
+                color: rgba(white, 0.3);
+            }
         }
     }
 }
@@ -903,26 +907,6 @@ a {
 
     &.clicked .cite-tooltip {
         visibility: visible;
-    }
-
-    a {
-        text-decoration: underline;
-        text-decoration-color: transparent;
-        transition-property: text-decoration-color;
-        transition-timing-function: ease-in-out;
-        transition-duration: 0.1s;
-
-        @media (hover) {
-            &:hover {
-                text-decoration-color: var(--muted-color);
-                text-decoration-skip-ink: all;
-            }
-        }
-
-        @media not all and (hover) {
-            text-decoration-color: var(--muted-color);
-            text-decoration-skip-ink: all;
-        }
     }
 }
 
