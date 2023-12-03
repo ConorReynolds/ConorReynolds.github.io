@@ -67,12 +67,13 @@
     (txexpr* 'div '[[class "bib-desc"]]
              `(strong ,title) "." '(br)
              (string-append (string-join fmt-authors ", " #:before-last ", and ") " ")
-             year ". "
+             ; year ". "
              `(i ,pub-title) ", "
              volume (if (> (string-length issue) 0) (format " (~a)" issue) "") ", "
              pages ".")))
 
 (define (conference-paper data)
+  ; when itemType = conferencePaper
   (let* ([title (hash-ref data 'title)]
          [authors (map (λ (c) (fmt-name (hash-ref c 'firstName) (hash-ref c 'lastName)))
                        (filter (λ (c) (equal? (hash-ref c 'creatorType) "author"))
@@ -85,7 +86,7 @@
     (txexpr* 'div '[[class "bib-desc"]]
              `(strong ,title) "." '(br)
              (string-append (string-join authors ", " #:before-last ", and ") " ")
-             year ". "
+             ; year ". "
              "In " `(i ,proceedings) ", "
              "(" location "), "
              publisher ", "

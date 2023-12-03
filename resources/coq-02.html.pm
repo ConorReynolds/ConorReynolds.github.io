@@ -49,13 +49,13 @@ If we have a hypothesis of the form ◊${A \wedge B}, the left-rule for 'and' sa
 
 In plain English: if we know ◊${A \wedge B}, then we know ◊${A}, and we also know ◊${B}. It breaks apart the original hypothesis so that we can use ◊${A} and ◊${B} separately. Not very interesting.
 
-A more interesting example involves the hypothesis ◊${A \vee B}. The left-rule for 'or' is as follows:
+More interesting are hypotheses of the form ◊${A \vee B}. The left-rule for 'or' is as follows:
 
 ◊$${
     \frac{\Gamma, A \vee B \vdash C}{\Gamma, A \vdash C \qquad \Gamma, B \vdash C}
 }
 
-In plain English: if we can prove ◊${C} using ◊${A \vee B}, then in fact we should be able to prove ◊${C} from ◊${A} only, ◊em{and} we should be able to prove ◊${C} from ◊${B} only. The point is that if we claim that ◊em{either ◊${A} or ◊${B}} is sufficient to prove ◊${C}, then either one alone should be enough to prove ◊${C}.
+In plain English: if we can prove ◊${C} using ◊${A \vee B}, then we should be able to prove ◊${C} from ◊${A} only, ◊em{and} we should be able to prove ◊${C} from ◊${B} only. The point is that if we claim that ◊em{either ◊${A} or ◊${B}} is sufficient to prove ◊${C}, then either one alone should be enough to prove ◊${C}.
 
 The right-rules explain what happens when 'and' or 'or' appear in the goal, rather than in our hypotheses. The right-rule for conjunction is:
 

@@ -25,9 +25,15 @@
     ◊em{Government of Ireland Postgraduate Scholarship Programme Award}, awarded by the ◊extlink["https://research.ie"]{Irish Research Council} in 2019. (This was my PhD funding.)
   }
   ◊item{
-    ◊em{Hamilton Prize} in Mathematics, awarded in 2017 by the ◊extlink["https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics"]{Royal Irish Academy} to the best undergraduate students of mathematics in Ireland in their penultimate year of study.
+    ◊em{Hamilton Prize in Mathematics}, awarded in 2017 by the ◊extlink["https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics"]{Royal Irish Academy} to the best undergraduate students of mathematics in Ireland in their penultimate year of study.
   }
   ◊item{
-    Various 'best student' awards internal to Maynooth University, including the ◊em{Turing} and ◊em{Cook Prizes} for Computer Science and the ◊em{Delort Prize} for Mathematics.
+    ◊em{Cook Prize in Computer Science}, awarded to the best second-year computer science student at Maynooth University.
+  }
+  ◊item{
+    ◊em{Delort Prize in Mathematics}, awarded in 2016 to the best first-year mathematics student at Maynooth University. 
+  }
+  ◊item{
+    ◊em{Turing Prize in Computer Science}, awarded in 2016 to the best first-year Computational Thinking student at Maynooth University.
   }
 }

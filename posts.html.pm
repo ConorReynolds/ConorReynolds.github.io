@@ -21,15 +21,19 @@
      (iso8601->date (select-from-metas 'created node)))
    (define in-order
      (sort posts (λ (x y) (date>? (get-date x) (get-date y)))))
-   (txexpr 'div '((class "post-list"))
-           (for/list ([post in-order])
-             `(div [[class "post-item"]]
-                    (span [[class "post-title"]] ,(node->link post))
-                    " — "
-                    (time [[datetime ,(date->iso8601 (get-date post))]] ,(~t (get-date post) "d MMMM y"))))))
+   (if (null? posts) '(@)
+       (txexpr 'div '((class "post-list"))
+                (for/list ([post in-order])
+                  `(div [[class "post-item"]]
+                          (span [[class "post-title"]] ,(node->link post))
+                          " — "
+                          (time [[datetime ,(date->iso8601 (get-date post))]] ,(~t (get-date post) "d MMMM y")))))))
 
 ◊(define-meta title "Posts")
 ◊(define-meta toc-title "Posts")
 ◊(define-meta subtitle "*tumbleweed*")
 
 ◊(post-toc)
+◊div[#:style "text-align: center; font-size: 3rem; margin-bottom: 2rem; font-weight: 200"]{
+  ∅
+}

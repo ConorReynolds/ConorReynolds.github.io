@@ -120,6 +120,14 @@
   <link rel="preload" href="/fonts/SourceCodePro/SourceCodePro-Medium.otf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/SourceCodePro/SourceCodePro-MediumIt.otf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" type="text/css" href="/main.css" />
+
+  <!--
+    does nothing, but prevents flash of unstyled content in firefox
+    thanks: https://stackoverflow.com/a/64158043
+  -->
+  <script>
+  let fix_FOUC_in_firefox;
+  </script>
 </head>
 
 ◊(->html
@@ -195,7 +203,6 @@
              "2022"
              (format "2022–~a" (get-year))) ◊(nbsp)
       ◊a[#:href "https://github.com/ConorReynolds" #:class "fab fa-github fa-1x" #:title "GitHub"] ◊(nbsp)
-      ◊a[#:href "https://gitlab.cs.nuim.ie/creynolds" #:class "fab fa-gitlab fa-1x" #:title "GitLab"] ◊(nbsp)
       ◊a[#:href "https://twitter.com/ConorEReynolds" #:class "fab fa-twitter fa-1x" #:title "Twitter"] ◊(nbsp)
       ◊a[#:href "https://www.linkedin.com/in/conor-reynolds-931049258/" #:class "fab fa-linkedin-in fa-1x" #:title "LinkedIn"] ◊(nbsp)
       ◊a[#:href "mailto:conor.reynolds@mu.ie" #:class "fas fa-envelope fa-1x" #:title "Email"]
