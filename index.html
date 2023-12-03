@@ -18,6 +18,14 @@
   <link rel="preload" href="/fonts/SourceCodePro/SourceCodePro-Medium.otf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/SourceCodePro/SourceCodePro-MediumIt.otf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" type="text/css" href="/main.css" />
+
+  <!--
+    does nothing, but prevents flash of unstyled content in firefox
+    thanks: https://stackoverflow.com/a/64158043
+  -->
+  <script>
+  let fix_FOUC_in_firefox;
+  </script>
 </head>
 
 <body><div class="header" data-pagetype=""><div id="title-block">
@@ -31,7 +39,7 @@
 <div class="searchresults-outer" id="searchresults-outer"><div class="searchresults-header" id="searchresults-header"></div></div></div></div></div>
 
 <div id="doc" role="main"><p>I’m a postdoc at the <a class="extlink" href="https://www.manchester.ac.uk/">University of Manchester</a> working on a variety of things. I’m part of the <a class="extlink" href="https://autonomy-and-verification.github.io/">Autonomy and Verification group</a>.</p><p>I spent my PhD encoding the <a class="extlink" href="https://iep.utm.edu/insti-th/">theory of institutions</a> in the <a class="extlink" href="https://coq.inria.fr/">Coq proof assistant</a>. (It’s all <a class="extlink" href="https://github.com/ConorReynolds/coq-institutions">on GitHub</a>.) There are six or so concrete logics encoded there as of this writing, depending on how you count it.</p><hr/><div class="bib"><h2 role="button" aria-expanded="false" tabindex="0" style="cursor: pointer" title="collapse group" onclick="this.nextSibling.classList.toggle(&quot;hidden&quot;);
-                      this.classList.toggle(&quot;muted&quot;)"><span>2024</span></h2><div class="bib-year-group"><div class="bib-item"><div class="bib-desc"><strong>Reasoning about logical systems in the Coq proof assistant</strong>.<br/>Reynolds, C., and Monahan, R. 2024. <i>Science of Computer Programming</i>, 233, 103054.</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gs7f2x">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`@article{reynolds_reasoning_2024,
+                      this.classList.toggle(&quot;muted&quot;)"><span>2024</span></h2><div class="bib-year-group"><div class="bib-item"><div class="bib-desc"><strong>Reasoning about logical systems in the Coq proof assistant</strong>.<br/>Reynolds, C., and Monahan, R. <i>Science of Computer Programming</i>, 233, 103054.</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gs7f2x">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`@article{reynolds_reasoning_2024,
   title = {Reasoning about logical systems in the {Coq} proof assistant},
   volume = {233},
   issn = {0167-6423},
@@ -58,7 +66,7 @@
   year = {2024},
   pages = {103054},
 }</pre></div></div></div><h2 role="button" aria-expanded="false" tabindex="0" style="cursor: pointer" title="collapse group" onclick="this.nextSibling.classList.toggle(&quot;hidden&quot;);
-                      this.classList.toggle(&quot;muted&quot;)"><span>2022</span></h2><div class="bib-year-group"><div class="bib-item"><div class="bib-desc"><strong>Machine-Assisted Proofs for Institutions in Coq</strong>.<br/>Reynolds, C., and Monahan, R. 2022. In <i>Theoretical Aspects of Software Engineering</i>, (Cham), Springer International Publishing, 180–196.</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gqfnb6">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`@inproceedings{reynolds_machine-assisted_2022,
+                      this.classList.toggle(&quot;muted&quot;)"><span>2022</span></h2><div class="bib-year-group"><div class="bib-item"><div class="bib-desc"><strong>Machine-Assisted Proofs for Institutions in Coq</strong>.<br/>Reynolds, C., and Monahan, R. In <i>Theoretical Aspects of Software Engineering</i>, (Cham), Springer International Publishing, 180–196.</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gqfnb6">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`@inproceedings{reynolds_machine-assisted_2022,
   address = {Cham},
   title = {Machine-{Assisted} {Proofs} for {Institutions} in {Coq}},
   copyright = {All rights reserved},
@@ -83,7 +91,7 @@
   year = {2022},
   pages = {180–196},
 }</pre></div></div></div><h2 role="button" aria-expanded="false" tabindex="0" style="cursor: pointer" title="collapse group" onclick="this.nextSibling.classList.toggle(&quot;hidden&quot;);
-                      this.classList.toggle(&quot;muted&quot;)"><span>2021</span></h2><div class="bib-year-group"><div class="bib-item"><div class="bib-desc"><strong>Using Dafny to Solve the VerifyThis 2021 Challenges</strong>.<br/>Farrell, M., Reynolds, C., and Monahan, R. 2021. In <i>Proceedings of the 23rd ACM International Workshop on Formal Techniques for Java-like Programs</i>, (New York, NY, USA), Association for Computing Machinery, 32–38.</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gp5v6h">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`@inproceedings{farrell_using_2021,
+                      this.classList.toggle(&quot;muted&quot;)"><span>2021</span></h2><div class="bib-year-group"><div class="bib-item"><div class="bib-desc"><strong>Using Dafny to Solve the VerifyThis 2021 Challenges</strong>.<br/>Farrell, M., Reynolds, C., and Monahan, R. In <i>Proceedings of the 23rd ACM International Workshop on Formal Techniques for Java-like Programs</i>, (New York, NY, USA), Association for Computing Machinery, 32–38.</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gp5v6h">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`@inproceedings{farrell_using_2021,
   address = {New York, NY, USA},
   series = {{FTfJP} 2021},
   title = {Using {Dafny} to {Solve} the {VerifyThis} 2021 {Challenges}},
@@ -109,7 +117,7 @@
   month = jul,
   year = {2021},
   pages = {32–38},
-}</pre></div></div><div class="bib-item"><div class="bib-desc"><strong>Formalizing the Institution for Event-B in the Coq Proof Assistant</strong>.<br/>Reynolds, C. 2021. In <i>Rigorous State-Based Methods</i>, (Cham), Springer International Publishing, 162–166.</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gpjt7c">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`@inproceedings{reynolds_formalizing_2021,
+}</pre></div></div><div class="bib-item"><div class="bib-desc"><strong>Formalizing the Institution for Event-B in the Coq Proof Assistant</strong>.<br/>Reynolds, C. In <i>Rigorous State-Based Methods</i>, (Cham), Springer International Publishing, 162–166.</div><div class="bib-links"><a class="doi-link extlink" href="https://www.doi.org/10/gpjt7c">Link</a><button class="show-bibtex" onclick="this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')">BibTeX</button></div><div class="bibtex"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`@inproceedings{reynolds_formalizing_2021,
   address = {Cham},
   series = {Lecture {Notes} in {Computer} {Science}},
   title = {Formalizing the {Institution} for {Event}-{B} in the {Coq} {Proof} {Assistant}},
@@ -148,7 +156,6 @@
 <div id="footer">© <a class="name" href="/">Conor Reynolds</a>
   2022–2023  
 <a class="fab fa-github fa-1x" href="https://github.com/ConorReynolds" title="GitHub"></a>  
-<a class="fab fa-gitlab fa-1x" href="https://gitlab.cs.nuim.ie/creynolds" title="GitLab"></a>  
 <a class="fab fa-twitter fa-1x" href="https://twitter.com/ConorEReynolds" title="Twitter"></a>  
 <a class="fab fa-linkedin-in fa-1x" href="https://www.linkedin.com/in/conor-reynolds-931049258/" title="LinkedIn"></a>  
 <a class="fas fa-envelope fa-1x" href="mailto:conor.reynolds@mu.ie" title="Email"></a></div>
