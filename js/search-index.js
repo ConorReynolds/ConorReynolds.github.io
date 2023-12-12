@@ -21,7 +21,7 @@ searchIndex.addDoc({
   "id": id++,
   "title": `Contact`,
   "toctitle": `Contact`,
-  "body": `The best way to contact me is by email at conor.reynolds@mu.ie . My social links extend only as far as a GitHub account , a LinkedIn account , and a Twitter account . These are also listed in the footer.`,
+  "body": `The best way to contact me is by email at conor.reynolds@manchester.ac.uk My social links extend only as far as a GitHub account , a LinkedIn account , and a Twitter account . These are also listed in the footer.`,
   "url": `contact.html`,
 });
 
