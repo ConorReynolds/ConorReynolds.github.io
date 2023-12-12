@@ -122,8 +122,8 @@
   <link rel="stylesheet" type="text/css" href="/main.css" />
 
   <!--
-    does nothing, but prevents flash of unstyled content in firefox
-    thanks: https://stackoverflow.com/a/64158043
+    Does nothing, but prevents flash of unstyled content in Firefox.
+    Thanks: https://stackoverflow.com/a/64158043
   -->
   <script>
   let fix_FOUC_in_firefox;
@@ -205,7 +205,7 @@
       ◊a[#:href "https://github.com/ConorReynolds" #:class "fab fa-github fa-1x" #:title "GitHub"] ◊(nbsp)
       ◊a[#:href "https://twitter.com/ConorEReynolds" #:class "fab fa-twitter fa-1x" #:title "Twitter"] ◊(nbsp)
       ◊a[#:href "https://www.linkedin.com/in/conor-reynolds-931049258/" #:class "fab fa-linkedin-in fa-1x" #:title "LinkedIn"] ◊(nbsp)
-      ◊a[#:href "mailto:conor.reynolds@mu.ie" #:class "fas fa-envelope fa-1x" #:title "Email"]
+      ◊a[#:href "mailto:conor.reynolds@manchester.ac.uk" #:class "fas fa-envelope fa-1x" #:title "Email"]
     }
 
     ◊; ◊when/splice[(resource? here)]{
