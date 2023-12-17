@@ -202,6 +202,7 @@
         ◊(if (equal? (get-year) "2022")
              "2022"
              (format "2022–~a" (get-year))) ◊(nbsp)
+      ◊a[#:href "https://orcid.org/0000-0002-6598-5512" #:class "fab fa-orcid fa-1x" #:title "ORCID"] ◊(nbsp)
       ◊a[#:href "https://github.com/ConorReynolds" #:class "fab fa-github fa-1x" #:title "GitHub"] ◊(nbsp)
       ◊a[#:href "https://twitter.com/ConorEReynolds" #:class "fab fa-twitter fa-1x" #:title "Twitter"] ◊(nbsp)
       ◊a[#:href "https://www.linkedin.com/in/conor-reynolds-931049258/" #:class "fab fa-linkedin-in fa-1x" #:title "LinkedIn"] ◊(nbsp)
