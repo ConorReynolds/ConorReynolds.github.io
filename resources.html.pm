@@ -4,7 +4,7 @@
 
 ◊(define-meta title "Resources")
 ◊(define-meta toc-title "Resources")
-◊(define-meta subtitle "Assignment sheets and assorted tutorials")
+◊(define-meta subtitle "Assignment sheets and tutorials")
 
 ◊(let () (current-pagetree (load-pagetree "index.ptree")) "")
 

@@ -1,7 +1,7 @@
 #lang pollen
 
 ◊(define-meta title "Designing Invariants (Draft)")
-◊(define-meta toc-title "Designing Invariants")
+◊(define-meta toc-title "Designing Invariants: Using Dafny to Verify Nontrivial Programs")
 ◊(define-meta subtitle "Using Dafny to verify nontrivial programs")
 ◊(define-meta math? #true)
 ◊(define-meta created "2022-11-26")
@@ -31,9 +31,9 @@ As we have seen already, the elementary integer exponentiation algorithm can be 
     }
 }
 
-This verification is in many ways not very interesting, but the main reason is because the definition ◊code{ExpDef} computes powers in basically the same way as ◊code{SlowExp}.
+But this verification is not very interesting. Why? Because the definition ◊code{ExpDef} computes powers in basically the same way as ◊code{SlowExp}.
 
-The definition computes by β-reduction like this:
+To see this, note that the function computes by ◊${\beta}-reduction like this:
 
 ◊codeblock['text]{
   ExpDef(3, 4) ⇝ᵦ 3 * ExpDef(3, 3)
@@ -47,22 +47,20 @@ The definition computes by β-reduction like this:
                ⇝ᵦ 81
 }
 
-... and the imperative computation table looks like this:
+... and the method computes according to this computation table in the loop:
 
 ◊quick-table{
   ◊${\boldsymbol{i}} | ◊${\boldsymbol{r}}
   ◊${4} | ◊${1}
-  ◊${3} | ◊${1 \times 3 = 3}
-  ◊${2} | ◊${3 \times 3 = 9}
-  ◊${1} | ◊${9 \times 3 = 27}
-  ◊${0} | ◊${27 \times 3 = 81}
+  ◊${3} | ◊${\textcolor{grey}{1 \times 3 =} 3}
+  ◊${2} | ◊${\textcolor{grey}{3 \times 3 =} 9}
+  ◊${1} | ◊${\textcolor{grey}{9 \times 3 =} 27}
+  ◊${0} | ◊${\textcolor{grey}{27 \times 3 =} 81}
 }
 
-Specifications are supposed to tell us ◊em{what} we are computing. Programs are supposed to tell us ◊em{how} to compute it. Sometimes, like in this case, the ◊em{what} gives us sufficient information to perform the computation.
+Here the specification and the code are just two ways of describing the same algorithm. A more interesting verification would involve proving that two different algorithms compute the same thing. So let's consider a new algorithm.
 
-But sometimes the algorithm is too slow and we want to speed it up. In doing so, however, we want to compute the same ◊em{what}. Tools like Dafny allow us to improve on the ◊em{how} in such a way that we do not change what we are computing.
-
-Let's return to exponentiation. Notice that ◊${a^{10} = (a^2)^5}. This seemingly trivial observation is very useful. With the naive algorithm, ◊${a^{10}} takes ten iterations. But ◊${(a^2)^5} only takes six---one iteration to square ◊${a}, five to compute ◊${(a^2)^5}. This leads to the following much faster algorithm for exponentiation.
+Notice that ◊${a^{10} = (a^2)^5}. This seemingly trivial observation is very useful. With the naive algorithm for computing exponentials, ◊${a^{10}} takes ten iterations. But ◊${(a^2)^5} only takes six---one iteration to square ◊${a}, five to compute ◊${(a^2)^5}. This leads to the following much faster algorithm for exponentiation, in which we effectively rewrite ◊${a^{2n}} as ◊${(a^2)^n} whenever possible.
 
 ◊codeblock['dafny]{
     method FastExp(a: int, n: nat) returns (r: int)
@@ -89,9 +87,9 @@ Let's return to exponentiation. Notice that ◊${a^{10} = (a^2)^5}. This seeming
     }
 }
 
-But how can we be sure that we've computed the right thing? This algorithm is much less straightforward than the simple one and therefore genuinely ◊em{requires} a proof for us to be really certain that it works.
+But how can we be sure that this works? This algorithm is much less straightforward than the simple one and therefore genuinely ◊em{requires} a proof for us to be certain that it works.
 
-Again, the trick here is to identify an invariant. Let's tabulate the values for ◊${3^7}.
+Again, the trick here is to identify an invariant---a logical expression that is true for each iteration of the loop. Let's tabulate the values for ◊${3^7}.
 
 ◊quick-table{
   ◊${\boldsymbol{b}} | ◊${\boldsymbol{i}} | ◊${\boldsymbol{r}}
@@ -103,9 +101,9 @@ Again, the trick here is to identify an invariant. Let's tabulate the values for
   ◊${3^4} | ◊${0} | ◊${3 \times 3^2 \times 3^4}
 }
 
-At the beginning of the loop, ◊${r \cdot b^i = 1 \cdot 3^7 = 3^7}, which is the result we're looking for---that's usually a good start.
+The expression should probably involve all variables. The most sensible way to combine them seems to be ◊${r \cdot b^i}, which at the beginning evaluates to ◊${1 \cdot 3^7 = 3^7}.
 
-That will remain true in the simple case since ◊${r \cdot b^i = 3 \cdot 3^6} on the second line. On the third line, after one iteration in the more complicated branch, ◊${r \cdot b^i = 3 \cdot (3^2)^3 = 3 \cdot 3^6 = 3^7}---exactly what we wanted.
+This remains true on the second line, after one iteration in the simple branch in the loop (where ◊${i} is odd): ◊${r \cdot b^i = 3 \cdot 3^6 = 3^7}. On the third line, after one iteration in the more complicated branch, ◊${r \cdot b^i = 3 \cdot (3^2)^3 = 3 \cdot 3^6 = 3^7}. So it seems that ◊${r \cdot b^i = 3^7} is an invariant.
 
 Now that we have identified what we think is an invariant, we should prove it. You can do this on paper, or you can get Dafny to do it for you.
 
@@ -173,7 +171,7 @@ This requires that ◊${n} is even, of course. We can add this as a precondition
     {}
 }
 
-Dafny will try to prove lemmas automatically by induction on the lemma's arguments, if possible. However, Dafny cannot automatically prove that this lemma is true. It turns out to be enough to remind Dafny that the inductive hypothesis holds for ◊${n - 2} in the case where ◊${n \ne 0}.
+Dafny will try to prove lemmas automatically by induction on the lemma's arguments, if possible. But Dafny cannot automatically prove that this lemma is true. It turns out to be enough to remind Dafny that the inductive hypothesis holds for ◊${n - 2} in the case where ◊${n \ne 0}.
 
 ◊codeblock['dafny]{
     lemma ExpSquare(a: int, n: nat)

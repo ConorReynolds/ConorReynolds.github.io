@@ -102,7 +102,7 @@ Step the proof state to the goal (◊kbd{Ctrl + ↓} in CoqIDE). You should see 
   C
 }
 
-Our goal is ◊code{C}; that is what we want to prove. What we know is listed above the line. In order: we know that ◊code{A}, ◊code{B}, and ◊code{C} are propositions. We know that ◊code{A} is true. We know that ◊code{A -> B} is true. We know that ◊code{B -> C} is true. Each of these hypotheses was given a label, which we will use to refer to that proposition in the proof.
+Our goal is ◊code{C}; that is what we want to prove. What we know is listed above the line. In order: we know that ◊code{A}, ◊code{B}, and ◊code{C} are propositions. We know that ◊code{A} is true. We know that ◊code{A -> B} is true. We know that ◊code{B -> C} is true. Each of these hypotheses has a label that we'll use to refer to that proposition in the proof.
 
 Our first attempt at a proof will use ◊em{backward reasoning}. Forward reasoning starts with hypotheses and tries to work towards the goal. Backward reasoning, by contrast, starts from the ◊em{goal} and tries to work backward to the hypotheses. ◊aside{Why backward reasoning? There is no complex reason for it---it's just easier to prove things in proof assistants like Coq working backward.}
 
