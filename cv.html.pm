@@ -4,11 +4,14 @@
 ◊(define-meta title "Curriculum Vitae")
 ◊(define-meta subtitle "Under construction 🚧")
 
-◊section{Education}
+◊section-ruled{Work & Education}
 
 ◊hang-list{
   ◊item{
-    PhD in ◊em{Computer Science}, Maynooth University, 2019–pres.
+    Postdoctoral Research Associate in ◊em{Computer Science}, Manchester University, 2023–pres.
+  }
+  ◊item{
+    PhD in ◊em{Computer Science}, Maynooth University, 2019–2023
   }
   ◊item{
     MSc in ◊em{Mathematics}, Maynooth University, 2018–2019 (◊sc-form{h1})
@@ -18,11 +21,11 @@
   }
 }
 
-◊section{Awards}
+◊section-ruled{Awards}
 
 ◊hang-list[#:compact #f]{
   ◊item{
-    ◊em{Government of Ireland Postgraduate Scholarship Programme Award}, awarded by the ◊extlink["https://research.ie"]{Irish Research Council} in 2019. (This was my PhD funding.)
+    ◊em{Government of Ireland Postgraduate Scholarship Programme Award}, awarded by the ◊extlink["https://research.ie"]{Irish Research Council} in 2019. This was my PhD funding.
   }
   ◊item{
     ◊em{Hamilton Prize in Mathematics}, awarded in 2017 by the ◊extlink["https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics"]{Royal Irish Academy} to the best undergraduate students of mathematics in Ireland in their penultimate year of study.

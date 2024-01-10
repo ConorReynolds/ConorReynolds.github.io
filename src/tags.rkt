@@ -28,6 +28,12 @@
 (define (sc-form . elems)
   (txexpr 'span '[[style "font-feature-settings: 'ss10'"]] elems))
 
+(define (bigger . elems)
+  `(span [[style "font-size: 1.2em; display: block"]] ,@elems))
+
+(define (smaller . elems)
+  `(span [[style "font-size: 0.85em; display: block"]] ,@elems))
+
 (define (publish-date iso-yy-mm-dd)
   (txexpr 'time `[[datetime ,iso-yy-mm-dd]]
           (list (~t (iso8601->date iso-yy-mm-dd)
@@ -99,6 +105,10 @@
             [onclick ,(format "download(this, `~a`, String.raw`~a`)"
                               filename text)]]
            (i [[class "fa fa-download"]])))
+
+(define (section-ruled . elems)
+  `(h2 [[class "line-separated"]]
+       (span ,@elems)))
 
 ; =============================================================================
 ; Formatting characters
