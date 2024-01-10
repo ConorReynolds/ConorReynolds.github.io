@@ -8,7 +8,7 @@
 
 ◊hang-list{
   ◊item{
-    Postdoctoral Research Associate in ◊em{Computer Science}, Manchester University, 2023–pres.
+    Postdoctoral Research Associate in ◊em{Computer Science}, University of Manchester, 2023–pres.
   }
   ◊item{
     PhD in ◊em{Computer Science}, Maynooth University, 2019–2023
