@@ -90,9 +90,11 @@
                                      (list str)))) substrs))))
 
 (define (root . elems)
+  (define (linebreak-proc elems)
+    (decode-linebreaks elems " "))
   (define elements-with-paragraphs
     (decode-elements elems
-                     #:txexpr-elements-proc decode-paragraphs
+                     #:txexpr-elements-proc (λ (x) (decode-paragraphs x #:linebreak-proc linebreak-proc))
                      #:exclude-tags '(figure table title-block verbatim)
                      #:exclude-attrs `((class "bib-item")
                                        (class "highlight")
@@ -275,6 +277,7 @@
                    #:wrap [wrap? #f]
                    #:name [caption #f]
                    #:download [dl? #f]
+                   #:id [id #f]
                    . elems)
   (define raw (apply string-append elems))
   (define pre-rendered (highlight #:python-executable "python3" lang raw))
@@ -283,7 +286,8 @@
          (get-tag rendered)
          (list* no-paragraphs-attr
                 no-smart-typography-attr
-                (get-attrs rendered))
+                (if id (cons `(id ,id) (get-attrs rendered))
+                       (get-attrs rendered)))
          (if caption
              `(div [[class "caption"]]
                    ,caption
