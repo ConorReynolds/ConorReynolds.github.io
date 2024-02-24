@@ -62,6 +62,9 @@
   (txexpr 'blockquote '[[class "excerpt"]]
           elems))
 
+(define (anchor id)
+  (txexpr 'a `[[class "anchor"] [id ,id]]))
+
 ; ==============================================================================
 ; Callout Blocks
 
