@@ -33,7 +33,7 @@
 (define (get-json url)
   (displayln "[info] zotero: Fetching data from api.zotero.org …")
   (call/input-url
-   (string->url url)
+   (string->url (string-trim url))
    get-pure-port
    port->string))
 
