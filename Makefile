@@ -31,11 +31,14 @@ publish: clean html scss
 		$(PUB_LOCATION)/resources/draft*
 
 	rm -rf $(PUB_LOCATION)/.vscode/ \
+		$(PUB_LOCATION)/venv/ \
 		$(PUB_LOCATION)/src/ \
 		$(PUB_LOCATION)/anki/ \
 		$(PUB_LOCATION)/.gitattributes \
 		$(PUB_LOCATION)/references.* \
 		$(PUB_LOCATION)/pygments \
 		$(PUB_LOCATION)/zotero.key
+
+push: publish
 	gh-pages -d $(PUB_LOCATION)/
 
