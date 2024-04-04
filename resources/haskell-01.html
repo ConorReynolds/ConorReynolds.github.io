@@ -83,127 +83,65 @@
 
 
 -----------------------------------------------------------
--- QUESTION 4`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><span class="kr">module</span><span class="w"> </span><span class="nn">Assignment01</span><span class="w"> </span><span class="kr">where</span>
+-- QUESTION 4`)"><i class="fas fa-copy"></i></button><pre><code>module Assignment01 where
 
-<span class="c1">-----------------------------------------------------------</span>
-<span class="c1">-- QUESTION 1</span>
+-----------------------------------------------------------
+-- QUESTION 1
 
 
-<span class="c1">-----------------------------------------------------------</span>
-<span class="c1">-- QUESTION 2</span>
+-----------------------------------------------------------
+-- QUESTION 2
 
 
-<span class="c1">-----------------------------------------------------------</span>
-<span class="c1">-- QUESTION 3</span>
+-----------------------------------------------------------
+-- QUESTION 3
 
 
-<span class="c1">-----------------------------------------------------------</span>
-<span class="c1">-- QUESTION 4</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>You can download the template using the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the file name. You can also copy any code snippet by hovering over it and clicking the <i class="fa fa-copy" style="margin: 0 0.1em 0 0.1em; color: var(--muted-color);"></i> button which appears on the top right.</p><div class="callout" data-callout="warning"><div class="callout-title">Warning</div><div class="callout-body"><p>Your file name and module name <em>must</em> match the template—any other file or module name will be rejected.</p><p>You may <em>not</em> use any imports to solve this lab. If your file contains an import statement, you will get zero marks.</p></div></div><p>Do you already have Haskell set up on your system? If so, you can skip to the <a class="xref" hyphens="none" href="#Question 1">questions</a>. Otherwise, read on.</p><h2 id="Setting Up Haskell" class="section">Setting Up Haskell<a class="anchor" href="#Setting Up Haskell" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Nowadays, installing Haskell is painless.</p><ol class="loose-list"><li>Navigate to <a class="extlink" href="https://www.haskell.org/get-started">haskell.org/get-started</a>. Follow the instructions there and install <a class="extlink" href="https://www.haskell.org/ghcup/">GHCup</a>.</li><li>You will be prompted to make some decisions in the GHCup install script. Just make sure both stack and cabal are installed. I would highly recommend letting GHCup add PATH variables, installing the Haskell Language Server (HLS), and enabling better stack integration with GHCup. The remaining defaults are probably fine.</li><li>I recommend using <a class="extlink" href="https://code.visualstudio.com/">VS Code</a> as an editor, but you’re welcome to use whatever you prefer. It’s a great general purpose text editor and has good integration with the Haskell Language Server. If you are using VS Code, install the <a class="extlink" href="https://marketplace.visualstudio.com/items?itemName=haskell.haskell">official Haskell extension</a>.</li></ol><p>I will assume that you are using VS Code with the Haskell extension and HLS on either Linux or Mac. If you are using something else, you should be able to adapt the following instructions to your situation.</p><p>To test if your install is working: Create a new directory and open it in VS Code. Create a file called <code>Main.hs</code> and copy the following into it.</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">Main.hs<button class="download-button" title="Download snippet as Main.hs" onclick="download(this, `Main.hs`, String.raw`module Main where
+-----------------------------------------------------------
+-- QUESTION 4</code></pre></div><p>You can download the template using the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the file name. You can also copy any code snippet by hovering over it and clicking the <i class="fa fa-copy" style="margin: 0 0.1em 0 0.1em; color: var(--muted-color);"></i> button which appears on the top right.</p><div class="callout" data-callout="warning"><div class="callout-title">Warning</div><div class="callout-body"><p>Your file name and module name <em>must</em> match the template—any other file or module name will be rejected.</p><p>You may <em>not</em> use any imports to solve this lab. If your file contains an import statement, you will get zero marks.</p></div></div><p>Do you already have Haskell set up on your system? If so, you can skip to the <a class="xref" hyphens="none" href="#Question 1">questions</a>. Otherwise, read on.</p><h2 id="Setting Up Haskell" class="section">Setting Up Haskell<a class="anchor" href="#Setting Up Haskell" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Nowadays, installing Haskell is painless.</p><ol class="loose-list"><li>Navigate to <a class="extlink" href="https://www.haskell.org/get-started">haskell.org/get-started</a>. Follow the instructions there and install <a class="extlink" href="https://www.haskell.org/ghcup/">GHCup</a>.</li><li>You will be prompted to make some decisions in the GHCup install script. Just make sure both stack and cabal are installed. I would highly recommend letting GHCup add PATH variables, installing the Haskell Language Server (HLS), and enabling better stack integration with GHCup. The remaining defaults are probably fine.</li><li>I recommend using <a class="extlink" href="https://code.visualstudio.com/">VS Code</a> as an editor, but you’re welcome to use whatever you prefer. It’s a great general purpose text editor and has good integration with the Haskell Language Server. If you are using VS Code, install the <a class="extlink" href="https://marketplace.visualstudio.com/items?itemName=haskell.haskell">official Haskell extension</a>.</li></ol><p>I will assume that you are using VS Code with the Haskell extension and HLS on either Linux or Mac. If you are using something else, you should be able to adapt the following instructions to your situation.</p><p>To test if your install is working: Create a new directory and open it in VS Code. Create a file called <code>Main.hs</code> and copy the following into it.</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">Main.hs<button class="download-button" title="Download snippet as Main.hs" onclick="download(this, `Main.hs`, String.raw`module Main where
 
 main :: IO ()
 main = putStrLn &quot;Hello, world!&quot;`)"><i class="fa fa-download"></i></button></div><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`module Main where
 
 main :: IO ()
-main = putStrLn &quot;Hello, world!&quot;`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="kr">module</span><span class="w"> </span><span class="nn">Main</span><span class="w"> </span><span class="kr">where</span>
+main = putStrLn &quot;Hello, world!&quot;`)"><i class="fas fa-copy"></i></button><pre><code>module Main where
 
-<span class="nf">main</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
-<span class="nf">main</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">"Hello, world!"</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>You can execute this in a few different ways. The simplest is to use Haskell’s interpreter.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`❯ runhaskell Main.hs
-Hello, world!`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span>❯ runhaskell Main.hs
-Hello, world!
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>If you want to compile <code>Main.hs</code> into an executable, do this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`❯ ghc Main.hs
+main :: IO ()
+main = putStrLn "Hello, world!"</code></pre></div><p>You can execute this in a few different ways. The simplest is to use Haskell’s interpreter.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`❯ runhaskell Main.hs
+Hello, world!`)"><i class="fas fa-copy"></i></button><pre><code>❯ runhaskell Main.hs
+Hello, world!</code></pre></div><p>If you want to compile <code>Main.hs</code> into an executable, do this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`❯ ghc Main.hs
 [1 of 1] Compiling Main             ( Main.hs, Main.o )
-Linking Main ...`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span>❯ ghc Main.hs
+Linking Main ...`)"><i class="fas fa-copy"></i></button><pre><code>❯ ghc Main.hs
 [1 of 1] Compiling Main             ( Main.hs, Main.o )
-Linking Main ...
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>This will create an executable <code>Main</code>, but also a <code>Main.o</code> and <code>Main.hi</code> file, both of which you can ignore. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">If you pass the flags <code>-no-keep-hi-files</code> and <code>-no-keep-o-files</code> to GHC, these files will be automatically deleted after compilation.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`❯ ./Main
-Hello, world!`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span>❯ ./Main
-Hello, world!
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>A final note: If you follow these instructions correctly, you will have the GHC2021 language variant enabled. If, somehow, you managed to install an old variant—such as Haskell2010 or Haskell98—you <em>should</em> be fine, but you might need to explicitly enable some language extensions. The list of extensions enabled by default in GHC2021 is available <a class="extlink" href="https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/control.html#extension-GHC2021">here</a>.</p><h2 id="cant install haskell" class="section">What if I can’t get Haskell working?<a class="anchor" href="#cant install haskell" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>I can’t help you to get Haskell installed, but it might be worth trying <a class="extlink" href="https://replit.com">repl.it</a>. It’s a browser-based IDE that supports Haskell, so as long as you have a browser, you can write, compile, and run Haskell code from there. Its features are more than sufficient for this course. (It’s free, but unfortunately requires sign-up to use.)</p><h2 id="Where are the Haskell docs?" class="section">Where are the Haskell docs?<a class="anchor" href="#Where are the Haskell docs?" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>You can visit <a class="extlink" href="https://www.stackage.org">Stackage</a>. The search bar uses <a class="extlink" href="https://hoogle.haskell.org/">Hoogle</a> under the hood, which you might prefer to use directly.</p><p>One useful feature is that you can search by type signature. This can help when you need a function with a particular type but are not sure what it’s called.</p><p>You should get used to consulting the documentation every so often. I can’t explicitly cover all built-in functions and features, even if they would be useful for solving problems. You will have to discover some features of Haskell on your own.</p><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Here is a recursive function in Haskell which computes the exponent <span class="inline-math" hyphens="none" smart-typography="none">\(b^n\)</span>, for <span class="inline-math" hyphens="none" smart-typography="none">\(b, n \in \Z\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`recExp :: Integer -&gt; Integer -&gt; Integer
+Linking Main ...</code></pre></div><p>This will create an executable <code>Main</code>, but also a <code>Main.o</code> and <code>Main.hi</code> file, both of which you can ignore. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">If you pass the flags <code>-no-keep-hi-files</code> and <code>-no-keep-o-files</code> to GHC, these files will be automatically deleted after compilation.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`❯ ./Main
+Hello, world!`)"><i class="fas fa-copy"></i></button><pre><code>❯ ./Main
+Hello, world!</code></pre></div><p>A final note: If you follow these instructions correctly, you will have the GHC2021 language variant enabled. If, somehow, you managed to install an old variant—such as Haskell2010 or Haskell98—you <em>should</em> be fine, but you might need to explicitly enable some language extensions. The list of extensions enabled by default in GHC2021 is available <a class="extlink" href="https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/control.html#extension-GHC2021">here</a>.</p><h2 id="cant install haskell" class="section">What if I can’t get Haskell working?<a class="anchor" href="#cant install haskell" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>I can’t help you to get Haskell installed, but it might be worth trying <a class="extlink" href="https://replit.com">repl.it</a>. It’s a browser-based IDE that supports Haskell, so as long as you have a browser, you can write, compile, and run Haskell code from there. Its features are more than sufficient for this course. (It’s free, but unfortunately requires sign-up to use.)</p><h2 id="Where are the Haskell docs?" class="section">Where are the Haskell docs?<a class="anchor" href="#Where are the Haskell docs?" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>You can visit <a class="extlink" href="https://www.stackage.org">Stackage</a>. The search bar uses <a class="extlink" href="https://hoogle.haskell.org/">Hoogle</a> under the hood, which you might prefer to use directly.</p><p>One useful feature is that you can search by type signature. This can help when you need a function with a particular type but are not sure what it’s called.</p><p>You should get used to consulting the documentation every so often. I can’t explicitly cover all built-in functions and features, even if they would be useful for solving problems. You will have to discover some features of Haskell on your own.</p><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Here is a recursive function in Haskell which computes the exponent <span class="inline-math" hyphens="none" smart-typography="none">\(b^n\)</span>, for <span class="inline-math" hyphens="none" smart-typography="none">\(b, n \in \Z\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`recExp :: Integer -&gt; Integer -&gt; Integer
 recExp b n =
   if n == 0
     then 1
-    else b * recExp b (n - 1)`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><span class="nf">recExp</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Integer</span>
-<span class="nf">recExp</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">=</span>
-<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">    </span><span class="kr">then</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">    </span><span class="kr">else</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">recExp</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Rewrite this algorithm in iterative style, mirroring the examples in the first lecture. Your function need not work for <span class="inline-math" hyphens="none" smart-typography="none">\(n &lt; 0\)</span>.</p><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Consider the following program.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`data T a = T (T a)
+    else b * recExp b (n - 1)`)"><i class="fas fa-copy"></i></button><pre><code>recExp :: Integer -&gt; Integer -&gt; Integer
+recExp b n =
+  if n == 0
+    then 1
+    else b * recExp b (n - 1)</code></pre></div><p>Rewrite this algorithm in iterative style, mirroring the examples in the first lecture. Your function need not work for <span class="inline-math" hyphens="none" smart-typography="none">\(n &lt; 0\)</span>.</p><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Consider the following program.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`data T a = T (T a)
 
 facT :: T a -&gt; Int -&gt; Int
 facT _ 0 = 1
 facT (T t) n = n * facT t (n - 1)
 
 foo :: T a
-foo = T (T (T (T (error &quot;⊥&quot;))))`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><span class="kr">data</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
+foo = T (T (T (T (error &quot;⊥&quot;))))`)"><i class="fas fa-copy"></i></button><pre><code>data T a = T (T a)
 
-<span class="nf">facT</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
-<span class="nf">facT</span><span class="w"> </span><span class="kr">_</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">1</span>
-<span class="nf">facT</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">facT</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+facT :: T a -&gt; Int -&gt; Int
+facT _ 0 = 1
+facT (T t) n = n * facT t (n - 1)
 
-<span class="nf">foo</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="n">a</span>
-<span class="nf">foo</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="w"> </span><span class="p">(</span><span class="ne">error</span><span class="w"> </span><span class="s">"⊥"</span><span class="p">))))</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>For which values of <code>n</code>, if any, does the expression <code>facT foo n</code> reduce to a value? Justify your answer.</p><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a function which interleaves two lists. For example, <code>interleave [1,2,3] [4,5,6,7,8]</code> should return <code>[1,4,2,5,3,6,7,8]</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`interleave :: [a] -&gt; [a] -&gt; [a]
-interleave = undefined`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="nf">interleave</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
-<span class="nf">interleave</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">undefined</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><h2 id="Question 4 (Hard)" class="section">Question 4 (Hard)<a class="anchor" href="#Question 4 (Hard)" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Inhabit the following term.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`term :: ((((a -&gt; b) -&gt; a) -&gt; a) -&gt; b) -&gt; b
-term = undefined`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="nf">term</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">((((</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span>
-<span class="nf">term</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">undefined</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>In other words, provide a <em>self-contained</em> definition for <code>term</code> which type-checks and does not include <code>undefined</code> or any other value that reduces to <span class="inline-math" hyphens="none" smart-typography="none">\(\bot\)</span>. Importantly, you do not need any information other than the type signature to complete this question.</p></div>
+foo :: T a
+foo = T (T (T (T (error "⊥"))))</code></pre></div><p>For which values of <code>n</code>, if any, does the expression <code>facT foo n</code> reduce to a value? Justify your answer.</p><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a function which interleaves two lists. For example, <code>interleave [1,2,3] [4,5,6,7,8]</code> should return <code>[1,4,2,5,3,6,7,8]</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`interleave :: [a] -&gt; [a] -&gt; [a]
+interleave = undefined`)"><i class="fas fa-copy"></i></button><pre><code>interleave :: [a] -&gt; [a] -&gt; [a]
+interleave = undefined</code></pre></div><h2 id="Question 4 (Hard)" class="section">Question 4 (Hard)<a class="anchor" href="#Question 4 (Hard)" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Inhabit the following term.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`term :: ((((a -&gt; b) -&gt; a) -&gt; a) -&gt; b) -&gt; b
+term = undefined`)"><i class="fas fa-copy"></i></button><pre><code>term :: ((((a -&gt; b) -&gt; a) -&gt; a) -&gt; b) -&gt; b
+term = undefined</code></pre></div><p>In other words, provide a <em>self-contained</em> definition for <code>term</code> which type-checks and does not include <code>undefined</code> or any other value that reduces to <span class="inline-math" hyphens="none" smart-typography="none">\(\bot\)</span>. Importantly, you do not need any information other than the type signature to complete this question.</p></div>
 
 
 
