@@ -52,13 +52,13 @@ To see this, note that the function computes by ◊${\beta}-reduction like this:
 ◊quick-table{
   ◊${\boldsymbol{i}} | ◊${\boldsymbol{r}}
   ◊${4} | ◊${1}
-  ◊${3} | ◊${\textcolor{grey}{1 \times 3 =} 3}
-  ◊${2} | ◊${\textcolor{grey}{3 \times 3 =} 9}
-  ◊${1} | ◊${\textcolor{grey}{9 \times 3 =} 27}
-  ◊${0} | ◊${\textcolor{grey}{27 \times 3 =} 81}
+  ◊${3} | ◊${3 \textcolor{grey}{= 1 \times 3}}
+  ◊${2} | ◊${9 \textcolor{grey}{= 3 \times 3}} 
+  ◊${1} | ◊${27 \textcolor{grey}{= 9 \times 3}}
+  ◊${0} | ◊${81 \textcolor{grey}{= 27 \times 3}}
 }
 
-Here the specification and the code are just two ways of describing the same algorithm. A more interesting verification would involve proving that two different algorithms compute the same thing. So let's consider a new algorithm.
+Here the specification and the code are just two ways of describing the same algorithm. It would be more interesting to prove that two different algorithms compute the same thing. So let's consider a new algorithm.
 
 Notice that ◊${a^{10} = (a^2)^5}. This seemingly trivial observation is very useful. With the naive algorithm for computing exponentials, ◊${a^{10}} takes ten iterations. But ◊${(a^2)^5} only takes six---one iteration to square ◊${a}, five to compute ◊${(a^2)^5}. This leads to the following much faster algorithm for exponentiation, in which we effectively rewrite ◊${a^{2n}} as ◊${(a^2)^n} whenever possible.
 
@@ -87,7 +87,7 @@ Notice that ◊${a^{10} = (a^2)^5}. This seemingly trivial observation is very u
     }
 }
 
-But how can we be sure that this works? This algorithm is much less straightforward than the simple one and therefore genuinely ◊em{requires} a proof for us to be certain that it works.
+But how can we be sure that this works? This algorithm is not as straightforward as the simple one and therefore genuinely ◊em{requires} a proof for us to be certain that it works.
 
 Again, the trick here is to identify an invariant---a logical expression that is true for each iteration of the loop. Let's tabulate the values for ◊${3^7}.
 
@@ -130,7 +130,7 @@ Now that we have identified what we think is an invariant, we should prove it. Y
     }
 }
 
-Unfortunately, Dafny is not ◊em{quite} that smart. What is the problem? If you copy the invariant into the loop, you will notice that it holds in the second branch, but not in the first. The reason for this is that Dafny does not know the properties of exponentiation like we do.
+Unfortunately, Dafny is not ◊em{quite} that smart. What's the problem? If you copy the invariant into the loop, you will notice that it holds in the second branch, but not in the first. The reason for this is that Dafny does not know the properties of exponentiation like we do.
 
 Performing Hoare logic calculations by hand, we can work up to the top of the condition to see what Dafny is missing.
 
