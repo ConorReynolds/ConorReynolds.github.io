@@ -65,33 +65,58 @@ method Abs(x: int) returns (r: int)
     } else {
         r := x;
     }
-}`)"><i class="fas fa-copy"></i></button><pre><code>function AbsDef(x: int): int
-{
-    if x &lt; 0 then -x else x
-}
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">AbsDef</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">):</span> <span class="kt">int</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="o">-</span><span class="n">x</span> <span class="k">else</span> <span class="n">x</span>
+<span class="p">}</span>
 
-method Abs(x: int) returns (r: int)
-{
-    if x &lt; 0 {
-        r := -x;
-    } else {
-        r := x;
-    }
-}</code></pre></div><p>Both do exactly the same thing, but we have not provided preconditions or postconditions for either. Now try this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} Main()
+<span class="kd">method</span> <span class="nf">Abs</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="o">-</span><span class="n">x</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Both do exactly the same thing, but we have not provided preconditions or postconditions for either. Now try this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method {:main} Main()
 {
     var x := AbsDef(-3);
     assert x &gt; 0;
 
     var y := Abs(-3);
     assert y &gt; 0;
-}`)"><i class="fas fa-copy"></i></button><pre><code>method {:main} Main()
-{
-    var x := AbsDef(-3);
-    assert x &gt; 0;
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> {:main} <span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="n">x</span> <span class="o">:=</span> <span class="n">AbsDef</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>
+    <span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
 
-    var y := Abs(-3);
-    assert y &gt; 0;
-}</code></pre></div><p>The first assertion succeeds, but the second fails, since Dafny’s verifier can see the definition of <code>AbsDef</code>, but not <code>Abs</code>. This means that functions can be used to specify the behaviour of methods. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Functions which exist <em>only</em> to specify the behaviour of methods can be marked ‘ghost’ so they are erased at compile time—more on this <a class="xref" hyphens="none" href="#Ghost and Compiled Constructs">later</a>.</span></span> This pattern is common and powerful. For example:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function AbsDef(x: int): int
+    <span class="kd">var</span> <span class="n">y</span> <span class="o">:=</span> <span class="n">Abs</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>
+    <span class="k">assert</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>The first assertion succeeds, but the second fails, since Dafny’s verifier can see the definition of <code>AbsDef</code>, but not <code>Abs</code>. This means that functions can be used to specify the behaviour of methods. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Functions which exist <em>only</em> to specify the behaviour of methods can be marked ‘ghost’ so they are erased at compile time—more on this <a class="xref" hyphens="none" href="#Ghost and Compiled Constructs">later</a>.</span></span> This pattern is common and powerful. For example:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function AbsDef(x: int): int
     ensures AbsDef(x) &gt;= 0  // unnecessary, but does no harm
 {
     if x &lt; 0 then -x else x
@@ -105,23 +130,44 @@ method Abs(x: int) returns (r: int)
     } else {
         r := x;
     }
-}`)"><i class="fas fa-copy"></i></button><pre><code>function AbsDef(x: int): int
-    ensures AbsDef(x) &gt;= 0  // unnecessary, but does no harm
-{
-    if x &lt; 0 then -x else x
-}
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">AbsDef</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">):</span> <span class="kt">int</span>
+    <span class="k">ensures</span> <span class="n">AbsDef</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1">// unnecessary, but does no harm</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="o">-</span><span class="n">x</span> <span class="k">else</span> <span class="n">x</span>
+<span class="p">}</span>
 
-method Abs(x: int) returns (r: int)
-    ensures r == AbsDef(x)  // ✓ succeeds
-{
-    if x &lt; 0 {
-        r := -x;
-    } else {
-        r := x;
-    }
-}</code></pre></div><p>This is a bit clearer and less error-prone than the following more explicit specification for the absolute value function we gave in <a class="xref" hyphens="none" href="/resources/dafny-01.html#Instructions">lab 1</a>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`ensures r &gt;= 0
-ensures r == x || r == -x`)"><i class="fas fa-copy"></i></button><pre><code>ensures r &gt;= 0
-ensures r == x || r == -x</code></pre></div><p>Since the specification and the code are not meaningfully different in this case, this example isn’t of much technical interest. We will see more interesting examples in the later labs.</p><h2 id="Some Useful Collections" class="section">Some Useful Collections<a class="anchor" href="#Some Useful Collections" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny supports sets, multisets, sequences, and (in)finite maps. These types can be useful for specifying program behaviour. In particular, I want to draw your attention to <em>sequences</em>, because they’re extremely useful for specifying properties of arrays.</p><p>Normally, to specify that some element <code>e</code> is found in some array <code>a</code>, one must say that there exists an <code>i</code> such that <code>0 &lt;= i &lt; a.Length</code> and <code>a[i] == e</code>. But it’s much easier to just convert <code>a</code> to a sequence by writing <code>a[..]</code>, and then ask if <code>e in a[..]</code>. That is to say, the following two predicates are exactly the same.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`predicate elem(a: array&lt;int&gt;, e: int)
+<span class="kd">method</span> <span class="nf">Abs</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">AbsDef</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1">// ✓ succeeds</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="o">-</span><span class="n">x</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>This is a bit clearer and less error-prone than the following more explicit specification for the absolute value function we gave in <a class="xref" hyphens="none" href="/resources/dafny-01.html#Instructions">lab 1</a>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`ensures r &gt;= 0
+ensures r == x || r == -x`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">ensures</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">x</span> <span class="o">||</span> <span class="n">r</span> <span class="o">==</span> <span class="o">-</span><span class="n">x</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Since the specification and the code are not meaningfully different in this case, this example isn’t of much technical interest. We will see more interesting examples in the later labs.</p><h2 id="Some Useful Collections" class="section">Some Useful Collections<a class="anchor" href="#Some Useful Collections" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny supports sets, multisets, sequences, and (in)finite maps. These types can be useful for specifying program behaviour. In particular, I want to draw your attention to <em>sequences</em>, because they’re extremely useful for specifying properties of arrays.</p><p>Normally, to specify that some element <code>e</code> is found in some array <code>a</code>, one must say that there exists an <code>i</code> such that <code>0 &lt;= i &lt; a.Length</code> and <code>a[i] == e</code>. But it’s much easier to just convert <code>a</code> to a sequence by writing <code>a[..]</code>, and then ask if <code>e in a[..]</code>. That is to say, the following two predicates are exactly the same.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`predicate elem(a: array&lt;int&gt;, e: int)
     reads a
 {
     exists i | 0 &lt;= i &lt; a.Length :: a[i] == e
@@ -131,17 +177,30 @@ predicate elem(a: array&lt;int&gt;, e: int)
     reads a
 {
     e in a[..]
-}`)"><i class="fas fa-copy"></i></button><pre><code>predicate elem(a: array&lt;int&gt;, e: int)
-    reads a
-{
-    exists i | 0 &lt;= i &lt; a.Length :: a[i] == e
-}
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">predicate</span> <span class="nf">elem</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">reads</span> <span class="n">a</span>
+<span class="p">{</span>
+    <span class="n">exists</span> <span class="n">i</span> <span class="o">|</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span> <span class="p">::</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">e</span>
+<span class="p">}</span>
 
-predicate elem(a: array&lt;int&gt;, e: int)
-    reads a
-{
-    e in a[..]
-}</code></pre></div><p>Check out the online <a class="extlink" href="https://dafny-lang.github.io/dafny/OnlineTutorial/Sequences.html">Dafny documentation</a> for more information on sequences.</p><h2 id="Termination" class="section">Termination<a class="anchor" href="#Termination" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>We have so far only concerned ourselves with proving the <em>partial correctness</em> of programs. A program is partially correct when it gives the right result whenever it terminates. To prove <em>total correctness</em>, we must prove that it is partially correct <em>and</em> that it always terminates.</p><p>Why worry about termination? Besides the obvious issues with code that loops forever, nonterminating code can satisfy specifications without actually computing the correct result. As an example, consider the following method in Dafny for computing the square root of a real number <span class="inline-math" hyphens="none" smart-typography="none">\(a \in \R\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Sqrt(a: real) returns (x: real)
+<span class="kd">predicate</span> <span class="nf">elem</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">reads</span> <span class="n">a</span>
+<span class="p">{</span>
+    <span class="n">e</span> <span class="o">in</span> <span class="n">a</span><span class="p">[..]</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Check out the online <a class="extlink" href="https://dafny-lang.github.io/dafny/OnlineTutorial/Sequences.html">Dafny documentation</a> for more information on sequences.</p><h2 id="Termination" class="section">Termination<a class="anchor" href="#Termination" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>We have so far only concerned ourselves with proving the <em>partial correctness</em> of programs. A program is partially correct when it gives the right result whenever it terminates. To prove <em>total correctness</em>, we must prove that it is partially correct <em>and</em> that it always terminates.</p><p>Why worry about termination? Besides the obvious issues with code that loops forever, nonterminating code can satisfy specifications without actually computing the correct result. As an example, consider the following method in Dafny for computing the square root of a real number <span class="inline-math" hyphens="none" smart-typography="none">\(a \in \R\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Sqrt(a: real) returns (x: real)
     decreases *  // disables termination check
     ensures x * x == a
 {
@@ -151,43 +210,84 @@ predicate elem(a: array&lt;int&gt;, e: int)
     {
         // do nothing!
     }
-}`)"><i class="fas fa-copy"></i></button><pre><code>method Sqrt(a: real) returns (x: real)
-    decreases *  // disables termination check
-    ensures x * x == a
-{
-    x := *;  // ‘indefinite’ assignment
-    while x * x != a
-        decreases *  // disables termination check
-    {
-        // do nothing!
-    }
-}</code></pre></div><p>Dafny accepts this. Why? Because <em>if</em> the loop ever terminates, its loop condition must be false. If <span class="inline-math" hyphens="none" smart-typography="none">\(x^2 \neq a\)</span> is false, then <span class="inline-math" hyphens="none" smart-typography="none">\(x^2 = a\)</span> is true, so <span class="inline-math" hyphens="none" smart-typography="none">\(x\)</span> must be a square root of <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span>. This code is therefore partially correct. But it also doesn’t do anything.</p><p>We will insist on total correctness for the remainder of this course. There are two situations where you must prove termination: loops and recursive functions/methods. To prove termination, you must show that some expression bounded from below strictly decreases with each recursive call or each iteration of a loop. Dafny can often figure this out if the expression is simple, but it will occasionally require some help. See the <a class="extlink" href="http://dafny.org/dafny/DafnyRef/DafnyRef#sec-loop-termination">Dafny documentation on loop termination</a> for more details.</p><p>For example, consider the following function.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function interleave(a: seq&lt;int&gt;, b: seq&lt;int&gt;): seq&lt;int&gt;
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Sqrt</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">real</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">real</span><span class="p">)</span>
+    <span class="k">decreases</span> <span class="o">*</span>  <span class="c1">// disables termination check</span>
+    <span class="k">ensures</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">==</span> <span class="n">a</span>
+<span class="p">{</span>
+    <span class="n">x</span> <span class="o">:=</span> <span class="o">*</span><span class="p">;</span>  <span class="c1">// ‘indefinite’ assignment</span>
+    <span class="k">while</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">a</span>
+        <span class="k">decreases</span> <span class="o">*</span>  <span class="c1">// disables termination check</span>
+    <span class="p">{</span>
+        <span class="c1">// do nothing!</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Dafny accepts this. Why? Because <em>if</em> the loop ever terminates, its loop condition must be false. If <span class="inline-math" hyphens="none" smart-typography="none">\(x^2 \neq a\)</span> is false, then <span class="inline-math" hyphens="none" smart-typography="none">\(x^2 = a\)</span> is true, so <span class="inline-math" hyphens="none" smart-typography="none">\(x\)</span> must be a square root of <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span>. This code is therefore partially correct. But it also doesn’t do anything.</p><p>We will insist on total correctness for the remainder of this course. There are two situations where you must prove termination: loops and recursive functions/methods. To prove termination, you must show that some expression bounded from below strictly decreases with each recursive call or each iteration of a loop. Dafny can often figure this out if the expression is simple, but it will occasionally require some help. See the <a class="extlink" href="http://dafny.org/dafny/DafnyRef/DafnyRef#sec-loop-termination">Dafny documentation on loop termination</a> for more details.</p><p>For example, consider the following function.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function interleave(a: seq&lt;int&gt;, b: seq&lt;int&gt;): seq&lt;int&gt;
 {
     if a == [] then
       b
     else
       [a[0]] + interleave(b, a[1..])
-}`)"><i class="fas fa-copy"></i></button><pre><code>function interleave(a: seq&lt;int&gt;, b: seq&lt;int&gt;): seq&lt;int&gt;
-{
-    if a == [] then
-      b
-    else
-      [a[0]] + interleave(b, a[1..])
-}</code></pre></div><p>This function will interleave two sequences together. Here is an example of how it works:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`interleave([1, 2], [7, 8])
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">interleave</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">seq</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="kt">seq</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">):</span> <span class="kt">seq</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="p">[]</span> <span class="k">then</span>
+      <span class="n">b</span>
+    <span class="k">else</span>
+      <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">interleave</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">..])</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>This function will interleave two sequences together. Here is an example of how it works:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`interleave([1, 2], [7, 8])
 = [1] + interleave([7, 8], [2])
 = [1] + [7] + interleave([2], [8])
 = [1] + [7] + [2] + interleave([8], [])
 = [1] + [7] + [2] + [8] + interleave([], [])
 = [1] + [7] + [2] + [8] + []
-= [1, 7, 2, 8]`)"><i class="fas fa-copy"></i></button><pre><code>interleave([1, 2], [7, 8])
+= [1, 7, 2, 8]`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span>interleave([1, 2], [7, 8])
 = [1] + interleave([7, 8], [2])
 = [1] + [7] + interleave([2], [8])
 = [1] + [7] + [2] + interleave([8], [])
 = [1] + [7] + [2] + [8] + interleave([], [])
 = [1] + [7] + [2] + [8] + []
-= [1, 7, 2, 8]</code></pre></div><p>Dafny cannot automatically prove termination for this function. Why?</p><p>By default, Dafny will guess that one of the parameters to the function decreases—so, in this case, it tries <code>decreases a, b</code>. This means that it will first try to prove that the first parameter decreases, and if it can’t, it will try to prove that the second parameter decreases.</p><p>Be careful here: when deciding if, for example, <code>a</code> is decreasing, we’re not comparing <code>a</code> and <code>a[1..]</code>, we’re comparing the original function call’s first parameter with the first parameter of the recursive call.</p><p>Let’s see what this means in practice. If the function is called like:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`interleave(a, b)`)"><i class="fas fa-copy"></i></button><pre><code>interleave(a, b)</code></pre></div><p>… then, assuming we’re not at the base case, the recursive call is:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`interleave(b, a[1..])`)"><i class="fas fa-copy"></i></button><pre><code>interleave(b, a[1..])</code></pre></div><p>Dafny first tries to prove that <code>b</code> is smaller than <code>a</code>. Can it? No—nothing is known about the relative sizes of <code>a</code> and <code>b</code>. Then, it tries to prove that <code>a[1..]</code> is smaller than <code>b</code>. Can it? Again, no, for the same reasons.</p><p>The problem is that we’re comparing the wrong things. The intuitive reason that this function terminates is because, at each recursive call, the <em>total</em> number of elements to process decreases. Can you use that information to provide an expression that strictly decreases at each step? (You may want to consult the <a class="extlink" href="http://dafny.org/dafny/OnlineTutorial/Sequences.html">documentation on sequences</a>.)</p><h2 id="Common Loop Invariants" class="section">Common Loop Invariants<a class="anchor" href="#Common Loop Invariants" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Most automatic verifiers need an awful lot of help seeing what a loop is supposed to be doing. Loop invariants are a specification of that behaviour.</p><p>Finding loop invariants is a difficult problem in general—there is no general method for finding them. But some invariants crop up over and over again, and are worth remembering.</p><p>One such invariant looks something like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`while i &lt; n
-  invariant 0 &lt;= i &lt;= n`)"><i class="fas fa-copy"></i></button><pre><code>while i &lt; n
-  invariant 0 &lt;= i &lt;= n</code></pre></div><p>This instructs Dafny to check that <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is between <span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> before the loop begins and stays there after each iteration. This is useful when you have a loop that uses <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> to count up from <span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span> to <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span>. If you don’t include this invariant, then Dafny won’t know what is true about <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> besides the negation of the loop condition, which is <span class="inline-math" hyphens="none" smart-typography="none">\(i \ge n\)</span>. Usually you will need to conclude that <span class="inline-math" hyphens="none" smart-typography="none">\(i = n\)</span> once the loop finishes. In order to do so, Dafny needs an upper bound on <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span>, specifically <span class="inline-math" hyphens="none" smart-typography="none">\(i \leq n\)</span>.</p><p>The lower bound on <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is generally not necessary, especially if <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is a <code>nat</code>, since Dafny must always check <span class="inline-math" hyphens="none" smart-typography="none">\(i \ge 0\)</span>. For this reason, counting down typically does not require an invariant like this.</p><h2 id="Ghost and Compiled Constructs" class="section">Ghost and Compiled Constructs<a class="anchor" href="#Ghost and Compiled Constructs" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>All of Dafny’s specification constructs are called <em>ghosts</em>. The reason for this is that specifications do not appear in the compiled code. The verifier takes into account ghost and non-ghost constructs in order to prove correctness, but your computer does not need to know anything about the specification for a program in order to execute it. They are <em>erased</em> at compile-time. We will therefore refer to non-ghost constructs as <em>compiled</em>.</p><p>There are two main types of ‘simple’ top-level declarations in Dafny: methods and functions. Methods contain imperative code, functions contain functional code. Methods and functions are both compiled by default (as of Dafny 4). Functions can be marked ghost, unsurprisingly, by declaring them as a <code>ghost function</code>. If a method is ghost, it’s called a <em>lemma</em>. Boolean-valued functions can instead be declared as <em>predicates</em>—these are also compiled by default, and must be marked ghost if you want them to be erased at compile time.</p><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Rewrite your <code>Max</code> and <code>Min</code> methods from the previous lab to use the following functions as part of their specification. (See the previous section on <a class="xref" hyphens="none" href="#Functions vs Methods">functions vs methods</a>.)</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function MaxDef(a: int, b: int): int
+= [1, 7, 2, 8]
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Dafny cannot automatically prove termination for this function. Why?</p><p>By default, Dafny will guess that one of the parameters to the function decreases—so, in this case, it tries <code>decreases a, b</code>. This means that it will first try to prove that the first parameter decreases, and if it can’t, it will try to prove that the second parameter decreases.</p><p>Be careful here: when deciding if, for example, <code>a</code> is decreasing, we’re not comparing <code>a</code> and <code>a[1..]</code>, we’re comparing the original function call’s first parameter with the first parameter of the recursive call.</p><p>Let’s see what this means in practice. If the function is called like:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`interleave(a, b)`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">interleave</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>… then, assuming we’re not at the base case, the recursive call is:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`interleave(b, a[1..])`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">interleave</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">..])</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Dafny first tries to prove that <code>b</code> is smaller than <code>a</code>. Can it? No—nothing is known about the relative sizes of <code>a</code> and <code>b</code>. Then, it tries to prove that <code>a[1..]</code> is smaller than <code>b</code>. Can it? Again, no, for the same reasons.</p><p>The problem is that we’re comparing the wrong things. The intuitive reason that this function terminates is because, at each recursive call, the <em>total</em> number of elements to process decreases. Can you use that information to provide an expression that strictly decreases at each step? (You may want to consult the <a class="extlink" href="http://dafny.org/dafny/OnlineTutorial/Sequences.html">documentation on sequences</a>.)</p><h2 id="Common Loop Invariants" class="section">Common Loop Invariants<a class="anchor" href="#Common Loop Invariants" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Most automatic verifiers need an awful lot of help seeing what a loop is supposed to be doing. Loop invariants are a specification of that behaviour.</p><p>Finding loop invariants is a difficult problem in general—there is no general method for finding them. But some invariants crop up over and over again, and are worth remembering.</p><p>One such invariant looks something like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`while i &lt; n
+  invariant 0 &lt;= i &lt;= n`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span>
+  <span class="k">invariant</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>This instructs Dafny to check that <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is between <span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> before the loop begins and stays there after each iteration. This is useful when you have a loop that uses <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> to count up from <span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span> to <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span>. If you don’t include this invariant, then Dafny won’t know what is true about <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> besides the negation of the loop condition, which is <span class="inline-math" hyphens="none" smart-typography="none">\(i \ge n\)</span>. Usually you will need to conclude that <span class="inline-math" hyphens="none" smart-typography="none">\(i = n\)</span> once the loop finishes. In order to do so, Dafny needs an upper bound on <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span>, specifically <span class="inline-math" hyphens="none" smart-typography="none">\(i \leq n\)</span>.</p><p>The lower bound on <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is generally not necessary, especially if <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is a <code>nat</code>, since Dafny must always check <span class="inline-math" hyphens="none" smart-typography="none">\(i \ge 0\)</span>. For this reason, counting down typically does not require an invariant like this.</p><h2 id="Ghost and Compiled Constructs" class="section">Ghost and Compiled Constructs<a class="anchor" href="#Ghost and Compiled Constructs" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>All of Dafny’s specification constructs are called <em>ghosts</em>. The reason for this is that specifications do not appear in the compiled code. The verifier takes into account ghost and non-ghost constructs in order to prove correctness, but your computer does not need to know anything about the specification for a program in order to execute it. They are <em>erased</em> at compile-time. We will therefore refer to non-ghost constructs as <em>compiled</em>.</p><p>There are two main types of ‘simple’ top-level declarations in Dafny: methods and functions. Methods contain imperative code, functions contain functional code. Methods and functions are both compiled by default (as of Dafny 4). Functions can be marked ghost, unsurprisingly, by declaring them as a <code>ghost function</code>. If a method is ghost, it’s called a <em>lemma</em>. Boolean-valued functions can instead be declared as <em>predicates</em>—these are also compiled by default, and must be marked ghost if you want them to be erased at compile time.</p><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Rewrite your <code>Max</code> and <code>Min</code> methods from the previous lab to use the following functions as part of their specification. (See the previous section on <a class="xref" hyphens="none" href="#Functions vs Methods">functions vs methods</a>.)</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function MaxDef(a: int, b: int): int
 {
     if a &gt; b then a else b
 }
@@ -195,27 +295,47 @@ predicate elem(a: array&lt;int&gt;, e: int)
 function MinDef(a: int, b: int): int
 {
     if a &lt; b then a else b
-}`)"><i class="fas fa-copy"></i></button><pre><code>function MaxDef(a: int, b: int): int
-{
-    if a &gt; b then a else b
-}
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">MaxDef</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="kt">int</span><span class="p">):</span> <span class="kt">int</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">then</span> <span class="n">a</span> <span class="k">else</span> <span class="n">b</span>
+<span class="p">}</span>
 
-function MinDef(a: int, b: int): int
-{
-    if a &lt; b then a else b
-}</code></pre></div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Define a recursive function which computes <span class="inline-math" hyphens="none" smart-typography="none">\(2^n\)</span> for any <span class="inline-math" hyphens="none" smart-typography="none">\(n \in \N\)</span>. Consider <span class="inline-math" hyphens="none" smart-typography="none">\(n = 0\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(n &gt; 0\)</span> as separate cases.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function pow2(n: nat): nat
-{
-    if n == 0 then
-        // todo
-    else
-        // todo
-}`)"><i class="fas fa-copy"></i></button><pre><code>function pow2(n: nat): nat
+<span class="kd">function</span> <span class="nf">MinDef</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="kt">int</span><span class="p">):</span> <span class="kt">int</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span> <span class="k">then</span> <span class="n">a</span> <span class="k">else</span> <span class="n">b</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Define a recursive function which computes <span class="inline-math" hyphens="none" smart-typography="none">\(2^n\)</span> for any <span class="inline-math" hyphens="none" smart-typography="none">\(n \in \N\)</span>. Consider <span class="inline-math" hyphens="none" smart-typography="none">\(n = 0\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(n &gt; 0\)</span> as separate cases.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function pow2(n: nat): nat
 {
     if n == 0 then
         // todo
     else
         // todo
-}</code></pre></div><p>Generalise this function to compute <span class="inline-math" hyphens="none" smart-typography="none">\(a^n\)</span> for any <span class="inline-math" hyphens="none" smart-typography="none">\(a \in \Z\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(n \in \N\)</span>.</p><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method which computes <span class="inline-math" hyphens="none" smart-typography="none">\(a^n\)</span> for any <span class="inline-math" hyphens="none" smart-typography="none">\(a \in \Z\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(n \in \N\)</span>. Use the function you defined in the previous question as part of its specification.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Pow(a: int, n: nat) returns (result: int)
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">pow2</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">):</span> <span class="kt">nat</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
+        <span class="c1">// todo</span>
+    <span class="k">else</span>
+        <span class="c1">// todo</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Generalise this function to compute <span class="inline-math" hyphens="none" smart-typography="none">\(a^n\)</span> for any <span class="inline-math" hyphens="none" smart-typography="none">\(a \in \Z\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(n \in \N\)</span>.</p><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method which computes <span class="inline-math" hyphens="none" smart-typography="none">\(a^n\)</span> for any <span class="inline-math" hyphens="none" smart-typography="none">\(a \in \Z\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(n \in \N\)</span>. Use the function you defined in the previous question as part of its specification.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Pow(a: int, n: nat) returns (result: int)
     // needs postcondition
 {
     // todo
@@ -228,20 +348,36 @@ function MinDef(a: int, b: int): int
         // todo
         i := i + 1;
     }
-}`)"><i class="fas fa-copy"></i></button><pre><code>method Pow(a: int, n: nat) returns (result: int)
-    // needs postcondition
-{
-    // todo
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Pow</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="c1">// needs postcondition</span>
+<span class="p">{</span>
+    <span class="c1">// todo</span>
 
-    var i := 0;
-    while i &lt; n
-        invariant 0 &lt;= i &lt;= n
-        // needs another invariant
-    {
-        // todo
-        i := i + 1;
-    }
-}</code></pre></div><h2 id="Question 4" class="section">Question 4<a class="anchor" href="#Question 4" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Euclid detailed an algorithm in his <em>Elements</em> for computing the greatest common divisor (GCD) of two natural numbers. It works by noticing that the GCD of <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(b\)</span>, where <span class="inline-math" hyphens="none" smart-typography="none">\(a &lt; b\)</span>, is the same as the GCD of <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(b - a\)</span>. We can therefore calculate the GCD of any two non-zero natural numbers by repeating this process until we reach the case <span class="inline-math" hyphens="none" smart-typography="none">\(\gcd(a, a) = a\)</span>. This can be specified in Dafny as follows.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function gcd(a: int, b: int): int
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span>
+        <span class="k">invariant</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span>
+        <span class="c1">// needs another invariant</span>
+    <span class="p">{</span>
+        <span class="c1">// todo</span>
+        <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><h2 id="Question 4" class="section">Question 4<a class="anchor" href="#Question 4" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Euclid detailed an algorithm in his <em>Elements</em> for computing the greatest common divisor (GCD) of two natural numbers. It works by noticing that the GCD of <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(b\)</span>, where <span class="inline-math" hyphens="none" smart-typography="none">\(a &lt; b\)</span>, is the same as the GCD of <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(b - a\)</span>. We can therefore calculate the GCD of any two non-zero natural numbers by repeating this process until we reach the case <span class="inline-math" hyphens="none" smart-typography="none">\(\gcd(a, a) = a\)</span>. This can be specified in Dafny as follows.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function gcd(a: int, b: int): int
     requires a &gt; 0 &amp;&amp; b &gt; 0
 {
     if a == b then
@@ -250,16 +386,28 @@ function MinDef(a: int, b: int): int
       gcd(b - a, a)
     else
       gcd(b, a - b)
-}`)"><i class="fas fa-copy"></i></button><pre><code>function gcd(a: int, b: int): int
-    requires a &gt; 0 &amp;&amp; b &gt; 0
-{
-    if a == b then
-      a
-    else if b &gt; a then
-      gcd(b - a, a)
-    else
-      gcd(b, a - b)
-}</code></pre></div><p>Unfortunately, Dafny cannot prove that this algorithm terminates. Provide a decreases clause for this function to prove that it terminates. (Hint: You are looking for an expression involving <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(b\)</span> which strictly decreases each time the function is called recursively. You might want to read the section on <a class="xref" hyphens="none" href="#Termination">termination</a> if you haven’t already.)</p><h2 id="Question 5" class="section">Question 5<a class="anchor" href="#Question 5" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The code below specifies an incomplete predicate and method for binary search through an array. You may assume that the code is correct and does not need changing. Complete the specification by fixing the commented-out lines. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Note that this method uses the standard convention of returning <span class="inline-math" hyphens="none" smart-typography="none">\(-1\)</span> if the value could not be found.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`predicate sorted(a: array&lt;int&gt;)
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="kt">int</span><span class="p">):</span> <span class="kt">int</span>
+    <span class="k">requires</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="k">then</span>
+      <span class="n">a</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span> <span class="k">then</span>
+      <span class="n">gcd</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Unfortunately, Dafny cannot prove that this algorithm terminates. Provide a decreases clause for this function to prove that it terminates. (Hint: You are looking for an expression involving <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(b\)</span> which strictly decreases each time the function is called recursively. You might want to read the section on <a class="xref" hyphens="none" href="#Termination">termination</a> if you haven’t already.)</p><h2 id="Question 5" class="section">Question 5<a class="anchor" href="#Question 5" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The code below specifies an incomplete predicate and method for binary search through an array. You may assume that the code is correct and does not need changing. Complete the specification by fixing the commented-out lines. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Note that this method uses the standard convention of returning <span class="inline-math" hyphens="none" smart-typography="none">\(-1\)</span> if the value could not be found.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`predicate sorted(a: array&lt;int&gt;)
     reads a
 {
     // forall i, j | 0 &lt;= i &lt; j &lt; a.Length :: ...
@@ -289,37 +437,73 @@ method BinarySearch(a: array&lt;int&gt;, value: int) returns (index: int)
         }
     }
     index := -1;
-}`)"><i class="fas fa-copy"></i></button><pre><code>predicate sorted(a: array&lt;int&gt;)
-    reads a
-{
-    // forall i, j | 0 &lt;= i &lt; j &lt; a.Length :: ...
-}
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">predicate</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span>
+    <span class="k">reads</span> <span class="n">a</span>
+<span class="p">{</span>
+    <span class="c1">// forall i, j | 0 &lt;= i &lt; j &lt; a.Length :: ...</span>
+<span class="p">}</span>
 
-method BinarySearch(a: array&lt;int&gt;, value: int) returns (index: int)
-    requires sorted(a)
-    ensures index == -1 || 0 &lt;= index &lt; a.Length
-    // ensures index == -1 ==&gt; ...
-    // ensures index &gt;= 0  ==&gt; ...
-{
-    var low := 0;
-    var high := a.Length;
+<span class="kd">method</span> <span class="nf">BinarySearch</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="k">requires</span> <span class="n">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span>
+    <span class="c1">// ensures index == -1 ==&gt; ...</span>
+    <span class="c1">// ensures index &gt;= 0  ==&gt; ...</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="n">low</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">high</span> <span class="o">:=</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
 
-    while low &lt; high
-        invariant 0 &lt;= low &lt;= high &lt;= a.Length
-        invariant value !in a[..low] &amp;&amp; value !in a[high..]
-    {
-        var mid := (high + low) / 2;
+    <span class="k">while</span> <span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span>
+        <span class="k">invariant</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span>
+        <span class="k">invariant</span> <span class="n">value</span> <span class="err">!</span><span class="o">in</span> <span class="n">a</span><span class="p">[..</span><span class="n">low</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="err">!</span><span class="o">in</span> <span class="n">a</span><span class="p">[</span><span class="n">high</span><span class="p">..]</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="n">mid</span> <span class="o">:=</span> <span class="p">(</span><span class="n">high</span> <span class="o">+</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
 
-        if a[mid] &lt; value {
-            low := mid + 1;
-        } else if a[mid] &gt; value {
-            high := mid;
-        } else {
-            return mid;
-        }
-    }
-    index := -1;
-}</code></pre></div><p>Note that the statement</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`forall x, y | P :: Q`)"><i class="fas fa-copy"></i></button><pre><code>forall x, y | P :: Q</code></pre></div><p>means ‘for all <span class="inline-math" hyphens="none" smart-typography="none">\(x\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(y\)</span> such that <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span>, we have <span class="inline-math" hyphens="none" smart-typography="none">\(Q\)</span>’, or <span class="inline-math" hyphens="none" smart-typography="none">\(\forall x, y.\ P \to Q\)</span> in mathematical syntax.</p></div>
+        <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">value</span> <span class="p">{</span>
+            <span class="n">low</span> <span class="o">:=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">value</span> <span class="p">{</span>
+            <span class="n">high</span> <span class="o">:=</span> <span class="n">mid</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">index</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Note that the statement</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`forall x, y | P :: Q`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">forall</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">|</span> <span class="n">P</span> <span class="p">::</span> <span class="n">Q</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>means ‘for all <span class="inline-math" hyphens="none" smart-typography="none">\(x\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(y\)</span> such that <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span>, we have <span class="inline-math" hyphens="none" smart-typography="none">\(Q\)</span>’, or <span class="inline-math" hyphens="none" smart-typography="none">\(\forall x, y.\ P \to Q\)</span> in mathematical syntax.</p></div>
 
 
 

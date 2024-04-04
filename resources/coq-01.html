@@ -58,12 +58,20 @@ Context (A B C D : Prop).
 
 (* your lab work goes here *)
 
-End CoqLab01.`)"><i class="fas fa-copy"></i></button><pre><code>Section CoqLab01.
-Context (A B C D : Prop).
+End CoqLab01.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Section</span> <span class="n">CoqLab01</span><span class="o">.</span>
+<span class="kn">Context</span> <span class="o">(</span><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">).</span>
 
-(* your lab work goes here *)
+<span class="c">(* your lab work goes here *)</span>
 
-End CoqLab01.</code></pre></div><p>You can skip ahead to the <a class="xref" hyphens="none" href="/resources/coq-01.html#Questions">lab questions</a> if you’re confident enough, but I highly recommend reading through the next two sections to get an overview of the tactics required for the lab, and a <a class="xref" hyphens="none" href="/resources/coq-01.html#Worked Example">worked example</a>.</p><h2 id="Basic Tactics" class="section">Basic Tactics<a class="anchor" href="#Basic Tactics" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Tactics are commands you can run that transform the proof state in some way. You will need three tactics for this lab: <code>intros</code>, <code>apply</code>, and <code>exact</code>.</p><ul class="loose-list"><li><code>intros</code> applies the <em>introduction rule</em> for an implication. That is, it transforms the proof state from <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma \vdash A \to B\)</span> into <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma, A \vdash B\)</span>.</li><li><code>apply</code> applies the <em>elimination rule</em> for an implication, but ‘backwards’. That is, it transforms the proof state from <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma, A \to B \vdash B\)</span> into <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma, A \to B \vdash A\)</span>.</li><li><code>exact</code> closes the proof when the proof state looks like <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma, A \vdash A\)</span>.</li></ul><p>For a simple description of these tactics (and many others) I recommend you take a look at this <a class="extlink" href="https://pjreddie.com/coq-tactics">simplified tactic index</a>. It also has some examples of the tactics in use.</p><p>If you’re feeling particularly adventurous, I encourage you to brave the official <a class="extlink" href="https://coq.inria.fr/refman/proof-engine/tactics.html">Coq tactic index</a>. For example, you can read some very detailed info about the <code>apply</code> tactic <a class="extlink" href="https://coq.inria.fr/refman/proof-engine/tactics.html#coq:tacn.apply">here</a>.</p><h2 id="Worked Example" class="section">Worked Example<a class="anchor" href="#Worked Example" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Let’s prove that </p><div class="display-math" hyphens="none" paragraphs="none" smart-typography="none">\[\begin{aligned}
+<span class="kn">End</span> <span class="n">CoqLab01</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>You can skip ahead to the <a class="xref" hyphens="none" href="/resources/coq-01.html#Questions">lab questions</a> if you’re confident enough, but I highly recommend reading through the next two sections to get an overview of the tactics required for the lab, and a <a class="xref" hyphens="none" href="/resources/coq-01.html#Worked Example">worked example</a>.</p><h2 id="Basic Tactics" class="section">Basic Tactics<a class="anchor" href="#Basic Tactics" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Tactics are commands you can run that transform the proof state in some way. You will need three tactics for this lab: <code>intros</code>, <code>apply</code>, and <code>exact</code>.</p><ul class="loose-list"><li><code>intros</code> applies the <em>introduction rule</em> for an implication. That is, it transforms the proof state from <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma \vdash A \to B\)</span> into <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma, A \vdash B\)</span>.</li><li><code>apply</code> applies the <em>elimination rule</em> for an implication, but ‘backwards’. That is, it transforms the proof state from <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma, A \to B \vdash B\)</span> into <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma, A \to B \vdash A\)</span>.</li><li><code>exact</code> closes the proof when the proof state looks like <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma, A \vdash A\)</span>.</li></ul><p>For a simple description of these tactics (and many others) I recommend you take a look at this <a class="extlink" href="https://pjreddie.com/coq-tactics">simplified tactic index</a>. It also has some examples of the tactics in use.</p><p>If you’re feeling particularly adventurous, I encourage you to brave the official <a class="extlink" href="https://coq.inria.fr/refman/proof-engine/tactics.html">Coq tactic index</a>. For example, you can read some very detailed info about the <code>apply</code> tactic <a class="extlink" href="https://coq.inria.fr/refman/proof-engine/tactics.html#coq:tacn.apply">here</a>.</p><h2 id="Worked Example" class="section">Worked Example<a class="anchor" href="#Worked Example" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Let’s prove that </p><div class="display-math" hyphens="none" paragraphs="none" smart-typography="none">\[\begin{aligned}
   A, \; A \to B, \; B \to C \; \vdash \; C \tag{∗}
 \end{aligned}\]</div><p> using Coq.</p><p>First, though, we should remind ourselves what this means. The mathematical expression <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma \vdash \phi\)</span> means that, from the list of assumptions <span class="inline-math" hyphens="none" smart-typography="none">\(\Gamma\)</span>, we can prove the proposition <span class="inline-math" hyphens="none" smart-typography="none">\(\phi\)</span>. Therefore, <span class="inline-math" hyphens="none" smart-typography="none">\((∗)\)</span> means this: given that we know</p><ol class="compact-list"><li><span class="inline-math" hyphens="none" smart-typography="none">\(A\)</span></li><li><span class="inline-math" hyphens="none" smart-typography="none">\(A \to B\)</span></li><li><span class="inline-math" hyphens="none" smart-typography="none">\(B \to C\)</span></li></ol><p>we should be able to prove <span class="inline-math" hyphens="none" smart-typography="none">\(C\)</span>.</p><p>In Coq, we can represent the situation like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">Example.v<button class="download-button" title="Download snippet as Example.v" onclick="download(this, `Example.v`, String.raw`Section WorkedExample.
 
@@ -87,114 +95,218 @@ Hypotheses
 
 Goal C.
 
-End WorkedExample.`)"><i class="fas fa-copy"></i></button><pre><code>Section WorkedExample.
+End WorkedExample.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Section</span> <span class="n">WorkedExample</span><span class="o">.</span>
 
-Context (A B C : Prop).
+<span class="kn">Context</span> <span class="o">(</span><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">).</span>
 
-Hypotheses
-  (H1 : A)
-  (H2 : A -&gt; B)
-  (H3 : B -&gt; C).
+<span class="kn">Hypotheses</span>
+  <span class="o">(</span><span class="n">H1</span> <span class="o">:</span> <span class="n">A</span><span class="o">)</span>
+  <span class="o">(</span><span class="n">H2</span> <span class="o">:</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span>
+  <span class="o">(</span><span class="n">H3</span> <span class="o">:</span> <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">).</span>
 
-Goal C.
+<span class="kn">Goal</span> <span class="n">C</span><span class="o">.</span>
 
-End WorkedExample.</code></pre></div><p>Step the proof state to the goal (<kbd class="generic"><kbd>Ctrl</kbd>+<kbd>↓</kbd></kbd> in CoqIDE). You should see this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
+<span class="kn">End</span> <span class="n">WorkedExample</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Step the proof state to the goal (<kbd class="generic"><kbd>Ctrl</kbd>+<kbd>↓</kbd></kbd> in CoqIDE). You should see this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
 H1 :  A
 H2 :  A -&gt; B
 H3 :  B -&gt; C
 —————————————————————————————
 (1/1)
-C`)"><i class="fas fa-copy"></i></button><pre><code>A, B, C : Prop
+C`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span>
+<span class="n">H1</span> <span class="o">:</span>  <span class="n">A</span>
+<span class="n">H2</span> <span class="o">:</span>  <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span>
+<span class="n">H3</span> <span class="o">:</span>  <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span>
+<span class="bp">—————————————————————————————</span>
+<span class="o">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">C</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Our goal is <code>C</code>; that is what we want to prove. What we know is listed above the line. In order: we know that <code>A</code>, <code>B</code>, and <code>C</code> are propositions. We know that <code>A</code> is true. We know that <code>A -&gt; B</code> is true. We know that <code>B -&gt; C</code> is true. Each of these hypotheses has a label that we’ll use to refer to that proposition in the proof.</p><p>Our first attempt at a proof will use <em>backward reasoning</em>. Forward reasoning starts with hypotheses and tries to work towards the goal. Backward reasoning, by contrast, starts from the <em>goal</em> and tries to work backward to the hypotheses. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Why backward reasoning? There is no complex reason for it—it’s just easier to prove things in proof assistants like Coq working backward.</span></span></p><p>Here is the basic idea of backward reasoning. Notice that the goal is <code>C</code> and that our hypothesis <code>H3 : B -&gt; C</code> has the conclusion <code>C</code>. If we were somehow able to prove <code>B</code>, we could then use the fact that we know <code>B -&gt; C</code> to get <code>C</code>—which is our goal. Therefore, it suffices for us to prove <code>B</code>. (And we hope of course that we <em>can</em> prove <code>B</code>.)</p><p>This little bit of reasoning is encoded by the <code>apply</code> tactic. When we issue the command <code>apply H3</code>, what we’re instructing Coq to do is this: Check if the conclusion of <code>H3</code> matches the goal. If it does, replace the goal with <code>H3</code>’s premises. Let’s do that now.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal C.
+  apply H3.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Goal</span> <span class="n">C</span><span class="o">.</span>
+  <span class="n">apply</span> <span class="n">H3</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Step the proof forward (<kbd class="generic"><kbd>Ctrl</kbd>+<kbd>↓</kbd></kbd>). The proof state should look like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
 H1 :  A
 H2 :  A -&gt; B
 H3 :  B -&gt; C
 —————————————————————————————
 (1/1)
-C</code></pre></div><p>Our goal is <code>C</code>; that is what we want to prove. What we know is listed above the line. In order: we know that <code>A</code>, <code>B</code>, and <code>C</code> are propositions. We know that <code>A</code> is true. We know that <code>A -&gt; B</code> is true. We know that <code>B -&gt; C</code> is true. Each of these hypotheses has a label that we’ll use to refer to that proposition in the proof.</p><p>Our first attempt at a proof will use <em>backward reasoning</em>. Forward reasoning starts with hypotheses and tries to work towards the goal. Backward reasoning, by contrast, starts from the <em>goal</em> and tries to work backward to the hypotheses. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Why backward reasoning? There is no complex reason for it—it’s just easier to prove things in proof assistants like Coq working backward.</span></span></p><p>Here is the basic idea of backward reasoning. Notice that the goal is <code>C</code> and that our hypothesis <code>H3 : B -&gt; C</code> has the conclusion <code>C</code>. If we were somehow able to prove <code>B</code>, we could then use the fact that we know <code>B -&gt; C</code> to get <code>C</code>—which is our goal. Therefore, it suffices for us to prove <code>B</code>. (And we hope of course that we <em>can</em> prove <code>B</code>.)</p><p>This little bit of reasoning is encoded by the <code>apply</code> tactic. When we issue the command <code>apply H3</code>, what we’re instructing Coq to do is this: Check if the conclusion of <code>H3</code> matches the goal. If it does, replace the goal with <code>H3</code>’s premises. Let’s do that now.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal C.
-  apply H3.`)"><i class="fas fa-copy"></i></button><pre><code>Goal C.
-  apply H3.</code></pre></div><p>Step the proof forward (<kbd class="generic"><kbd>Ctrl</kbd>+<kbd>↓</kbd></kbd>). The proof state should look like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
-H1 :  A
-H2 :  A -&gt; B
-H3 :  B -&gt; C
-—————————————————————————————
-(1/1)
-B`)"><i class="fas fa-copy"></i></button><pre><code>A, B, C : Prop
-H1 :  A
-H2 :  A -&gt; B
-H3 :  B -&gt; C
-—————————————————————————————
-(1/1)
-B</code></pre></div><p>It’s exactly as before, but the goal is now <code>B</code>. Progress!</p><p>Notice that we can do exactly the same thing again, but this time with the hypothesis <code>H2</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal C.
+B`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span>
+<span class="n">H1</span> <span class="o">:</span>  <span class="n">A</span>
+<span class="n">H2</span> <span class="o">:</span>  <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span>
+<span class="n">H3</span> <span class="o">:</span>  <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span>
+<span class="bp">—————————————————————————————</span>
+<span class="o">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">B</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>It’s exactly as before, but the goal is now <code>B</code>. Progress!</p><p>Notice that we can do exactly the same thing again, but this time with the hypothesis <code>H2</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal C.
   apply H3.
-  apply H2.`)"><i class="fas fa-copy"></i></button><pre><code>Goal C.
-  apply H3.
-  apply H2.</code></pre></div><p>After stepping forward, the proof state should now look like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
+  apply H2.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Goal</span> <span class="n">C</span><span class="o">.</span>
+  <span class="n">apply</span> <span class="n">H3</span><span class="o">.</span>
+  <span class="n">apply</span> <span class="n">H2</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>After stepping forward, the proof state should now look like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
 H1 :  A
 H2 :  A -&gt; B
 H3 :  B -&gt; C
 —————————————————————————————
 (1/1)
-A`)"><i class="fas fa-copy"></i></button><pre><code>A, B, C : Prop
-H1 :  A
-H2 :  A -&gt; B
-H3 :  B -&gt; C
-—————————————————————————————
-(1/1)
-A</code></pre></div><p>Now the goal is <code>A</code>. But we already know that <code>A</code> is true, since it is one of our hypotheses. Therefore, the proof is complete—we just need to instruct Coq to match the goal with the right hypothesis. For that, we can use the tactic <code>exact</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal C.
+A`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span>
+<span class="n">H1</span> <span class="o">:</span>  <span class="n">A</span>
+<span class="n">H2</span> <span class="o">:</span>  <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span>
+<span class="n">H3</span> <span class="o">:</span>  <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span>
+<span class="bp">—————————————————————————————</span>
+<span class="o">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">A</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Now the goal is <code>A</code>. But we already know that <code>A</code> is true, since it is one of our hypotheses. Therefore, the proof is complete—we just need to instruct Coq to match the goal with the right hypothesis. For that, we can use the tactic <code>exact</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal C.
   apply H3.
   apply H2.
-  exact H1.`)"><i class="fas fa-copy"></i></button><pre><code>Goal C.
-  apply H3.
-  apply H2.
-  exact H1.</code></pre></div><p>The proof should be complete, and the proof state should look like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`No more subgoals.`)"><i class="fas fa-copy"></i></button><pre><code>No more subgoals.</code></pre></div><p>We can close the proof with the vernacular command <code>Qed</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal C.
+  exact H1.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Goal</span> <span class="n">C</span><span class="o">.</span>
+  <span class="n">apply</span> <span class="n">H3</span><span class="o">.</span>
+  <span class="n">apply</span> <span class="n">H2</span><span class="o">.</span>
+  <span class="n">exact</span> <span class="n">H1</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>The proof should be complete, and the proof state should look like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`No more subgoals.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">No</span> <span class="n">more</span> <span class="n">subgoals</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>We can close the proof with the vernacular command <code>Qed</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal C.
   apply H3.
   apply H2.
   exact H1.
-Qed.`)"><i class="fas fa-copy"></i></button><pre><code>Goal C.
-  apply H3.
-  apply H2.
-  exact H1.
-Qed.</code></pre></div><p>Now the proof is fully complete and saved.</p><p>This way of expressing the term to be proved can be a little verbose. We could, alternatively, have set the proof up like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Context (A B C : Prop).
+Qed.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Goal</span> <span class="n">C</span><span class="o">.</span>
+  <span class="n">apply</span> <span class="n">H3</span><span class="o">.</span>
+  <span class="n">apply</span> <span class="n">H2</span><span class="o">.</span>
+  <span class="n">exact</span> <span class="n">H1</span><span class="o">.</span>
+<span class="kn">Qed</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Now the proof is fully complete and saved.</p><p>This way of expressing the term to be proved can be a little verbose. We could, alternatively, have set the proof up like this.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Context (A B C : Prop).
 
 (*   ↓H1     ↓H2         ↓H3      *)
-Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.`)"><i class="fas fa-copy"></i></button><pre><code>Context (A B C : Prop).
+Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Context</span> <span class="o">(</span><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">).</span>
 
-(*   ↓H1     ↓H2         ↓H3      *)
-Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.</code></pre></div><p>This is equivalent to what we had before, but the proof begins in a different state.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
+<span class="c">(*   ↓H1     ↓H2         ↓H3      *)</span>
+<span class="kn">Goal</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>This is equivalent to what we had before, but the proof begins in a different state.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
 —————————————————————————————
 (1/1)
-A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C`)"><i class="fas fa-copy"></i></button><pre><code>A, B, C : Prop
-—————————————————————————————
-(1/1)
-A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C</code></pre></div><p>Recall that if we want to prove a proposition of the form <span class="inline-math" hyphens="none" smart-typography="none">\(P \to Q\)</span>, we take <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span> as a hypothesis, then try to prove <span class="inline-math" hyphens="none" smart-typography="none">\(Q\)</span>. This is the introduction rule for implication and is encoded in Coq by the tactic <code>intros</code>.</p><p>The tactic <code>intros</code> can be used in one of two ways. First is on its own, with no arguments. When used like this, it will apply the introduction rule for implication as many times as it can and automatically give unique names to all the generated hypotheses. The second way is with arguments. When used like this, it will apply the introduction rule <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> times (where <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> is the number of provided arguments) and name the hypotheses according to the parameter names. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">There is another tactic, <code>intro</code>, which applies the introduction rule for implication <em>exactly once</em>, and will try to reduce values to weak-head normal form until <code>intro</code> can be directly applied.</span></span></p><p>For example, we can do this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.
-  intros.`)"><i class="fas fa-copy"></i></button><pre><code>Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.
-  intros.</code></pre></div><p>… to get the proof state:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
+A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span>
+<span class="bp">—————————————————————————————</span>
+<span class="o">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">C</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Recall that if we want to prove a proposition of the form <span class="inline-math" hyphens="none" smart-typography="none">\(P \to Q\)</span>, we take <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span> as a hypothesis, then try to prove <span class="inline-math" hyphens="none" smart-typography="none">\(Q\)</span>. This is the introduction rule for implication and is encoded in Coq by the tactic <code>intros</code>.</p><p>The tactic <code>intros</code> can be used in one of two ways. First is on its own, with no arguments. When used like this, it will apply the introduction rule for implication as many times as it can and automatically give unique names to all the generated hypotheses. The second way is with arguments. When used like this, it will apply the introduction rule <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> times (where <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> is the number of provided arguments) and name the hypotheses according to the parameter names. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">There is another tactic, <code>intro</code>, which applies the introduction rule for implication <em>exactly once</em>, and will try to reduce values to weak-head normal form until <code>intro</code> can be directly applied.</span></span></p><p>For example, we can do this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.
+  intros.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Goal</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">.</span>
+  <span class="n">intros</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>… to get the proof state:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
 H0 :  A
 H1 :  A -&gt; B
 H2 :  B -&gt; C
 —————————————————————————————
 (1/1)
-C`)"><i class="fas fa-copy"></i></button><pre><code>A, B, C : Prop
-H0 :  A
-H1 :  A -&gt; B
-H2 :  B -&gt; C
-—————————————————————————————
-(1/1)
-C</code></pre></div><p>(Note how Coq automatically names the hypotheses.) Or, we can do this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.
-  intros a a_impl_b b_impl_c.`)"><i class="fas fa-copy"></i></button><pre><code>Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.
-  intros a a_impl_b b_impl_c.</code></pre></div><p>… and get the proof state:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
+C`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span>
+<span class="n">H0</span> <span class="o">:</span>  <span class="n">A</span>
+<span class="n">H1</span> <span class="o">:</span>  <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span>
+<span class="n">H2</span> <span class="o">:</span>  <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span>
+<span class="bp">—————————————————————————————</span>
+<span class="o">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">C</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>(Note how Coq automatically names the hypotheses.) Or, we can do this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`Goal A -&gt; (A -&gt; B) -&gt; (B -&gt; C) -&gt; C.
+  intros a a_impl_b b_impl_c.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Goal</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">.</span>
+  <span class="n">intros</span> <span class="n">a</span> <span class="n">a_impl_b</span> <span class="n">b_impl_c</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>… and get the proof state:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`A, B, C : Prop
 a :  A
 a_impl_b :  A -&gt; B
 b_impl_c :  B -&gt; C
 —————————————————————————————
 (1/1)
-C`)"><i class="fas fa-copy"></i></button><pre><code>A, B, C : Prop
-a :  A
-a_impl_b :  A -&gt; B
-b_impl_c :  B -&gt; C
-—————————————————————————————
-(1/1)
-C</code></pre></div><p>It’s up to you which method you prefer. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">But note that <code>intros</code> will never reduce head-constants if invoked with no arguments (unlike <code>intro</code>).</span></span></p><hr/><h2 id="Questions" class="section">Questions<a class="anchor" href="#Questions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Prove the following lemmas in Coq. When you have completed a proof, replace <code>Admitted</code> with <code>Qed</code>. You can download the file by clicking the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the filename.</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">CoqLab01.v<button class="download-button" title="Download snippet as CoqLab01.v" onclick="download(this, `CoqLab01.v`, String.raw`Section CoqLab01.
+C`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span>
+<span class="n">a</span> <span class="o">:</span>  <span class="n">A</span>
+<span class="n">a_impl_b</span> <span class="o">:</span>  <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span>
+<span class="n">b_impl_c</span> <span class="o">:</span>  <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span>
+<span class="bp">—————————————————————————————</span>
+<span class="o">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">C</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>It’s up to you which method you prefer. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">But note that <code>intros</code> will never reduce head-constants if invoked with no arguments (unlike <code>intro</code>).</span></span></p><hr/><h2 id="Questions" class="section">Questions<a class="anchor" href="#Questions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Prove the following lemmas in Coq. When you have completed a proof, replace <code>Admitted</code> with <code>Qed</code>. You can download the file by clicking the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the filename.</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">CoqLab01.v<button class="download-button" title="Download snippet as CoqLab01.v" onclick="download(this, `CoqLab01.v`, String.raw`Section CoqLab01.
 Context (A B C D : Prop).
 
 (* Implication is transitive. *)
@@ -312,66 +424,128 @@ Proof.
   (* todo *)
 Admitted.
 
-End CoqLab01.`)"><i class="fas fa-copy"></i></button><pre><code>Section CoqLab01.
-Context (A B C D : Prop).
+End CoqLab01.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Section</span> <span class="n">CoqLab01</span><span class="o">.</span>
+<span class="kn">Context</span> <span class="o">(</span><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">D</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">).</span>
 
-(* Implication is transitive. *)
-Lemma q1 : (A -&gt; B) -&gt; (B -&gt; C) -&gt; (A -&gt; C).
-Proof.
-  (* todo *)
-Admitted.
+<span class="c">(* Implication is transitive. *)</span>
+<span class="kn">Lemma</span> <span class="n">q1</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(* Anything implies itself. *)
-Lemma q2 : A -&gt; A.
-Proof.
-  (* todo *)
-Admitted.
+<span class="c">(* Anything implies itself. *)</span>
+<span class="kn">Lemma</span> <span class="n">q2</span> <span class="o">:</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">.</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(* Extra hypotheses can be introduced without affecting
- * provability. *)
-Lemma q3 : A -&gt; (B -&gt; A).
-Proof.
-  (* todo *)
-Admitted.
+<span class="c">(* Extra hypotheses can be introduced without affecting</span>
+<span class="c"> * provability. *)</span>
+<span class="kn">Lemma</span> <span class="n">q3</span> <span class="o">:</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(* The order of the hypotheses is irrelevant. *)
-Lemma q4 : (A -&gt; B -&gt; C) -&gt; B -&gt; A -&gt; C.
-Proof.
-  (* todo *)
-Admitted.
+<span class="c">(* The order of the hypotheses is irrelevant. *)</span>
+<span class="kn">Lemma</span> <span class="n">q4</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">.</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(* Duplicate hypotheses can be merged. *)
-Lemma q6 : (A -&gt; A -&gt; B) -&gt; A -&gt; B.
-Proof.
-  (* todo *)
-Admitted.
+<span class="c">(* Duplicate hypotheses can be merged. *)</span>
+<span class="kn">Lemma</span> <span class="n">q6</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(* Duplicate hypotheses can be introduced. *)
-Lemma q7 : (A -&gt; B) -&gt; A -&gt; A -&gt; B.
-Proof.
-  (* todo *)
-Admitted.
+<span class="c">(* Duplicate hypotheses can be introduced. *)</span>
+<span class="kn">Lemma</span> <span class="n">q7</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(* Diamond lemma:
- *        A
- *      ↙   ↘           A
- *     B     C    ~&gt;    ↓
- *      ↘   ↙           D
- *        D
- *)
-Lemma q8 : (A -&gt; B) -&gt; (A -&gt; C) -&gt; (B -&gt; C -&gt; D) -&gt; A -&gt; D.
-Proof.
-  (* todo *)
-Admitted.
+<span class="c">(* Diamond lemma:</span>
+<span class="c"> *        A</span>
+<span class="c"> *      ↙   ↘           A</span>
+<span class="c"> *     B     C    ~&gt;    ↓</span>
+<span class="c"> *      ↘   ↙           D</span>
+<span class="c"> *        D</span>
+<span class="c"> *)</span>
+<span class="kn">Lemma</span> <span class="n">q8</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="o">.</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(* Weak version of Peirce’s law. The strong version implies
- * LEM and therefore can’t be proved in constructive logic. *)
-Lemma q9 : ((((A -&gt; B) -&gt; A) -&gt; A) -&gt; B) -&gt; B.
-Proof.
-  (* todo *)
-Admitted.
+<span class="c">(* Weak version of Peirce’s law. The strong version implies</span>
+<span class="c"> * LEM and therefore can’t be proved in constructive logic. *)</span>
+<span class="kn">Lemma</span> <span class="n">q9</span> <span class="o">:</span> <span class="o">((((</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-End CoqLab01.</code></pre></div></div>
+<span class="kn">End</span> <span class="n">CoqLab01</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div></div>
 
 
 
