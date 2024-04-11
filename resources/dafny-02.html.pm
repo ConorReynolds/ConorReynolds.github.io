@@ -148,9 +148,9 @@ This function will interleave two sequences together. Here is an example of how 
 
 Dafny cannot automatically prove termination for this function. Why?
 
-By default, Dafny will guess that one of the parameters to the function decreases---so, in this case, it tries ◊code{decreases a, b}. This means that it will first try to prove that the first parameter decreases, and if it can't, it will try to prove that the second parameter decreases.
+By default, Dafny will guess that one of the function's parameters decreases---in this case, it tries ◊code{decreases a, b}. This means that it will first try to prove that the first parameter decreases, and if it can't, it will try to prove that the second parameter decreases.
 
-Be careful here: when deciding if, for example, ◊code{a} is decreasing, we're not comparing ◊code{a} and ◊code{a[1..]}, we're comparing the original function call's first parameter with the first parameter of the recursive call.
+Be careful here: when deciding if, for example, ◊code{a} is decreasing, we're not comparing ◊code{a} and ◊code{a[1..]}, we're comparing the original function call's first argument with the first argument passed to the recursive call.
 
 Let's see what this means in practice. If the function is called like:
 
