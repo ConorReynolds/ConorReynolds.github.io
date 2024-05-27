@@ -20,6 +20,7 @@ Similar to the ◊xref["resources/haskell-01.html#Submission Instructions"]{prev
   -----------------------------------------------------------
   -- QUESTION 2
   
+
   -----------------------------------------------------------
   -- QUESTION 3
 
