@@ -86,10 +86,10 @@ Let's write out the computation table for the loop computing ◊code{Factorial(5
 ◊quick-table{
   ◊${\boldsymbol{i}} | ◊${\boldsymbol{r}}
   ◊${1} | ◊${1}
-  ◊${2} | ◊${1 \times 2 = 2}
-  ◊${3} | ◊${2 \times 3 = 6}
-  ◊${4} | ◊${6 \times 4 = 24}
-  ◊${5} | ◊${24 \times 5 = 120}
+  ◊${2} | ◊${2 \textcolor{gray}{= 1 \times 2}}
+  ◊${3} | ◊${6 \textcolor{gray}{= 2 \times 3}}
+  ◊${4} | ◊${24 \textcolor{gray}{= 6 \times 4}}
+  ◊${5} | ◊${120 \textcolor{gray}{= 24 \times 5}}
 }
 
 Notice that ◊${r = i!} at each step of the loop. This is a promising candidate for a loop invariant. Let's add it.
