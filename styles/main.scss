@@ -116,6 +116,8 @@ ul {
 ol {
     margin-left: 0;
     padding-left: 1.2em;
+    // Safari ignores its own user-agent style values, so re-add them.
+    padding-inline-start: 40px;
 }
 
 @media all and (max-width: 520px) {
