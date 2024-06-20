@@ -89,7 +89,7 @@
              ; year ". "
              "In " `(i ,proceedings) ", "
              "(" location "), "
-             publisher ", "
+             publisher (if (non-empty-string? pages) ", " "")
              pages ".")))
 
 (define (bib-items)
