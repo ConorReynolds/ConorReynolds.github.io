@@ -54,18 +54,30 @@
 </div>
 
 <div id="doc" role="main"><p>You can skip to the <a class="xref" hyphens="none" href="#Question 1">lab questions</a> if you’re in a hurry, but as always I recommend reading the following sections as they give good context for the lab. For this lab you should also keep in mind the documentation for <a class="extlink" href="http://dafny.org/dafny/OnlineTutorial/Sequences">sequences</a>, <a class="extlink" href="http://dafny.org/dafny/OnlineTutorial/ValueTypes#multisets">multisets</a>, and <a class="extlink" href="http://dafny.org/dafny/OnlineTutorial/ValueTypes">value types</a> in general.</p><div class="callout" data-callout="note"><div class="callout-title">Note</div><div class="callout-body"><p>Code snippets can be copied by hovering over the snippet and clicking the <i class="fa fa-copy" style="margin: 0 0.1em 0 0.1em; color: var(--muted-color);"></i> button which appears on the top right.</p><p>Some snippets are declared as files—those can be downloaded directly by clicking the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the filename.</p></div></div><h2 id="Loop Specifications" class="section">Loop Specifications<a class="anchor" href="#Loop Specifications" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>To fully specify a loop, you must provide two things: a termination metric and a loop invariant. Dafny can usually deduce the termination metric automatically, but it cannot guess the loop invariant, for the same reason that it cannot guess arbitrary postconditions for methods: It’s up to you to decide what your code should be doing.</p><p>Consider the following invariant specification.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`while x &lt; 10
-    invariant x % 2 == 0`)"><i class="fas fa-copy"></i></button><pre><code>while x &lt; 10
-    invariant x % 2 == 0</code></pre></div><p>By declaring this, you are instructing Dafny to check two things.</p><ol class="loose-list"><li>Is <code>x % 2 == 0</code> true before the loop?</li><li>Given that <code>x % 2 == 0</code> is true before an iteration of the loop, does it remain true after that iteration?</li></ol><p>These correspond to the two cases that you may be familiar with in a proof by induction: the base case and the inductive case.</p><p>Let’s see an example.</p><h2 id="Iterative Factorial" class="section">Iterative Factorial<a class="anchor" href="#Iterative Factorial" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Consider the following definition.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function Factorial(n: nat): nat
+    invariant x % 2 == 0`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">while</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span>
+    <span class="k">invariant</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>By declaring this, you are instructing Dafny to check two things.</p><ol class="loose-list"><li>Is <code>x % 2 == 0</code> true before the loop?</li><li>Given that <code>x % 2 == 0</code> is true before an iteration of the loop, does it remain true after that iteration?</li></ol><p>These correspond to the two cases that you may be familiar with in a proof by induction: the base case and the inductive case.</p><p>Let’s see an example.</p><h2 id="Iterative Factorial" class="section">Iterative Factorial<a class="anchor" href="#Iterative Factorial" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Consider the following definition.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function Factorial(n: nat): nat
 {
     if n == 0
       then 1
       else n * Factorial(n - 1)
-}`)"><i class="fas fa-copy"></i></button><pre><code>function Factorial(n: nat): nat
-{
-    if n == 0
-      then 1
-      else n * Factorial(n - 1)
-}</code></pre></div><p>Let’s write a method that computes factorial iteratively and prove that it agrees with the mathematical definition just given. (You should all be well able to write the code for such a method.) Here’s a first pass:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">Factorial</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">):</span> <span class="kt">nat</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span>
+      <span class="k">then</span> <span class="mi">1</span>
+      <span class="k">else</span> <span class="n">n</span> <span class="o">*</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Let’s write a method that computes factorial iteratively and prove that it agrees with the mathematical definition just given. (You should all be well able to write the code for such a method.) Here’s a first pass:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
 {
     r := 1;
 
@@ -75,19 +87,36 @@
         i := i + 1;
         r := r * i;
     }
-}`)"><i class="fas fa-copy"></i></button><pre><code>method FacIter(n: nat) returns (r: nat)
-{
-    r := 1;
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FacIter</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
 
-    var i := 1;
-    while i &lt; n
-    {
-        i := i + 1;
-        r := r * i;
-    }
-}</code></pre></div><p>Does this work? Let’s add a postcondition and see.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
-    ensures r == Factorial(n)`)"><i class="fas fa-copy"></i></button><pre><code>method FacIter(n: nat) returns (r: nat)
-    ensures r == Factorial(n)</code></pre></div><p>Dafny can’t prove this yet—we need to provide a loop invariant. But which invariant should we give?</p><p>We know that the loop is the last calculation before the function completes—this means that the negation of the loop condition combined with the loop invariant should imply (or be equivalent to) the postcondition, which is <span class="inline-math" hyphens="none" smart-typography="none">\(r = n!\)</span>. That is, we need an invariant <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span> such that <span class="inline-math" hyphens="none" smart-typography="none">\(P \wedge (i \ge n)\)</span> implies <span class="inline-math" hyphens="none" smart-typography="none">\(r = n!\)</span>.</p><p>Let’s write out the computation table for the loop computing <code>Factorial(5)</code> to give ourselves more information to work with.</p><table class="quick-table"><tr><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{i}\)</span></th><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{r}\)</span></th></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(2 \textcolor{gray}{= 1 \times 2}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(6 \textcolor{gray}{= 2 \times 3}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(4\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(24 \textcolor{gray}{= 6 \times 4}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(5\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(120 \textcolor{gray}{= 24 \times 5}\)</span></td></tr></table><p>Notice that <span class="inline-math" hyphens="none" smart-typography="none">\(r = i!\)</span> at each step of the loop. This is a promising candidate for a loop invariant. Let’s add it.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span>
+    <span class="p">{</span>
+        <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Does this work? Let’s add a postcondition and see.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
+    ensures r == Factorial(n)`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FacIter</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Dafny can’t prove this yet—we need to provide a loop invariant. But which invariant should we give?</p><p>We know that the loop is the last calculation before the function completes—this means that the negation of the loop condition combined with the loop invariant should imply (or be equivalent to) the postcondition, which is <span class="inline-math" hyphens="none" smart-typography="none">\(r = n!\)</span>. That is, we need an invariant <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span> such that <span class="inline-math" hyphens="none" smart-typography="none">\(P \wedge (i \ge n)\)</span> implies <span class="inline-math" hyphens="none" smart-typography="none">\(r = n!\)</span>.</p><p>Let’s write out the computation table for the loop computing <code>Factorial(5)</code> to give ourselves more information to work with.</p><table class="quick-table"><tr><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{i}\)</span></th><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{r}\)</span></th></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(2 \textcolor{gray}{= 1 \times 2}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(6 \textcolor{gray}{= 2 \times 3}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(4\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(24 \textcolor{gray}{= 6 \times 4}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(5\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(120 \textcolor{gray}{= 24 \times 5}\)</span></td></tr></table><p>Notice that <span class="inline-math" hyphens="none" smart-typography="none">\(r = i!\)</span> at each step of the loop. This is a promising candidate for a loop invariant. Let’s add it.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
     ensures r == Factorial(n)
 {
     r := 1;
@@ -99,19 +128,34 @@
         i := i + 1;
         r := r * i;
     }
-}`)"><i class="fas fa-copy"></i></button><pre><code>method FacIter(n: nat) returns (r: nat)
-    ensures r == Factorial(n)
-{
-    r := 1;
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FacIter</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
 
-    var i := 1;
-    while i &lt; n
-        invariant r == Factorial(i)  // added
-    {
-        i := i + 1;
-        r := r * i;
-    }
-}</code></pre></div><p>Unfortunately this does not work—Dafny complains that it still cannot prove the postcondition. But we should not be that surprised, since <span class="inline-math" hyphens="none" smart-typography="none">\((r = i!) \wedge (i \ge n)\)</span> does not imply <span class="inline-math" hyphens="none" smart-typography="none">\(r = n!\)</span>. We would need the stronger condition that <span class="inline-math" hyphens="none" smart-typography="none">\(i = n\)</span>. But we know this already—<span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is always equal to <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> when the loop is finished. In fact, we know that <span class="inline-math" hyphens="none" smart-typography="none">\(0 \le i \le n\)</span> throughout the loop. Let’s add this as an invariant as well.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span>
+        <span class="k">invariant</span> <span class="n">r</span> <span class="o">==</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>  <span class="c1">// added</span>
+    <span class="p">{</span>
+        <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Unfortunately this does not work—Dafny complains that it still cannot prove the postcondition. But we should not be that surprised, since <span class="inline-math" hyphens="none" smart-typography="none">\((r = i!) \wedge (i \ge n)\)</span> does not imply <span class="inline-math" hyphens="none" smart-typography="none">\(r = n!\)</span>. We would need the stronger condition that <span class="inline-math" hyphens="none" smart-typography="none">\(i = n\)</span>. But we know this already—<span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is always equal to <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> when the loop is finished. In fact, we know that <span class="inline-math" hyphens="none" smart-typography="none">\(0 \le i \le n\)</span> throughout the loop. Let’s add this as an invariant as well.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
     ensures r == Factorial(n)
 {
     r := 1;
@@ -124,20 +168,36 @@
         i := i + 1;
         r := r * i;
     }
-}`)"><i class="fas fa-copy"></i></button><pre><code>method FacIter(n: nat) returns (r: nat)
-    ensures r == Factorial(n)
-{
-    r := 1;
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FacIter</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
 
-    var i := 1;
-    while i &lt; n
-        invariant 0 &lt;= i &lt;= n  // added
-        invariant r == Factorial(i)
-    {
-        i := i + 1;
-        r := r * i;
-    }
-}</code></pre></div><p>But this doesn’t work either. Why? Dafny complains that it does not hold on entry. Right, because <span class="inline-math" hyphens="none" smart-typography="none">\(i = 1\)</span> before the loop begins, but <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> could be <span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span>, in which case <span class="inline-math" hyphens="none" smart-typography="none">\(i \nleq n\)</span>.</p><p>This is a special case; in any other case the new invariant is true. So, there are two ways to deal with this: modify the code, or modify the invariant.</p><p>We can modify the code to deal with this special case separately.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span>
+        <span class="k">invariant</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span>  <span class="c1">// added</span>
+        <span class="k">invariant</span> <span class="n">r</span> <span class="o">==</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>But this doesn’t work either. Why? Dafny complains that it does not hold on entry. Right, because <span class="inline-math" hyphens="none" smart-typography="none">\(i = 1\)</span> before the loop begins, but <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> could be <span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span>, in which case <span class="inline-math" hyphens="none" smart-typography="none">\(i \nleq n\)</span>.</p><p>This is a special case; in any other case the new invariant is true. So, there are two ways to deal with this: modify the code, or modify the invariant.</p><p>We can modify the code to deal with this special case separately.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
     ensures r == Factorial(n)
 {
     if (n == 0) {
@@ -147,17 +207,30 @@
     assert n &gt; 0;
 
     // ...
-}`)"><i class="fas fa-copy"></i></button><pre><code>method FacIter(n: nat) returns (r: nat)
-    ensures r == Factorial(n)
-{
-    if (n == 0) {
-        return 1;
-    }
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FacIter</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    assert n &gt; 0;
+    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
 
-    // ...
-}</code></pre></div><p>Since Dafny knows that <span class="inline-math" hyphens="none" smart-typography="none">\(n &gt; 0\)</span>, there’s no issue.</p><p>But the code was perfectly fine as it was. Instead we can just modify the invariants to deal with the special case explicitly. When <span class="inline-math" hyphens="none" smart-typography="none">\(n = 0\)</span> we know <span class="inline-math" hyphens="none" smart-typography="none">\(i = 1\)</span>, and otherwise the old invariant holds.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Since Dafny knows that <span class="inline-math" hyphens="none" smart-typography="none">\(n &gt; 0\)</span>, there’s no issue.</p><p>But the code was perfectly fine as it was. Instead we can just modify the invariants to deal with the special case explicitly. When <span class="inline-math" hyphens="none" smart-typography="none">\(n = 0\)</span> we know <span class="inline-math" hyphens="none" smart-typography="none">\(i = 1\)</span>, and otherwise the old invariant holds.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FacIter(n: nat) returns (r: nat)
     ensures r == Factorial(n)
 {
     r := 1;
@@ -171,29 +244,53 @@
         i := i + 1;
         r := r * i;
     }
-}`)"><i class="fas fa-copy"></i></button><pre><code>method FacIter(n: nat) returns (r: nat)
-    ensures r == Factorial(n)
-{
-    r := 1;
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FacIter</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
 
-    var i := 1;
-    while i &lt; n
-        invariant n == 0 ==&gt; i == 1
-        invariant n != 0 ==&gt; 0 &lt;= i &lt;= n
-        invariant r == Factorial(i)
-    {
-        i := i + 1;
-        r := r * i;
-    }
-}</code></pre></div><p>Dafny accepts this.</p><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method that computes the sum of the first <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> natural numbers <em>without</em> using multiplication and prove that the result is equal to the <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span>th triangle number <span class="inline-math" hyphens="none" smart-typography="none">\(n(n + 1)/2\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method SumFirst(n: nat) returns (sum: nat)
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span>
+        <span class="k">invariant</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">==&gt;</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">invariant</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">==&gt;</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span>
+        <span class="k">invariant</span> <span class="n">r</span> <span class="o">==</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Dafny accepts this.</p><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method that computes the sum of the first <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> natural numbers <em>without</em> using multiplication and prove that the result is equal to the <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span>th triangle number <span class="inline-math" hyphens="none" smart-typography="none">\(n(n + 1)/2\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method SumFirst(n: nat) returns (sum: nat)
     ensures sum == n * (n + 1) / 2
 {
     // todo
-}`)"><i class="fas fa-copy"></i></button><pre><code>method SumFirst(n: nat) returns (sum: nat)
-    ensures sum == n * (n + 1) / 2
-{
-    // todo
-}</code></pre></div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The Fibonacci sequence begins with the numbers <span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span>. To compute the next number in the sequence, sum the previous two. The sequence therefore continues as <span class="inline-math" hyphens="none" smart-typography="none">\(0, 1, 1, 2, 3, 5, 8, \dots\)</span>. Write a method which iteratively computes the <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span>th Fibonacci number without any recursive calls and verify that it is equal to the mathematical definition.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function Fib(n: nat): nat
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">SumFirst</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">sum</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">sum</span> <span class="o">==</span> <span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="p">{</span>
+    <span class="c1">// todo</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>The Fibonacci sequence begins with the numbers <span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span> and <span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span>. To compute the next number in the sequence, sum the previous two. The sequence therefore continues as <span class="inline-math" hyphens="none" smart-typography="none">\(0, 1, 1, 2, 3, 5, 8, \dots\)</span>. Write a method which iteratively computes the <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span>th Fibonacci number without any recursive calls and verify that it is equal to the mathematical definition.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function Fib(n: nat): nat
 {
     if n &lt; 2 then n else Fib(n - 1) + Fib(n - 2)
 }
@@ -202,28 +299,52 @@ method FibIter(n: nat) returns (x: nat)
     ensures x == Fib(n)
 {
     // todo
-}`)"><i class="fas fa-copy"></i></button><pre><code>function Fib(n: nat): nat
-{
-    if n &lt; 2 then n else Fib(n - 1) + Fib(n - 2)
-}
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">Fib</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">):</span> <span class="kt">nat</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="k">then</span> <span class="n">n</span> <span class="k">else</span> <span class="n">Fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">Fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
 
-method FibIter(n: nat) returns (x: nat)
-    ensures x == Fib(n)
+<span class="kd">method</span> <span class="nf">FibIter</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+    <span class="k">ensures</span> <span class="n">x</span> <span class="o">==</span> <span class="n">Fib</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// todo</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write and verify a method which finds the index pointing to the smallest element in an array. You might find it useful to look at the binary search pre- and postconditions from the <a class="xref" hyphens="none" href="/resources/dafny-02.html#Question 5">previous lab</a>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Smallest(a: array&lt;int&gt;) returns (minIndex: nat)
 {
     // todo
-}</code></pre></div><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write and verify a method which finds the index pointing to the smallest element in an array. You might find it useful to look at the binary search pre- and postconditions from the <a class="xref" hyphens="none" href="/resources/dafny-02.html#Question 5">previous lab</a>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Smallest(a: array&lt;int&gt;) returns (minIndex: nat)
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Smallest</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">minIndex</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// todo</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><h2 id="Question 4" class="section">Question 4<a class="anchor" href="#Question 4" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method <code>Filter</code> which takes an array <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> and a predicate <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span> as arguments, then builds a sequence of all the elements in <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> satisfying <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span>. For example, if <code>a = [1, 2, 3, 4]</code> then <code>Filter(a, IsEven)</code> should return <code>[2, 4]</code>.</p><p>Prove the following:</p><ol class="loose-list"><li>All the elements of the output sequence satisfy <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span>.</li><li>If the output sequence is empty, then no element in the array <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> satisfied <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span>.</li><li>The output sequence only contains elements from <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span>—that is, prove <code>multiset(s) &lt;= multiset(a[..])</code>.</li></ol><p>Explain in a comment above the method why this might not be enough to fully specify a filter method and ensure it works as intended.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Filter&lt;T&gt;(a: array&lt;T&gt;, P: T -&gt; bool) returns (s: seq&lt;T&gt;)
 {
     // todo
-}`)"><i class="fas fa-copy"></i></button><pre><code>method Smallest(a: array&lt;int&gt;) returns (minIndex: nat)
-{
-    // todo
-}</code></pre></div><h2 id="Question 4" class="section">Question 4<a class="anchor" href="#Question 4" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method <code>Filter</code> which takes an array <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> and a predicate <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span> as arguments, then builds a sequence of all the elements in <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> satisfying <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span>. For example, if <code>a = [1, 2, 3, 4]</code> then <code>Filter(a, IsEven)</code> should return <code>[2, 4]</code>.</p><p>Prove the following:</p><ol class="loose-list"><li>All the elements of the output sequence satisfy <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span>.</li><li>If the output sequence is empty, then no element in the array <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span> satisfied <span class="inline-math" hyphens="none" smart-typography="none">\(P\)</span>.</li><li>The output sequence only contains elements from <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span>—that is, prove <code>multiset(s) &lt;= multiset(a[..])</code>.</li></ol><p>Explain in a comment above the method why this might not be enough to fully specify a filter method and ensure it works as intended.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method Filter&lt;T&gt;(a: array&lt;T&gt;, P: T -&gt; bool) returns (s: seq&lt;T&gt;)
-{
-    // todo
-}`)"><i class="fas fa-copy"></i></button><pre><code>method Filter&lt;T&gt;(a: array&lt;T&gt;, P: T -&gt; bool) returns (s: seq&lt;T&gt;)
-{
-    // todo
-}</code></pre></div><p>Hints:</p><ul class="loose-list"><li>To append an element <code>a</code> to a sequence <code>s</code>, write <code>s + [a]</code>.</li><li>You may need to remind the verifier that <code>a[..]</code> and <code>a[..a.Length]</code> are equal. It has a strange habit of forgetting.</li></ul></div>
+}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">Filter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">P</span><span class="p">:</span> <span class="n">T</span> <span class="o">-&gt;</span> <span class="n">bool</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="kt">seq</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// todo</span>
+<span class="p">}</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>Hints:</p><ul class="loose-list"><li>To append an element <code>a</code> to a sequence <code>s</code>, write <code>s + [a]</code>.</li><li>You may need to remind the verifier that <code>a[..]</code> and <code>a[..a.Length]</code> are equal. It has a strange habit of forgetting.</li></ul></div>
 
 
 

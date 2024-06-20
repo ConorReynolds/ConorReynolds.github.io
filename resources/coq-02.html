@@ -69,9 +69,14 @@
   \frac{\Gamma \vdash A \vee B}{\Gamma \vdash A} \qquad \frac{\Gamma \vdash A \vee B}{\Gamma \vdash B}
 \end{aligned}\]</div><p>This gives us two ways to prove <span class="inline-math" hyphens="none" smart-typography="none">\(A \vee B\)</span>: either we prove <span class="inline-math" hyphens="none" smart-typography="none">\(A\)</span>, or we prove <span class="inline-math" hyphens="none" smart-typography="none">\(B\)</span>. Either is fine.</p><p>How do we instruct Coq to apply these rules?</p><ul class="loose-list"><li>To apply the left-rule for ‘and’ or ‘or’ in Coq, use the tactic <code>destruct</code>. As with any rule applying to hypotheses, you will need to tell Coq which hypothesis you want to apply the tactic to.</li><li>To apply the right-rule for ‘and’, use the tactic <code>split</code>.</li><li>To apply the right-rules for ‘or’, use the tactics <code>left</code> or <code>right</code>, depending on which side of the disjunction you think you can prove.</li></ul><h2 id="Proofs Involving Negation" class="section">Proofs Involving Negation<a class="anchor" href="#Proofs Involving Negation" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Recall that <span class="inline-math" hyphens="none" smart-typography="none">\(\neg A\)</span> in constructive propositional logic is really just a shorthand for <span class="inline-math" hyphens="none" smart-typography="none">\(A \to \bot\)</span>, which means that <span class="inline-math" hyphens="none" smart-typography="none">\(A\)</span> implies a contradiction. In Coq, the false-by-definition proposition <span class="inline-math" hyphens="none" smart-typography="none">\(\bot\)</span> is called <code>False</code>. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">The proposition <span class="inline-math" hyphens="none" smart-typography="none">\(\bot\)</span> is sometimes called ‘bottom’.</span></span></p><p>Since negation is shorthand for a special case of implication, you can use all the tactics from the <a class="xref" hyphens="none" href="/resources/coq-01.html#Basic Tactics">first lab</a>.</p><p>If you see a goal of the form <code>~A</code>, you can reduce it to its definition <code>A -&gt; False</code> with the tactic <code>red</code>—short for ‘reduce’—after which you can use <code>intros</code>. Alternatively, if you want to unfold <em>all</em> instances of negation, including in hypotheses, you can use <code>unfold "~" in *</code>. This can help you spot valid applications of the <code>apply</code> tactic.</p><p>Alternatively, note that <code>intro</code> will apply <code>hnf</code> to the goal until <code>intro</code> can actually be applied. Hence if the goal is <code>~A</code>, <code>intro</code> will reduce it to <code>A -&gt; False</code> and then pull <code>A</code> up as a hypothesis. Note that <code>intros</code> will <em>not</em> do this without <code>red</code> first.</p><h2 id="Classical Logic" class="section">Classical Logic<a class="anchor" href="#Classical Logic" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Coq’s logic is <em>constructive</em>. This means that the law of excluded middle is not an axiom and cannot be proved (or disproved) in Coq’s logic. If you want to reason classically, you must add <span class="abbreviation" onclick="this.classList.toggle(&quot;clicked&quot;)">LEM<span class="abbreviation-inner">law of excluded middle</span></span> as an axiom or hypothesis explicitly.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`(* Pick only one of these options *)
 Axiom LEM : forall P : Prop, P \/ ~P.
-Hypothesis LEM : forall P : Prop, P \/ ~P.`)"><i class="fas fa-copy"></i></button><pre><code>(* Pick only one of these options *)
-Axiom LEM : forall P : Prop, P \/ ~P.
-Hypothesis LEM : forall P : Prop, P \/ ~P.</code></pre></div><p>When you know <span class="abbreviation" onclick="this.classList.toggle(&quot;clicked&quot;)">LEM<span class="abbreviation-inner">law of excluded middle</span></span>, you can always reason by case analysis. For example, if you write <code>destruct (LEM A)</code>, the proof will split into two cases: one in which you know <span class="inline-math" hyphens="none" smart-typography="none">\(A\)</span>, and one in which you know <span class="inline-math" hyphens="none" smart-typography="none">\(\neg A\)</span>.</p><p>You will need <span class="abbreviation" onclick="this.classList.toggle(&quot;clicked&quot;)">LEM<span class="abbreviation-inner">law of excluded middle</span></span> for one of the final four questions on the De Morgan laws—but we’re not telling you which one. That’s something for you to figure out yourself.</p><h2 id="Questions" class="section">Questions<a class="anchor" href="#Questions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Prove the following propositions in Coq. When you have completed the proof, replace <code>Admitted</code> with <code>Qed</code>. You can download the file by clicking the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the filename.</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">CoqLab02.v<button class="download-button" title="Download snippet as CoqLab02.v" onclick="download(this, `CoqLab02.v`, String.raw`Section CoqLab02.
+Hypothesis LEM : forall P : Prop, P \/ ~P.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="c">(* Pick only one of these options *)</span>
+<span class="kn">Axiom</span> <span class="n">LEM</span> <span class="o">:</span> <span class="k">forall</span> <span class="n">P</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">P</span> <span class="o">\/</span> <span class="o">~</span><span class="n">P</span><span class="o">.</span>
+<span class="kn">Hypothesis</span> <span class="n">LEM</span> <span class="o">:</span> <span class="k">forall</span> <span class="n">P</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">P</span> <span class="o">\/</span> <span class="o">~</span><span class="n">P</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div><p>When you know <span class="abbreviation" onclick="this.classList.toggle(&quot;clicked&quot;)">LEM<span class="abbreviation-inner">law of excluded middle</span></span>, you can always reason by case analysis. For example, if you write <code>destruct (LEM A)</code>, the proof will split into two cases: one in which you know <span class="inline-math" hyphens="none" smart-typography="none">\(A\)</span>, and one in which you know <span class="inline-math" hyphens="none" smart-typography="none">\(\neg A\)</span>.</p><p>You will need <span class="abbreviation" onclick="this.classList.toggle(&quot;clicked&quot;)">LEM<span class="abbreviation-inner">law of excluded middle</span></span> for one of the final four questions on the De Morgan laws—but we’re not telling you which one. That’s something for you to figure out yourself.</p><h2 id="Questions" class="section">Questions<a class="anchor" href="#Questions" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Prove the following propositions in Coq. When you have completed the proof, replace <code>Admitted</code> with <code>Qed</code>. You can download the file by clicking the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the filename.</p><div paragraphs="none" smart-typography="none" class="highlight"><div class="caption">CoqLab02.v<button class="download-button" title="Download snippet as CoqLab02.v" onclick="download(this, `CoqLab02.v`, String.raw`Section CoqLab02.
 
 Context (A B C : Prop).
 
@@ -211,77 +216,150 @@ Proof.
   (* todo *)
 Admitted.
 
-End CoqLab02.`)"><i class="fas fa-copy"></i></button><pre><code>Section CoqLab02.
+End CoqLab02.`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">Section</span> <span class="n">CoqLab02</span><span class="o">.</span>
 
-Context (A B C : Prop).
+<span class="kn">Context</span> <span class="o">(</span><span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">).</span>
 
-(***************************************************)
-(* And / Or *)
+<span class="c">(***************************************************)</span>
+<span class="c">(* And / Or *)</span>
 
-Lemma q1 : (A /\ B) /\ C -&gt; A /\ (B /\ C).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q1</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">/\</span> <span class="n">B</span><span class="o">)</span> <span class="o">/\</span> <span class="n">C</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">/\</span> <span class="o">(</span><span class="n">B</span> <span class="o">/\</span> <span class="n">C</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-Lemma q2 : ((A /\ B) -&gt; C) -&gt; (A -&gt; (B -&gt; C)).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q2</span> <span class="o">:</span> <span class="o">((</span><span class="n">A</span> <span class="o">/\</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-Lemma q3 : (A \/ B) \/ C -&gt; A \/ (B \/ C).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q3</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">\/</span> <span class="n">C</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">\/</span> <span class="o">(</span><span class="n">B</span> <span class="o">\/</span> <span class="n">C</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-Lemma q4 : ((A \/ B) -&gt; C) -&gt; (A -&gt; (B -&gt; C)).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q4</span> <span class="o">:</span> <span class="o">((</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(***************************************************)
-(* Negation *)
+<span class="c">(***************************************************)</span>
+<span class="c">(* Negation *)</span>
 
-Lemma q5 : (~A \/ B) -&gt; (A -&gt; B).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q5</span> <span class="o">:</span> <span class="o">(~</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-Lemma q6 : (A -&gt; B) -&gt; (~B -&gt; ~A).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q6</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(~</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="o">~</span><span class="n">A</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-Lemma q7 : ~(A /\ ~A).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q7</span> <span class="o">:</span> <span class="o">~(</span><span class="n">A</span> <span class="o">/\</span> <span class="o">~</span><span class="n">A</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-(***************************************************)
-(* De Morgan’s Laws *)
+<span class="c">(***************************************************)</span>
+<span class="c">(* De Morgan’s Laws *)</span>
 
-Hypothesis LEM : forall P : Prop, P \/ ~P.
+<span class="kn">Hypothesis</span> <span class="n">LEM</span> <span class="o">:</span> <span class="k">forall</span> <span class="n">P</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">P</span> <span class="o">\/</span> <span class="o">~</span><span class="n">P</span><span class="o">.</span>
 
-Lemma q8 : ~(A \/ B) -&gt; ~A /\ ~B.
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q8</span> <span class="o">:</span> <span class="o">~(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">~</span><span class="n">A</span> <span class="o">/\</span> <span class="o">~</span><span class="n">B</span><span class="o">.</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-Lemma q9 : ~A /\ ~B -&gt; ~(A \/ B).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q9</span> <span class="o">:</span> <span class="o">~</span><span class="n">A</span> <span class="o">/\</span> <span class="o">~</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="o">~(</span><span class="n">A</span> <span class="o">\/</span> <span class="n">B</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-Lemma q10 : ~A \/ ~B -&gt; ~(A /\ B).
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q10</span> <span class="o">:</span> <span class="o">~</span><span class="n">A</span> <span class="o">\/</span> <span class="o">~</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="o">~(</span><span class="n">A</span> <span class="o">/\</span> <span class="n">B</span><span class="o">).</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-Lemma q11 : ~(A /\ B) -&gt; ~ A \/ ~ B.
-Proof.
-  (* todo *)
-Admitted.
+<span class="kn">Lemma</span> <span class="n">q11</span> <span class="o">:</span> <span class="o">~(</span><span class="n">A</span> <span class="o">/\</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">~</span> <span class="n">A</span> <span class="o">\/</span> <span class="o">~</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Proof</span><span class="o">.</span>
+  <span class="c">(* todo *)</span>
+<span class="kn">Admitted</span><span class="o">.</span>
 
-End CoqLab02.</code></pre></div></div>
+<span class="kn">End</span> <span class="n">CoqLab02</span><span class="o">.</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div></div>
 
 
 
