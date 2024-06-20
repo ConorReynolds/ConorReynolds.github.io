@@ -55,17 +55,9 @@
 
 <div id="doc" role="main"><p>You can skip to the <a class="xref" hyphens="none" href="#Question 1">lab questions</a> if you’re in a hurry, but as always I recommend reading the following sections as they give good context for the lab.</p><div class="callout" data-callout="note"><div class="callout-title">Note</div><div class="callout-body"><p>Code snippets can be copied by hovering over the snippet and clicking the <i class="fa fa-copy" style="margin: 0 0.1em 0 0.1em; color: var(--muted-color);"></i> button which appears on the top right.</p><p>Some snippets are declared as files—those can be downloaded directly by clicking the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the filename.</p></div></div><h2 id="Dynamic Frames" class="section">Dynamic Frames<a class="anchor" href="#Dynamic Frames" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Dafny contains a few reference types, mainly arrays and objects. The values pointed to by references are stored on the heap.</p><p>Dafny methods are not allowed to modify any heap values by default, but they may modify values stored on the stack, or heap-allocated values local to the method. The set of objects that may be modified by a method is called its <em>frame</em>. We have already seen methods with frames—for example, the <a class="xref" hyphens="none" href="/resources/dafny-01.html#Question 4">swap method in lab 1</a>.</p><p>To specify a method’s frame, use a <code>modifies</code> clause. A method that modifies an array <code>a</code> and an object <code>o</code> can be written in any one of the following ways.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`modifies a, o
 modifies {a, o}
-modifies {a} + {o}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">modifies</span> <span class="n">a</span><span class="p">,</span> <span class="n">o</span>
-<span class="k">modifies</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">o</span><span class="p">}</span>
-<span class="k">modifies</span> <span class="p">{</span><span class="n">a</span><span class="p">}</span> <span class="o">+</span> <span class="p">{</span><span class="n">o</span><span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Functional code can read the heap state but cannot modify it. Functions and predicates therefore use a <code>reads</code> clause instead of a <code>modifies</code> clause.</p><p>Postconditions for methods in Dafny are so-called ‘two-state predicates’, since they have access to the state of the heap before and after a method is executed. The expression <code>old(E)</code> refers to the value of <code>E</code> just before the enlosing method. For example, consider this postcondition for a method that increments each value in an integer array.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`forall i | 0 &lt;= i &lt; a.Length :: a[i] == old(a[i]) + 1`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">forall</span> <span class="n">i</span> <span class="o">|</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span> <span class="p">::</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="fm">old</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>This says that for each index <code>i</code>, the new value <code>a[i]</code> is equal to the old value of <code>a[i]</code> plus one.</p><p>It’s important not to write <code>old(a)[i]</code>. The value <code>a</code> is a <em>reference</em> passed as a parameter to the method and does not change. Think of it like a pointer to the location in memory where the array values are stored. It’s always true that <code>old(a) == a</code>, and therefore <code>old(a)[i] == a[i]</code>, since the reference itself can’t be modified. The value <code>a[i]</code>, however, is the heap value obtained by dereferencing <code>a</code>. This can change, and hence <code>old(a[i])</code> may not be equal to <code>a[i]</code>.</p><h2 id="Classes" class="section">Classes<a class="anchor" href="#Classes" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Classes in Dafny look exactly like classes in any other object-oriented language. A class is just a list of members of that class—fields, methods, functions.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`class Point2 {
+modifies {a} + {o}`)"><i class="fas fa-copy"></i></button><pre><code>modifies a, o
+modifies {a, o}
+modifies {a} + {o}</code></pre></div><p>Functional code can read the heap state but cannot modify it. Functions and predicates therefore use a <code>reads</code> clause instead of a <code>modifies</code> clause.</p><p>Postconditions for methods in Dafny are so-called ‘two-state predicates’, since they have access to the state of the heap before and after a method is executed. The expression <code>old(E)</code> refers to the value of <code>E</code> just before the enlosing method. For example, consider this postcondition for a method that increments each value in an integer array.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`forall i | 0 &lt;= i &lt; a.Length :: a[i] == old(a[i]) + 1`)"><i class="fas fa-copy"></i></button><pre><code>forall i | 0 &lt;= i &lt; a.Length :: a[i] == old(a[i]) + 1</code></pre></div><p>This says that for each index <code>i</code>, the new value <code>a[i]</code> is equal to the old value of <code>a[i]</code> plus one.</p><p>It’s important not to write <code>old(a)[i]</code>. The value <code>a</code> is a <em>reference</em> passed as a parameter to the method and does not change. Think of it like a pointer to the location in memory where the array values are stored. It’s always true that <code>old(a) == a</code>, and therefore <code>old(a)[i] == a[i]</code>, since the reference itself can’t be modified. The value <code>a[i]</code>, however, is the heap value obtained by dereferencing <code>a</code>. This can change, and hence <code>old(a[i])</code> may not be equal to <code>a[i]</code>.</p><h2 id="Classes" class="section">Classes<a class="anchor" href="#Classes" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Classes in Dafny look exactly like classes in any other object-oriented language. A class is just a list of members of that class—fields, methods, functions.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`class Point2 {
     var x: real, y: real
 
     constructor(x: real, y: real)
@@ -87,54 +79,29 @@ method {:main} TestPoint() {
     var q := new Point2(1.2, -3.5);
     assert p.Dot(q) == -10.4;
     print p.Dot(q), &quot;\n&quot;;
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">class</span> <span class="nc">Point2</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">real</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">real</span>
+}`)"><i class="fas fa-copy"></i></button><pre><code>class Point2 {
+    var x: real, y: real
 
-    <span class="k">constructor</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">real</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">real</span><span class="p">)</span>
-        <span class="k">ensures</span> <span class="fm">this</span><span class="p">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="fm">this</span><span class="p">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span>
-    <span class="p">{</span>
-        <span class="fm">this</span><span class="p">.</span><span class="n">x</span> <span class="o">:=</span> <span class="n">x</span><span class="p">;</span>
-        <span class="fm">this</span><span class="p">.</span><span class="n">y</span> <span class="o">:=</span> <span class="n">y</span><span class="p">;</span>
-    <span class="p">}</span>
+    constructor(x: real, y: real)
+        ensures this.x == x &amp;&amp; this.y == y
+    {
+        this.x := x;
+        this.y := y;
+    }
 
-    <span class="kd">function</span> <span class="nf">Dot</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">Point2</span><span class="p">):</span> <span class="n">real</span>
-        <span class="k">reads</span> <span class="fm">this</span><span class="p">,</span> <span class="n">other</span>
-    <span class="p">{</span>
-        <span class="n">x</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    function Dot(other: Point2): real
+        reads this, other
+    {
+        x * other.x + y * other.y
+    }
+}
 
-<span class="kd">method</span> {:main} <span class="nf">TestPoint</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="n">p</span> <span class="o">:=</span> <span class="n">new</span> <span class="n">Point2</span><span class="p">(</span><span class="mi">3</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="n">q</span> <span class="o">:=</span> <span class="n">new</span> <span class="n">Point2</span><span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
-    <span class="k">assert</span> <span class="n">p</span><span class="p">.</span><span class="n">Dot</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">10</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
-    <span class="fm">print</span> <span class="n">p</span><span class="p">.</span><span class="n">Dot</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="s2">"\n"</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Consider the following class which represents a pointer to an array. It contains a single method <code>InitArray</code> which sets <code>a</code> to a new array of a given size. What does <code>InitArray</code> modify? Explain your answer.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`class Pointer {
+method {:main} TestPoint() {
+    var p := new Point2(3.0, 4.0);
+    var q := new Point2(1.2, -3.5);
+    assert p.Dot(q) == -10.4;
+    print p.Dot(q), "\n";
+}</code></pre></div><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Consider the following class which represents a pointer to an array. It contains a single method <code>InitArray</code> which sets <code>a</code> to a new array of a given size. What does <code>InitArray</code> modify? Explain your answer.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`class Pointer {
     var a: array&lt;int&gt;
 
     method InitArray(size: nat)
@@ -143,49 +110,28 @@ method {:main} TestPoint() {
         var b := new int[size];
         a := b;
     }
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">class</span> <span class="nc">Pointer</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
+}`)"><i class="fas fa-copy"></i></button><pre><code>class Pointer {
+    var a: array&lt;int&gt;
 
-    <span class="kd">method</span> <span class="nf">InitArray</span><span class="p">(</span><span class="n">size</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
-        <span class="c1">// modifies what?</span>
-    <span class="p">{</span>
-        <span class="kd">var</span> <span class="n">b</span> <span class="o">:=</span> <span class="n">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
-        <span class="n">a</span> <span class="o">:=</span> <span class="n">b</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method which doubles the values of an array <code>s</code> and stores it in an array <code>t</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method DoubleArray(s: array&lt;int&gt;, t: array&lt;int&gt;)
+    method InitArray(size: nat)
+        // modifies what?
+    {
+        var b := new int[size];
+        a := b;
+    }
+}</code></pre></div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method which doubles the values of an array <code>s</code> and stores it in an array <code>t</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method DoubleArray(s: array&lt;int&gt;, t: array&lt;int&gt;)
     // needs a frame
     // needs one precondition
     // needs a postcondition saying that t[i] is twice s[i]
 {
     // todo
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">DoubleArray</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span>
-    <span class="c1">// needs a frame</span>
-    <span class="c1">// needs one precondition</span>
-    <span class="c1">// needs a postcondition saying that t[i] is twice s[i]</span>
-<span class="p">{</span>
-    <span class="c1">// todo</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Be careful: the input arguments <code>s</code> and <code>t</code> might refer to the same array.</p><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method <code>CumulativeSum</code> which updates an array to its cumulative sum. Prove that each new <code>a[i]</code> is equal to the sum <code>old(a[0] + ⋯ + a[i])</code>.</p><p>For example, if <code>a = [1, 2, 3, 4]</code> then <code>CumulativeSum(a)</code> should modify <code>a</code> such that <code>a = [1, 3, 6, 10]</code>. You will need the function <code>SumTo</code> provided below which computes the sum of an array’s elements up to but not including a specified index.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function SumTo(a: array&lt;int&gt;, i: nat): int
+}`)"><i class="fas fa-copy"></i></button><pre><code>method DoubleArray(s: array&lt;int&gt;, t: array&lt;int&gt;)
+    // needs a frame
+    // needs one precondition
+    // needs a postcondition saying that t[i] is twice s[i]
+{
+    // todo
+}</code></pre></div><p>Be careful: the input arguments <code>s</code> and <code>t</code> might refer to the same array.</p><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a method <code>CumulativeSum</code> which updates an array to its cumulative sum. Prove that each new <code>a[i]</code> is equal to the sum <code>old(a[0] + ⋯ + a[i])</code>.</p><p>For example, if <code>a = [1, 2, 3, 4]</code> then <code>CumulativeSum(a)</code> should modify <code>a</code> such that <code>a = [1, 3, 6, 10]</code>. You will need the function <code>SumTo</code> provided below which computes the sum of an array’s elements up to but not including a specified index.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`function SumTo(a: array&lt;int&gt;, i: nat): int
     reads a
     requires 0 &lt;= i &lt;= a.Length
 {
@@ -196,32 +142,18 @@ method CumulativeSum(a: array&lt;int&gt;)
     // needs modifies clause and postcondition
 {
     // todo
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">SumTo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="kt">nat</span><span class="p">):</span> <span class="kt">int</span>
-    <span class="k">reads</span> <span class="n">a</span>
-    <span class="k">requires</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">.</span><span class="n">Length</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">SumTo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
+}`)"><i class="fas fa-copy"></i></button><pre><code>function SumTo(a: array&lt;int&gt;, i: nat): int
+    reads a
+    requires 0 &lt;= i &lt;= a.Length
+{
+    if i == 0 then 0 else SumTo(a, i - 1) + a[i - 1]
+}
 
-<span class="kd">method</span> <span class="nf">CumulativeSum</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span>
-    <span class="c1">// needs modifies clause and postcondition</span>
-<span class="p">{</span>
-    <span class="c1">// todo</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div></div>
+method CumulativeSum(a: array&lt;int&gt;)
+    // needs modifies clause and postcondition
+{
+    // todo
+}</code></pre></div></div>
 
 
 

@@ -509,6 +509,10 @@ code {
     font-variant-numeric: normal;
     font-variant-ligatures: none;
     padding: 0 0.1rem 0 0.1rem;
+    // This seems to prevent compound operators (like ->) from
+    // breaking over lines. (The documentation doesn’t explain
+    // why.)
+    word-break: keep-all;
     @include no-hyphens;
 }
 

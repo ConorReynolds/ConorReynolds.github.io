@@ -72,48 +72,26 @@ method SlowExp(a: int, n: nat) returns (r: int)
         r := r * a;
         i := i - 1;
     }
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span> <span class="nf">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">):</span> <span class="kt">int</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
-        <span class="mi">1</span>
-    <span class="k">else</span>
-        <span class="n">a</span> <span class="o">*</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
+}`)"><i class="fas fa-copy"></i></button><pre><code>function ExpDef(a: int, n: nat): int
+{
+    if n == 0 then
+        1
+    else
+        a * ExpDef(a, n - 1)
+}
 
-<span class="kd">method</span> <span class="nf">SlowExp</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
-    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span>
-        <span class="k">invariant</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
-        <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>But this verification is not very interesting. Why? Because the definition <code>ExpDef</code> computes powers in basically the same way as <code>SlowExp</code>.</p><p>To see this, note that the function computes by <span class="inline-math" hyphens="none" smart-typography="none">\(\beta\)</span>-reduction like this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`ExpDef(3, 4) ⇝ᵦ 3 * ExpDef(3, 3)
+method SlowExp(a: int, n: nat) returns (r: int)
+    ensures r == ExpDef(a, n)
+{
+    r := 1;
+    var i := n;
+    while i &gt; 0
+        invariant r == ExpDef(a, n - i)
+    {
+        r := r * a;
+        i := i - 1;
+    }
+}</code></pre></div><p>But this verification is not very interesting. Why? Because the definition <code>ExpDef</code> computes powers in basically the same way as <code>SlowExp</code>.</p><p>To see this, note that the function computes by <span class="inline-math" hyphens="none" smart-typography="none">\(\beta\)</span>-reduction like this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`ExpDef(3, 4) ⇝ᵦ 3 * ExpDef(3, 3)
              ⇝ᵦ 3 * 3 * ExpDef(3, 2)
              ⇝ᵦ 3 * 3 * 3 * ExpDef(3, 1)
              ⇝ᵦ 3 * 3 * 3 * 3 * ExpDef(3, 0)
@@ -121,15 +99,7 @@ method SlowExp(a: int, n: nat) returns (r: int)
              ⇝ᵦ 3 * 3 * 3 * 3
              ⇝ᵦ 3 * 3 * 9
              ⇝ᵦ 3 * 27
-             ⇝ᵦ 81`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span>ExpDef(3, 4) ⇝ᵦ 3 * ExpDef(3, 3)
+             ⇝ᵦ 81`)"><i class="fas fa-copy"></i></button><pre><code>ExpDef(3, 4) ⇝ᵦ 3 * ExpDef(3, 3)
              ⇝ᵦ 3 * 3 * ExpDef(3, 2)
              ⇝ᵦ 3 * 3 * 3 * ExpDef(3, 1)
              ⇝ᵦ 3 * 3 * 3 * 3 * ExpDef(3, 0)
@@ -137,10 +107,7 @@ method SlowExp(a: int, n: nat) returns (r: int)
              ⇝ᵦ 3 * 3 * 3 * 3
              ⇝ᵦ 3 * 3 * 9
              ⇝ᵦ 3 * 27
-             ⇝ᵦ 81
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>… and the method computes according to this computation table in the loop:</p><table class="quick-table"><tr><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{i}\)</span></th><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{r}\)</span></th></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(4\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3 \textcolor{grey}{= 1 \times 3}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(9 \textcolor{grey}{= 3 \times 3}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(27 \textcolor{grey}{= 9 \times 3}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(81 \textcolor{grey}{= 27 \times 3}\)</span></td></tr></table><p>Here the specification and the code are just two ways of describing the same algorithm. It would be more interesting to prove that two different algorithms compute the same thing. So let’s consider a new algorithm.</p><p>Notice that <span class="inline-math" hyphens="none" smart-typography="none">\(a^{10} = (a^2)^5\)</span>. This seemingly trivial observation is very useful. With the naive algorithm for computing exponentials, <span class="inline-math" hyphens="none" smart-typography="none">\(a^{10}\)</span> takes ten iterations. But <span class="inline-math" hyphens="none" smart-typography="none">\((a^2)^5\)</span> only takes six—one iteration to square <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span>, five to compute <span class="inline-math" hyphens="none" smart-typography="none">\((a^2)^5\)</span>. This leads to the following much faster algorithm for exponentiation, in which we effectively rewrite <span class="inline-math" hyphens="none" smart-typography="none">\(a^{2n}\)</span> as <span class="inline-math" hyphens="none" smart-typography="none">\((a^2)^n\)</span> whenever possible.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FastExp(a: int, n: nat) returns (r: int)
+             ⇝ᵦ 81</code></pre></div><p>… and the method computes according to this computation table in the loop:</p><table class="quick-table"><tr><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{i}\)</span></th><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{r}\)</span></th></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(4\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3 \textcolor{grey}{= 1 \times 3}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(9 \textcolor{grey}{= 3 \times 3}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(27 \textcolor{grey}{= 9 \times 3}\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(81 \textcolor{grey}{= 27 \times 3}\)</span></td></tr></table><p>Here the specification and the code are just two ways of describing the same algorithm. It would be more interesting to prove that two different algorithms compute the same thing. So let’s consider a new algorithm.</p><p>Notice that <span class="inline-math" hyphens="none" smart-typography="none">\(a^{10} = (a^2)^5\)</span>. This seemingly trivial observation is very useful. With the naive algorithm for computing exponentials, <span class="inline-math" hyphens="none" smart-typography="none">\(a^{10}\)</span> takes ten iterations. But <span class="inline-math" hyphens="none" smart-typography="none">\((a^2)^5\)</span> only takes six—one iteration to square <span class="inline-math" hyphens="none" smart-typography="none">\(a\)</span>, five to compute <span class="inline-math" hyphens="none" smart-typography="none">\((a^2)^5\)</span>. This leads to the following much faster algorithm for exponentiation, in which we effectively rewrite <span class="inline-math" hyphens="none" smart-typography="none">\(a^{2n}\)</span> as <span class="inline-math" hyphens="none" smart-typography="none">\((a^2)^n\)</span> whenever possible.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FastExp(a: int, n: nat) returns (r: int)
 {
     r := 1;
     var b := a;
@@ -161,52 +128,28 @@ method {:main} TestFastExp()
 {
     var x := FastExp(3, 4);
     print x, &quot;\n&quot;;  // prints 81
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FastExp</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="n">b</span> <span class="o">:=</span> <span class="n">a</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
+}`)"><i class="fas fa-copy"></i></button><pre><code>method FastExp(a: int, n: nat) returns (r: int)
+{
+    r := 1;
+    var b := a;
+    var i := n;
 
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-            <span class="n">b</span> <span class="o">:=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
-            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
-            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    while i &gt; 0 {
+        if i % 2 == 0 {
+            b := b * b;
+            i := i / 2;
+        } else {
+            r := r * b;
+            i := i - 1;
+        }
+    }
+}
 
-<span class="kd">method</span> {:main} <span class="nf">TestFastExp</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="kd">var</span> <span class="n">x</span> <span class="o">:=</span> <span class="n">FastExp</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-    <span class="fm">print</span> <span class="n">x</span><span class="p">,</span> <span class="s2">"\n"</span><span class="p">;</span>  <span class="c1">// prints 81</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>But how can we be sure that this works? This algorithm is not as straightforward as the simple one and therefore genuinely <em>requires</em> a proof for us to be certain that it works.</p><p>Again, the trick here is to identify an invariant—a logical expression that is true for each iteration of the loop. Let’s tabulate the values for <span class="inline-math" hyphens="none" smart-typography="none">\(3^7\)</span>.</p><table class="quick-table"><tr><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{b}\)</span></th><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{i}\)</span></th><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{r}\)</span></th></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(7\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(6\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3^2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3^2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3 \times 3^2\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3^4\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3 \times 3^2\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3^4\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3 \times 3^2 \times 3^4\)</span></td></tr></table><p>The expression should probably involve all variables. The most sensible way to combine them seems to be <span class="inline-math" hyphens="none" smart-typography="none">\(r \cdot b^i\)</span>, which at the beginning evaluates to <span class="inline-math" hyphens="none" smart-typography="none">\(1 \cdot 3^7 = 3^7\)</span>.</p><p>This remains true on the second line, after one iteration in the simple branch in the loop (where <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is odd): <span class="inline-math" hyphens="none" smart-typography="none">\(r \cdot b^i = 3 \cdot 3^6 = 3^7\)</span>. On the third line, after one iteration in the more complicated branch, <span class="inline-math" hyphens="none" smart-typography="none">\(r \cdot b^i = 3 \cdot (3^2)^3 = 3 \cdot 3^6 = 3^7\)</span>. So it seems that <span class="inline-math" hyphens="none" smart-typography="none">\(r \cdot b^i = 3^7\)</span> is an invariant.</p><p>Now that we have identified what we think is an invariant, we should prove it. You can do this on paper, or you can get Dafny to do it for you.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FastExp(a: int, n: nat) returns (r: int)
+method {:main} TestFastExp()
+{
+    var x := FastExp(3, 4);
+    print x, "\n";  // prints 81
+}</code></pre></div><p>But how can we be sure that this works? This algorithm is not as straightforward as the simple one and therefore genuinely <em>requires</em> a proof for us to be certain that it works.</p><p>Again, the trick here is to identify an invariant—a logical expression that is true for each iteration of the loop. Let’s tabulate the values for <span class="inline-math" hyphens="none" smart-typography="none">\(3^7\)</span>.</p><table class="quick-table"><tr><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{b}\)</span></th><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{i}\)</span></th><th><span class="inline-math" hyphens="none" smart-typography="none">\(\boldsymbol{r}\)</span></th></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(7\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(6\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3^2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3^2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(2\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3 \times 3^2\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3^4\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(1\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3 \times 3^2\)</span></td></tr><tr><td><span class="inline-math" hyphens="none" smart-typography="none">\(3^4\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(0\)</span></td><td><span class="inline-math" hyphens="none" smart-typography="none">\(3 \times 3^2 \times 3^4\)</span></td></tr></table><p>The expression should probably involve all variables. The most sensible way to combine them seems to be <span class="inline-math" hyphens="none" smart-typography="none">\(r \cdot b^i\)</span>, which at the beginning evaluates to <span class="inline-math" hyphens="none" smart-typography="none">\(1 \cdot 3^7 = 3^7\)</span>.</p><p>This remains true on the second line, after one iteration in the simple branch in the loop (where <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is odd): <span class="inline-math" hyphens="none" smart-typography="none">\(r \cdot b^i = 3 \cdot 3^6 = 3^7\)</span>. On the third line, after one iteration in the more complicated branch, <span class="inline-math" hyphens="none" smart-typography="none">\(r \cdot b^i = 3 \cdot (3^2)^3 = 3 \cdot 3^6 = 3^7\)</span>. So it seems that <span class="inline-math" hyphens="none" smart-typography="none">\(r \cdot b^i = 3^7\)</span> is an invariant.</p><p>Now that we have identified what we think is an invariant, we should prove it. You can do this on paper, or you can get Dafny to do it for you.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FastExp(a: int, n: nat) returns (r: int)
     ensures r == ExpDef(a, n)
 {
     r := 1;
@@ -225,93 +168,48 @@ method {:main} TestFastExp()
             i := i - 1;
         }
     }
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FastExp</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
-    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="n">b</span> <span class="o">:=</span> <span class="n">a</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
+}`)"><i class="fas fa-copy"></i></button><pre><code>method FastExp(a: int, n: nat) returns (r: int)
+    ensures r == ExpDef(a, n)
+{
+    r := 1;
+    var b := a;
+    var i := n;
 
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span>
-        <span class="c1">// ✗ fails – might not be maintained</span>
-        <span class="k">invariant</span> <span class="n">r</span> <span class="o">*</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-            <span class="n">b</span> <span class="o">:=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
-            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
-            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Unfortunately, Dafny is not <em>quite</em> that smart. What’s the problem? If you copy the invariant into the loop, you will notice that it holds in the second branch, but not in the first. The reason for this is that Dafny does not know the properties of exponentiation like we do.</p><p>Performing Hoare logic calculations by hand, we can work up to the top of the condition to see what Dafny is missing.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`if i % 2 == 0 {
+    while i &gt; 0
+        // ✗ fails – might not be maintained
+        invariant r * ExpDef(b, i) == ExpDef(a, n)
+    {
+        if i % 2 == 0 {
+            b := b * b;
+            i := i / 2;
+        } else {
+            r := r * b;
+            i := i - 1;
+        }
+    }
+}</code></pre></div><p>Unfortunately, Dafny is not <em>quite</em> that smart. What’s the problem? If you copy the invariant into the loop, you will notice that it holds in the second branch, but not in the first. The reason for this is that Dafny does not know the properties of exponentiation like we do.</p><p>Performing Hoare logic calculations by hand, we can work up to the top of the condition to see what Dafny is missing.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`if i % 2 == 0 {
     assert r * ExpDef(b * b, i / 2) == ExpDef(a, n);
     b := b * b;
     i := i / 2;
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-    <span class="k">assert</span> <span class="n">r</span> <span class="o">*</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">,</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
-    <span class="n">b</span> <span class="o">:=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>If Dafny knew that <span class="inline-math" hyphens="none" smart-typography="none">\((b^2)^{i/2} = b^i\)</span> (when <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is even), Dafny could complete the proof. For that, we will need a lemma.</p><p>A <em>lemma</em> in Dafny is a ghost method where the sole purpose is to establish the postcondition. For example, you might imagine writing a lemma like this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma prop_54_43()
+}`)"><i class="fas fa-copy"></i></button><pre><code>if i % 2 == 0 {
+    assert r * ExpDef(b * b, i / 2) == ExpDef(a, n);
+    b := b * b;
+    i := i / 2;
+}</code></pre></div><p>If Dafny knew that <span class="inline-math" hyphens="none" smart-typography="none">\((b^2)^{i/2} = b^i\)</span> (when <span class="inline-math" hyphens="none" smart-typography="none">\(i\)</span> is even), Dafny could complete the proof. For that, we will need a lemma.</p><p>A <em>lemma</em> in Dafny is a ghost method where the sole purpose is to establish the postcondition. For example, you might imagine writing a lemma like this:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma prop_54_43()
     ensures 1 + 1 == 2
-{}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">prop_54_43</span><span class="p">()</span>
-    <span class="k">ensures</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>
-<span class="p">{}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>This method has no body and cannot be executed besides, but if you call it somewhere, Dafny will be exposed to the earth-shattering realisation that <span class="inline-math" hyphens="none" smart-typography="none">\(1 + 1 = 2\)</span>. This occasionally useful fact does not require a lemma, but our fact about exponentiation does.</p><p>We want Dafny to be able to prove the following:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma ExpSquare(a: int, n: nat)
+{}`)"><i class="fas fa-copy"></i></button><pre><code>lemma prop_54_43()
+    ensures 1 + 1 == 2
+{}</code></pre></div><p>This method has no body and cannot be executed besides, but if you call it somewhere, Dafny will be exposed to the earth-shattering realisation that <span class="inline-math" hyphens="none" smart-typography="none">\(1 + 1 = 2\)</span>. This occasionally useful fact does not require a lemma, but our fact about exponentiation does.</p><p>We want Dafny to be able to prove the following:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma ExpSquare(a: int, n: nat)
     ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
-{}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
-    <span class="k">ensures</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">{}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>This requires that <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> is even, of course. We can add this as a precondition.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma ExpSquare(a: int, n: nat)
+{}`)"><i class="fas fa-copy"></i></button><pre><code>lemma ExpSquare(a: int, n: nat)
+    ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
+{}</code></pre></div><p>This requires that <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> is even, of course. We can add this as a precondition.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma ExpSquare(a: int, n: nat)
     requires n % 2 == 0
     ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
-{}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
-    <span class="k">requires</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="k">ensures</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">{}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Dafny will try to prove lemmas automatically by induction on the lemma’s arguments, if possible. But Dafny cannot automatically prove that this lemma is true. It turns out to be enough to remind Dafny that the inductive hypothesis holds for <span class="inline-math" hyphens="none" smart-typography="none">\(n - 2\)</span> in the case where <span class="inline-math" hyphens="none" smart-typography="none">\(n \ne 0\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma ExpSquare(a: int, n: nat)
+{}`)"><i class="fas fa-copy"></i></button><pre><code>lemma ExpSquare(a: int, n: nat)
+    requires n % 2 == 0
+    ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
+{}</code></pre></div><p>Dafny will try to prove lemmas automatically by induction on the lemma’s arguments, if possible. But Dafny cannot automatically prove that this lemma is true. It turns out to be enough to remind Dafny that the inductive hypothesis holds for <span class="inline-math" hyphens="none" smart-typography="none">\(n - 2\)</span> in the case where <span class="inline-math" hyphens="none" smart-typography="none">\(n \ne 0\)</span>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma ExpSquare(a: int, n: nat)
     requires n % 2 == 0
     ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
 {
@@ -319,26 +217,15 @@ method {:main} TestFastExp()
         // note that n &gt; 1 here (Dafny knows this)
         ExpSquare(a, n - 2);
     }
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
-    <span class="k">requires</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="k">ensures</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="c1">// note that n &gt; 1 here (Dafny knows this)</span>
-        <span class="n">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Now all that remains is to make this lemma visible in the body of <code>FastExp</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FastExp(a: int, n: nat) returns (r: int)
+}`)"><i class="fas fa-copy"></i></button><pre><code>lemma ExpSquare(a: int, n: nat)
+    requires n % 2 == 0
+    ensures ExpDef(a, n) == ExpDef(a*a, n / 2)
+{
+    if n != 0 {
+        // note that n &gt; 1 here (Dafny knows this)
+        ExpSquare(a, n - 2);
+    }
+}</code></pre></div><p>Now all that remains is to make this lemma visible in the body of <code>FastExp</code>.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`method FastExp(a: int, n: nat) returns (r: int)
     ensures r == ExpDef(a, n)  // ✓ succeeds
 {
     r := 1;
@@ -357,61 +244,34 @@ method {:main} TestFastExp()
             i := i - 1;
         }
     }
-}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">method</span> <span class="nf">FastExp</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
-    <span class="k">ensures</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1">// ✓ succeeds</span>
-<span class="p">{</span>
-    <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="n">b</span> <span class="o">:=</span> <span class="n">a</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="n">i</span> <span class="o">:=</span> <span class="n">n</span><span class="p">;</span>
+}`)"><i class="fas fa-copy"></i></button><pre><code>method FastExp(a: int, n: nat) returns (r: int)
+    ensures r == ExpDef(a, n)  // ✓ succeeds
+{
+    r := 1;
+    var b := a;
+    var i := n;
 
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span>
-        <span class="k">invariant</span> <span class="n">r</span> <span class="o">*</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-            <span class="n">ExpSquare</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>  <span class="c1">// ← this line added</span>
-            <span class="n">b</span> <span class="o">:=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
-            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">r</span> <span class="o">:=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
-            <span class="n">i</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>This is now fully verified.</p><hr/><p>Why couldn’t Dafny prove the <code>ExpSquare</code> lemma automatically by induction? I don’t know for sure, but I have a sensible guess.</p><p>The base case is easy, so we won’t bother discussing that. The proof of the inductive step can’t start in the usual way—if we assume that the lemma holds for <span class="inline-math" hyphens="none" smart-typography="none">\(a^k\)</span>, we can’t prove it for <span class="inline-math" hyphens="none" smart-typography="none">\(a^{k + 1}\)</span>, since <span class="inline-math" hyphens="none" smart-typography="none">\(k + 1\)</span> is odd, and the lemma does not apply. We want to prove it for all <em>even</em> numbers, so we prove it in the case <span class="inline-math" hyphens="none" smart-typography="none">\(n = 0\)</span>, and then, assuming it holds for even <span class="inline-math" hyphens="none" smart-typography="none">\(k\)</span>, prove it for <span class="inline-math" hyphens="none" smart-typography="none">\(k + 2\)</span>. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Note that the equality marked <span class="inline-math" hyphens="none" smart-typography="none">\(\stackrel{\ast}{=}\)</span> follows from the inductive hypothesis.</span></span></p><div class="display-math" hyphens="none" paragraphs="none" smart-typography="none">\[\begin{aligned}
+    while i &gt; 0
+        invariant r * ExpDef(b, i) == ExpDef(a, n)
+    {
+        if i % 2 == 0 {
+            ExpSquare(b, i);  // ← this line added
+            b := b * b;
+            i := i / 2;
+        } else {
+            r := r * b;
+            i := i - 1;
+        }
+    }
+}</code></pre></div><p>This is now fully verified.</p><hr/><p>Why couldn’t Dafny prove the <code>ExpSquare</code> lemma automatically by induction? I don’t know for sure, but I have a sensible guess.</p><p>The base case is easy, so we won’t bother discussing that. The proof of the inductive step can’t start in the usual way—if we assume that the lemma holds for <span class="inline-math" hyphens="none" smart-typography="none">\(a^k\)</span>, we can’t prove it for <span class="inline-math" hyphens="none" smart-typography="none">\(a^{k + 1}\)</span>, since <span class="inline-math" hyphens="none" smart-typography="none">\(k + 1\)</span> is odd, and the lemma does not apply. We want to prove it for all <em>even</em> numbers, so we prove it in the case <span class="inline-math" hyphens="none" smart-typography="none">\(n = 0\)</span>, and then, assuming it holds for even <span class="inline-math" hyphens="none" smart-typography="none">\(k\)</span>, prove it for <span class="inline-math" hyphens="none" smart-typography="none">\(k + 2\)</span>. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Note that the equality marked <span class="inline-math" hyphens="none" smart-typography="none">\(\stackrel{\ast}{=}\)</span> follows from the inductive hypothesis.</span></span></p><div class="display-math" hyphens="none" paragraphs="none" smart-typography="none">\[\begin{aligned}
   a^{k + 2} &amp;= a^2 \cdot a^{k} \\
           &amp;\stackrel{\ast}{=} a^2 \cdot (a^2)^{k/2} \\
           &amp;= (a^2)^{(k + 2)/2}
 \end{aligned}\]</div><p>I can’t give you the precise reason why Dafny fails to guess this calculation, but more than likely it is due to the fact that the induction step is unusual, requiring <em>strong induction</em>. This is probably why it sufficed to point out that the induction step held for <span class="inline-math" hyphens="none" smart-typography="none">\(n - 2\)</span> in the lemma itself. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Proving something for all natural numbers <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span>, under the condition that <span class="inline-math" hyphens="none" smart-typography="none">\(n\)</span> is even, is subtly different from proving something for all even numbers. In the first case you need strong induction, but in the second case you don’t.</span></span></p><p>If instead we declare the lemma like so:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`lemma ExpSquare(a: int, n: nat)
     ensures ExpDef(a, 2*n) == ExpDef(a*a, n)
-{}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">lemma</span> <span class="nf">ExpSquare</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="kt">nat</span><span class="p">)</span>
-    <span class="k">ensures</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">ExpDef</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>… then Dafny <em>can</em> prove this automatically. Why? Presumably because the proof only requires standard induction. There’s also no more precondition, and we no longer have to reason about division.</p><div class="display-math" hyphens="none" paragraphs="none" smart-typography="none">\[\begin{aligned}
+{}`)"><i class="fas fa-copy"></i></button><pre><code>lemma ExpSquare(a: int, n: nat)
+    ensures ExpDef(a, 2*n) == ExpDef(a*a, n)
+{}</code></pre></div><p>… then Dafny <em>can</em> prove this automatically. Why? Presumably because the proof only requires standard induction. There’s also no more precondition, and we no longer have to reason about division.</p><div class="display-math" hyphens="none" paragraphs="none" smart-typography="none">\[\begin{aligned}
   a^{2(k + 1)} &amp;= a^2 \cdot a^{2k} \\
              &amp;\stackrel{\ast}{=} a^2 \cdot (a^2)^{k} \\
              &amp;= (a^2)^{k + 1}
