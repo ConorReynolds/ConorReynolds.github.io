@@ -137,7 +137,7 @@ export class Script {
       for (const c of a) {
         str += `<div class="item">`;
         str +=
-          `<img id=${c.id} class="icon" src="/botc-script-tool/src/assets/unofficial-icons/Icon_${c.id}.png"/>`;
+          `<img id=${c.id} class="icon" src="/botc-script-tool/src/assets/unofficial-icons/Icon_${c.id}.webp"/>`;
         str += `<div class="name-and-summary">`;
         str +=
           `<h4 class="character-name"><a href="${c.wikilink}" target="_blank">${c.name}</a></h4>`;

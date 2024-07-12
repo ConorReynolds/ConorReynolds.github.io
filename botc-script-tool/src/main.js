@@ -117,9 +117,9 @@ window.addEventListener("DOMContentLoaded", () => {
       let html = "";
       for (let i = 0; i < res.length; i++) {
         html +=
-          `<div><img class="thumbnail" src="/botc-script-tool/src/assets/unofficial-icons/Icon_${
+          `<div><img class="thumbnail" src="/botc-script-tool/src/assets/unofficial-icons/TinyIcon_${
             res[i][0]
-          }.png"/>` +
+          }.webp"/>` +
           res[i][1] + `</div>`;
       }
       document.querySelector("#current-matches").innerHTML = html;
