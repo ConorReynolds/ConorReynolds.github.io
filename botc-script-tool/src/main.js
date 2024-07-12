@@ -1,10 +1,12 @@
 import { Character } from "./character.js";
 import { Script } from "./script.js";
+
 let h1;
 let characterInputEl;
 let scriptNameInput;
 let scriptAuthorInput;
 const title = "Unofficial BotC Script Tool";
+
 async function readFileDialog() {
   const input = document.createElement("input");
   input.type = "file";
@@ -26,6 +28,7 @@ async function readFileDialog() {
   });
   input.click();
 }
+
 async function writeDialogJSON(filename, contents) {
   const anchor = document.createElement("a");
   anchor.setAttribute(
@@ -37,7 +40,41 @@ async function writeDialogJSON(filename, contents) {
   anchor.click();
   document.body.removeChild(anchor);
 }
+
+// https://stackoverflow.com/a/8265310
+function preloadImages(srcs) {
+  function loadImage(src) {
+    return new Promise(function (resolve, reject) {
+      let img = new Image();
+      img.onload = function () {
+        resolve(img);
+      };
+      img.onerror = img.onabort = function () {
+        reject(src);
+      };
+      img.src = src;
+    });
+  }
+  let promises = [];
+  for (var i = 0; i < srcs.length; i++) {
+    promises.push(loadImage(srcs[i]));
+  }
+  return Promise.all(promises);
+}
+
+const thumbnails = [];
+for (const char of Character.flat) {
+  thumbnails.push(
+    `/botc-script-tool/src/assets/unofficial-icons/TinyIcon_${char.id}.webp`,
+  );
+}
+
+preloadImages(thumbnails).then((_) => {
+  console.log(`preloaded ${thumbnails.length} thumbnails`);
+});
+
 let script;
+
 function renderScript() {
   h1.innerHTML = `${script.name}<span>by ${script.author}</span>`;
   document.querySelector("#script").innerHTML = script.render();
@@ -50,12 +87,14 @@ function renderScript() {
     }, { once: true });
   });
 }
+
 function reinitStorage() {
   localStorage.clear();
   // set defaults
   localStorage.setItem("app-name", "Unofficial BotC Script Tool");
   localStorage.setItem("app-version", "0.0.1");
 }
+
 window.addEventListener("DOMContentLoaded", () => {
   if (localStorage.length === 0) {
     reinitStorage();
@@ -152,6 +191,7 @@ window.addEventListener("DOMContentLoaded", () => {
     document.title = title;
   });
 });
+
 window.addEventListener("unload", (_event) => {
   localStorage.setItem("script", script.toJSON());
 });
