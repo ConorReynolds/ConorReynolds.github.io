@@ -4,7 +4,7 @@ let h1;
 let characterInputEl;
 let scriptNameInput;
 let scriptAuthorInput;
-let title = "BotC Script Tool";
+const title = "Unofficial BotC Script Tool";
 async function readFileDialog() {
   const input = document.createElement("input");
   input.type = "file";
@@ -53,7 +53,7 @@ function renderScript() {
 function reinitStorage() {
   localStorage.clear();
   // set defaults
-  localStorage.setItem("app-name", "BotC Script Tool");
+  localStorage.setItem("app-name", "Unofficial BotC Script Tool");
   localStorage.setItem("app-version", "0.0.1");
 }
 window.addEventListener("DOMContentLoaded", () => {
