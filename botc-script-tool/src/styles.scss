@@ -316,6 +316,10 @@ button {
       vertical-align: middle;
       align-self: center;
     }
+    .imported-icon {
+      object-fit: cover;
+      scale: 1.5;
+    }
     .name-and-summary {
       // display: table-cell;
       font-weight: 500;

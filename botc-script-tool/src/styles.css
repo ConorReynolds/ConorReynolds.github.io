@@ -699,6 +699,10 @@ button {
   vertical-align: middle;
   align-self: center;
 }
+#script .item .imported-icon {
+  object-fit: cover;
+  scale: 1.5;
+}
 #script .item .name-and-summary {
   font-weight: 500;
   margin: 0;

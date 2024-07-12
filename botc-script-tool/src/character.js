@@ -2,6 +2,7 @@
 import { charmap } from "./data.js";
 export class Character {
   id;
+  iconSrc;
   static data = charmap;
   static flat = Object.entries(charmap).map(([k, v]) => {
     return Object.assign({ id: k }, v);
