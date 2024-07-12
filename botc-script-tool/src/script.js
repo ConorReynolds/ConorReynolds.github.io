@@ -7,6 +7,7 @@ export class Script {
   outsiders;
   minions;
   demons;
+
   constructor() {
     this.townsfolk = [];
     this.outsiders = [];
@@ -15,13 +16,18 @@ export class Script {
     this.name = "";
     this.author = "";
   }
+
   clear() {
     this.townsfolk = [];
     this.outsiders = [];
     this.minions = [];
     this.demons = [];
   }
+
   loadFromJSON(obj) {
+    // This function needs to be generalised to accomodate completely custom
+    // characters. Just replacing icons is fine but really all parts of the
+    // character object should be overwritable.
     if (!Array.isArray(obj)) {
       console.error(obj);
       throw Error("Invalid JSON – can’t parse script.");
@@ -54,6 +60,7 @@ export class Script {
     }
     this.sort();
   }
+
   static asType(n) {
     switch (n) {
       case 0:
@@ -66,6 +73,7 @@ export class Script {
         return "Demon";
     }
   }
+
   remove(cid) {
     console.log("called");
     const char = new Character(cid);
@@ -86,6 +94,7 @@ export class Script {
       this.demons.splice(idx, 1);
     }
   }
+
   add(c) {
     switch (c.type) {
       case "Townsfolk":
@@ -114,12 +123,14 @@ export class Script {
         return;
     }
   }
+
   sort() {
     this.townsfolk.sort(Character.compare);
     this.outsiders.sort(Character.compare);
     this.minions.sort(Character.compare);
     this.demons.sort(Character.compare);
   }
+
   render() {
     let str = `<div class="script" id="${this.name}">`;
     for (
@@ -159,6 +170,7 @@ export class Script {
     str += `</div>`;
     return str;
   }
+
   toJSON() {
     const obj = [
       {

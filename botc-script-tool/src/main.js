@@ -156,12 +156,27 @@ window.addEventListener("DOMContentLoaded", () => {
       let html = "";
       for (let i = 0; i < res.length; i++) {
         html +=
-          `<div><img class="thumbnail" src="/botc-script-tool/src/assets/unofficial-icons/TinyIcon_${
+          `<div class="match"><img class="thumbnail" src="/botc-script-tool/src/assets/unofficial-icons/TinyIcon_${
             res[i][0]
           }.webp"/>` +
           res[i][1] + `</div>`;
       }
       document.querySelector("#current-matches").innerHTML = html;
+
+      // Register click event for matches to add the character
+      document.querySelectorAll("#current-matches .match").forEach(
+        (element, i) => {
+          console.log(element);
+          element.addEventListener("click", (event) => {
+            event.preventDefault();
+            script.add(new Character(res[i][0]));
+            script.sort();
+            renderScript();
+            document.querySelector("#current-matches").innerHTML = "";
+            localStorage.setItem("script", script.toJSON());
+          });
+        },
+      );
     },
   );
   document.querySelector("#import-form").addEventListener("submit", (event) => {

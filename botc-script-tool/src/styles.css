@@ -551,15 +551,15 @@ template {
   position: sticky;
 }
 .character-form-container #current-matches {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1rem;
   position: absolute;
   z-index: 2;
   text-align: left;
-  width: 9.4rem;
+  width: 10.9rem;
   border-radius: 0px 0px 8px 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0;
+  top: 2rem;
   font-weight: 500;
   font-family: inherit;
   color: #0f0f0f;
@@ -570,16 +570,29 @@ template {
 .character-form-container #current-matches:empty {
   display: none;
 }
-.character-form-container #current-matches div img.thumbnail {
+.character-form-container #current-matches .match {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0.2em 0.5em;
+}
+.character-form-container #current-matches .match:hover {
+  background-color: #f3f3f3;
+}
+.character-form-container #current-matches .match img.thumbnail {
   height: 1.25em;
   width: 1.25em;
   padding-right: 0.3em;
   object-fit: contain;
   vertical-align: middle;
 }
-.character-form-container #current-matches div:first-child {
+.character-form-container #current-matches .match:first-child {
   text-decoration: underline;
   text-decoration-skip-ink: all;
+}
+@media not all and (max-width: 800px) {
+  .character-form-container #current-matches {
+    width: 12.1rem;
+  }
 }
 
 a {
