@@ -87,9 +87,10 @@
       all: unset;
       &#script-name-input {
         // width: min(30ch, 100%);
+        max-width: 100%;
       }
       &#script-author-input {
-        width: min(40ch, 80%);
+        width: min(40ch, 90%);
       }
     }
     margin: 0;

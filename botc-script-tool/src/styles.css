@@ -515,8 +515,11 @@ template {
 .header-container #metadata input {
   all: unset;
 }
+.header-container #metadata input#script-name-input {
+  max-width: 100%;
+}
 .header-container #metadata input#script-author-input {
-  width: min(40ch, 80%);
+  width: min(40ch, 90%);
 }
 .header-container #metadata #script-name-form {
   text-align: left;
