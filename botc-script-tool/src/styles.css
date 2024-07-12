@@ -639,23 +639,6 @@ button {
   margin-left: 3px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
-  }
-  a:hover {
-    color: #24c8db;
-  }
-  input,
-  button {
-    color: #ffffff;
-    background-color: rgba(15, 15, 15, 0.5960784314);
-  }
-  button:active {
-    background-color: rgba(15, 15, 15, 0.4117647059);
-  }
-}
 @media print {
   .noprint {
     display: none;
