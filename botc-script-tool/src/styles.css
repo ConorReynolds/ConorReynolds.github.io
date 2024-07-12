@@ -519,7 +519,7 @@ template {
   max-width: 100%;
 }
 .header-container #metadata input#script-author-input {
-  width: min(40ch, 90%);
+  width: min(40ch, 80%);
 }
 .header-container #metadata #script-name-form {
   text-align: left;
