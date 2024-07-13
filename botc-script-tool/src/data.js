@@ -1864,7 +1864,7 @@ export const jinxes = {
     "Huntsman":
       "If the Marionette thinks that they are the Huntsman, the Damsel was added.",
     "Lil' Monsta":
-      "The Marionette neighbors a Minion, not the Demon. The Marionette is not woken to choose who takes the Lil' Monsta token, and does not learn they are the Marionette if they have the Lil' Monsta token.",
+      "The Marionette neighbors a Minion, not the Demon. The Marionette is not woken to choose who takes the Lil’ Monsta token, and does not learn they are the Marionette if they have the Lil’ Monsta token.",
     "Plague Doctor":
       "If the Demon has a neighbor who is alive and a Townsfolk or Outsider when the Plague Doctor dies, that player becomes an evil Marionette. If there is already an extra evil player, this does not happen.",
     "Poppy Grower":
@@ -1882,16 +1882,16 @@ export const jinxes = {
   },
   "Pit-Hag": {
     "Cult Leader":
-      "If the Pit-Hag turns an evil player into the Cult Leader, they can't turn good due to their own ability.",
+      "If the Pit-Hag turns an evil player into the Cult Leader, they can’t turn good due to their own ability.",
     "Damsel":
       "If a Pit-Hag creates a Damsel, the Storyteller chooses which player it is.",
     "Goon":
-      "If the Pit-Hag turns an evil player into the Goon, they can't turn good due to their own ability.",
+      "If the Pit-Hag turns an evil player into the Goon, they can’t turn good due to their own ability.",
     "Heretic": "A Pit-Hag can not create a Heretic.",
     "Ogre":
-      "If the Pit-Hag turns an evil player into the Ogre, they can't turn good due to their own ability.",
+      "If the Pit-Hag turns an evil player into the Ogre, they can’t turn good due to their own ability.",
     "Politician":
-      "If the Pit-Hag turns an evil player into the Politician, they can't turn good due to their own ability.",
+      "If the Pit-Hag turns an evil player into the Politician, they can’t turn good due to their own ability.",
     "Village Idiot":
       "If there is a spare token, the Pit-Hag can create an extra Village Idiot. If so, the drunk Village Idiot might change.",
   },
@@ -1904,7 +1904,7 @@ export const jinxes = {
     "Damsel": "If the Spy is (or has been) in play, the Damsel is poisoned.",
     "Heretic": "Only 1 jinxed character can be in play.",
     "Magician":
-      "When the Spy sees the Grimoire, the Demon and Magician's character tokens are removed.",
+      "When the Spy sees the Grimoire, the Demon and Magician’s character tokens are removed.",
     "Ogre": "The Spy registers as evil to the Ogre.",
     "Plague Doctor":
       "If the Plague Doctor dies, a living Minion gains the Spy ability in addition to their own ability, and learns this.",
@@ -1944,7 +1944,7 @@ export const jinxes = {
     "Alsaahir":
       "If the Vizier is in play, the Alsaahir must also guess which Demon(s) are in play.",
     "Alchemist":
-      "If the Alchemist has the Vizier ability, they may only choose to execute immediately if three or more players voted, regardless of those players' alignment.",
+      "If the Alchemist has the Vizier ability, they may only choose to execute immediately if three or more players voted, regardless of those players’ alignment.",
     "Courtier":
       "If the Vizier loses their ability, they learn this. If the Vizier is executed while they have their ability, their team wins.",
     "Fearmonger":
@@ -1962,7 +1962,7 @@ export const jinxes = {
     "Damsel": "If the Widow is (or has been) in play, the Damsel is poisoned.",
     "Heretic": "Only 1 jinxed character can be in play.",
     "Magician":
-      "When the Widow sees the Grimoire, the Demon and Magician's character tokens are removed.",
+      "When the Widow sees the Grimoire, the Demon and Magician’s character tokens are removed.",
     "Poppy Grower":
       "If the Poppy Grower is in play, the Widow does not see the Grimoire until the Poppy Grower dies.",
   },
@@ -2023,24 +2023,24 @@ export const jinxes = {
   },
   "Lil' Monsta": {
     "Hatter":
-      "If a Demon chooses Lil' Monsta, they also choose a Minion to become and babysit Lil' Monsta tonight.",
+      "If a Demon chooses Lil’ Monsta, they also choose a Minion to become and babysit Lil’ Monsta tonight.",
     "Magician":
-      "Each night, the Magician chooses a Minion: if that Minion & Lil' Monsta are alive, that Minion babysits Lil’ Monsta.",
+      "Each night, the Magician chooses a Minion: if that Minion & Lil’ Monsta are alive, that Minion babysits Lil’ Monsta.",
     "Organ Grinder":
-      "Votes for the Organ Grinder count if the Organ Grinder is babysitting Lil' Monsta.",
+      "Votes for the Organ Grinder count if the Organ Grinder is babysitting Lil’ Monsta.",
     "Poppy Grower":
-      "If the Poppy Grower is in play, Minions don't wake together. They are woken one by one, until one of them chooses to take the Lil' Monsta token.",
+      "If the Poppy Grower is in play, Minions don’t wake together. They are woken one by one, until one of them chooses to take the Lil’ Monsta token.",
     "Scarlet Woman":
-      "If there are 5 or more players alive and the player holding the Lil' Monsta token dies, the Scarlet Woman is given the Lil' Monsta token tonight.",
+      "If there are 5 or more players alive and the player holding the Lil’ Monsta token dies, the Scarlet Woman is given the Lil’ Monsta token tonight.",
     "Vizier":
-      "The Vizier can die by execution if they are babysitting Lil' Monsta.",
+      "The Vizier can die by execution if they are babysitting Lil’ Monsta.",
   },
   "Lleech": {
     "Heretic":
       "If the Lleech has poisoned the Heretic then the Lleech dies, the Heretic remains poisoned.",
     "Mastermind":
-      "If the Mastermind is alive and the Lleech's host dies by execution, the Lleech lives but loses their ability.",
-    "Slayer": "If the Slayer slays the Lleech's host, the host dies.",
+      "If the Mastermind is alive and the Lleech’s host dies by execution, the Lleech lives but loses their ability.",
+    "Slayer": "If the Slayer slays the Lleech’s host, the host dies.",
   },
   "Riot": {
     "Banshee":
@@ -2051,7 +2051,7 @@ export const jinxes = {
     "Clockmaker": "Riot registers as a Minion to the Clockmaker.",
     "Damsel": "Riot registers as a Minion to the Damsel.",
     "Devil's Advocate":
-      "Players that die by nomination register as being executed to the Devil's Advocate.",
+      "Players that die by nomination register as being executed to the Devil’s Advocate.",
     "Engineer":
       "Riot and the Engineer can not both be in play at the start of the game. If the Engineer creates Riot, the evil players become Riot.",
     "Exorcist": "Only 1 jinxed character can be in play.",
@@ -2069,7 +2069,7 @@ export const jinxes = {
     "King":
       "If a Riot player nominates and kills the King and the Choirboy is alive, the Choirboy uses their ability tonight.",
     "Mayor":
-      "If the 3rd day begins with just three players alive, the players may choose (as a group) not to nominate at all. If so (and a Mayor is alive) then the Mayor's team wins.",
+      "If the 3rd day begins with just three players alive, the players may choose (as a group) not to nominate at all. If so (and a Mayor is alive) then the Mayor’s team wins.",
     "Minstrel": "Only 1 jinxed character can be in play.",
     "Monk":
       "If a Riot player nominates and kills the Monk-protected-player, the Monk-protected-player does not die.",
@@ -2083,7 +2083,7 @@ export const jinxes = {
     "Sage":
       "If a Riot player nominates and kills a Sage, the Sage uses their ability tonight.",
     "Saint":
-      "If a good player nominates and kills the Saint, the Saint's team loses.",
+      "If a good player nominates and kills the Saint, the Saint’s team loses.",
     "Snitch":
       "If the Snitch is in play, each Riot player gets an extra 3 bluffs.",
     "Soldier":
