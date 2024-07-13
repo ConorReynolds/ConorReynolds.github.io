@@ -698,13 +698,13 @@ button {
   font-family: IBMPlexSans;
   font-size: 1.1rem;
 }
-#script .item {
+#script .script .item {
   page-break-inside: avoid;
   display: grid;
   grid-template-columns: 4.5em 1fr;
   column-gap: 1rem;
 }
-#script .item .icon {
+#script .script .item .icon {
   width: 4.5em;
   height: 4.5em;
   margin: 0;
@@ -712,42 +712,42 @@ button {
   vertical-align: middle;
   align-self: center;
 }
-#script .item .imported-icon {
+#script .script .item .imported-icon {
   object-fit: cover;
   scale: 1.5;
 }
-#script .item .name-and-summary {
+#script .script .item .name-and-summary {
   font-weight: 500;
   margin: 0;
   padding: 0;
   margin-right: auto;
   align-self: center;
 }
-#script .item .name-and-summary .character-name {
+#script .script .item .name-and-summary .character-name {
   margin: 0;
   padding: 0;
   font-weight: bold;
 }
-#script .item .name-and-summary .character-name a {
+#script .script .item .name-and-summary .character-name a {
   color: inherit;
   font-weight: bold;
 }
-#script .item .name-and-summary .character-summary {
+#script .script .item .name-and-summary .character-summary {
   vertical-align: middle;
   line-height: 1.4;
 }
-#script .townsfolk,
-#script .outsider,
-#script .minion,
-#script .demon {
+#script .script .townsfolk,
+#script .script .outsider,
+#script .script .minion,
+#script .script .demon {
   margin-bottom: 1rem;
   --nitems: 0;
 }
 @media not all and (max-width: 650px) {
-  #script .townsfolk,
-  #script .outsider,
-  #script .minion,
-  #script .demon {
+  #script .script .townsfolk,
+  #script .script .outsider,
+  #script .script .minion,
+  #script .script .demon {
     display: grid;
     grid-auto-rows: max-content;
     grid-template-rows: repeat(calc(var(--nitems) / 2), 1fr);
@@ -758,10 +758,10 @@ button {
   }
 }
 @media print {
-  #script .townsfolk,
-  #script .outsider,
-  #script .minion,
-  #script .demon {
+  #script .script .townsfolk,
+  #script .script .outsider,
+  #script .script .minion,
+  #script .script .demon {
     display: grid;
     grid-auto-rows: max-content;
     grid-template-rows: repeat(calc(var(--nitems) / 2), 1fr);
@@ -772,614 +772,685 @@ button {
   }
 }
 @media (max-width: 650px) {
-  #script .townsfolk,
-  #script .outsider,
-  #script .minion,
-  #script .demon {
+  #script .script .townsfolk,
+  #script .script .outsider,
+  #script .script .minion,
+  #script .script .demon {
     display: grid;
     grid-auto-flow: row;
     row-gap: 1rem;
   }
 }
-#script .townsfolk[nitems="0"],
-#script .outsider[nitems="0"],
-#script .minion[nitems="0"],
-#script .demon[nitems="0"] {
+#script .script .townsfolk[nitems="0"],
+#script .script .outsider[nitems="0"],
+#script .script .minion[nitems="0"],
+#script .script .demon[nitems="0"] {
   --nitems: 0 ;
 }
-#script .townsfolk[nitems="1"],
-#script .outsider[nitems="1"],
-#script .minion[nitems="1"],
-#script .demon[nitems="1"] {
+#script .script .townsfolk[nitems="1"],
+#script .script .outsider[nitems="1"],
+#script .script .minion[nitems="1"],
+#script .script .demon[nitems="1"] {
   --nitems: 1 ;
 }
-#script .townsfolk[nitems="2"],
-#script .outsider[nitems="2"],
-#script .minion[nitems="2"],
-#script .demon[nitems="2"] {
+#script .script .townsfolk[nitems="2"],
+#script .script .outsider[nitems="2"],
+#script .script .minion[nitems="2"],
+#script .script .demon[nitems="2"] {
   --nitems: 2 ;
 }
-#script .townsfolk[nitems="3"],
-#script .outsider[nitems="3"],
-#script .minion[nitems="3"],
-#script .demon[nitems="3"] {
+#script .script .townsfolk[nitems="3"],
+#script .script .outsider[nitems="3"],
+#script .script .minion[nitems="3"],
+#script .script .demon[nitems="3"] {
   --nitems: 3 ;
 }
-#script .townsfolk[nitems="4"],
-#script .outsider[nitems="4"],
-#script .minion[nitems="4"],
-#script .demon[nitems="4"] {
+#script .script .townsfolk[nitems="4"],
+#script .script .outsider[nitems="4"],
+#script .script .minion[nitems="4"],
+#script .script .demon[nitems="4"] {
   --nitems: 4 ;
 }
-#script .townsfolk[nitems="5"],
-#script .outsider[nitems="5"],
-#script .minion[nitems="5"],
-#script .demon[nitems="5"] {
+#script .script .townsfolk[nitems="5"],
+#script .script .outsider[nitems="5"],
+#script .script .minion[nitems="5"],
+#script .script .demon[nitems="5"] {
   --nitems: 5 ;
 }
-#script .townsfolk[nitems="6"],
-#script .outsider[nitems="6"],
-#script .minion[nitems="6"],
-#script .demon[nitems="6"] {
+#script .script .townsfolk[nitems="6"],
+#script .script .outsider[nitems="6"],
+#script .script .minion[nitems="6"],
+#script .script .demon[nitems="6"] {
   --nitems: 6 ;
 }
-#script .townsfolk[nitems="7"],
-#script .outsider[nitems="7"],
-#script .minion[nitems="7"],
-#script .demon[nitems="7"] {
+#script .script .townsfolk[nitems="7"],
+#script .script .outsider[nitems="7"],
+#script .script .minion[nitems="7"],
+#script .script .demon[nitems="7"] {
   --nitems: 7 ;
 }
-#script .townsfolk[nitems="8"],
-#script .outsider[nitems="8"],
-#script .minion[nitems="8"],
-#script .demon[nitems="8"] {
+#script .script .townsfolk[nitems="8"],
+#script .script .outsider[nitems="8"],
+#script .script .minion[nitems="8"],
+#script .script .demon[nitems="8"] {
   --nitems: 8 ;
 }
-#script .townsfolk[nitems="9"],
-#script .outsider[nitems="9"],
-#script .minion[nitems="9"],
-#script .demon[nitems="9"] {
+#script .script .townsfolk[nitems="9"],
+#script .script .outsider[nitems="9"],
+#script .script .minion[nitems="9"],
+#script .script .demon[nitems="9"] {
   --nitems: 9 ;
 }
-#script .townsfolk[nitems="10"],
-#script .outsider[nitems="10"],
-#script .minion[nitems="10"],
-#script .demon[nitems="10"] {
+#script .script .townsfolk[nitems="10"],
+#script .script .outsider[nitems="10"],
+#script .script .minion[nitems="10"],
+#script .script .demon[nitems="10"] {
   --nitems: 10 ;
 }
-#script .townsfolk[nitems="11"],
-#script .outsider[nitems="11"],
-#script .minion[nitems="11"],
-#script .demon[nitems="11"] {
+#script .script .townsfolk[nitems="11"],
+#script .script .outsider[nitems="11"],
+#script .script .minion[nitems="11"],
+#script .script .demon[nitems="11"] {
   --nitems: 11 ;
 }
-#script .townsfolk[nitems="12"],
-#script .outsider[nitems="12"],
-#script .minion[nitems="12"],
-#script .demon[nitems="12"] {
+#script .script .townsfolk[nitems="12"],
+#script .script .outsider[nitems="12"],
+#script .script .minion[nitems="12"],
+#script .script .demon[nitems="12"] {
   --nitems: 12 ;
 }
-#script .townsfolk[nitems="13"],
-#script .outsider[nitems="13"],
-#script .minion[nitems="13"],
-#script .demon[nitems="13"] {
+#script .script .townsfolk[nitems="13"],
+#script .script .outsider[nitems="13"],
+#script .script .minion[nitems="13"],
+#script .script .demon[nitems="13"] {
   --nitems: 13 ;
 }
-#script .townsfolk[nitems="14"],
-#script .outsider[nitems="14"],
-#script .minion[nitems="14"],
-#script .demon[nitems="14"] {
+#script .script .townsfolk[nitems="14"],
+#script .script .outsider[nitems="14"],
+#script .script .minion[nitems="14"],
+#script .script .demon[nitems="14"] {
   --nitems: 14 ;
 }
-#script .townsfolk[nitems="15"],
-#script .outsider[nitems="15"],
-#script .minion[nitems="15"],
-#script .demon[nitems="15"] {
+#script .script .townsfolk[nitems="15"],
+#script .script .outsider[nitems="15"],
+#script .script .minion[nitems="15"],
+#script .script .demon[nitems="15"] {
   --nitems: 15 ;
 }
-#script .townsfolk[nitems="16"],
-#script .outsider[nitems="16"],
-#script .minion[nitems="16"],
-#script .demon[nitems="16"] {
+#script .script .townsfolk[nitems="16"],
+#script .script .outsider[nitems="16"],
+#script .script .minion[nitems="16"],
+#script .script .demon[nitems="16"] {
   --nitems: 16 ;
 }
-#script .townsfolk[nitems="17"],
-#script .outsider[nitems="17"],
-#script .minion[nitems="17"],
-#script .demon[nitems="17"] {
+#script .script .townsfolk[nitems="17"],
+#script .script .outsider[nitems="17"],
+#script .script .minion[nitems="17"],
+#script .script .demon[nitems="17"] {
   --nitems: 17 ;
 }
-#script .townsfolk[nitems="18"],
-#script .outsider[nitems="18"],
-#script .minion[nitems="18"],
-#script .demon[nitems="18"] {
+#script .script .townsfolk[nitems="18"],
+#script .script .outsider[nitems="18"],
+#script .script .minion[nitems="18"],
+#script .script .demon[nitems="18"] {
   --nitems: 18 ;
 }
-#script .townsfolk[nitems="19"],
-#script .outsider[nitems="19"],
-#script .minion[nitems="19"],
-#script .demon[nitems="19"] {
+#script .script .townsfolk[nitems="19"],
+#script .script .outsider[nitems="19"],
+#script .script .minion[nitems="19"],
+#script .script .demon[nitems="19"] {
   --nitems: 19 ;
 }
-#script .townsfolk[nitems="20"],
-#script .outsider[nitems="20"],
-#script .minion[nitems="20"],
-#script .demon[nitems="20"] {
+#script .script .townsfolk[nitems="20"],
+#script .script .outsider[nitems="20"],
+#script .script .minion[nitems="20"],
+#script .script .demon[nitems="20"] {
   --nitems: 20 ;
 }
-#script .townsfolk[nitems="21"],
-#script .outsider[nitems="21"],
-#script .minion[nitems="21"],
-#script .demon[nitems="21"] {
+#script .script .townsfolk[nitems="21"],
+#script .script .outsider[nitems="21"],
+#script .script .minion[nitems="21"],
+#script .script .demon[nitems="21"] {
   --nitems: 21 ;
 }
-#script .townsfolk[nitems="22"],
-#script .outsider[nitems="22"],
-#script .minion[nitems="22"],
-#script .demon[nitems="22"] {
+#script .script .townsfolk[nitems="22"],
+#script .script .outsider[nitems="22"],
+#script .script .minion[nitems="22"],
+#script .script .demon[nitems="22"] {
   --nitems: 22 ;
 }
-#script .townsfolk[nitems="23"],
-#script .outsider[nitems="23"],
-#script .minion[nitems="23"],
-#script .demon[nitems="23"] {
+#script .script .townsfolk[nitems="23"],
+#script .script .outsider[nitems="23"],
+#script .script .minion[nitems="23"],
+#script .script .demon[nitems="23"] {
   --nitems: 23 ;
 }
-#script .townsfolk[nitems="24"],
-#script .outsider[nitems="24"],
-#script .minion[nitems="24"],
-#script .demon[nitems="24"] {
+#script .script .townsfolk[nitems="24"],
+#script .script .outsider[nitems="24"],
+#script .script .minion[nitems="24"],
+#script .script .demon[nitems="24"] {
   --nitems: 24 ;
 }
-#script .townsfolk[nitems="25"],
-#script .outsider[nitems="25"],
-#script .minion[nitems="25"],
-#script .demon[nitems="25"] {
+#script .script .townsfolk[nitems="25"],
+#script .script .outsider[nitems="25"],
+#script .script .minion[nitems="25"],
+#script .script .demon[nitems="25"] {
   --nitems: 25 ;
 }
-#script .townsfolk[nitems="26"],
-#script .outsider[nitems="26"],
-#script .minion[nitems="26"],
-#script .demon[nitems="26"] {
+#script .script .townsfolk[nitems="26"],
+#script .script .outsider[nitems="26"],
+#script .script .minion[nitems="26"],
+#script .script .demon[nitems="26"] {
   --nitems: 26 ;
 }
-#script .townsfolk[nitems="27"],
-#script .outsider[nitems="27"],
-#script .minion[nitems="27"],
-#script .demon[nitems="27"] {
+#script .script .townsfolk[nitems="27"],
+#script .script .outsider[nitems="27"],
+#script .script .minion[nitems="27"],
+#script .script .demon[nitems="27"] {
   --nitems: 27 ;
 }
-#script .townsfolk[nitems="28"],
-#script .outsider[nitems="28"],
-#script .minion[nitems="28"],
-#script .demon[nitems="28"] {
+#script .script .townsfolk[nitems="28"],
+#script .script .outsider[nitems="28"],
+#script .script .minion[nitems="28"],
+#script .script .demon[nitems="28"] {
   --nitems: 28 ;
 }
-#script .townsfolk[nitems="29"],
-#script .outsider[nitems="29"],
-#script .minion[nitems="29"],
-#script .demon[nitems="29"] {
+#script .script .townsfolk[nitems="29"],
+#script .script .outsider[nitems="29"],
+#script .script .minion[nitems="29"],
+#script .script .demon[nitems="29"] {
   --nitems: 29 ;
 }
-#script .townsfolk[nitems="30"],
-#script .outsider[nitems="30"],
-#script .minion[nitems="30"],
-#script .demon[nitems="30"] {
+#script .script .townsfolk[nitems="30"],
+#script .script .outsider[nitems="30"],
+#script .script .minion[nitems="30"],
+#script .script .demon[nitems="30"] {
   --nitems: 30 ;
 }
-#script .townsfolk[nitems="31"],
-#script .outsider[nitems="31"],
-#script .minion[nitems="31"],
-#script .demon[nitems="31"] {
+#script .script .townsfolk[nitems="31"],
+#script .script .outsider[nitems="31"],
+#script .script .minion[nitems="31"],
+#script .script .demon[nitems="31"] {
   --nitems: 31 ;
 }
-#script .townsfolk[nitems="32"],
-#script .outsider[nitems="32"],
-#script .minion[nitems="32"],
-#script .demon[nitems="32"] {
+#script .script .townsfolk[nitems="32"],
+#script .script .outsider[nitems="32"],
+#script .script .minion[nitems="32"],
+#script .script .demon[nitems="32"] {
   --nitems: 32 ;
 }
-#script .townsfolk[nitems="33"],
-#script .outsider[nitems="33"],
-#script .minion[nitems="33"],
-#script .demon[nitems="33"] {
+#script .script .townsfolk[nitems="33"],
+#script .script .outsider[nitems="33"],
+#script .script .minion[nitems="33"],
+#script .script .demon[nitems="33"] {
   --nitems: 33 ;
 }
-#script .townsfolk[nitems="34"],
-#script .outsider[nitems="34"],
-#script .minion[nitems="34"],
-#script .demon[nitems="34"] {
+#script .script .townsfolk[nitems="34"],
+#script .script .outsider[nitems="34"],
+#script .script .minion[nitems="34"],
+#script .script .demon[nitems="34"] {
   --nitems: 34 ;
 }
-#script .townsfolk[nitems="35"],
-#script .outsider[nitems="35"],
-#script .minion[nitems="35"],
-#script .demon[nitems="35"] {
+#script .script .townsfolk[nitems="35"],
+#script .script .outsider[nitems="35"],
+#script .script .minion[nitems="35"],
+#script .script .demon[nitems="35"] {
   --nitems: 35 ;
 }
-#script .townsfolk[nitems="36"],
-#script .outsider[nitems="36"],
-#script .minion[nitems="36"],
-#script .demon[nitems="36"] {
+#script .script .townsfolk[nitems="36"],
+#script .script .outsider[nitems="36"],
+#script .script .minion[nitems="36"],
+#script .script .demon[nitems="36"] {
   --nitems: 36 ;
 }
-#script .townsfolk[nitems="37"],
-#script .outsider[nitems="37"],
-#script .minion[nitems="37"],
-#script .demon[nitems="37"] {
+#script .script .townsfolk[nitems="37"],
+#script .script .outsider[nitems="37"],
+#script .script .minion[nitems="37"],
+#script .script .demon[nitems="37"] {
   --nitems: 37 ;
 }
-#script .townsfolk[nitems="38"],
-#script .outsider[nitems="38"],
-#script .minion[nitems="38"],
-#script .demon[nitems="38"] {
+#script .script .townsfolk[nitems="38"],
+#script .script .outsider[nitems="38"],
+#script .script .minion[nitems="38"],
+#script .script .demon[nitems="38"] {
   --nitems: 38 ;
 }
-#script .townsfolk[nitems="39"],
-#script .outsider[nitems="39"],
-#script .minion[nitems="39"],
-#script .demon[nitems="39"] {
+#script .script .townsfolk[nitems="39"],
+#script .script .outsider[nitems="39"],
+#script .script .minion[nitems="39"],
+#script .script .demon[nitems="39"] {
   --nitems: 39 ;
 }
-#script .townsfolk[nitems="40"],
-#script .outsider[nitems="40"],
-#script .minion[nitems="40"],
-#script .demon[nitems="40"] {
+#script .script .townsfolk[nitems="40"],
+#script .script .outsider[nitems="40"],
+#script .script .minion[nitems="40"],
+#script .script .demon[nitems="40"] {
   --nitems: 40 ;
 }
-#script .townsfolk[nitems="41"],
-#script .outsider[nitems="41"],
-#script .minion[nitems="41"],
-#script .demon[nitems="41"] {
+#script .script .townsfolk[nitems="41"],
+#script .script .outsider[nitems="41"],
+#script .script .minion[nitems="41"],
+#script .script .demon[nitems="41"] {
   --nitems: 41 ;
 }
-#script .townsfolk[nitems="42"],
-#script .outsider[nitems="42"],
-#script .minion[nitems="42"],
-#script .demon[nitems="42"] {
+#script .script .townsfolk[nitems="42"],
+#script .script .outsider[nitems="42"],
+#script .script .minion[nitems="42"],
+#script .script .demon[nitems="42"] {
   --nitems: 42 ;
 }
-#script .townsfolk[nitems="43"],
-#script .outsider[nitems="43"],
-#script .minion[nitems="43"],
-#script .demon[nitems="43"] {
+#script .script .townsfolk[nitems="43"],
+#script .script .outsider[nitems="43"],
+#script .script .minion[nitems="43"],
+#script .script .demon[nitems="43"] {
   --nitems: 43 ;
 }
-#script .townsfolk[nitems="44"],
-#script .outsider[nitems="44"],
-#script .minion[nitems="44"],
-#script .demon[nitems="44"] {
+#script .script .townsfolk[nitems="44"],
+#script .script .outsider[nitems="44"],
+#script .script .minion[nitems="44"],
+#script .script .demon[nitems="44"] {
   --nitems: 44 ;
 }
-#script .townsfolk[nitems="45"],
-#script .outsider[nitems="45"],
-#script .minion[nitems="45"],
-#script .demon[nitems="45"] {
+#script .script .townsfolk[nitems="45"],
+#script .script .outsider[nitems="45"],
+#script .script .minion[nitems="45"],
+#script .script .demon[nitems="45"] {
   --nitems: 45 ;
 }
-#script .townsfolk[nitems="46"],
-#script .outsider[nitems="46"],
-#script .minion[nitems="46"],
-#script .demon[nitems="46"] {
+#script .script .townsfolk[nitems="46"],
+#script .script .outsider[nitems="46"],
+#script .script .minion[nitems="46"],
+#script .script .demon[nitems="46"] {
   --nitems: 46 ;
 }
-#script .townsfolk[nitems="47"],
-#script .outsider[nitems="47"],
-#script .minion[nitems="47"],
-#script .demon[nitems="47"] {
+#script .script .townsfolk[nitems="47"],
+#script .script .outsider[nitems="47"],
+#script .script .minion[nitems="47"],
+#script .script .demon[nitems="47"] {
   --nitems: 47 ;
 }
-#script .townsfolk[nitems="48"],
-#script .outsider[nitems="48"],
-#script .minion[nitems="48"],
-#script .demon[nitems="48"] {
+#script .script .townsfolk[nitems="48"],
+#script .script .outsider[nitems="48"],
+#script .script .minion[nitems="48"],
+#script .script .demon[nitems="48"] {
   --nitems: 48 ;
 }
-#script .townsfolk[nitems="49"],
-#script .outsider[nitems="49"],
-#script .minion[nitems="49"],
-#script .demon[nitems="49"] {
+#script .script .townsfolk[nitems="49"],
+#script .script .outsider[nitems="49"],
+#script .script .minion[nitems="49"],
+#script .script .demon[nitems="49"] {
   --nitems: 49 ;
 }
-#script .townsfolk[nitems="50"],
-#script .outsider[nitems="50"],
-#script .minion[nitems="50"],
-#script .demon[nitems="50"] {
+#script .script .townsfolk[nitems="50"],
+#script .script .outsider[nitems="50"],
+#script .script .minion[nitems="50"],
+#script .script .demon[nitems="50"] {
   --nitems: 50 ;
 }
-#script .townsfolk[nitems="51"],
-#script .outsider[nitems="51"],
-#script .minion[nitems="51"],
-#script .demon[nitems="51"] {
+#script .script .townsfolk[nitems="51"],
+#script .script .outsider[nitems="51"],
+#script .script .minion[nitems="51"],
+#script .script .demon[nitems="51"] {
   --nitems: 51 ;
 }
-#script .townsfolk[nitems="52"],
-#script .outsider[nitems="52"],
-#script .minion[nitems="52"],
-#script .demon[nitems="52"] {
+#script .script .townsfolk[nitems="52"],
+#script .script .outsider[nitems="52"],
+#script .script .minion[nitems="52"],
+#script .script .demon[nitems="52"] {
   --nitems: 52 ;
 }
-#script .townsfolk[nitems="53"],
-#script .outsider[nitems="53"],
-#script .minion[nitems="53"],
-#script .demon[nitems="53"] {
+#script .script .townsfolk[nitems="53"],
+#script .script .outsider[nitems="53"],
+#script .script .minion[nitems="53"],
+#script .script .demon[nitems="53"] {
   --nitems: 53 ;
 }
-#script .townsfolk[nitems="54"],
-#script .outsider[nitems="54"],
-#script .minion[nitems="54"],
-#script .demon[nitems="54"] {
+#script .script .townsfolk[nitems="54"],
+#script .script .outsider[nitems="54"],
+#script .script .minion[nitems="54"],
+#script .script .demon[nitems="54"] {
   --nitems: 54 ;
 }
-#script .townsfolk[nitems="55"],
-#script .outsider[nitems="55"],
-#script .minion[nitems="55"],
-#script .demon[nitems="55"] {
+#script .script .townsfolk[nitems="55"],
+#script .script .outsider[nitems="55"],
+#script .script .minion[nitems="55"],
+#script .script .demon[nitems="55"] {
   --nitems: 55 ;
 }
-#script .townsfolk[nitems="56"],
-#script .outsider[nitems="56"],
-#script .minion[nitems="56"],
-#script .demon[nitems="56"] {
+#script .script .townsfolk[nitems="56"],
+#script .script .outsider[nitems="56"],
+#script .script .minion[nitems="56"],
+#script .script .demon[nitems="56"] {
   --nitems: 56 ;
 }
-#script .townsfolk[nitems="57"],
-#script .outsider[nitems="57"],
-#script .minion[nitems="57"],
-#script .demon[nitems="57"] {
+#script .script .townsfolk[nitems="57"],
+#script .script .outsider[nitems="57"],
+#script .script .minion[nitems="57"],
+#script .script .demon[nitems="57"] {
   --nitems: 57 ;
 }
-#script .townsfolk[nitems="58"],
-#script .outsider[nitems="58"],
-#script .minion[nitems="58"],
-#script .demon[nitems="58"] {
+#script .script .townsfolk[nitems="58"],
+#script .script .outsider[nitems="58"],
+#script .script .minion[nitems="58"],
+#script .script .demon[nitems="58"] {
   --nitems: 58 ;
 }
-#script .townsfolk[nitems="59"],
-#script .outsider[nitems="59"],
-#script .minion[nitems="59"],
-#script .demon[nitems="59"] {
+#script .script .townsfolk[nitems="59"],
+#script .script .outsider[nitems="59"],
+#script .script .minion[nitems="59"],
+#script .script .demon[nitems="59"] {
   --nitems: 59 ;
 }
-#script .townsfolk[nitems="60"],
-#script .outsider[nitems="60"],
-#script .minion[nitems="60"],
-#script .demon[nitems="60"] {
+#script .script .townsfolk[nitems="60"],
+#script .script .outsider[nitems="60"],
+#script .script .minion[nitems="60"],
+#script .script .demon[nitems="60"] {
   --nitems: 60 ;
 }
-#script .townsfolk[nitems="61"],
-#script .outsider[nitems="61"],
-#script .minion[nitems="61"],
-#script .demon[nitems="61"] {
+#script .script .townsfolk[nitems="61"],
+#script .script .outsider[nitems="61"],
+#script .script .minion[nitems="61"],
+#script .script .demon[nitems="61"] {
   --nitems: 61 ;
 }
-#script .townsfolk[nitems="62"],
-#script .outsider[nitems="62"],
-#script .minion[nitems="62"],
-#script .demon[nitems="62"] {
+#script .script .townsfolk[nitems="62"],
+#script .script .outsider[nitems="62"],
+#script .script .minion[nitems="62"],
+#script .script .demon[nitems="62"] {
   --nitems: 62 ;
 }
-#script .townsfolk[nitems="63"],
-#script .outsider[nitems="63"],
-#script .minion[nitems="63"],
-#script .demon[nitems="63"] {
+#script .script .townsfolk[nitems="63"],
+#script .script .outsider[nitems="63"],
+#script .script .minion[nitems="63"],
+#script .script .demon[nitems="63"] {
   --nitems: 63 ;
 }
-#script .townsfolk[nitems="64"],
-#script .outsider[nitems="64"],
-#script .minion[nitems="64"],
-#script .demon[nitems="64"] {
+#script .script .townsfolk[nitems="64"],
+#script .script .outsider[nitems="64"],
+#script .script .minion[nitems="64"],
+#script .script .demon[nitems="64"] {
   --nitems: 64 ;
 }
-#script .townsfolk[nitems="65"],
-#script .outsider[nitems="65"],
-#script .minion[nitems="65"],
-#script .demon[nitems="65"] {
+#script .script .townsfolk[nitems="65"],
+#script .script .outsider[nitems="65"],
+#script .script .minion[nitems="65"],
+#script .script .demon[nitems="65"] {
   --nitems: 65 ;
 }
-#script .townsfolk[nitems="66"],
-#script .outsider[nitems="66"],
-#script .minion[nitems="66"],
-#script .demon[nitems="66"] {
+#script .script .townsfolk[nitems="66"],
+#script .script .outsider[nitems="66"],
+#script .script .minion[nitems="66"],
+#script .script .demon[nitems="66"] {
   --nitems: 66 ;
 }
-#script .townsfolk[nitems="67"],
-#script .outsider[nitems="67"],
-#script .minion[nitems="67"],
-#script .demon[nitems="67"] {
+#script .script .townsfolk[nitems="67"],
+#script .script .outsider[nitems="67"],
+#script .script .minion[nitems="67"],
+#script .script .demon[nitems="67"] {
   --nitems: 67 ;
 }
-#script .townsfolk[nitems="68"],
-#script .outsider[nitems="68"],
-#script .minion[nitems="68"],
-#script .demon[nitems="68"] {
+#script .script .townsfolk[nitems="68"],
+#script .script .outsider[nitems="68"],
+#script .script .minion[nitems="68"],
+#script .script .demon[nitems="68"] {
   --nitems: 68 ;
 }
-#script .townsfolk[nitems="69"],
-#script .outsider[nitems="69"],
-#script .minion[nitems="69"],
-#script .demon[nitems="69"] {
+#script .script .townsfolk[nitems="69"],
+#script .script .outsider[nitems="69"],
+#script .script .minion[nitems="69"],
+#script .script .demon[nitems="69"] {
   --nitems: 69 ;
 }
-#script .townsfolk[nitems="70"],
-#script .outsider[nitems="70"],
-#script .minion[nitems="70"],
-#script .demon[nitems="70"] {
+#script .script .townsfolk[nitems="70"],
+#script .script .outsider[nitems="70"],
+#script .script .minion[nitems="70"],
+#script .script .demon[nitems="70"] {
   --nitems: 70 ;
 }
-#script .townsfolk[nitems="71"],
-#script .outsider[nitems="71"],
-#script .minion[nitems="71"],
-#script .demon[nitems="71"] {
+#script .script .townsfolk[nitems="71"],
+#script .script .outsider[nitems="71"],
+#script .script .minion[nitems="71"],
+#script .script .demon[nitems="71"] {
   --nitems: 71 ;
 }
-#script .townsfolk[nitems="72"],
-#script .outsider[nitems="72"],
-#script .minion[nitems="72"],
-#script .demon[nitems="72"] {
+#script .script .townsfolk[nitems="72"],
+#script .script .outsider[nitems="72"],
+#script .script .minion[nitems="72"],
+#script .script .demon[nitems="72"] {
   --nitems: 72 ;
 }
-#script .townsfolk[nitems="73"],
-#script .outsider[nitems="73"],
-#script .minion[nitems="73"],
-#script .demon[nitems="73"] {
+#script .script .townsfolk[nitems="73"],
+#script .script .outsider[nitems="73"],
+#script .script .minion[nitems="73"],
+#script .script .demon[nitems="73"] {
   --nitems: 73 ;
 }
-#script .townsfolk[nitems="74"],
-#script .outsider[nitems="74"],
-#script .minion[nitems="74"],
-#script .demon[nitems="74"] {
+#script .script .townsfolk[nitems="74"],
+#script .script .outsider[nitems="74"],
+#script .script .minion[nitems="74"],
+#script .script .demon[nitems="74"] {
   --nitems: 74 ;
 }
-#script .townsfolk[nitems="75"],
-#script .outsider[nitems="75"],
-#script .minion[nitems="75"],
-#script .demon[nitems="75"] {
+#script .script .townsfolk[nitems="75"],
+#script .script .outsider[nitems="75"],
+#script .script .minion[nitems="75"],
+#script .script .demon[nitems="75"] {
   --nitems: 75 ;
 }
-#script .townsfolk[nitems="76"],
-#script .outsider[nitems="76"],
-#script .minion[nitems="76"],
-#script .demon[nitems="76"] {
+#script .script .townsfolk[nitems="76"],
+#script .script .outsider[nitems="76"],
+#script .script .minion[nitems="76"],
+#script .script .demon[nitems="76"] {
   --nitems: 76 ;
 }
-#script .townsfolk[nitems="77"],
-#script .outsider[nitems="77"],
-#script .minion[nitems="77"],
-#script .demon[nitems="77"] {
+#script .script .townsfolk[nitems="77"],
+#script .script .outsider[nitems="77"],
+#script .script .minion[nitems="77"],
+#script .script .demon[nitems="77"] {
   --nitems: 77 ;
 }
-#script .townsfolk[nitems="78"],
-#script .outsider[nitems="78"],
-#script .minion[nitems="78"],
-#script .demon[nitems="78"] {
+#script .script .townsfolk[nitems="78"],
+#script .script .outsider[nitems="78"],
+#script .script .minion[nitems="78"],
+#script .script .demon[nitems="78"] {
   --nitems: 78 ;
 }
-#script .townsfolk[nitems="79"],
-#script .outsider[nitems="79"],
-#script .minion[nitems="79"],
-#script .demon[nitems="79"] {
+#script .script .townsfolk[nitems="79"],
+#script .script .outsider[nitems="79"],
+#script .script .minion[nitems="79"],
+#script .script .demon[nitems="79"] {
   --nitems: 79 ;
 }
-#script .townsfolk[nitems="80"],
-#script .outsider[nitems="80"],
-#script .minion[nitems="80"],
-#script .demon[nitems="80"] {
+#script .script .townsfolk[nitems="80"],
+#script .script .outsider[nitems="80"],
+#script .script .minion[nitems="80"],
+#script .script .demon[nitems="80"] {
   --nitems: 80 ;
 }
-#script .townsfolk[nitems="81"],
-#script .outsider[nitems="81"],
-#script .minion[nitems="81"],
-#script .demon[nitems="81"] {
+#script .script .townsfolk[nitems="81"],
+#script .script .outsider[nitems="81"],
+#script .script .minion[nitems="81"],
+#script .script .demon[nitems="81"] {
   --nitems: 81 ;
 }
-#script .townsfolk[nitems="82"],
-#script .outsider[nitems="82"],
-#script .minion[nitems="82"],
-#script .demon[nitems="82"] {
+#script .script .townsfolk[nitems="82"],
+#script .script .outsider[nitems="82"],
+#script .script .minion[nitems="82"],
+#script .script .demon[nitems="82"] {
   --nitems: 82 ;
 }
-#script .townsfolk[nitems="83"],
-#script .outsider[nitems="83"],
-#script .minion[nitems="83"],
-#script .demon[nitems="83"] {
+#script .script .townsfolk[nitems="83"],
+#script .script .outsider[nitems="83"],
+#script .script .minion[nitems="83"],
+#script .script .demon[nitems="83"] {
   --nitems: 83 ;
 }
-#script .townsfolk[nitems="84"],
-#script .outsider[nitems="84"],
-#script .minion[nitems="84"],
-#script .demon[nitems="84"] {
+#script .script .townsfolk[nitems="84"],
+#script .script .outsider[nitems="84"],
+#script .script .minion[nitems="84"],
+#script .script .demon[nitems="84"] {
   --nitems: 84 ;
 }
-#script .townsfolk[nitems="85"],
-#script .outsider[nitems="85"],
-#script .minion[nitems="85"],
-#script .demon[nitems="85"] {
+#script .script .townsfolk[nitems="85"],
+#script .script .outsider[nitems="85"],
+#script .script .minion[nitems="85"],
+#script .script .demon[nitems="85"] {
   --nitems: 85 ;
 }
-#script .townsfolk[nitems="86"],
-#script .outsider[nitems="86"],
-#script .minion[nitems="86"],
-#script .demon[nitems="86"] {
+#script .script .townsfolk[nitems="86"],
+#script .script .outsider[nitems="86"],
+#script .script .minion[nitems="86"],
+#script .script .demon[nitems="86"] {
   --nitems: 86 ;
 }
-#script .townsfolk[nitems="87"],
-#script .outsider[nitems="87"],
-#script .minion[nitems="87"],
-#script .demon[nitems="87"] {
+#script .script .townsfolk[nitems="87"],
+#script .script .outsider[nitems="87"],
+#script .script .minion[nitems="87"],
+#script .script .demon[nitems="87"] {
   --nitems: 87 ;
 }
-#script .townsfolk[nitems="88"],
-#script .outsider[nitems="88"],
-#script .minion[nitems="88"],
-#script .demon[nitems="88"] {
+#script .script .townsfolk[nitems="88"],
+#script .script .outsider[nitems="88"],
+#script .script .minion[nitems="88"],
+#script .script .demon[nitems="88"] {
   --nitems: 88 ;
 }
-#script .townsfolk[nitems="89"],
-#script .outsider[nitems="89"],
-#script .minion[nitems="89"],
-#script .demon[nitems="89"] {
+#script .script .townsfolk[nitems="89"],
+#script .script .outsider[nitems="89"],
+#script .script .minion[nitems="89"],
+#script .script .demon[nitems="89"] {
   --nitems: 89 ;
 }
-#script .townsfolk[nitems="90"],
-#script .outsider[nitems="90"],
-#script .minion[nitems="90"],
-#script .demon[nitems="90"] {
+#script .script .townsfolk[nitems="90"],
+#script .script .outsider[nitems="90"],
+#script .script .minion[nitems="90"],
+#script .script .demon[nitems="90"] {
   --nitems: 90 ;
 }
-#script .townsfolk[nitems="91"],
-#script .outsider[nitems="91"],
-#script .minion[nitems="91"],
-#script .demon[nitems="91"] {
+#script .script .townsfolk[nitems="91"],
+#script .script .outsider[nitems="91"],
+#script .script .minion[nitems="91"],
+#script .script .demon[nitems="91"] {
   --nitems: 91 ;
 }
-#script .townsfolk[nitems="92"],
-#script .outsider[nitems="92"],
-#script .minion[nitems="92"],
-#script .demon[nitems="92"] {
+#script .script .townsfolk[nitems="92"],
+#script .script .outsider[nitems="92"],
+#script .script .minion[nitems="92"],
+#script .script .demon[nitems="92"] {
   --nitems: 92 ;
 }
-#script .townsfolk[nitems="93"],
-#script .outsider[nitems="93"],
-#script .minion[nitems="93"],
-#script .demon[nitems="93"] {
+#script .script .townsfolk[nitems="93"],
+#script .script .outsider[nitems="93"],
+#script .script .minion[nitems="93"],
+#script .script .demon[nitems="93"] {
   --nitems: 93 ;
 }
-#script .townsfolk[nitems="94"],
-#script .outsider[nitems="94"],
-#script .minion[nitems="94"],
-#script .demon[nitems="94"] {
+#script .script .townsfolk[nitems="94"],
+#script .script .outsider[nitems="94"],
+#script .script .minion[nitems="94"],
+#script .script .demon[nitems="94"] {
   --nitems: 94 ;
 }
-#script .townsfolk[nitems="95"],
-#script .outsider[nitems="95"],
-#script .minion[nitems="95"],
-#script .demon[nitems="95"] {
+#script .script .townsfolk[nitems="95"],
+#script .script .outsider[nitems="95"],
+#script .script .minion[nitems="95"],
+#script .script .demon[nitems="95"] {
   --nitems: 95 ;
 }
-#script .townsfolk[nitems="96"],
-#script .outsider[nitems="96"],
-#script .minion[nitems="96"],
-#script .demon[nitems="96"] {
+#script .script .townsfolk[nitems="96"],
+#script .script .outsider[nitems="96"],
+#script .script .minion[nitems="96"],
+#script .script .demon[nitems="96"] {
   --nitems: 96 ;
 }
-#script .townsfolk[nitems="97"],
-#script .outsider[nitems="97"],
-#script .minion[nitems="97"],
-#script .demon[nitems="97"] {
+#script .script .townsfolk[nitems="97"],
+#script .script .outsider[nitems="97"],
+#script .script .minion[nitems="97"],
+#script .script .demon[nitems="97"] {
   --nitems: 97 ;
 }
-#script .townsfolk[nitems="98"],
-#script .outsider[nitems="98"],
-#script .minion[nitems="98"],
-#script .demon[nitems="98"] {
+#script .script .townsfolk[nitems="98"],
+#script .script .outsider[nitems="98"],
+#script .script .minion[nitems="98"],
+#script .script .demon[nitems="98"] {
   --nitems: 98 ;
 }
-#script .townsfolk[nitems="99"],
-#script .outsider[nitems="99"],
-#script .minion[nitems="99"],
-#script .demon[nitems="99"] {
+#script .script .townsfolk[nitems="99"],
+#script .script .outsider[nitems="99"],
+#script .script .minion[nitems="99"],
+#script .script .demon[nitems="99"] {
   --nitems: 99 ;
+}
+
+.jinxes-heading {
+  page-break-before: always;
+}
+
+.jinxes {
+  line-height: 1.4;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  row-gap: 1rem;
+}
+@media not print {
+  .jinxes {
+    border-top: 3px double grey;
+  }
+}
+@media (max-width: 650px) {
+  .jinxes {
+    grid-template-columns: 1fr;
+  }
+}
+.jinxes .item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.jinxes .item .icons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+  padding-right: 1rem;
+}
+.jinxes .item .icons img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+.jinxes .item .jinx-text {
+  text-align: left;
+}
+.jinxes h3 {
+  font-size: 1.1rem;
+  color: #555;
+  padding: 0;
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  position: relative;
+  margin-left: 0;
+  background-color: #f6f6f6;
+}
+.jinxes h3 span {
+  position: relative;
+  z-index: 1;
+  background-color: #f6f6f6;
+  padding-right: 1em;
+}
+.jinxes h3::after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-top: 0.5px solid black;
+  top: 1.2rem;
+  width: 100%;
+  left: 0%;
+  z-index: 0;
 }
 
 h1 {
@@ -1416,25 +1487,31 @@ h1 span {
     font-size: 10px;
     background-color: white;
   }
-  #script {
+  #script, .jinxes {
     width: 68rem;
     max-width: 68rem;
     padding: 1rem;
     margin: auto;
   }
-  #script h3 {
+  #script h3, .jinxes h3 {
     margin: 0;
     padding: 0;
     background-color: white;
   }
-  #script h3 span {
+  #script h3 span, .jinxes h3 span {
     background-color: white;
   }
-  #script h3::after {
+  #script h3.jinxes-heading, .jinxes h3.jinxes-heading {
+    margin-top: 4rem;
+  }
+  #script h3::after, .jinxes h3::after {
     top: 1.1rem;
   }
-  #script .townsfolk, #script .outsider, #script .minion, #script .demon {
+  #script .townsfolk, #script .outsider, #script .minion, #script .demon, .jinxes .townsfolk, .jinxes .outsider, .jinxes .minion, .jinxes .demon {
     column-gap: 3rem;
+  }
+  .jinxes {
+    font-size: 1rem;
   }
   .container {
     padding-top: 0.5rem;

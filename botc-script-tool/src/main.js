@@ -5,19 +5,21 @@ let h1;
 let characterInputEl;
 let scriptNameInput;
 let scriptAuthorInput;
-const title = "Unofficial BotC Script Tool";
 
-async function readFileDialog() {
+const appName = "Unofficial BotC Script Tool";
+const appVersion = "0.0.1";
+
+function readFileDialog() {
   const input = document.createElement("input");
   input.type = "file";
+
   let file;
-  input.addEventListener("change", (event) => {
+  input.addEventListener("change", function (event) {
     file = event.target.files[0];
-    // setting up the reader
     const reader = new FileReader();
     reader.readAsText(file, "UTF-8");
-    reader.onload = (readerEvent) => {
-      const content = readerEvent.target.result; // this is the content!
+    reader.onload = function (readerEvent) {
+      const content = readerEvent.target.result;
       if (typeof content === "string") {
         script.loadFromJSON(JSON.parse(content));
         renderScript();
@@ -29,7 +31,7 @@ async function readFileDialog() {
   input.click();
 }
 
-async function writeDialogJSON(filename, contents) {
+function writeDialogJSON(filename, contents) {
   const anchor = document.createElement("a");
   anchor.setAttribute(
     "href",
@@ -45,7 +47,7 @@ async function writeDialogJSON(filename, contents) {
 function preloadImages(srcs) {
   function loadImage(src) {
     return new Promise(function (resolve, reject) {
-      let img = new Image();
+      const img = new Image();
       img.onload = function () {
         resolve(img);
       };
@@ -55,17 +57,19 @@ function preloadImages(srcs) {
       img.src = src;
     });
   }
-  let promises = [];
-  for (var i = 0; i < srcs.length; i++) {
+
+  const promises = [];
+  for (let i = 0; i < srcs.length; i++) {
     promises.push(loadImage(srcs[i]));
   }
+
   return Promise.all(promises);
 }
 
 const thumbnails = [];
 for (const char of Character.flat) {
   thumbnails.push(
-    `/botc-script-tool/src/assets/unofficial-icons/TinyIcon_${char.id}.webp`,
+    `src/assets/unofficial-icons/TinyIcon_${char.id}.webp`,
   );
 }
 
@@ -79,8 +83,8 @@ function renderScript() {
   h1.innerHTML = `${script.name}<span>by ${script.author}</span>`;
   document.querySelector("#script").innerHTML = script.render();
   // Add listeners to all icons
-  document.querySelectorAll("img.icon").forEach((element) => {
-    element.addEventListener("click", (event) => {
+  document.querySelectorAll(".script img.icon").forEach(function (element) {
+    element.addEventListener("click", function (event) {
       event.preventDefault();
       script.remove(element.id);
       renderScript();
@@ -88,75 +92,105 @@ function renderScript() {
   });
 }
 
-function reinitStorage() {
+function initStorage() {
   localStorage.clear();
+
   // set defaults
-  localStorage.setItem("app-name", "Unofficial BotC Script Tool");
-  localStorage.setItem("app-version", "0.0.1");
+  localStorage.setItem("app-name", appName);
+  localStorage.setItem("app-version", appVersion);
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+// Minor/Major version changes involve the first two version numbers.
+// They generally add features and we should show the changelog.
+function _atLeastMinorVersionChange() {
+  const oldAppVersion = localStorage.getItem("app-version")
+    .split(".")
+    .map(parseInt);
+  const currentVersion = appVersion.split(".").map(parseInt);
+
+  const majorChange = currentVersion[0] > oldAppVersion[0];
+  const minorChange = currentVersion[1] > oldAppVersion[1];
+
+  return majorChange || minorChange;
+}
+
+globalThis.addEventListener("DOMContentLoaded", () => {
   if (localStorage.length === 0) {
-    reinitStorage();
+    initStorage();
   }
+
   h1 = document.querySelector("h1");
   characterInputEl = document.querySelector("#character-input");
   scriptNameInput = document.querySelector("#script-name-input");
   scriptAuthorInput = document.querySelector("#script-author-input");
+
   script = new Script();
+
   if (localStorage.getItem("script")) {
     script.loadFromJSON(JSON.parse(localStorage.getItem("script")));
     scriptNameInput.value = script.name;
     scriptAuthorInput.value = script.author;
   }
+
+  renderScript();
+
   document.getElementById("script-name-form").addEventListener(
     "input",
-    (event) => {
+    function (event) {
       event.preventDefault();
       script.name = scriptNameInput.value;
       localStorage.setItem("script", script.toJSON());
     },
   );
+
+  document.getElementById("script-name-form").addEventListener(
+    "submit",
+    function (event) {
+      event.preventDefault();
+    },
+  );
+
   document.getElementById("script-author-form").addEventListener(
     "input",
-    (event) => {
+    function (event) {
       event.preventDefault();
       script.author = scriptAuthorInput.value;
       localStorage.setItem("script", script.toJSON());
     },
   );
-  renderScript();
+
   document.querySelector("#character-form").addEventListener(
     "submit",
-    (event) => {
+    function (event) {
       event.preventDefault();
       const input = characterInputEl.value.toLowerCase();
       const result = Character.fuzzyMatch(input);
       const match = result.match;
-      // const elements: string[] = result.rawHTML;
+
       try {
         script.add(match);
         script.sort();
         renderScript();
+
         document.querySelector("#current-matches").innerHTML = "";
         localStorage.setItem("script", script.toJSON());
+        characterInputEl.value = "";
       } catch (e) {
         console.error(e);
-        return;
       }
-      characterInputEl.value = "";
     },
   );
+
   document.querySelector("#character-form").addEventListener(
     "input",
-    (_event) => {
+    function (_event) {
       const input = characterInputEl.value.toLowerCase();
       const result = Character.fuzzyMatch(input);
       const res = result.result;
       let html = "";
       for (let i = 0; i < res.length; i++) {
         html +=
-          `<div class="match"><img class="thumbnail" src="/botc-script-tool/src/assets/unofficial-icons/TinyIcon_${
+          `<div class="match"><img class="thumbnail" src="src/assets/unofficial-icons/TinyIcon_${
             res[i][0]
           }.webp"/>` +
           res[i][1] + `</div>`;
@@ -165,48 +199,64 @@ window.addEventListener("DOMContentLoaded", () => {
 
       // Register click event for matches to add the character
       document.querySelectorAll("#current-matches .match").forEach(
-        (element, i) => {
-          console.log(element);
-          element.addEventListener("click", (event) => {
+        function (element, i) {
+          element.addEventListener("click", function (event) {
             event.preventDefault();
             script.add(new Character(res[i][0]));
             script.sort();
             renderScript();
+
             document.querySelector("#current-matches").innerHTML = "";
             localStorage.setItem("script", script.toJSON());
+            characterInputEl.value = "";
           });
         },
       );
     },
   );
-  document.querySelector("#import-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    readFileDialog();
-  });
-  document.querySelector("#export-form").addEventListener("submit", (event) => {
-    // Import and export should be either to clipboard or to localStorage on
-    // iOS or Android.
-    event.preventDefault();
-    writeDialogJSON(script.name, script.toJSON());
-  });
-  document.querySelector("#clear-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    script.clear();
-    scriptNameInput.value = "";
-    scriptAuthorInput.value = "";
-    renderScript();
-  });
-  document.querySelector("#print-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    document.title = script.name;
-    h1.innerHTML = `${script.name}<span>by ${script.author}</span>`;
-    window.print();
-  });
-  window.addEventListener("afterprint", (_event) => {
-    document.title = title;
-  });
-});
 
-window.addEventListener("unload", (_event) => {
-  localStorage.setItem("script", script.toJSON());
+  document.querySelector("#import-form").addEventListener(
+    "submit",
+    function (event) {
+      event.preventDefault();
+      readFileDialog();
+    },
+  );
+
+  document.querySelector("#export-form").addEventListener(
+    "submit",
+    function (event) {
+      event.preventDefault();
+      writeDialogJSON(script.name, script.toJSON());
+    },
+  );
+
+  document.querySelector("#clear-form").addEventListener(
+    "submit",
+    function (event) {
+      event.preventDefault();
+      script.clear();
+      scriptNameInput.value = "";
+      scriptAuthorInput.value = "";
+      renderScript();
+    },
+  );
+
+  document.querySelector("#print-form").addEventListener(
+    "submit",
+    function (event) {
+      event.preventDefault();
+      document.title = script.name;
+      h1.innerHTML = `${script.name}<span>by ${script.author}</span>`;
+      globalThis.print();
+    },
+  );
+
+  globalThis.addEventListener("afterprint", function (_event) {
+    document.title = appName;
+  });
+
+  globalThis.addEventListener("unload", function (_event) {
+    localStorage.setItem("script", script.toJSON());
+  });
 });

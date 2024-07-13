@@ -1,4 +1,6 @@
 import { Character } from "./character.js";
+import { jinxes } from "./data.js";
+
 // Need a full list of characters that can be added.
 export class Script {
   author;
@@ -7,6 +9,8 @@ export class Script {
   outsiders;
   minions;
   demons;
+  charSet;
+  jinxList;
 
   constructor() {
     this.townsfolk = [];
@@ -15,13 +19,22 @@ export class Script {
     this.demons = [];
     this.name = "";
     this.author = "";
+    this.charSet = new Set();
+    this.jinxList = [];
   }
 
+  // I don’t know if it’s possible to just call the constructor on self again,
+  // but at some point the constructor and clear function might diverge so
+  // this is probably fine
   clear() {
     this.townsfolk = [];
     this.outsiders = [];
     this.minions = [];
     this.demons = [];
+    this.name = "";
+    this.author = "";
+    this.charSet = new Set();
+    this.jinxList = [];
   }
 
   loadFromJSON(obj) {
@@ -32,13 +45,15 @@ export class Script {
       console.error(obj);
       throw Error("Invalid JSON – can’t parse script.");
     }
+
     this.clear();
+
     for (const item of obj) {
       if (typeof item === "object" && item["id"] === "_meta") {
-        console.log(item);
         this.name = item["name"] ? item["name"] : "";
         this.author = item["author"] ? item["author"] : "";
       }
+
       if (typeof item === "object" && item["id"] !== "_meta") {
         try {
           const char = new Character(item["id"]);
@@ -50,6 +65,7 @@ export class Script {
           console.error(e);
         }
       }
+
       if (typeof item === "string") {
         try {
           this.add(new Character(item));
@@ -58,6 +74,7 @@ export class Script {
         }
       }
     }
+
     this.sort();
   }
 
@@ -75,7 +92,6 @@ export class Script {
   }
 
   remove(cid) {
-    console.log("called");
     const char = new Character(cid);
     if (char.type === "Townsfolk") {
       const idx = this.townsfolk.findIndex((c) => c.id === char.id);
@@ -95,33 +111,70 @@ export class Script {
     }
   }
 
-  add(c) {
-    switch (c.type) {
+  add(newChar) {
+    this.charSet.add(newChar.id);
+
+    switch (newChar.type) {
       case "Townsfolk":
-        if (this.townsfolk.some((c0) => c.id === c0.id)) {
-          return;
+        if (this.townsfolk.some((c0) => newChar.id === c0.id)) {
+          break;
         }
-        this.townsfolk.push(c);
-        return;
+        this.townsfolk.push(newChar);
+        break;
       case "Outsider":
-        if (this.outsiders.some((c0) => c.id === c0.id)) {
-          return;
+        if (this.outsiders.some((c0) => newChar.id === c0.id)) {
+          break;
         }
-        this.outsiders.push(c);
-        return;
+        this.outsiders.push(newChar);
+        break;
       case "Minion":
-        if (this.minions.some((c0) => c.id === c0.id)) {
-          return;
+        if (this.minions.some((c0) => newChar.id === c0.id)) {
+          break;
         }
-        this.minions.push(c);
-        return;
+        this.minions.push(newChar);
+        break;
       case "Demon":
-        if (this.demons.some((c0) => c.id === c0.id)) {
-          return;
+        if (this.demons.some((c0) => newChar.id === c0.id)) {
+          break;
         }
-        this.demons.push(c);
-        return;
+        this.demons.push(newChar);
+        break;
     }
+
+    console.log(this.charSet);
+
+    for (const id of this.charSet) {
+      const char = new Character(id);
+      if (char.jinx(newChar)) {
+        if (
+          this.jinxList.some((obj) =>
+            char.id === obj.char1 && newChar.id === obj.char2
+          )
+        ) {
+          continue;
+        }
+        this.jinxList.push({
+          char1: char.id,
+          char2: newChar.id,
+          jinx: char.jinx(newChar),
+        });
+      }
+      if (newChar.jinx(char)) {
+        if (
+          this.jinxList.some((obj) =>
+            newChar.id === obj.char1 && char.id === obj.char2
+          )
+        ) {
+          continue;
+        }
+        this.jinxList.push({
+          char1: newChar.id,
+          char2: char.id,
+          jinx: newChar.jinx(char),
+        });
+      }
+    }
+    console.log(this.jinxList);
   }
 
   sort() {
@@ -132,7 +185,7 @@ export class Script {
   }
 
   render() {
-    let str = `<div class="script" id="${this.name}">`;
+    let str = `<div class="script">`;
     for (
       const [i, a] of [
         this.townsfolk,
@@ -156,7 +209,7 @@ export class Script {
             `<img id=${c.id} class="icon imported-icon" src="${c.iconSrc}"/>`;
         } else {
           str +=
-            `<img id=${c.id} class="icon" src="/botc-script-tool/src/assets/unofficial-icons/Icon_${c.id}.webp"/>`;
+            `<img id=${c.id} class="icon" src="src/assets/unofficial-icons/Icon_${c.id}.webp"/>`;
         }
         str += `<div class="name-and-summary">`;
         str +=
@@ -165,6 +218,27 @@ export class Script {
         str += `</div>`;
         str += `</div>`;
       }
+      str += `</div>`;
+    }
+    str += `</div>`;
+
+    str += `<h3 class="jinxes-heading onlyprint"><span>JINXES</span></h3>`;
+    str += `<div class="jinxes noprint">`;
+    for (const jinx of this.jinxList) {
+      const c1 = new Character(jinx.char1);
+      const c2 = new Character(jinx.char2);
+      str += `<div class="item">`;
+      str += `<div class="icons">`;
+      str +=
+        `<img id=${c1.id} class="icon" src="src/assets/unofficial-icons/Icon_${c1.id}.webp"/>`;
+      str +=
+        `<img id=${c2.id} class="icon" src="src/assets/unofficial-icons/Icon_${c2.id}.webp"/>`;
+      str += `</div>`;
+
+      str += `<div class="jinx-text">`;
+      str += jinx.jinx;
+      str += `</div>`;
+
       str += `</div>`;
     }
     str += `</div>`;

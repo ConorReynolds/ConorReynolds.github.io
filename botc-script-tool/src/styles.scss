@@ -307,7 +307,7 @@ button {
   border-spacing: 0 0.5rem;
   // margin-top: 2rem;
   // margin: 1rem;
-  .item {
+  .script .item {
     page-break-inside: avoid;
     display: grid;
     // grid-template-rows: ;
@@ -353,141 +353,213 @@ button {
       }
     }
   }
-  .townsfolk,
-  .outsider,
-  .minion,
-  .demon {
-    margin-bottom: 1rem;
-    // page-break-inside: avoid;
-    --nitems: 0;
-    @media not all and (max-width: 650px) {
-      // .item {
-      //   padding-bottom: 0;
-      // }
-      display: grid;
-      grid-auto-rows: max-content;
-      grid-template-rows: repeat(calc(var(--nitems) / 2), 1fr);
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-flow: column;
-      column-gap: 2rem;
-      row-gap: 1rem; 
-    }
-    @media print {
-      display: grid;
-      grid-auto-rows: max-content;
-      grid-template-rows: repeat(calc(var(--nitems) / 2), 1fr);
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-flow: column;
-      column-gap: 2rem;
-      row-gap: 1rem; 
-    }
+  .script {
+    .townsfolk,
+    .outsider,
+    .minion,
+    .demon {
+      margin-bottom: 1rem;
+      // page-break-inside: avoid;
+      --nitems: 0;
+      @media not all and (max-width: 650px) {
+        // .item {
+          //   padding-bottom: 0;
+        // }
+        display: grid;
+        grid-auto-rows: max-content;
+        grid-template-rows: repeat(calc(var(--nitems) / 2), 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-flow: column;
+        column-gap: 2rem;
+        row-gap: 1rem; 
+      }
+      @media print {
+        display: grid;
+        grid-auto-rows: max-content;
+        grid-template-rows: repeat(calc(var(--nitems) / 2), 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-flow: column;
+        column-gap: 2rem;
+        row-gap: 1rem; 
+      }
 
-    @media (max-width: 650px) {
-      display: grid;
-      grid-auto-flow: row;
-      row-gap: 1rem;
+      @media (max-width: 650px) {
+        display: grid;
+        grid-auto-flow: row;
+        row-gap: 1rem;
+      }
+
+      &[nitems="0"] { --nitems: 0 }
+      &[nitems="1"] { --nitems: 1 }
+      &[nitems="2"] { --nitems: 2 }
+      &[nitems="3"] { --nitems: 3 }
+      &[nitems="4"] { --nitems: 4 }
+      &[nitems="5"] { --nitems: 5 }
+      &[nitems="6"] { --nitems: 6 }
+      &[nitems="7"] { --nitems: 7 }
+      &[nitems="8"] { --nitems: 8 }
+      &[nitems="9"] { --nitems: 9 }
+      &[nitems="10"] { --nitems: 10 }
+      &[nitems="11"] { --nitems: 11 }
+      &[nitems="12"] { --nitems: 12 }
+      &[nitems="13"] { --nitems: 13 }
+      &[nitems="14"] { --nitems: 14 }
+      &[nitems="15"] { --nitems: 15 }
+      &[nitems="16"] { --nitems: 16 }
+      &[nitems="17"] { --nitems: 17 }
+      &[nitems="18"] { --nitems: 18 }
+      &[nitems="19"] { --nitems: 19 }
+      &[nitems="20"] { --nitems: 20 }
+      &[nitems="21"] { --nitems: 21 }
+      &[nitems="22"] { --nitems: 22 }
+      &[nitems="23"] { --nitems: 23 }
+      &[nitems="24"] { --nitems: 24 }
+      &[nitems="25"] { --nitems: 25 }
+      &[nitems="26"] { --nitems: 26 }
+      &[nitems="27"] { --nitems: 27 }
+      &[nitems="28"] { --nitems: 28 }
+      &[nitems="29"] { --nitems: 29 }
+      &[nitems="30"] { --nitems: 30 }
+      &[nitems="31"] { --nitems: 31 }
+      &[nitems="32"] { --nitems: 32 }
+      &[nitems="33"] { --nitems: 33 }
+      &[nitems="34"] { --nitems: 34 }
+      &[nitems="35"] { --nitems: 35 }
+      &[nitems="36"] { --nitems: 36 }
+      &[nitems="37"] { --nitems: 37 }
+      &[nitems="38"] { --nitems: 38 }
+      &[nitems="39"] { --nitems: 39 }
+      &[nitems="40"] { --nitems: 40 }
+      &[nitems="41"] { --nitems: 41 }
+      &[nitems="42"] { --nitems: 42 }
+      &[nitems="43"] { --nitems: 43 }
+      &[nitems="44"] { --nitems: 44 }
+      &[nitems="45"] { --nitems: 45 }
+      &[nitems="46"] { --nitems: 46 }
+      &[nitems="47"] { --nitems: 47 }
+      &[nitems="48"] { --nitems: 48 }
+      &[nitems="49"] { --nitems: 49 }
+      &[nitems="50"] { --nitems: 50 }
+      &[nitems="51"] { --nitems: 51 }
+      &[nitems="52"] { --nitems: 52 }
+      &[nitems="53"] { --nitems: 53 }
+      &[nitems="54"] { --nitems: 54 }
+      &[nitems="55"] { --nitems: 55 }
+      &[nitems="56"] { --nitems: 56 }
+      &[nitems="57"] { --nitems: 57 }
+      &[nitems="58"] { --nitems: 58 }
+      &[nitems="59"] { --nitems: 59 }
+      &[nitems="60"] { --nitems: 60 }
+      &[nitems="61"] { --nitems: 61 }
+      &[nitems="62"] { --nitems: 62 }
+      &[nitems="63"] { --nitems: 63 }
+      &[nitems="64"] { --nitems: 64 }
+      &[nitems="65"] { --nitems: 65 }
+      &[nitems="66"] { --nitems: 66 }
+      &[nitems="67"] { --nitems: 67 }
+      &[nitems="68"] { --nitems: 68 }
+      &[nitems="69"] { --nitems: 69 }
+      &[nitems="70"] { --nitems: 70 }
+      &[nitems="71"] { --nitems: 71 }
+      &[nitems="72"] { --nitems: 72 }
+      &[nitems="73"] { --nitems: 73 }
+      &[nitems="74"] { --nitems: 74 }
+      &[nitems="75"] { --nitems: 75 }
+      &[nitems="76"] { --nitems: 76 }
+      &[nitems="77"] { --nitems: 77 }
+      &[nitems="78"] { --nitems: 78 }
+      &[nitems="79"] { --nitems: 79 }
+      &[nitems="80"] { --nitems: 80 }
+      &[nitems="81"] { --nitems: 81 }
+      &[nitems="82"] { --nitems: 82 }
+      &[nitems="83"] { --nitems: 83 }
+      &[nitems="84"] { --nitems: 84 }
+      &[nitems="85"] { --nitems: 85 }
+      &[nitems="86"] { --nitems: 86 }
+      &[nitems="87"] { --nitems: 87 }
+      &[nitems="88"] { --nitems: 88 }
+      &[nitems="89"] { --nitems: 89 }
+      &[nitems="90"] { --nitems: 90 }
+      &[nitems="91"] { --nitems: 91 }
+      &[nitems="92"] { --nitems: 92 }
+      &[nitems="93"] { --nitems: 93 }
+      &[nitems="94"] { --nitems: 94 }
+      &[nitems="95"] { --nitems: 95 }
+      &[nitems="96"] { --nitems: 96 }
+      &[nitems="97"] { --nitems: 97 }
+      &[nitems="98"] { --nitems: 98 }
+      &[nitems="99"] { --nitems: 99 }
     }
-    
-    &[nitems="0"] { --nitems: 0 }
-    &[nitems="1"] { --nitems: 1 }
-    &[nitems="2"] { --nitems: 2 }
-    &[nitems="3"] { --nitems: 3 }
-    &[nitems="4"] { --nitems: 4 }
-    &[nitems="5"] { --nitems: 5 }
-    &[nitems="6"] { --nitems: 6 }
-    &[nitems="7"] { --nitems: 7 }
-    &[nitems="8"] { --nitems: 8 }
-    &[nitems="9"] { --nitems: 9 }
-    &[nitems="10"] { --nitems: 10 }
-    &[nitems="11"] { --nitems: 11 }
-    &[nitems="12"] { --nitems: 12 }
-    &[nitems="13"] { --nitems: 13 }
-    &[nitems="14"] { --nitems: 14 }
-    &[nitems="15"] { --nitems: 15 }
-    &[nitems="16"] { --nitems: 16 }
-    &[nitems="17"] { --nitems: 17 }
-    &[nitems="18"] { --nitems: 18 }
-    &[nitems="19"] { --nitems: 19 }
-    &[nitems="20"] { --nitems: 20 }
-    &[nitems="21"] { --nitems: 21 }
-    &[nitems="22"] { --nitems: 22 }
-    &[nitems="23"] { --nitems: 23 }
-    &[nitems="24"] { --nitems: 24 }
-    &[nitems="25"] { --nitems: 25 }
-    &[nitems="26"] { --nitems: 26 }
-    &[nitems="27"] { --nitems: 27 }
-    &[nitems="28"] { --nitems: 28 }
-    &[nitems="29"] { --nitems: 29 }
-    &[nitems="30"] { --nitems: 30 }
-    &[nitems="31"] { --nitems: 31 }
-    &[nitems="32"] { --nitems: 32 }
-    &[nitems="33"] { --nitems: 33 }
-    &[nitems="34"] { --nitems: 34 }
-    &[nitems="35"] { --nitems: 35 }
-    &[nitems="36"] { --nitems: 36 }
-    &[nitems="37"] { --nitems: 37 }
-    &[nitems="38"] { --nitems: 38 }
-    &[nitems="39"] { --nitems: 39 }
-    &[nitems="40"] { --nitems: 40 }
-    &[nitems="41"] { --nitems: 41 }
-    &[nitems="42"] { --nitems: 42 }
-    &[nitems="43"] { --nitems: 43 }
-    &[nitems="44"] { --nitems: 44 }
-    &[nitems="45"] { --nitems: 45 }
-    &[nitems="46"] { --nitems: 46 }
-    &[nitems="47"] { --nitems: 47 }
-    &[nitems="48"] { --nitems: 48 }
-    &[nitems="49"] { --nitems: 49 }
-    &[nitems="50"] { --nitems: 50 }
-    &[nitems="51"] { --nitems: 51 }
-    &[nitems="52"] { --nitems: 52 }
-    &[nitems="53"] { --nitems: 53 }
-    &[nitems="54"] { --nitems: 54 }
-    &[nitems="55"] { --nitems: 55 }
-    &[nitems="56"] { --nitems: 56 }
-    &[nitems="57"] { --nitems: 57 }
-    &[nitems="58"] { --nitems: 58 }
-    &[nitems="59"] { --nitems: 59 }
-    &[nitems="60"] { --nitems: 60 }
-    &[nitems="61"] { --nitems: 61 }
-    &[nitems="62"] { --nitems: 62 }
-    &[nitems="63"] { --nitems: 63 }
-    &[nitems="64"] { --nitems: 64 }
-    &[nitems="65"] { --nitems: 65 }
-    &[nitems="66"] { --nitems: 66 }
-    &[nitems="67"] { --nitems: 67 }
-    &[nitems="68"] { --nitems: 68 }
-    &[nitems="69"] { --nitems: 69 }
-    &[nitems="70"] { --nitems: 70 }
-    &[nitems="71"] { --nitems: 71 }
-    &[nitems="72"] { --nitems: 72 }
-    &[nitems="73"] { --nitems: 73 }
-    &[nitems="74"] { --nitems: 74 }
-    &[nitems="75"] { --nitems: 75 }
-    &[nitems="76"] { --nitems: 76 }
-    &[nitems="77"] { --nitems: 77 }
-    &[nitems="78"] { --nitems: 78 }
-    &[nitems="79"] { --nitems: 79 }
-    &[nitems="80"] { --nitems: 80 }
-    &[nitems="81"] { --nitems: 81 }
-    &[nitems="82"] { --nitems: 82 }
-    &[nitems="83"] { --nitems: 83 }
-    &[nitems="84"] { --nitems: 84 }
-    &[nitems="85"] { --nitems: 85 }
-    &[nitems="86"] { --nitems: 86 }
-    &[nitems="87"] { --nitems: 87 }
-    &[nitems="88"] { --nitems: 88 }
-    &[nitems="89"] { --nitems: 89 }
-    &[nitems="90"] { --nitems: 90 }
-    &[nitems="91"] { --nitems: 91 }
-    &[nitems="92"] { --nitems: 92 }
-    &[nitems="93"] { --nitems: 93 }
-    &[nitems="94"] { --nitems: 94 }
-    &[nitems="95"] { --nitems: 95 }
-    &[nitems="96"] { --nitems: 96 }
-    &[nitems="97"] { --nitems: 97 }
-    &[nitems="98"] { --nitems: 98 }
-    &[nitems="99"] { --nitems: 99 }
+  }
+}
+
+.jinxes-heading {
+  page-break-before: always;
+
+}
+
+.jinxes {
+  @media not print {
+    border-top: 3px double grey;
+  }
+  line-height: 1.4;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
+  column-gap: 2rem;
+  row-gap: 1rem;
+  .item {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    .icons {
+      display: flex;
+      flex-direction: row;
+      column-gap: 0.5rem;
+      padding-right: 1rem;
+      img {
+        width: 3rem;
+        height: 3rem;
+        object-fit: contain;
+      }
+    }
+    .jinx-text {
+      text-align: left;
+    }
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: #555;
+    padding: 0;
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
+    position: relative;
+    margin-left: 0;
+    background-color: #f6f6f6;
+    // border-top: 0.5px solid black;
+    // letter-spacing: 1.3px;
+    span {
+      position: relative;
+      z-index: 1;
+      background-color: #f6f6f6;
+      padding-right: 1em;
+    }
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      border-top: 0.5px solid black;
+      top: 1.2rem;
+      width: 100%;
+      left: 0%;
+      z-index: 0;
+    }
   }
 }
 
@@ -534,7 +606,7 @@ h1 {
     // width: 55rem;
   }
 
-  #script {
+  #script, .jinxes {
     width: 68rem;
     max-width: 68rem;
     padding: 1rem;
@@ -548,6 +620,9 @@ h1 {
         background-color: white;
       }
     }
+    h3.jinxes-heading {
+      margin-top: 4rem;
+    }
     h3::after {
       top: 1.1rem;
       // border-top: 1px solid grey;
@@ -556,6 +631,11 @@ h1 {
       column-gap: 3rem;
     }
   }
+
+  .jinxes {
+    font-size: 1rem;
+  }
+
 
   .container {
     padding-top: 0.5rem;
