@@ -92,6 +92,8 @@ export class Script {
   }
 
   remove(cid) {
+    this.charSet.delete(cid);
+
     const char = new Character(cid);
     if (char.type === "Townsfolk") {
       const idx = this.townsfolk.findIndex((c) => c.id === char.id);
@@ -108,6 +110,15 @@ export class Script {
     if (char.type === "Demon") {
       const idx = this.demons.findIndex((c) => c.id === char.id);
       this.demons.splice(idx, 1);
+    }
+
+    let idx;
+    while (
+      (idx = this.jinxList.findIndex((e) =>
+        e.char1 === cid || e.char2 === cid
+      )) !== -1
+    ) {
+      this.jinxList.splice(idx, 1);
     }
   }
 
