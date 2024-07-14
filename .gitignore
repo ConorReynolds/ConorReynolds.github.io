@@ -2,6 +2,8 @@ compiled/
 *.html
 *~
 
+!/botc-script-tool/*.html
+
 venv/
 
 # Gets copied over, but there’s no point committing it here.

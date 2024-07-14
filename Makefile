@@ -15,7 +15,7 @@ html:
 
 clean:
 	$(POLLEN) reset
-	find . -name "*.html" -type f -delete
+	find . -name "*.html" -not -path "./botc-script-tool/*" -type f -delete
 
 serve:
 	@(trap 'kill 0' SIGINT; \
