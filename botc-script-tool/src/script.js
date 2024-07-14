@@ -216,13 +216,13 @@ export class Script {
         Script.asType(i)?.toLowerCase()
       }">`;
       for (const c of a) {
-        str += `<div class="item">`;
+        str += `<div id="${c.id}" class="item">`;
         if (c.iconSrc) {
           str +=
-            `<img id=${c.id} class="icon imported-icon" src="${c.iconSrc}"/>`;
+            `<img id="${c.id}-icon-script" class="icon imported-icon" src="${c.iconSrc}"/>`;
         } else {
           str +=
-            `<img id=${c.id} class="icon" src="src/assets/unofficial-icons/Icon_${c.id}.webp"/>`;
+            `<img id="${c.id}-icon-script" class="icon" src="src/assets/unofficial-icons/Icon_${c.id}.webp"/>`;
         }
         str += `<div class="name-and-summary">`;
         str +=
@@ -240,12 +240,12 @@ export class Script {
     for (const jinx of this.jinxList) {
       const c1 = new Character(jinx.char1);
       const c2 = new Character(jinx.char2);
-      str += `<div class="item">`;
+      str += `<div id="${c1.id}-${c2.id}-jinx" class="item">`;
       str += `<div class="icons">`;
       str +=
-        `<img id=${c1.id} class="icon" src="src/assets/unofficial-icons/Icon_${c1.id}.webp"/>`;
+        `<img id="${c1.id}-icon-jinxes" class="icon" src="src/assets/unofficial-icons/Icon_${c1.id}.webp"/>`;
       str +=
-        `<img id=${c2.id} class="icon" src="src/assets/unofficial-icons/Icon_${c2.id}.webp"/>`;
+        `<img id="${c2.id}-icon-jinxes" class="icon" src="src/assets/unofficial-icons/Icon_${c2.id}.webp"/>`;
       str += `</div>`;
 
       str += `<div class="jinx-text">`;

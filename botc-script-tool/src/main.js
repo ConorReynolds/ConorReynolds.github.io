@@ -86,7 +86,7 @@ function renderScript() {
   document.querySelectorAll(".script img.icon").forEach(function (element) {
     element.addEventListener("click", function (event) {
       event.preventDefault();
-      script.remove(element.id);
+      script.remove(element.parentElement.id);
       renderScript();
     }, { once: true });
   });
