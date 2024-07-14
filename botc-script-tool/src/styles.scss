@@ -363,7 +363,7 @@ button {
       margin-bottom: 1rem;
       // page-break-inside: avoid;
       --nitems: 0;
-      @media print, not (max-width: 650px) {
+      @media print, not all and (max-width: 650px) {
         display: grid;
         grid-auto-rows: max-content;
         grid-template-rows: repeat(calc(var(--nitems) / 2), 1fr);
@@ -403,7 +403,7 @@ button {
   padding-top: 2rem;
 
   --nitems: 0;
-  @media print, not (max-width: 650px) {
+  @media print, not all and (max-width: 650px) {
     display: grid;
     grid-auto-rows: max-content;
     grid-template-rows: repeat(calc(var(--nitems) / 2), 1fr);
