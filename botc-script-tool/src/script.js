@@ -152,8 +152,6 @@ export class Script {
         break;
     }
 
-    console.log(this.charSet);
-
     for (const id of this.charSet) {
       const char = new Character(id);
       if (char.jinx(newChar)) {
@@ -185,7 +183,6 @@ export class Script {
         });
       }
     }
-    console.log(this.jinxList);
   }
 
   sort() {
@@ -193,6 +190,11 @@ export class Script {
     this.outsiders.sort(Character.compare);
     this.minions.sort(Character.compare);
     this.demons.sort(Character.compare);
+
+    this.jinxList.sort((o1, o2) =>
+      Character.compare(new Character(o1.char1), new Character(o2.char1)) ||
+      Character.compare(new Character(o1.char2), new Character(o2.char2))
+    );
   }
 
   render() {
@@ -234,7 +236,7 @@ export class Script {
     str += `</div>`;
 
     str += `<h3 class="jinxes-heading onlyprint"><span>JINXES</span></h3>`;
-    str += `<div class="jinxes noprint">`;
+    str += `<div nitems="${this.jinxList.length}" class="jinxes">`;
     for (const jinx of this.jinxList) {
       const c1 = new Character(jinx.char1);
       const c2 = new Character(jinx.char2);
