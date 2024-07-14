@@ -143,6 +143,15 @@ globalThis.addEventListener("DOMContentLoaded", () => {
     },
   );
 
+  document.getElementById("script-author-form").addEventListener(
+    "input",
+    function (event) {
+      event.preventDefault();
+      script.author = scriptAuthorInput.value;
+      localStorage.setItem("script", script.toJSON());
+    },
+  );
+
   document.getElementById("script-name-form").addEventListener(
     "submit",
     function (event) {
@@ -151,11 +160,9 @@ globalThis.addEventListener("DOMContentLoaded", () => {
   );
 
   document.getElementById("script-author-form").addEventListener(
-    "input",
+    "submit",
     function (event) {
       event.preventDefault();
-      script.author = scriptAuthorInput.value;
-      localStorage.setItem("script", script.toJSON());
     },
   );
 
