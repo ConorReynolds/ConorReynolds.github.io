@@ -20,10 +20,12 @@ clean:
 serve:
 	@(trap 'kill 0' SIGINT; \
 		sass --watch styles/main.scss main.css & \
+		sass --watch botc-script-tool/src/styles.scss botc-script-tool/src/styles.css & \
 		$(SERVE) . $(PORT))
 
 scss: styles/*.scss
 	sass --style=compressed --no-source-map styles/main.scss main.css
+	sass --style=compressed --no-source-map botc-script-tool/src/styles.scss botc-script-tool/src/styles.css 
 
 publish: clean html scss
 	$(PUBLISH) . $(PUB_LOCATION)
