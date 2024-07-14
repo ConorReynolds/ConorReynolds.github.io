@@ -1521,7 +1521,7 @@ export const charmap = {
   "harpy": {
     "Name": "Harpy",
     "Summary":
-      "Each night, choose 2 players: tomorrow, the 1st player is mad that the 2nd is evil, or both might die.",
+      "Each night, choose 2 players: tomorrow, the 1st player is mad that the 2nd is evil, or one or both might die.",
     "Type": "Minion",
     "Script": "Experimental",
     "first night": false,
@@ -1675,7 +1675,7 @@ export const charmap = {
   "lil_monsta": {
     "Name": "Lil’ Monsta",
     "Summary":
-      "Each night, Minions choose who babysits Lil’ Monsta’s token & “is the Demon”. A player dies each night*. [+1 Minion]",
+      "Each night, Minions choose who babysits Lil’ Monsta & ‘is the Demon’. Each night*, a player might die. [+1 Minion]",
     "Type": "Demon",
     "Script": "Experimental",
     "first night": false,
