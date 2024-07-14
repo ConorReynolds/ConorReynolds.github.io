@@ -740,7 +740,7 @@ button {
   margin-bottom: 1rem;
   --nitems: 0;
 }
-@media not all and (max-width: 650px) {
+@media print, not (max-width: 650px) {
   #script .script .townsfolk,
   #script .script .outsider,
   #script .script .minion,
@@ -1991,7 +1991,7 @@ button {
     border-top: 3px double grey;
   }
 }
-@media not all and (max-width: 650px) {
+@media print, not (max-width: 650px) {
   .jinxes {
     display: grid;
     grid-auto-rows: max-content;
