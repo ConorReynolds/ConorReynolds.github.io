@@ -34,16 +34,16 @@ no reason why this shouldn’t be self-contained.
 
 Here’s some script PDFs I generated with this tool.
 
-- [Sects and Violets](https://drive.google.com/uc?export=download&id=17iYBXGlN3pION7jXl1b79aCKt7Z9bQJQ)<br/>
-  ([compact night sheet version](https://drive.google.com/uc?export=download&id=1Cabp0K8AVOFqFlCO5Z9qZ_uxuyx8qySQ))
+- [Sects and Violets](https://drive.google.com/uc?export=download&id=17iYBXGlN3pION7jXl1b79aCKt7Z9bQJQ)
+  ([compact night sheet version](https://drive.google.com/uc?export=download&id=1Cabp0K8AVOFqFlCO5Z9qZ_uxuyx8qySQ))<br/>
+  by The Pandemonium Institute
 - [No Roles Barred](https://drive.google.com/uc?export=download&id=16wBqcn7G5cwZTGrT9dVp8FhECCQF6xff)
-  by Andrew Pichot<br/>
-  ([compact night sheet version](https://drive.google.com/uc?export=download&id=19wnYRgeQ2k5pZDcqowYrKCGo9xqIETkz))
+  ([compact night sheet version](https://drive.google.com/uc?export=download&id=19wnYRgeQ2k5pZDcqowYrKCGo9xqIETkz))<br/>
+  by Andrew Pichot
   ([JSON](https://botc-scripts.azurewebsites.net/script/258/1.0.1))
 - [Boozling! v7](https://drive.google.com/uc?export=download&id=1EUW_h3nx4NKRl9BpUtUX0CM_8jnv2lHQ)
-  by Lau<br/>
-  ([compact night sheet version](https://drive.google.com/uc?export=download&id=1iZfDeaWGnkHqlpGdnjSmJbKKvrHeZMj3))
-  ([JSON](https://botc-scripts.azurewebsites.net/script/173/8.0.0))
+  ([compact night sheet version](https://drive.google.com/uc?export=download&id=1iZfDeaWGnkHqlpGdnjSmJbKKvrHeZMj3))<br/>by
+  Lau ([JSON](https://botc-scripts.azurewebsites.net/script/173/8.0.0))
 
 ## Basic Usage
 
@@ -59,6 +59,10 @@ The checkbox toggles the compact night sheet – you can see the difference in t
 examples above.
 
 You can change the name and author of the script on the top left.
+
+The sidebar, which you can open using the button in the middle-right of the
+viewport, lets you view all of the characters (including customs if you’ve
+imported any) in one list and filter them by their type.
 
 Importing directly from [bloodstar](https://www.bloodstar.xyz/) is supported.
 Characters are added in the order they appear on the script and are not SAO
@@ -86,7 +90,7 @@ supports the same format, also explained in
         "char4"
     ],
     "otherNight": [
-        "char5"
+        "char5",
         "dusk",
         "char6",
         ..., 
@@ -108,7 +112,11 @@ much simpler, but requires that you create the night order in the JSON yourself.
 
 Either import the script using the import JSON button on the top right, or start
 typing characters into the text box. Pressing Enter will immediately add the
-currently underlined character. Alternatively you can click any entry listed.
+currently underlined character. Alternatively, you can use the sidebar.
+
+If you want to search through characters’ ability text rather than their names,
+prefix the query with ‘has:’. Try things like has:learn align, has:mad, has:you
+start knowing, has:drunk, has:poison, etc.
 
 ### Removing Characters
 
@@ -142,28 +150,20 @@ want something that fits on a single printed page.
 The tool does not yet support travelers or fabled. These features are
 high-priority.
 
-It would be nice to see a list of characters and filter them by their
-properties. It’s sometimes hard to think of what to add if there isn’t a big
-list of characters that you can peruse. The official tool does this. Currently
-it lets you filter by character type and edition. We could do the same, and even
-extend it to other more fancy filters like ‘prevents night deaths’, ‘does not
-wake’, etc., which can be useful in the script building process.
-
 Further in the future, it would be cool to integrate some script-building tips
-directly into the editor.
+directly into the editor. Currently the tool does not display any script
+analytics whatsoever – not even the numbers of character types.
 
 ## Incomplete Features
 
-There is basic additional search functionality: if you begin a query in the
-character search with the key ‘has:’, it will search through ability text rather
-than character names. I’ll probably add more keys as they occur to me, but this
-feature is reasonably useful as-is. Try things like has:learn align, has:mad,
-has:you start knowing, has:drunk, has:poison, etc.
+The special search queries are limited to ‘has:’ prefixes and the filter
+functionality in the sidebar is still relatively basic. Extending these would be
+cool.
 
 ## Building the Tool
 
-There’s no building required. Launch any server in the project root and you can
-try it out. There’s a very basic [Makefile](Makefile) which runs
+There’s nothing to build. Launch any server in the project root and you can try
+it out. There’s a very basic [Makefile](Makefile) which runs
 `python3 -m http.server` and watches the [Sass](https://sass-lang.com/) files
 for changes. (This requires Sass to be installed.)
 
