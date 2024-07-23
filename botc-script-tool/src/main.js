@@ -79,7 +79,46 @@ preloadImages(thumbnails).then((_) => {
 
 let script;
 
-function renderScript() {
+function storeScript() {
+  // Shift old storage down to a max of 10 total scripts
+  for (let i = 9; i > 0; i--) {
+    const script_i = localStorage.getItem(`script-${i}`);
+    if (script_i) {
+      localStorage.setItem(`script-${i + 1}`, script_i);
+    }
+  }
+
+  const lastScript = localStorage.getItem("script");
+  localStorage.setItem("script-2", lastScript);
+
+  const scriptJSON = script.toJSON();
+  localStorage.setItem("script-1", scriptJSON);
+  localStorage.setItem("script", scriptJSON);
+}
+
+function undo() {
+  const lastScript = localStorage.getItem("script-2");
+  if (lastScript === "null") {
+    return; // Can’t undo
+  }
+
+  script.loadFromJSON(JSON.parse(lastScript));
+  scriptNameInput.value = script.name;
+  scriptAuthorInput.value = script.author;
+  renderScript(false);
+
+  localStorage.setItem("script", lastScript);
+
+  // Shift storage up
+  for (let i = 2; i <= 11; i++) {
+    const script_i = localStorage.getItem(`script-${i}`);
+    localStorage.setItem(`script-${i - 1}`, script_i);
+  }
+}
+
+function renderScript(store) {
+  const shouldStore = store ?? true;
+
   h1.innerHTML = `${script.name}<span>by ${script.author}</span>`;
   document.querySelector("#script").innerHTML = script.render();
   document.querySelector("#fabled-icon-container").innerHTML = script
@@ -97,6 +136,10 @@ function renderScript() {
       renderScript();
     }, { once: true });
   });
+
+  if (shouldStore) {
+    storeScript();
+  }
 
   globalThis.dispatchEvent(new Event("scriptrendered"));
 }
@@ -156,6 +199,12 @@ globalThis.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  globalThis.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.key === "z") {
+      undo();
+    }
+  });
+
   document.getElementById("script-name-form").addEventListener(
     "input",
     function (event) {
@@ -204,7 +253,6 @@ globalThis.addEventListener("DOMContentLoaded", () => {
         renderScript();
 
         document.querySelector("#current-matches").innerHTML = "";
-        localStorage.setItem("script", script.toJSON());
         characterInputEl.value = "";
       } catch (e) {
         console.error(e);
@@ -233,7 +281,6 @@ globalThis.addEventListener("DOMContentLoaded", () => {
         renderScript();
 
         document.querySelector("#current-matches").innerHTML = "";
-        localStorage.setItem("script", script.toJSON());
         characterInputEl.value = "";
       }
 
@@ -346,6 +393,10 @@ globalThis.addEventListener("DOMContentLoaded", () => {
       };
     }
 
+    if (renderSidebarChars.wasExpanded === undefined) {
+      renderSidebarChars.wasExpanded = new Set();
+    }
+
     allchars.innerHTML = "";
     const charlist = Character.flat
       .concat(Character.customFlat)
@@ -373,11 +424,20 @@ globalThis.addEventListener("DOMContentLoaded", () => {
       const character = new Character(result.obj.id);
       const selected = script.contains(character) ? "selected" : "";
       const imported = character.isCustom ? "imported-icon" : "";
+      const wasExpanded = renderSidebarChars.wasExpanded.has(character.id);
       let html =
-        `<div class="item ${selected}" data-id="${character.id}" data-team="${character.team}" title="${character.summary}" tabindex=0>`;
+        `<div class="item ${selected}" data-id="${character.id}" data-team="${character.team}" tabindex=0>`;
+      // html += `<div class=>`
       html += `<img class="icon ${imported}" src="${character.tinyIcon}"/>`;
-      html += `<div>${
+      html += `<div class="character-name">${
         hasQuery ? character.name : result.highlight("<b>", "</b>")
+      }</div>`;
+      html += `<div class="button">`;
+      html += `<button type="button" class="${
+        wasExpanded ? "expanded" : ""
+      }" title="Toggle character ability">❯</button></div>`;
+      html += `<div class="ability-text ${wasExpanded ? "" : "nodisplay"}">${
+        hasQuery ? result.highlight("<b>", "</b>") : character.summary
       }</div>`;
       html += `</div>`;
 
@@ -405,6 +465,23 @@ globalThis.addEventListener("DOMContentLoaded", () => {
             script.sort();
           }
           renderScript();
+        }
+      });
+
+      elem.querySelector("button").addEventListener("click", function (event) {
+        event.stopPropagation();
+        event.target.classList.toggle("expanded");
+        const node = event.target.parentNode.nextSibling;
+        node.classList.toggle("nodisplay");
+
+        if (!node.classList.contains("nodisplay")) {
+          renderSidebarChars.wasExpanded.add(
+            node.parentNode.getAttribute("data-id"),
+          );
+        } else {
+          renderSidebarChars.wasExpanded.delete(
+            node.parentNode.getAttribute("data-id"),
+          );
         }
       });
 
