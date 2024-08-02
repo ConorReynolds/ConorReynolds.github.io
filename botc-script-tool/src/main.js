@@ -346,7 +346,6 @@ globalThis.addEventListener("DOMContentLoaded", () => {
       appState.currentScript.name = scriptNameInput.value;
       h1.innerHTML =
         `${appState.currentScript.name}<span>by ${appState.currentScript.author}</span>`;
-      localStorage.setItem("script", appState.currentScript.toJSON());
     },
   );
 
@@ -357,7 +356,6 @@ globalThis.addEventListener("DOMContentLoaded", () => {
       appState.currentScript.author = scriptAuthorInput.value;
       h1.innerHTML =
         `${appState.currentScript.name}<span>by ${appState.currentScript.author}</span>`;
-      localStorage.setItem("script", appState.currentScript.toJSON());
     },
   );
 
@@ -467,16 +465,19 @@ globalThis.addEventListener("DOMContentLoaded", () => {
       redo();
     }
 
-    if (metaCtrl && shift && nextScriptKey) {
-      const _success = appState.nextScript();
-      console.log(`next script: ${appState.currentScript.name}`);
-      renderScript();
-    }
-    if (metaCtrl && shift && prevScriptKey) {
-      const _success = appState.prevScript();
-      console.log(`prev script: ${appState.currentScript.name}`);
-      renderScript();
-    }
+    // I think binding these keys to these actions is probably ill-advised. The
+    // UI is completely sufficient.
+
+    // if (metaCtrl && shift && nextScriptKey) {
+    //   const _success = appState.nextScript();
+    //   console.log(`next script: ${appState.currentScript.name}`);
+    //   renderScript();
+    // }
+    // if (metaCtrl && shift && prevScriptKey) {
+    //   const _success = appState.prevScript();
+    //   console.log(`prev script: ${appState.currentScript.name}`);
+    //   renderScript();
+    // }
   });
 
   undoButtonElem = document.querySelector("#undo-button");
@@ -566,7 +567,7 @@ globalThis.addEventListener("DOMContentLoaded", () => {
   );
 
   globalThis.addEventListener("unload", function (_event) {
-    localStorage.setItem("script", appState.currentScript.toJSON());
+    localStorage.setItem("app-state", appState.serialize());
   });
 
   const sidebar = document.querySelector("#sidebar");
