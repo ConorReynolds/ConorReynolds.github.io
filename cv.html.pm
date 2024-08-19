@@ -49,7 +49,7 @@ I encoded some of the general theory of institutions in Coq and (more significan
     ◊em{Government of Ireland Postgraduate Scholarship Programme Award}, awarded by the ◊extlink["https://research.ie"]{Irish Research Council} in 2019. This was my PhD funding.
   }
   ◊item{
-    ◊em{Hamilton Prize in Mathematics}, awarded in 2017 by the ◊extlink["https://www.ria.ie/grants-awards/prizes/hamilton-prize-mathematics"]{Royal Irish Academy} to the best undergraduate students of mathematics in Ireland in their penultimate year of study.
+    ◊em{Hamilton Prize in Mathematics}, awarded in 2017 by the ◊extlink["https://www.ria.ie/grants-awards/prizes/hamilton-prize-in-mathematics/"]{Royal Irish Academy} to the best undergraduate students of mathematics in Ireland in their penultimate year of study.
   }
   ◊item{
     ◊em{Cook Prize in Computer Science}, awarded to the best second-year computer science student at Maynooth University.
