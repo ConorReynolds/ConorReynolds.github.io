@@ -2129,7 +2129,7 @@ export const chars = [
     "team": "demon",
     "firstNight": 0.1,
     "firstNightReminder":
-      "Wake the players on either side of the Demon. Show them the 'You Are' card, the token of the Minion they now are, and a thumbs down to indicate they are evil.",
+      "Wake the players on either side of the Demon. Show them the ‘You Are’ card, the token of the Minion they now are, and a thumbs down to indicate they are evil.",
     "otherNight": 31.1,
     "otherNightReminder":
       "The Lord of Typhon points to a player. That player dies.",
@@ -4177,7 +4177,7 @@ export const jinxes = {
   },
   "Marionette": {
     "Balloonist":
-      "If the Marionette thinks that they are the Balloonist, +1 Outsider was added.",
+      "If the Marionette thinks that they are the Balloonist, +1 Outsider might have been added.",
     "Damsel": "The Marionette does not learn that a Damsel is in play.",
     "Huntsman":
       "If the Marionette thinks that they are the Huntsman, the Damsel was added.",
