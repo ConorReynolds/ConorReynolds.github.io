@@ -1448,7 +1448,7 @@ export const chars = [
       "The Lycanthrope points to a living player: if good, they die and the Demon doesn’t kill tonight.",
     "reminders": [
       "Dead",
-      "Red herring",
+      "Faux Paw",
     ],
     "setup": false,
     "ability":
@@ -1544,7 +1544,8 @@ export const chars = [
       "Is the Alchemist",
     ],
     "setup": false,
-    "ability": "You have a not-in-play Minion ability.",
+    "ability":
+      "You have a Minion ability. When using this, the Storyteller may prompt you to choose differently.",
   },
   {
     "id": "farmer",
@@ -1620,7 +1621,7 @@ export const chars = [
       "The Cannibal wakes in the night at the time the role they gained would wake. This is a reminder to ensure it is not forgotten.",
     "reminders": [
       "Poisoned",
-      "Died today",
+      "Lunch",
     ],
     "setup": false,
     "ability":
@@ -1906,8 +1907,11 @@ export const chars = [
     "otherNightReminder": "",
     "reminders": [],
     "setup": false,
+    // This ability is now long enough that this is the least obtrusive fix I
+    // can think of. In the future I might annotate longer abilities so that I
+    // can apply this style across the board, but it’s probably unnecessary.
     "ability":
-      "If you are executed, all but 3 players die. 1 minute later, the player with the most players pointing at them dies.",
+      '<span style="letter-spacing:-0.1px">If you are executed, all but 3 players die. After a 10 to 1 countdown, the player with the most players pointing at them, dies.</span>',
   },
   {
     "id": "organgrinder",
@@ -1999,7 +2003,7 @@ export const chars = [
     "team": "demon",
     "firstNightReminder": "",
     "otherNightReminder":
-      "The Al-Hadikhia chooses 3 players. Announce the first player, wake them to nod yes to live or shake head no to die, kill or resurrect accordingly, then put to sleep and announce the next player. If all 3 are alive after this, all 3 die.",
+      "The Al-Hadikhia may choose 3 players. Announce the first player, wake them to nod yes to live or shake head no to die, kill or resurrect accordingly, then put to sleep and announce the next player. If all 3 are alive after this, all 3 die.",
     "reminders": [
       "1",
       "2",
@@ -2009,7 +2013,7 @@ export const chars = [
     ],
     "setup": false,
     "ability":
-      "Each night*, choose 3 players (all players learn who): each silently chooses to live or die, but if all live, all die.",
+      "Each night*, you may choose 3 players (all players learn who): each silently chooses to live or die, but if all live, all die.",
   },
   {
     "id": "alsaahir",
@@ -2068,7 +2072,7 @@ export const chars = [
     "reminders": [],
     "setup": true,
     "ability":
-      "Nominees die, but may nominate again immediately (on day 3, they must). After day 3, evil wins. [All Minions are Riot]",
+      "On day 3, Minions become Riot & nominees die but nominate an alive player immediately. This must happen.",
   },
   {
     "id": "kazali",
@@ -2337,10 +2341,6 @@ export const jinxes = {
     "Mathematician":
       "The Chambermaid learns if the Mathematician wakes tonight or not, even though the Chambermaid wakes first.",
   },
-  "Lycanthrope": {
-    "Gambler":
-      "If the Lycanthrope is alive and the Gambler kills themself at night, no other players can die tonight.",
-  },
   "Philosopher": {
     "Bounty Hunter":
       "If the Philosopher gains the Bounty Hunter ability, a Townsfolk might turn evil.",
@@ -2505,8 +2505,6 @@ export const jinxes = {
       "If the Poppy Grower is in play, the Widow does not see the Grimoire until the Poppy Grower dies.",
   },
   "Al-Hadikhia": {
-    "Mastermind":
-      "If the Al-Hadikhia dies by execution, and the Mastermind is alive, the Al-Hadikhia chooses 3 good players tonight: if all 3 choose to live, evil wins. Otherwise, good wins.",
     "Scarlet Woman":
       "If there are two living Al-Hadikhias, the Scarlet Woman Al-Hadikhia becomes the Scarlet Woman again.",
   },
