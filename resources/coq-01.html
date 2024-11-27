@@ -335,13 +335,13 @@ Proof.
 Admitted.
 
 (* Duplicate hypotheses can be merged. *)
-Lemma q6 : (A -&gt; A -&gt; B) -&gt; A -&gt; B.
+Lemma q5 : (A -&gt; A -&gt; B) -&gt; A -&gt; B.
 Proof.
   (* todo *)
 Admitted.
 
 (* Duplicate hypotheses can be introduced. *)
-Lemma q7 : (A -&gt; B) -&gt; A -&gt; A -&gt; B.
+Lemma q6 : (A -&gt; B) -&gt; A -&gt; A -&gt; B.
 Proof.
   (* todo *)
 Admitted.
@@ -353,14 +353,14 @@ Admitted.
  *      ↘   ↙           D
  *        D
  *)
-Lemma q8 : (A -&gt; B) -&gt; (A -&gt; C) -&gt; (B -&gt; C -&gt; D) -&gt; A -&gt; D.
+Lemma q7 : (A -&gt; B) -&gt; (A -&gt; C) -&gt; (B -&gt; C -&gt; D) -&gt; A -&gt; D.
 Proof.
   (* todo *)
 Admitted.
 
 (* Weak version of Peirce’s law. The strong version implies
  * LEM and therefore can’t be proved in constructive logic. *)
-Lemma q9 : ((((A -&gt; B) -&gt; A) -&gt; A) -&gt; B) -&gt; B.
+Lemma q8 : ((((A -&gt; B) -&gt; A) -&gt; A) -&gt; B) -&gt; B.
 Proof.
   (* todo *)
 Admitted.
@@ -394,13 +394,13 @@ Proof.
 Admitted.
 
 (* Duplicate hypotheses can be merged. *)
-Lemma q6 : (A -&gt; A -&gt; B) -&gt; A -&gt; B.
+Lemma q5 : (A -&gt; A -&gt; B) -&gt; A -&gt; B.
 Proof.
   (* todo *)
 Admitted.
 
 (* Duplicate hypotheses can be introduced. *)
-Lemma q7 : (A -&gt; B) -&gt; A -&gt; A -&gt; B.
+Lemma q6 : (A -&gt; B) -&gt; A -&gt; A -&gt; B.
 Proof.
   (* todo *)
 Admitted.
@@ -412,14 +412,14 @@ Admitted.
  *      ↘   ↙           D
  *        D
  *)
-Lemma q8 : (A -&gt; B) -&gt; (A -&gt; C) -&gt; (B -&gt; C -&gt; D) -&gt; A -&gt; D.
+Lemma q7 : (A -&gt; B) -&gt; (A -&gt; C) -&gt; (B -&gt; C -&gt; D) -&gt; A -&gt; D.
 Proof.
   (* todo *)
 Admitted.
 
 (* Weak version of Peirce’s law. The strong version implies
  * LEM and therefore can’t be proved in constructive logic. *)
-Lemma q9 : ((((A -&gt; B) -&gt; A) -&gt; A) -&gt; B) -&gt; B.
+Lemma q8 : ((((A -&gt; B) -&gt; A) -&gt; A) -&gt; B) -&gt; B.
 Proof.
   (* todo *)
 Admitted.
@@ -512,13 +512,13 @@ End CoqLab01.`)"><i class="fas fa-copy"></i></button><div class="source"><table 
 <span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Duplicate hypotheses can be merged. *)</span>
-<span class="kn">Lemma</span> <span class="n">q6</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Lemma</span> <span class="n">q5</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Duplicate hypotheses can be introduced. *)</span>
-<span class="kn">Lemma</span> <span class="n">q7</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Lemma</span> <span class="n">q6</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
@@ -530,14 +530,14 @@ End CoqLab01.`)"><i class="fas fa-copy"></i></button><div class="source"><table 
 <span class="c"> *      ↘   ↙           D</span>
 <span class="c"> *        D</span>
 <span class="c"> *)</span>
-<span class="kn">Lemma</span> <span class="n">q8</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="o">.</span>
+<span class="kn">Lemma</span> <span class="n">q7</span> <span class="o">:</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">B</span> <span class="o">-&gt;</span> <span class="n">C</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
 
 <span class="c">(* Weak version of Peirce’s law. The strong version implies</span>
 <span class="c"> * LEM and therefore can’t be proved in constructive logic. *)</span>
-<span class="kn">Lemma</span> <span class="n">q9</span> <span class="o">:</span> <span class="o">((((</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
+<span class="kn">Lemma</span> <span class="n">q8</span> <span class="o">:</span> <span class="o">((((</span><span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">.</span>
 <span class="kn">Proof</span><span class="o">.</span>
   <span class="c">(* todo *)</span>
 <span class="kn">Admitted</span><span class="o">.</span>
