@@ -274,13 +274,13 @@ Prove the following lemmas in Coq. When you have completed a proof, replace ◊c
   Admitted.
 
   (* Duplicate hypotheses can be merged. *)
-  Lemma q6 : (A -> A -> B) -> A -> B.
+  Lemma q5 : (A -> A -> B) -> A -> B.
   Proof.
     (* todo *)
   Admitted.
 
   (* Duplicate hypotheses can be introduced. *)
-  Lemma q7 : (A -> B) -> A -> A -> B.
+  Lemma q6 : (A -> B) -> A -> A -> B.
   Proof.
     (* todo *)
   Admitted.
@@ -292,14 +292,14 @@ Prove the following lemmas in Coq. When you have completed a proof, replace ◊c
    *      ↘   ↙           D
    *        D
    *)
-  Lemma q8 : (A -> B) -> (A -> C) -> (B -> C -> D) -> A -> D.
+  Lemma q7 : (A -> B) -> (A -> C) -> (B -> C -> D) -> A -> D.
   Proof.
     (* todo *)
   Admitted.
 
   (* Weak version of Peirce’s law. The strong version implies
    * LEM and therefore can’t be proved in constructive logic. *)
-  Lemma q9 : ((((A -> B) -> A) -> A) -> B) -> B.
+  Lemma q8 : ((((A -> B) -> A) -> A) -> B) -> B.
   Proof.
     (* todo *)
   Admitted.
