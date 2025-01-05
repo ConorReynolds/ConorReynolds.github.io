@@ -2157,6 +2157,7 @@ export const chars = [
     "firstNight": 0.3,
     "firstNightReminder":
       "Wake the Boffin and show them the token of the ability the Demon has. Put the Boffin back to sleep. Wake the Demon, show the Boffin token, then show the token of the good ability the Demon has.",
+    "reminders": [],
     "ability":
       "The Demon (even if drunk or poisoned) has a not-in-play good character’s ability. You both know which.",
   },
@@ -2187,6 +2188,19 @@ export const chars = [
     "setup": true,
     "ability":
       "On night X, all Townsfolk are poisoned until dusk. [X Outsiders]",
+  },
+  {
+    "id": "wizard",
+    "name": "Wizard",
+    "edition": "",
+    "team": "minion",
+    "firstNight": 28.1,
+    "firstNightReminder": "Run the Wizard ability if applicable.",
+    "otherNight": 14.1,
+    "otherNightReminder": "Run the Wizard ability if applicable.",
+    "reminders": ["?"],
+    "ability":
+      "Once per game, choose to make a wish. If granted, it might have a price & leave a clue as to its nature.",
   },
 ];
 
