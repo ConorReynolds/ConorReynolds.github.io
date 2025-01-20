@@ -17,6 +17,8 @@ currently works well on desktop and decent on mobile.
 - Caches up to 15 recent scripts, accessible in the left sidebar
 - Generate script links to quickly share scripts with others
 - PDF export via built-in ‘Print to PDF’
+- View/Edit modes – mainly useful if you want to use the tool as a substitute
+  for printed scripts
 
 ## Why another script tool?
 
@@ -76,7 +78,10 @@ The UI is largely self-explanatory. The buttons on the top right allow you to
 - clear the script
 - print the script (Ctrl+P or Cmd+P works also)
 
-You can add characters using the quick-add textbox underneath the buttons.
+You can add characters using the quick-add textbox underneath the buttons, or
+using the sidebar on the right. Both the quick-add box and the sidebar support
+searching names and ability texts (this is explained in more detail
+[here](#adding-characters)).
 
 The checkbox underneath the quick-add textbox toggles the compact night sheet –
 you can see the difference in the examples above.
@@ -95,8 +100,11 @@ You can undo/redo up to ten previous changes in the currently focused script
 using the buttons on the bottom right or via the keyboard shortcuts Ctrl+Z /
 Ctrl+Shift+Z on Windows/Linux, or Cmd+Z / Cmd+Shift+Z on Mac.
 
-Ctrl/Cmd clicking on the export JSON button creates a script link that you can
-then copy and share.
+You can lock or unlock editing and hide certain UI elements by using the
+lock/unlock button on the bottom right, next to the undo/redo buttons.
+
+Holding Ctrl/Cmd and clicking on the export JSON button creates a script link in
+the browser’s address bar that you can then copy and share.
 
 Importing directly from [bloodstar.xyz](https://www.bloodstar.xyz/) is
 supported. Characters are added in the order they appear on the script and are
@@ -158,8 +166,8 @@ Alternatively, you can use the sidebar.
 https://github.com/user-attachments/assets/ced438ee-14a0-4d26-88df-33344f745106
 
 If you want to search through characters’ ability text rather than their names,
-prefix the query with ‘has:’. Try things like has:learn align, has:mad, has:you
-start knowing, has:drunk, has:poison, etc.
+prefix the query with ‘has:’. Try things like ‘has:learn align’, ‘has:mad’,
+‘has:you start knowing’, ‘has:drunk’, ‘has:poison’, etc.
 
 https://github.com/user-attachments/assets/8d83254b-9126-4e0c-9ef5-d202cdad98f2
 
@@ -177,6 +185,20 @@ Windows/Linux and Cmd+Shift+Z on Mac. Alternatively, use the buttons on the
 bottom right of the viewport. You can undo/redo up to ten actions.
 
 https://github.com/user-attachments/assets/2aea1072-1a45-4b69-abd6-53bd8b93933b
+
+### Toggling Edit and View Modes
+
+There’s an unlock/lock icon on the bottom right of the viewport. Clicking it
+will toggle between edit and view mode.
+
+A while ago I wanted to run a Teensyville script I made for some friends, but I
+had forgotten the printed scripts. I linked them to the script on this tool, and
+for the most part it worked well – it’s certainly much more readable than a
+screenshot of the script. But some players eventually came up to me and asked
+why some characters seemed to have disappeared; they were accidentally clicking
+on the character’s icon and removing them. Annoying. A simple solution is to add
+a view mode. It disables interaction and removes some irrelevant UI elements for
+cleaner viewing.
 
 ### Exporting the Script JSON
 
@@ -219,11 +241,15 @@ be expanded if 15 is too few. (But 15 seems like plenty.)
 
 Exporting PDFs is designed to be done using the built-in print dialog’s ‘Print
 to PDF’ functionality. This currently works well on Chrome and Firefox – my
-settings are usually A4, remove headers and footers (but not backgrounds). Play
-around with whatever looks best to you, but the defaults should be OK. Android
-mobile output is generally acceptable once the output is correctly scaled.
-Safari and browsers on iOS are currently not great but support will probably
-improve soon.
+settings are usually A4, no margins (important!), remove headers and footers
+(but not backgrounds). Play around with whatever looks best to you. Android
+mobile output is generally acceptable once it’s correctly scaled. Safari and
+browsers on iOS are currently not great since neither have good support for CSS3
+paged media or page break queries.[^1]
+
+[^1]: Some basic `@page` support
+    [has arrived](https://bugs.webkit.org/show_bug.cgi?id=15548) but it’s still
+    not very good. Soon, maybe? In the meantime, use a proper browser.
 
 If you print with the full night sheet, you’ll get four (PDF) pages (two
 double-sided printed pages). The first two are the character sheet and the
