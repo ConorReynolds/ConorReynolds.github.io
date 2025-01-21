@@ -29,6 +29,7 @@ scss: styles/*.scss
 
 publish: clean html scss
 	$(PUBLISH) . $(PUB_LOCATION)
+	touch $(PUB_LOCATION)/.nojekyll
 	rm -f $(PUB_LOCATION)/posts/draft* \
 		$(PUB_LOCATION)/resources/draft*
 
