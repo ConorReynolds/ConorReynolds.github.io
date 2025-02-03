@@ -340,22 +340,29 @@ interpretations of `window.print()` in different browsers and operating systems.
   BotC Script Tool’ as the title. Not sure why this happens. The print button
   works fine, so if this is annoying you then just use the button.
 - Printing is ugly on mobile devices so I can’t recommend it just yet.
+- If something’s broken and you’re not sure what, you can always clear the
+  website’s cache. You can do this the usual way for your browser, or you can
+  explicitly clear `localStorage` by opening your browser’s developer tools and
+  typing `localStorage.clear()` into the console.
 
 ## Acknowledgements
 
 The character icons are a modified version of the unofficial icon SVGs Navean
-and Tom O created and uploaded to the unofficial Discord server. Most of the
+and Tom O created and uploaded to the unofficial Discord server, and which are
+now available [on GitHub](https://github.com/tomozbot/botc-icons). Most of the
 character data are taken directly from
 [clocktower.live](https://github.com/nicholas-eden/townsquare). Night reminders
-and other auxiliary text is written by
-[Ben Finney](http://bignose.whitetree.org/projects/botc/diy/). The other icons
-are from [Font Awesome](https://fontawesome.com/). The fonts are all in the
+and other auxiliary text was originally written by
+[Ben Finney](http://bignose.whitetree.org/projects/botc/diy/) but very heavily
+edited by me for consistency, brevity, and accuracy. The other icons are from
+[Font Awesome](https://fontawesome.com/). The fonts are all in the
 [IBM Plex family](https://www.ibm.com/plex/). The character text and jinxes are
 taken from the excellent
 [Blood on the Clocktower wiki](https://wiki.bloodontheclocktower.com).
 
-The sole JavaScript library we depend on is
-[fuzzysort](https://github.com/farzher/fuzzysort).
+The JavaScript libraries we depend on are
+[fuzzysort](https://github.com/farzher/fuzzysort) and
+[Sortable](https://github.com/SortableJS/Sortable).
 
 [Blood on the Clocktower](https://bloodontheclocktower.com/) is a trademark of
 Steven Medway and
