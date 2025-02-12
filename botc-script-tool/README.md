@@ -54,18 +54,18 @@ using the official tool. I won’t be upset.
 
 Here’s some script PDFs I generated with this tool.
 
-- [Sects and Violets](https://drive.google.com/uc?export=download&id=17iYBXGlN3pION7jXl1b79aCKt7Z9bQJQ)
-  ([compact night sheet version](https://drive.google.com/uc?export=download&id=1Cabp0K8AVOFqFlCO5Z9qZ_uxuyx8qySQ))<br/>
+- [Sects and Violets](https://github.com/user-attachments/files/18757505/Sects.and.Violets.pdf)
+  ([compact night sheet version](https://github.com/user-attachments/files/18757516/Sects.and.Violets.CNS.pdf))<br/>
   by The Pandemonium Institute
-- [No Roles Barred](https://drive.google.com/uc?export=download&id=16wBqcn7G5cwZTGrT9dVp8FhECCQF6xff)
-  ([compact night sheet version](https://drive.google.com/uc?export=download&id=19wnYRgeQ2k5pZDcqowYrKCGo9xqIETkz))<br/>
+- [No Roles Barred](https://github.com/user-attachments/files/18757554/No.Roles.Barred.pdf)
+  ([compact night sheet version](https://github.com/user-attachments/files/18757557/No.Roles.Barred.CNS.pdf))<br/>
   by Andrew Pichot
   ([JSON](https://botc-scripts.azurewebsites.net/script/258/1.0.1))
-- [Boozling! v7](https://drive.google.com/uc?export=download&id=1EUW_h3nx4NKRl9BpUtUX0CM_8jnv2lHQ)
-  ([compact night sheet version](https://drive.google.com/uc?export=download&id=1iZfDeaWGnkHqlpGdnjSmJbKKvrHeZMj3))<br/>by
-  Lau ([JSON](https://botc-scripts.azurewebsites.net/script/173/8.0.0))
-- [Kaboom](https://drive.google.com/uc?export=download&id=10TVDKnsBuMxtwhaMqHfDqs050jmM6Glp)
-  ([compact night sheet version](https://drive.google.com/uc?export=download&id=1udx-kj-aZfXY1hZB9tTSyPujyK8g3nff))<br/>
+- [Boozling! v7](https://github.com/user-attachments/files/18757560/Boozling.v7.pdf)
+  ([compact night sheet version](https://github.com/user-attachments/files/18757573/Boozling.v7.CNS.pdf))<br/>
+  by Lau ([JSON](https://botc-scripts.azurewebsites.net/script/173/8.0.0))
+- [Kaboom.pdf](https://github.com/user-attachments/files/18757580/Kaboom.pdf)
+  ([compact night sheet version](https://github.com/user-attachments/files/18757583/Kaboom.CNS.pdf))<br/>
   by Scuba Steve ([JSON](https://botcscripts.com/script/1205/1.0.0))
 
 ## Usage Overview
@@ -280,6 +280,19 @@ why some characters seemed to have disappeared; they were accidentally clicking
 on the character’s icon and removing them. Annoying. A simple solution is to add
 a view mode. It disables interaction and removes some irrelevant UI elements for
 cleaner viewing.
+
+### Changing the Character Order
+
+Sometimes it makes more sense to defy SAO and order some characters yourself.
+For example, SAO-sorted Trouble Brewing starts with Chef, Investigator,
+Washerwoman, Librarian, but the official order starts with Washerwoman,
+Librarian, Investigator, Chef, which is more logical for that script.
+
+https://github.com/user-attachments/assets/e1a8732e-3ab7-48ad-ab64-8b0509ac5b53
+
+Note that changes to the script order are **purely cosmetic** and are reset
+whenever the script is rendered again. This feature is enabled mainly so that
+you can tweak a few characters just before printing.
 
 ### Changing the Night Order
 
