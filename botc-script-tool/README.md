@@ -317,6 +317,126 @@ There are two ‘modes’:
   with Minions learning the Damsel, or you can put the Snake Charmer before
   Minion info if you prefer the Alejo Snake Charmer rule.
 
+### Custom Characters, Bootlegger Rules, and Jinxes
+
+Any custom character in an uploaded script JSON must have the following fields:
+
+```json
+{
+  "id": "your_id_here",
+  "name": "Your Name Here",
+  "team": "townsfolk | outsider | minion | demon | traveler | fabled",
+  "image": "some valid link",
+  "ability": "ability text"
+}
+```
+
+All fields are mandatory, including the image. Make sure that your character’s
+identifier doesn’t clash with any internal identifiers or any other characters
+you’ve added.
+
+You can (and probably should) include some other information if it is relevant
+for the character, like night order and reminder information, reminder tokens,
+custom jinxes, etc. This tool does not directly use all of this info, but it
+will pass it along unchanged to other tools that do. Here is an example of a
+fully-specified official character – your own characters should follow this
+template but delete the edition info.
+
+```json
+{
+  "id": "philosopher",
+  "name": "Philosopher",
+  "edition": "snv",
+  "team": "townsfolk",
+  "firstNightReminder": "The Philosopher might choose a character. If necessary, swap their character token. :reminder:",
+  "otherNightReminder": "The Philosopher might choose a character. If necessary, swap their character token. :reminder:",
+  "reminders": [
+    "Drunk"
+  ],
+  "remindersGlobal": [
+    "Is The Philosopher"
+  ],
+  "setup": false,
+  "ability": "Once per game, at night, choose a good character: gain that ability. If this character is in play, they are drunk.",
+  "special": [
+    {
+      "type": "reveal",
+      "name": "replace-character"
+    }
+  ],
+  "flavor": "If anything is real, beer is real. Drink, for tomorrow we may die.",
+  "firstNight": 9,
+  "otherNight": 7
+}
+```
+
+You can also override built-in characters and annotate your own data. As an
+example, suppose you upload a script JSON with the following character:
+
+```json
+{
+  "id": "huntsman",
+  "jinxes": [
+    {
+      "id": "villageidiot",
+      "reason": "If there is a spare token, the Damsel can become a Village Idiot due to the Huntsman’s ability."
+    }
+  ]
+}
+```
+
+This script (and only this script) will contain a new instance of the Huntsman
+with an additional jinx with the Village Idiot.
+
+Bootlegger rules are also simple to add:
+
+```json
+{
+  "id": "_meta",
+  "author": "Your Name",
+  "name": "Your Script Name",
+  "bootlegger": [
+    "Your custom rule here",
+    "Another custom rule"
+  ]
+}
+```
+
+Bloodstar scripts work as-is, but bear in mind that if you want the best output
+you should try to do the following:
+
+- Make sure that all your characters have images. Anything will do.
+- Try to make sure that your character’s ability text is within the official
+  character limit, which should ensure that in a printed script it is no more
+  than two lines of text. I don’t know if a specific numerical limit has been
+  published (somewhere around 130 characters) but since the fonts used are
+  proportional this can only be an approximation. Characters with extremely long
+  ability text will not render particularly nicely since the characters are laid
+  out using a CSS grid: a single large item will make all other items of that
+  type take up similar vertical space.
+
+You can overcome the ability text length issue by directly inserting HTML that
+decreases the letter spacing of the ability text. All ability text is
+interpreted as HTML and any valid HTML should render. For example, the tool
+bundles some common homebrew roles, such as the Each Night Huntsman. The ability
+text is this:
+
+```html
+<span style="letter-spacing: -0.4px">
+  Each night, choose a living player: a chosen Damsel becomes a not-in-play
+  Townsfolk. If you choose a Minion, you are poisoned. [+the Damsel]
+</span>
+```
+
+The ability text, ordinarily too long, fits in two lines with the condensed
+letter spacing. It does look a little ugly, but it helps it look more consistent
+with other abilities.
+
+You can also force-activate hyphenation via `hyphens: auto` if you think that
+might help. None of this is very useful for JSON exporting since no other tool I
+know of supports HTML in ability text, but it can help if you need to make some
+minor tweaks before printing the script.
+
 ## Missing Features
 
 It would be cool to integrate some script-building tips directly into the
