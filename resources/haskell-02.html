@@ -91,57 +91,30 @@
 
 {-
   Write your answer as a comment here.
--}`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="kr">module</span><span class="w"> </span><span class="nn">Assignment02</span><span class="w"> </span><span class="kr">where</span>
+-}`)"><i class="fas fa-copy"></i></button><pre><code>module Assignment02 where
 
-<span class="c1">-----------------------------------------------------------</span>
-<span class="c1">-- QUESTION 1</span>
+-----------------------------------------------------------
+-- QUESTION 1
 
 
-<span class="c1">-----------------------------------------------------------</span>
-<span class="c1">-- QUESTION 2</span>
+-----------------------------------------------------------
+-- QUESTION 2
 
 
-<span class="c1">-----------------------------------------------------------</span>
-<span class="c1">-- QUESTION 3</span>
+-----------------------------------------------------------
+-- QUESTION 3
 
 
-<span class="c1">-----------------------------------------------------------</span>
-<span class="c1">-- QUESTION 4</span>
+-----------------------------------------------------------
+-- QUESTION 4
 
-<span class="cm">{-</span>
-<span class="cm">  Write your answer as a comment here.</span>
-<span class="cm">-}</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>You can download the template using the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the file name. You can also copy any code snippet by hovering over it and clicking the <i class="fa fa-copy" style="margin: 0 0.1em 0 0.1em; color: var(--muted-color);"></i> button which appears on the top right.</p><div class="callout" data-callout="warning"><div class="callout-title">Warning</div><div class="callout-body"><p>Your file name and module name <em>must</em> match the template—any other file or module name will be rejected.</p><p>You may <em>not</em> use any imports to solve this lab. If your file contains an import statement, you will get zero marks.</p></div></div><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a function which accepts a list of directions and uses that list to update the position of a point in space. Here is an example of how it should work.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`ghci&gt; receiveAndProc
+{-
+  Write your answer as a comment here.
+-}</code></pre></div><p>You can download the template using the <i class="fa fa-download" style="position: relative; margin: 0 0.1em 0 0.1em; top: -0.05em; font-size: 0.9em; color: var(--muted-color);"></i> button next to the file name. You can also copy any code snippet by hovering over it and clicking the <i class="fa fa-copy" style="margin: 0 0.1em 0 0.1em; color: var(--muted-color);"></i> button which appears on the top right.</p><div class="callout" data-callout="warning"><div class="callout-title">Warning</div><div class="callout-body"><p>Your file name and module name <em>must</em> match the template—any other file or module name will be rejected.</p><p>You may <em>not</em> use any imports to solve this lab. If your file contains an import statement, you will get zero marks.</p></div></div><hr/><h2 id="Question 1" class="section">Question 1<a class="anchor" href="#Question 1" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Write a function which accepts a list of directions and uses that list to update the position of a point in space. Here is an example of how it should work.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`ghci&gt; receiveAndProc
 L L L L L U U U D R U  # user input
-(-4,3)`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span>ghci&gt;<span class="w"> </span>receiveAndProc
-L<span class="w"> </span>L<span class="w"> </span>L<span class="w"> </span>L<span class="w"> </span>L<span class="w"> </span>U<span class="w"> </span>U<span class="w"> </span>U<span class="w"> </span>D<span class="w"> </span>R<span class="w"> </span>U<span class="w">  </span><span class="c1"># user input</span>
-<span class="o">(</span>-4,3<span class="o">)</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Use the following template.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`-- Represents a direction: left, right, up, down.
+(-4,3)`)"><i class="fas fa-copy"></i></button><pre><code>ghci&gt; receiveAndProc
+L L L L L U U U D R U  # user input
+(-4,3)</code></pre></div><p>Use the following template.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`-- Represents a direction: left, right, up, down.
 data Direction = L | R | U | D
   deriving (Show, Read)
 
@@ -159,46 +132,25 @@ process = undefined
 -- and determine the new position of the point (0,0).
 receiveAndProc :: IO ()
 receiveAndProc = do
-  undefined`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">-- Represents a direction: left, right, up, down.</span>
-<span class="kr">data</span><span class="w"> </span><span class="kt">Direction</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">L</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">R</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">U</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">D</span>
-<span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span><span class="w"> </span><span class="kt">Read</span><span class="p">)</span>
+  undefined`)"><i class="fas fa-copy"></i></button><pre><code>-- Represents a direction: left, right, up, down.
+data Direction = L | R | U | D
+  deriving (Show, Read)
 
-<span class="c1">-- Represents a position on a grid.</span>
-<span class="kr">type</span><span class="w"> </span><span class="kt">Position</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span>
+-- Represents a position on a grid.
+type Position = (Int, Int)
 
-<span class="c1">-- This is where the main work should happen.</span>
-<span class="c1">-- Examples:</span>
-<span class="c1">--   process [L,L,L,U,U] (0,0) == (-3,2)</span>
-<span class="c1">--   process [L,R,U,U,D,R] (1,-1) == (2,0)</span>
-<span class="nf">process</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Direction</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Position</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Position</span>
-<span class="nf">process</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">undefined</span>
+-- This is where the main work should happen.
+-- Examples:
+--   process [L,L,L,U,U] (0,0) == (-3,2)
+--   process [L,R,U,U,D,R] (1,-1) == (2,0)
+process :: [Direction] -&gt; Position -&gt; Position
+process = undefined
 
-<span class="c1">-- This should read a space-separated list of directions</span>
-<span class="c1">-- and determine the new position of the point (0,0).</span>
-<span class="nf">receiveAndProc</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
-<span class="nf">receiveAndProc</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
-<span class="w">  </span><span class="n">undefined</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>You will find the following functions useful.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`-- Simple parsing for ‘readable’ types. If Haskell can’t
+-- This should read a space-separated list of directions
+-- and determine the new position of the point (0,0).
+receiveAndProc :: IO ()
+receiveAndProc = do
+  undefined</code></pre></div><p>You will find the following functions useful.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`-- Simple parsing for ‘readable’ types. If Haskell can’t
 -- infer what the return type is from context, you will
 -- need to provide it like this:
 --    read @Int :: String -&gt; Int
@@ -216,64 +168,33 @@ words :: String -&gt; [String]
 -- Applies a function to each of the elements of a list.
 -- Example:
 --   map (+1) [1,2,3] == [2,3,4]
-map :: (a -&gt; b) -&gt; [a] -&gt; [b]`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">-- Simple parsing for ‘readable’ types. If Haskell can’t</span>
-<span class="c1">-- infer what the return type is from context, you will</span>
-<span class="c1">-- need to provide it like this:</span>
-<span class="c1">--    read @Int :: String -&gt; Int</span>
-<span class="c1">--    read @Direction :: String -&gt; Direction</span>
-<span class="c1">-- The @-symbol is, in this context, a ‘type application’</span>
-<span class="c1">-- operator — it specialises the type signature to a type</span>
-<span class="c1">-- that implements the Read typeclass.</span>
-<span class="nf">read</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Read</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
+map :: (a -&gt; b) -&gt; [a] -&gt; [b]`)"><i class="fas fa-copy"></i></button><pre><code>-- Simple parsing for ‘readable’ types. If Haskell can’t
+-- infer what the return type is from context, you will
+-- need to provide it like this:
+--    read @Int :: String -&gt; Int
+--    read @Direction :: String -&gt; Direction
+-- The @-symbol is, in this context, a ‘type application’
+-- operator — it specialises the type signature to a type
+-- that implements the Read typeclass.
+read :: Read a =&gt; String -&gt; a
 
-<span class="c1">-- Splits a string by whitespace.</span>
-<span class="c1">-- Example:</span>
-<span class="c1">--   words "1 2\n3" == ["1", "2", "3"]</span>
-<span class="nf">words</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
+-- Splits a string by whitespace.
+-- Example:
+--   words "1 2\n3" == ["1", "2", "3"]
+words :: String -&gt; [String]
 
-<span class="c1">-- Applies a function to each of the elements of a list.</span>
-<span class="c1">-- Example:</span>
-<span class="c1">--   map (+1) [1,2,3] == [2,3,4]</span>
-<span class="nf">map</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Recall the following data type from the lectures.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`data SimpleIO a
+-- Applies a function to each of the elements of a list.
+-- Example:
+--   map (+1) [1,2,3] == [2,3,4]
+map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code></pre></div><h2 id="Question 2" class="section">Question 2<a class="anchor" href="#Question 2" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Recall the following data type from the lectures.</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`data SimpleIO a
   = Put String (SimpleIO a)
   | Get (String -&gt; SimpleIO a)
-  | Return a`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><span class="kr">data</span><span class="w"> </span><span class="kt">SimpleIO</span><span class="w"> </span><span class="n">a</span>
-<span class="w">  </span><span class="ow">=</span><span class="w"> </span><span class="kt">Put</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="p">(</span><span class="kt">SimpleIO</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
-<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="kt">Get</span><span class="w"> </span><span class="p">(</span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">SimpleIO</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
-<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="kt">Return</span><span class="w"> </span><span class="n">a</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Write a function</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`exclaim :: SimpleIO a -&gt; SimpleIO a
-exclaim = undefined`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="nf">exclaim</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">SimpleIO</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">SimpleIO</span><span class="w"> </span><span class="n">a</span>
-<span class="nf">exclaim</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">undefined</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>which takes a <code>SimpleIO</code> computation and appends an exclamation mark to every string that is <code>Put</code>. To test this, you will need the following:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`io :: SimpleIO a -&gt; IO a
+  | Return a`)"><i class="fas fa-copy"></i></button><pre><code>data SimpleIO a
+  = Put String (SimpleIO a)
+  | Get (String -&gt; SimpleIO a)
+  | Return a</code></pre></div><p>Write a function</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`exclaim :: SimpleIO a -&gt; SimpleIO a
+exclaim = undefined`)"><i class="fas fa-copy"></i></button><pre><code>exclaim :: SimpleIO a -&gt; SimpleIO a
+exclaim = undefined</code></pre></div><p>which takes a <code>SimpleIO</code> computation and appends an exclamation mark to every string that is <code>Put</code>. To test this, you will need the following:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`io :: SimpleIO a -&gt; IO a
 io computation =
   case computation of
     Put s rest -&gt; do
@@ -292,48 +213,26 @@ example =
   Put &quot;Hello&quot; $
   Get $ \name -&gt;
   Put (&quot;My name is &quot; ++ name) $
-  Return ()`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="nf">io</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">SimpleIO</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span>
-<span class="nf">io</span><span class="w"> </span><span class="n">computation</span><span class="w"> </span><span class="ow">=</span>
-<span class="w">  </span><span class="kr">case</span><span class="w"> </span><span class="n">computation</span><span class="w"> </span><span class="kr">of</span>
-<span class="w">    </span><span class="kt">Put</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">rest</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kr">do</span>
-<span class="w">      </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">s</span>
-<span class="w">      </span><span class="n">io</span><span class="w"> </span><span class="n">rest</span>
+  Return ()`)"><i class="fas fa-copy"></i></button><pre><code>io :: SimpleIO a -&gt; IO a
+io computation =
+  case computation of
+    Put s rest -&gt; do
+      putStrLn s
+      io rest
 
-<span class="w">    </span><span class="kt">Get</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kr">do</span>
-<span class="w">      </span><span class="n">s</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span>
-<span class="w">      </span><span class="n">io</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="n">s</span><span class="p">)</span>
+    Get k -&gt; do
+      s &lt;- getLine
+      io (k s)
 
-<span class="w">    </span><span class="kt">Return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span>
-<span class="w">      </span><span class="n">return</span><span class="w"> </span><span class="n">a</span>
+    Return a -&gt;
+      return a
 
-<span class="nf">example</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">SimpleIO</span><span class="w"> </span><span class="nb">()</span>
-<span class="nf">example</span><span class="w"> </span><span class="ow">=</span>
-<span class="w">  </span><span class="kt">Put</span><span class="w"> </span><span class="s">"Hello"</span><span class="w"> </span><span class="o">$</span>
-<span class="w">  </span><span class="kt">Get</span><span class="w"> </span><span class="o">$</span><span class="w"> </span><span class="nf">\</span><span class="n">name</span><span class="w"> </span><span class="ow">-&gt;</span>
-<span class="w">  </span><span class="kt">Put</span><span class="w"> </span><span class="p">(</span><span class="s">"My name is "</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="o">$</span>
-<span class="w">  </span><span class="kt">Return</span><span class="w"> </span><span class="nb">()</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>For example:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`ghci&gt; io example
+example :: SimpleIO ()
+example =
+  Put "Hello" $
+  Get $ \name -&gt;
+  Put ("My name is " ++ name) $
+  Return ()</code></pre></div><p>For example:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`ghci&gt; io example
 Hello
 Conor  # user input
 My name is Conor
@@ -341,26 +240,15 @@ My name is Conor
 ghci&gt; io (exclaim example)
 Hello!
 Conor  # user input
-My name is Conor!`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span>ghci&gt;<span class="w"> </span>io<span class="w"> </span>example
+My name is Conor!`)"><i class="fas fa-copy"></i></button><pre><code>ghci&gt; io example
 Hello
-Conor<span class="w">  </span><span class="c1"># user input</span>
-My<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>Conor
+Conor  # user input
+My name is Conor
 
-ghci&gt;<span class="w"> </span>io<span class="w"> </span><span class="o">(</span>exclaim<span class="w"> </span>example<span class="o">)</span>
+ghci&gt; io (exclaim example)
 Hello!
-Conor<span class="w">  </span><span class="c1"># user input</span>
-My<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>Conor!
-</pre></div></td></tr></tbody></table></div>
-
-</div><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Traditionally, monads are triples</p><div class="display-math" hyphens="none" paragraphs="none" smart-typography="none">\[\begin{aligned}
+Conor  # user input
+My name is Conor!</code></pre></div><h2 id="Question 3" class="section">Question 3<a class="anchor" href="#Question 3" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Traditionally, monads are triples</p><div class="display-math" hyphens="none" paragraphs="none" smart-typography="none">\[\begin{aligned}
   \langle M, \; \eta : 1 \to M, \; \mu : M^2 \to M \rangle
 \end{aligned}\]</div><p>You are already familiar with <span class="inline-math" hyphens="none" smart-typography="none">\(\eta\)</span>—that’s <code>return</code> in Haskell. But <span class="inline-math" hyphens="none" smart-typography="none">\(\mu\)</span> is unfamiliar. In Haskell it is called <a class="extlink" href="https://www.stackage.org/haddock/lts-20.15/base-4.16.4.0/Control-Monad.html#v:join"><code>join</code></a>, and has the type <code>Monad m =&gt; m (m a) -&gt; m a</code>. It is possible—and sometimes easier—to define a monad in terms of <code>join</code> instead of <code>(&gt;&gt;=)</code>.</p><p>Provide a monad instance for the type <code>Arrow r</code> by defining <code>return</code> and <code>join</code>, where <code>join</code> is called <code>arrowJoin</code>, by replacing each <code>undefined</code> with working code. <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">If, for some reason, you are running an older version of Haskell, you may need to explicitly enable the Generalized­Newtype­Deriving language extension.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`newtype Arrow r a = Arrow { apply :: r -&gt; a }
   deriving (Functor, Applicative)
@@ -370,32 +258,15 @@ instance Monad (Arrow r) where
   m &gt;&gt;= f = arrowJoin (fmap f m)
 
 arrowJoin :: Arrow r (Arrow r a) -&gt; Arrow r a
-arrowJoin arrow = undefined`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="kr">newtype</span><span class="w"> </span><span class="kt">Arrow</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Arrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="p">(</span><span class="kt">Functor</span><span class="p">,</span><span class="w"> </span><span class="kt">Applicative</span><span class="p">)</span>
+arrowJoin arrow = undefined`)"><i class="fas fa-copy"></i></button><pre><code>newtype Arrow r a = Arrow { apply :: r -&gt; a }
+  deriving (Functor, Applicative)
 
-<span class="kr">instance</span><span class="w"> </span><span class="kt">Monad</span><span class="w"> </span><span class="p">(</span><span class="kt">Arrow</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="kr">where</span>
-<span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">undefined</span>
-<span class="w">  </span><span class="n">m</span><span class="w"> </span><span class="o">&gt;&gt;=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">arrowJoin</span><span class="w"> </span><span class="p">(</span><span class="n">fmap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">m</span><span class="p">)</span>
+instance Monad (Arrow r) where
+  return a = undefined
+  m &gt;&gt;= f = arrowJoin (fmap f m)
 
-<span class="nf">arrowJoin</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Arrow</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="p">(</span><span class="kt">Arrow</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Arrow</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="n">a</span>
-<span class="nf">arrowJoin</span><span class="w"> </span><span class="n">arrow</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">undefined</span>
-</pre></div></td></tr></tbody></table></div>
-
-</div><h2 id="Question 4 (Hard)" class="section">Question 4 (Hard)<a class="anchor" href="#Question 4 (Hard)" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Prove that the monad instance you defined in <a class="xref" hyphens="none" href="#Question 3">Question 3</a> satisfies the following monad law: <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Note that <code>(.)</code> is function composition, which is defined <code>g . f = \x -&gt; g (f x)</code>, and <code>id</code> is the identity function, defined by <code>id x = x</code>.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`join . return = id`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span>join . return = id
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>In practice, this means that, for an arbitrary <code>x :: Arrow r a</code>, you should show the following:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`arrowJoin (return x) = x`)"><i class="fas fa-copy"></i></button><div class="source"><table class="sourcetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span>arrowJoin (return x) = x
-</pre></div></td></tr></tbody></table></div>
-
-</div><p>Write this proof as a comment in your Haskell file.</p></div>
+arrowJoin :: Arrow r (Arrow r a) -&gt; Arrow r a
+arrowJoin arrow = undefined</code></pre></div><h2 id="Question 4 (Hard)" class="section">Question 4 (Hard)<a class="anchor" href="#Question 4 (Hard)" title="permalink to this section"><i class="fas fa-link"></i></a></h2><p>Prove that the monad instance you defined in <a class="xref" hyphens="none" href="#Question 3">Question 3</a> satisfies the following monad law: <span class="tooltip" role="button" aria-expanded="false" tabindex="0" onclick="this.classList.toggle(&quot;show-tooltip&quot;); toggleAriaExpanded(this);"><i class="fa fa-plus"></i><span class="tooltip-inner">Note that <code>(.)</code> is function composition, which is defined <code>g . f = \x -&gt; g (f x)</code>, and <code>id</code> is the identity function, defined by <code>id x = x</code>.</span></span></p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`join . return = id`)"><i class="fas fa-copy"></i></button><pre><code>join . return = id</code></pre></div><p>In practice, this means that, for an arbitrary <code>x :: Arrow r a</code>, you should show the following:</p><div paragraphs="none" smart-typography="none" class="highlight"><button class="copy-button" title="Copy snippet to clipboard" onclick="copyAndConfirm(this, String.raw`arrowJoin (return x) = x`)"><i class="fas fa-copy"></i></button><pre><code>arrowJoin (return x) = x</code></pre></div><p>Write this proof as a comment in your Haskell file.</p></div>
 
 
 
