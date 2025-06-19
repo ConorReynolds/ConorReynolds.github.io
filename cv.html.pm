@@ -19,17 +19,20 @@ My publications are on the ◊xref{home page}, if you're looking for those. Some
 
 ◊section-ruled{PhD Thesis}
 
-Supervised by Prof Rosemary Monahan, I put ◊extlink["https://iep.utm.edu/insti-th/"]{institution theory} in the ◊extlink["https://coq.inria.fr/"]{Coq proof assistant}. You can see it ◊extlink["https://github.com/ConorReynolds/coq-institutions"]{on GitHub}.
+Supervised by Prof Rosemary Monahan, I put ◊extlink["https://iep.utm.edu/insti-th/"]{institution theory} in the ◊extlink["https://rocq-prover.org/"]{Rocq Prover}. ◊aside{Formerly known as the Coq proof assistant. You can read about the name change ◊extlink["https://rocq-prover.org/about#Name"]{on their website}.} You can see it ◊extlink["https://github.com/ConorReynolds/coq-institutions"]{on GitHub}.
 
 Institution theory studies logical systems in general using category theory. An institution is a mathematical object which is supposed to approximate a 'logical system', and so by studying institutions we hope to study logical systems in general.
 
-I encoded some of the general theory of institutions in Coq and (more significantly) instantiated the theory to a few concrete logics, mostly first-order logic and its variants. I also constructed a trace semantics for Event-B as an institution and combined it with linear temporal logic as a duplex construction. ◊aside{This sounds a lot fancier than it is, but it's still neat.}
+I encoded some of the general theory of institutions in Rocq and (more significantly) instantiated the theory to a few concrete logics, mostly first-order logic and its variants. I also constructed a trace semantics for Event-B as an institution and combined it with linear temporal logic as a duplex construction. ◊aside{This sounds a lot fancier than it is, but it's still neat.}
 
 ◊section-ruled{Work & Education}
 
 ◊hang-list[#:compact #t]{
   ◊item{
     Postdoctoral Research Associate in ◊em{Computer Science}, University of Manchester, 2023–pres.
+  }
+  ◊item{
+    Adjunct Lecturer in ◊em{Computer Science}, Fuzhou University, Mar--May◊(nbsp)2023
   }
   ◊item{
     PhD in ◊em{Computer Science}, Maynooth University, 2019–2023
