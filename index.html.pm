@@ -2,7 +2,7 @@
 
 ◊(define-meta toc-title "Home")
 ◊(define-meta title "Conor Reynolds")
-◊(define-meta subtitle "Former Researcher in Formal Methods")
+◊(define-meta subtitle "Researcher in Formal Methods")
 
 I was a postdoc at the ◊extlink["https://www.manchester.ac.uk/"]{University of Manchester} working on a variety of things. I'm part of the ◊extlink["https://autonomy-and-verification.github.io/"]{Autonomy and Verification group}.
 

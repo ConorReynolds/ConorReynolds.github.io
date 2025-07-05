@@ -92,6 +92,21 @@
              publisher (if (non-empty-string? pages) ", " "")
              pages ".")))
 
+(define (thesis data)
+  ; when itemType = thesis
+  (let* ([title (hash-ref data 'title)]
+         [authors (map (λ (c) (fmt-name (hash-ref c 'firstName) (hash-ref c 'lastName)))
+                       (filter (λ (c) (equal? (hash-ref c 'creatorType) "author"))
+                               (hash-ref data 'creators)))]
+         [year (number->string (->year (parse-date-or-year (hash-ref data 'date))))]
+         [university (hash-ref data 'university)])
+    (txexpr* 'div '[[class "bib-desc"]]
+             `(strong ,title) "." '(br)
+             (string-append (string-join authors ", " #:before-last ", and ") " ")
+             ;; year ". "
+             "PhD Thesis. "
+             `(i ,university) ".")))
+
 (define (bib-items)
   (define raw-string (htable))
   (define raw-json (string->jsexpr raw-string))
@@ -122,16 +137,19 @@
                  [bibtex (hash-ref item 'bibtex)]
                  [bibtex-entry-formatted (string-replace (string-trim bibtex) "\t" "  ")]
                  [type (hash-ref data 'itemType)]
-                 [doi (hash-ref data 'DOI)])
+                 [doi (hash-ref data 'DOI #f)]
+                 [url (hash-ref data 'url #f)]
+                 [lnk (if doi (format "https://doi.org/~a" doi) url)])
             (txexpr*
              'div '[[class "bib-item"]]
              (match type
                ["journalArticle" (journal-article data)]
                ["conferencePaper" (conference-paper data)]
+               ["thesis" (thesis data)]
                [_ "How embarrassing."])
              `(div [[class "bib-links"]]
                    (a [[class "doi-link extlink"]
-                       [href ,(format "https://www.doi.org/~a" doi)]]
+                       [href ,lnk]]
                       "Link")
                    (button [[class "show-bibtex"]
                             [onclick "this.parentElement.parentElement.querySelector('.bibtex').classList.toggle('show-bibtex')"]]
