@@ -242,18 +242,7 @@ function renderScript(postEvent = true) {
       renderScript();
     });
 
-    item.querySelector(".rule").addEventListener(
-      "keydown",
-      function (event) {
-        if (event.key === "Enter") {
-          event.preventDefault();
-          this.blur();
-        }
-      },
-    );
-
-    item.querySelector(".rule").addEventListener("blur", function (event) {
-      // Update the state – need to keep track of index
+    item.querySelector(".rule").addEventListener("change", function (_event) {
       const idx = parseInt(item.getAttribute("data-idx"));
       const newRule = item.querySelector(".rule").textContent;
       if (appState.currentScript.bootlegger[idx] !== newRule) {
@@ -264,6 +253,16 @@ function renderScript(postEvent = true) {
         renderScript();
       }
     });
+
+    item.querySelector(".rule").addEventListener(
+      "keydown",
+      function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          this.blur();
+        }
+      },
+    );
   });
 
   bootleggerRuleButton.addEventListener(
@@ -487,67 +486,37 @@ globalThis.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#new-script-button").addEventListener(
     "click",
     function (event) {
-      appState.addScript(new Script());
+      appState.addScript(new Script(), { force: true });
       renderScript();
     },
   );
 
-  let onFocusScriptName;
-  let onFocusScriptAuthor;
-
-  scriptNameInput.addEventListener("focus", function (_) {
-    onFocusScriptName = scriptNameInput.value;
-  });
-
-  scriptNameInput.addEventListener("blur", function (_) {
-    if (scriptNameInput.value !== onFocusScriptName) {
-      appState.currentScript.name = scriptNameInput.value;
-      localStorage.setItem("app-state", appState.serialize());
-      renderFileSelector();
-      updateScriptLink();
-      h1.innerHTML =
-        `${appState.currentScript.name}<span>by ${appState.currentScript.author}</span>`;
-    }
+  scriptNameInput.addEventListener("change", function (_) {
+    appState.currentScript.name = scriptNameInput.value;
+    localStorage.setItem("app-state", appState.serialize());
+    renderFileSelector();
+    updateScriptLink();
+    h1.innerHTML =
+      `${appState.currentScript.name}<span>by ${appState.currentScript.author}</span>`;
   });
 
   scriptNameInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && scriptNameInput.value !== onFocusScriptName) {
-      appState.currentScript.name = scriptNameInput.value;
-      localStorage.setItem("app-state", appState.serialize());
-      renderFileSelector();
-      updateScriptLink();
-      h1.innerHTML =
-        `${appState.currentScript.name}<span>by ${appState.currentScript.author}</span>`;
+    if (event.key === "Enter") {
       scriptNameInput.blur();
     }
   });
 
-  scriptAuthorInput.addEventListener("focus", function (_) {
-    onFocusScriptAuthor = scriptAuthorInput.value;
-  });
-
-  scriptAuthorInput.addEventListener("blur", function (_) {
-    if (scriptAuthorInput.value !== onFocusScriptAuthor) {
-      appState.currentScript.author = scriptAuthorInput.value;
-      localStorage.setItem("app-state", appState.serialize());
-      renderFileSelector();
-      updateScriptLink();
-      h1.innerHTML =
-        `${appState.currentScript.name}<span>by ${appState.currentScript.author}</span>`;
-    }
+  scriptAuthorInput.addEventListener("change", function (_) {
+    appState.currentScript.author = scriptAuthorInput.value;
+    localStorage.setItem("app-state", appState.serialize());
+    renderFileSelector();
+    updateScriptLink();
+    h1.innerHTML =
+      `${appState.currentScript.name}<span>by ${appState.currentScript.author}</span>`;
   });
 
   scriptAuthorInput.addEventListener("keydown", function (event) {
-    console.log(`key pressed: ${event.key}`);
-    if (
-      event.key === "Enter" && scriptAuthorInput.value !== onFocusScriptAuthor
-    ) {
-      appState.currentScript.author = scriptAuthorInput.value;
-      localStorage.setItem("app-state", appState.serialize());
-      renderFileSelector();
-      updateScriptLink();
-      h1.innerHTML =
-        `${appState.currentScript.name}<span>by ${appState.currentScript.author}</span>`;
+    if (event.key === "Enter") {
       scriptAuthorInput.blur();
     }
   });
