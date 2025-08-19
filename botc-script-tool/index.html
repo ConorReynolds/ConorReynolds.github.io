@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bye For Now</title>
+    <link rel="icon" href="lunatic.webp">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+            font-family: 'Charis SIL', Helvetica, sans-serif;
+            font-size: min(max(20px, 2vw), 40px);
+            line-height: 1.3;
+        }
+
+        main {
+            margin: auto;
+            max-width: 55ch;
+
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        p {
+            margin: 0;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        button {
+            display: block;
+            margin: 1rem auto;
+            padding: 0.5rem 0.75rem;
+
+            font-size: 1rem;
+        }
+
+        .scripts-detected {
+            display: none;
+        }
+    </style>
+    <script type="module">
+        'use strict';
+
+        globalThis.addEventListener("DOMContentLoaded", function () {
+            const appState = localStorage["app-state"];
+            if (appState === undefined) {
+                return;
+            }
+
+            document.querySelector(".scripts-detected").style.display = 'initial';
+
+            const button = document.querySelector("#download-scripts");
+            button.addEventListener("click", buttonClick);
+
+            async function buttonClick(event) {
+                const oldButtonText = event.target.textContent;
+                event.target.textContent = "Please wait …"
+
+                const scripts = JSON.parse(appState).scripts;
+
+                const zip = await import("https://unpkg.com/@zip.js/zip.js/index.js");
+                const TextReader = zip.TextReader;
+                const BlobWriter = zip.BlobWriter;
+                const ZipWriter = zip.ZipWriter;
+
+                getZipFileBlob().then(downloadFile);
+
+                event.target.textContent = "Done!"
+                setTimeout(() => event.target.textContent = oldButtonText, 2000);
+
+                async function getZipFileBlob() {
+                    const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
+                    const promises = [];
+                    scripts.forEach((script, idx) => {
+                        const json = JSON.parse(script);
+                        const scriptName = (json[0].name ?? `script${idx}`) + ".json";
+
+                        if (json[0].autosort !== undefined) {
+                            delete json[0].autosort;
+                        }
+
+                        const str = JSON.stringify(json)
+                        promises.push(zipWriter.add(scriptName, new TextReader(str)))
+                    });
+                    await Promise.all(promises);
+                    return zipWriter.close();
+                }
+
+                function downloadFile(blob) {
+                    Object.assign(document.createElement("a"), {
+                        download: "scripts.zip",
+                        href: URL.createObjectURL(blob),
+                    }).click();
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <main>
+        <h1>RIP Script Tool ⚰️</h1>
+        <p>
+            This used to be a script tool for Blood on the Clocktower, but unfortunately it no longer exists.
+        </p>
+        <div class="scripts-detected">
+            <p>
+                It looks like you were working on some scripts. Apologies for the abrupt takedown of the tool. But don’t
+                worry, those scripts are not lost – you can recover them by clicking the button below.
+            </p>
+            <button id="download-scripts">Download Scripts</button>
+            <p>
+                If you have any issues, feel free to email me at:
+            </p>
+            <blockquote>
+                <a href="mailto:reynolds.conor@gmail.com">reynolds.conor@gmail.com</a>
+            </blockquote>
+        </div>
+        <p>
+            I’ll update with more information when I’m able.
+        </p>
+        <p>— Conor</p>
+    </main>
+</body>
+
+</html>
