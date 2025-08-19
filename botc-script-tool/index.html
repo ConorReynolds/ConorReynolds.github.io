@@ -1,248 +1,133 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="src/styles.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
-    <link rel="icon" href="src/assets/custom-icons/TinyIcon_lunatic.webp" />
-    <title>Unofficial BotC Script Tool</title>
-    <script src="https://cdn.jsdelivr.net/npm/fuzzysort@3.0.2/fuzzysort.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js" defer></script>
-    <script type="module" src="src/main.js" defer></script>
-  </head>
 
-  <body>
-    <div class="container">
-      <div id="title-container">
-        <h1 id="title" class="onlyprint"></h1>
-        <div id="fabled-icon-container" class="onlyprint"></div>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bye For Now</title>
+    <link rel="icon" href="lunatic.webp">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+            font-family: 'Charis SIL', Helvetica, sans-serif;
+            font-size: min(max(20px, 2vw), 40px);
+            line-height: 1.3;
+        }
 
-      <div class="header-container row noprint">
-        <div id="metadata">
-          <form id="script-name-form">
-            <input id="script-name-input" placeholder="Script name" autocomplete="off" />
-          </form>
-          <form id="script-author-form">
-            <input id="script-author-input" placeholder="Author" autocomplete="off" />
-          </form>
+        main {
+            margin: auto;
+            max-width: 55ch;
+
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        p {
+            margin: 0;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        button {
+            display: block;
+            margin: 1rem auto;
+            padding: 0.5rem 0.75rem;
+
+            font-size: 1rem;
+        }
+
+        .scripts-detected {
+            display: none;
+        }
+    </style>
+    <script type="module">
+        'use strict';
+
+        globalThis.addEventListener("DOMContentLoaded", function () {
+            const appState = localStorage["app-state"];
+            if (appState === undefined) {
+                return;
+            }
+
+            document.querySelector(".scripts-detected").style.display = 'initial';
+
+            const button = document.querySelector("#download-scripts");
+            button.addEventListener("click", buttonClick);
+
+            async function buttonClick(event) {
+                const oldButtonText = event.target.textContent;
+                event.target.textContent = "Please wait …"
+
+                const scripts = JSON.parse(appState).scripts;
+
+                const zip = await import("https://unpkg.com/@zip.js/zip.js/index.js");
+                const TextReader = zip.TextReader;
+                const BlobWriter = zip.BlobWriter;
+                const ZipWriter = zip.ZipWriter;
+
+                getZipFileBlob().then(downloadFile);
+
+                event.target.textContent = "Done!"
+                setTimeout(() => event.target.textContent = oldButtonText, 2000);
+
+                async function getZipFileBlob() {
+                    const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
+                    const promises = [];
+                    scripts.forEach((script, idx) => {
+                        const json = JSON.parse(script);
+                        const scriptName = (json[0].name ?? `script${idx}`) + ".json";
+
+                        if (json[0].autosort !== undefined) {
+                            delete json[0].autosort;
+                        }
+
+                        const str = JSON.stringify(json)
+                        promises.push(zipWriter.add(scriptName, new TextReader(str)))
+                    });
+                    await Promise.all(promises);
+                    return zipWriter.close();
+                }
+
+                function downloadFile(blob) {
+                    Object.assign(document.createElement("a"), {
+                        download: "scripts.zip",
+                        href: URL.createObjectURL(blob),
+                    }).click();
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <main>
+        <h1>RIP Script Tool ⚰️</h1>
+        <p>
+            This used to be a script tool for Blood on the Clocktower, but unfortunately it no longer exists.
+        </p>
+        <div class="scripts-detected">
+            <p>
+                It looks like you were working on some scripts. Apologies for the abrupt takedown of the tool. But don’t
+                worry, those scripts are not lost – you can recover them by clicking the button below.
+            </p>
+            <button id="download-scripts">Download Scripts</button>
+            <p>
+                If you have any issues, feel free to email me at:
+            </p>
+            <blockquote>
+                <a href="mailto:reynolds.conor@gmail.com">reynolds.conor@gmail.com</a>
+            </blockquote>
         </div>
-        <div class="input-container noprint">
-          <div class="character-form-container row">
-            <form id="character-form">
-              <input id="character-input" placeholder="Add a character…" autocorrect="off" autocomplete="off" />
-            </form>
-            <div id="current-matches" class="column noprint"></div>
-          </div>
-          <div class="main-buttons-container row">
-            <form id="import-form">
-              <button type="submit" title="Import JSON"><i class="fa-solid fa-upload"></i></button>
-            </form>
-            <form id="export-form">
-              <button type="submit" title="Export JSON"><i class="fa-solid fa-floppy-disk"></i></button>
-            </form>
-            <form id="link-form">
-              <button type="submit" title="Script Link"><i class="fa-solid fa-link"></i></button>
-            </form>
-            <form id="print-form">
-              <button type="submit" title="Print&#013;&#013;For best results:&#013;  • A4 paper.&#013;  • No margins.&#013;  • Scale: Fit to page / 100%.&#013;  • ☐ Print headers and footers.&#013;  • ☑ Print backgrounds."><i class="fa-solid fa-print"></i></button>
-            </form>
-          </div>
-          <div class="checkboxes-container">
-            <form id="compact-night-sheet-form">
-              <input id="compact-night-sheet-checkbox" type="checkbox"/>
-              <label for="compact-night-sheet-checkbox">Compact night sheet</label>
-            </form>
-            <form id="autosort-form">
-              <input id="autosort-checkbox" type="checkbox"/>
-              <label for="autosort-checkbox">Autosort</label>
-            </form>
-          </div>
-            <div class="tutorial-link">
-              <dialog id="help-dialog" closedby="any">
-                <button class="x-button" title="Close" autofocus><i class="fa-solid fa-xmark"></i></button>
-                <h2>Unofficial Script Tool for Blood on the Clocktower</h2>
-                <p>
-                This is a tool for creating your own custom scripts for <a
-                  href="https://bloodontheclocktower.com/"
-                  target="_blank">Blood on the Clocktower</a> – similar to the
-                  <a href="https://script.bloodontheclocktower.com/"
-                    target="_blank">official script tool</a>, but with some
-                  improvements.
-                </p>
-                <p>
-                You can read the <a
-                  href="https://github.com/ConorReynolds/botc-script-tool?tab=readme-ov-file#usage-overview"
-                  target="_blank" style="color: black"><b>documentation</b></a>
-                on GitHub for a detailed feature list and usage guide, but
-                here’s a quick summary of the basics:
-                </p>
-                <ul>
-                  <li>
-                    to <b>add characters</b>, use the quick-add box on the
-                    top-right, or use the character-selector sidebar, which you
-                    can open by clicking the button on the middle-right of
-                    the screen
-                  </li>
-                  <li>
-                    to <b>remove characters</b>, simply click on the character’s icon
-                  </li>
-                  <li>
-                    to <b>add another script</b>, open the script-selector
-                    sidebar by clicking the button on the middle-left of the
-                    screen, then click the <i class="fa-solid fa-plus"
-                      style="color: #999"></i> New Script
-                    button
-                  </li>
-                  <li>
-                    to <b>import a script JSON</b>, use the <i class="fa-solid
-                      fa-upload"></i> button on the top right
-                  </li>
-                  <li>
-                    to <b>export a script</b>, you have a number of options:
-                    printing <i class="fa-solid fa-print"></i>, exporting the
-                    JSON <i class="fa-solid fa-floppy-disk"></i>, or creating a
-                    <a
-                      href="https://github.com/ConorReynolds/botc-script-tool?tab=readme-ov-file#exporting-script-links"
-                      target="_blank">script link</a> <i class="fa-solid
-                    fa-link"></i>
-                  </li>
-                  <li>
-                    to <b>undo or redo</b> the most recent change to the
-                    script, use the undo <i class="fa-solid
-                    fa-clock-rotate-left"></i> or redo <i class="fa-solid
-                  fa-rotate-right"></i> button on the bottom right
-                  </li>
-                </ul>
-                <p>
-                You can read about the more advanced features – searching by ability text,
-                view/lock mode, adding custom characters/rules/jinxes – in the
-                  <a
-                    href="https://github.com/ConorReynolds/botc-script-tool?tab=readme-ov-file#usage-overview"
-                    target="_blank" style="color:
-                  black"><b>documentation</b></a>.
-                </p>
-                <p>
-                All your scripts are saved in your browser’s cache – so even if
-                you close this tab, everything will be the way you left it.
-                </p>
-                <form method="dialog">
-                  <button>Got it</button>
-                </form>
-              </dialog>
-              <button>Help <i class="fa-regular fa-circle-question"></i></button>
-            </div>
-        </div>
-      </div>
+        <p>
+            I’ll update with more information when I’m able.
+        </p>
+        <p>— Conor</p>
+    </main>
+</body>
 
-      <div id="script"></div>
-
-      <div id="sidebar" class="noprint">
-        <button id="open-sidebar-button" type="button">
-          <div>❯</div>
-        </button>
-
-        <div id="filters">
-          <div class="checkboxes-container">
-            <form id="townsfolk-form">
-              <input id="townsfolk-checkbox" type="checkbox" checked/>
-              <label for="townsfolk-checkbox">Townsfolk</label>
-            </form>
-            <form id="outsider-form">
-              <input id="outsider-checkbox" type="checkbox" checked/>
-              <label for="outsider-checkbox">Outsider</label>
-            </form>
-            <form id="minion-form">
-              <input id="minion-checkbox" type="checkbox" checked/>
-              <label for="minion-checkbox">Minion</label>
-            </form>
-            <form id="demon-form">
-              <input id="demon-checkbox" type="checkbox" checked/>
-              <label for="demon-checkbox">Demon</label>
-            </form>
-            <form id="traveler-form">
-              <input id="traveler-checkbox" type="checkbox" checked/>
-              <label for="traveler-checkbox">Traveller</label>
-            </form>
-            <form id="fabled-form">
-              <input id="fabled-checkbox" type="checkbox" checked/>
-              <label for="fabled-checkbox">Fabled</label>
-            </form>
-            <form id="base-three-form">
-              <input id="base-three-checkbox" type="checkbox" checked/>
-              <label for="base-three-checkbox">Base Three</label>
-            </form>
-            <form id="kickstarter-form">
-              <input id="kickstarter-checkbox" type="checkbox" checked/>
-              <label for="kickstarter-checkbox">Kickstarter</label>
-            </form>
-            <form id="carousel-form">
-              <input id="carousel-checkbox" type="checkbox" checked/>
-              <label for="carousel-checkbox">Carousel</label>
-            </form>
-            <form id="homebrew-form">
-              <input id="homebrew-checkbox" type="checkbox"/>
-              <label for="homebrew-checkbox">Homebrew</label>
-            </form>
-            <form id="custom-form">
-              <input id="custom-checkbox" type="checkbox"/>
-              <label for="custom-checkbox">Custom</label>
-            </form>
-            <form id="toggle-all-form">
-              <input id="toggle-all-checkbox" type="checkbox"/>
-              <label for="toggle-all-checkbox">Toggle All</label>
-            </form>
-          </div>
-          <div class="filter-input-container">
-            <form id="filter-input-form">
-              <input id="filter-input" placeholder="Search characters…" autocorrect="off" autocomplete="off" />
-            </form>
-          </div>
-        </div>
-        <div id="all-characters" tabindex="-1"></div>
-      </div>
-
-      <div id="file-selector" class="noprint">
-        <button id="open-file-selector-button" type="button">
-          <div>❯</div>
-        </button>
-
-        <h2 id="recent-scripts-heading">Recent Scripts</h2>
-
-        <button id="new-script-button" type="button">
-          <i class="fa-solid fa-plus" style="color: #999; padding-right:0.5rem"></i>
-          New Script
-        </button>
-
-        <div id="script-list"></div>
-      </div>
-    </div>
-
-    <div id="undo-redo-buttons" class="noprint">
-      <button id="undo-button" type="button" title="Undo"><i class="fa-solid fa-clock-rotate-left"></i></button>
-      <button id="redo-button" type="button" title="Redo"><i class="fa-solid fa-rotate-right"></i></button>
-      <form id="clear-form">
-        <button type="submit" title="Clear script"><i class="fa-solid fa-trash"></i></button>
-      </form>
-      <button id="lock-button" type="button" title="Toggle Lock"><i class="fa-solid fa-lock-open"></i></button>
-    </div>
-
-    <div id="footer">
-      <div class="print-footer">
-          <div class="copyright">© Steven Medway, bloodontheclocktower.com</div>
-          <div class="page-one onlyprint">* Not the first night</div>
-      </div>
-      <div class="noprint"></div>
-      <div class="noprint"
-           style="max-width: min(26rem,100%)">
-        This is an unofficial tool. I’m not affiliated with the Pandemonium Institute
-        and they don’t endorse this tool. More info
-        <a href="https://github.com/ConorReynolds/botc-script-tool">
-          on GitHub
-          <i class="fa-brands fa-github"></i>
-        </a>
-      </div>
-    </div>
-  </body>
 </html>
