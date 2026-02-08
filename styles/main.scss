@@ -148,10 +148,6 @@ ul.hang-list {
         list-style-type: none;
         text-indent: -1em;
     }
-
-    &.loose-list>li:not(:last-child) {
-        margin-bottom: 1em;
-    }
 }
 
 button {
@@ -674,13 +670,13 @@ a {
 @media not all and (max-width: 520px) {
     .tooltip {
         font-family: var(--alt-font);
-        display: inline;
+        display: inline-block;
         top: -0.1em;
         font-size: 0.65em;
         position: relative;
         background: var(--bg-color);
         opacity: 0.5;
-        padding: 0 0.2em 0 0.2em;
+        padding: 0 0.3em 0 0.3em;
         transition-property: opacity;
         transition-duration: 0.20s;
         color: var(--fg-color);
